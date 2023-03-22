@@ -11,7 +11,9 @@ body {
 
 }
 
-
+.hideScrollBars::-webkit-scrollbar {
+  display: none;
+}
 
 @layer components {
   .menu-items{

@@ -65,7 +65,7 @@ const MoreButton = () => {
     <>
       {menuOpen && (
         <div className="relative" ref={dropdownRef}>
-          <div className="absolute text-md font-bold z-10 w-72 -top-72 rounded-3xl bg-white border border-gray-100  shadow-xl ">
+          <div className="absolute overflow-y-auto max-h-screen text-md font-bold z-10 w-72 -top-72 rounded-3xl bg-white border border-gray-100  shadow-xl ">
             <div>
               <a href="/lists" className="">
                 <div className="flex hover:bg-gray-dropdown rounded-t-2xl px-4 pb-3 pt-3">

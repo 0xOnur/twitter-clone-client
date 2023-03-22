@@ -1,6 +1,6 @@
 import React from 'react'
 import LeftSideBar from '../companents/leftSidebarComp/LeftSidebar'
-import MiddleFlow from '../companents/MiddleFlow'
+import MiddleSection from '../companents/middleSectionComp/MiddleSection'
 import RightSideBar from '../companents/rightSidebarComp/RightSidebar'
 
 const HomeLayout = () => {
@@ -8,7 +8,7 @@ const HomeLayout = () => {
     <div className="flex min-h-screen max-w-7xl mx-auto sticky gap-3 ">
       <LeftSideBar />
       <div className='flex w-full'>
-        <MiddleFlow />
+        <MiddleSection />
         <RightSideBar />
       </div>
     </div>

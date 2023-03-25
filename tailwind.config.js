@@ -3,7 +3,12 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
-  darkMode: false, // or 'media' or 'class'
+  options: {
+    safelist: [
+      "primary-base"
+    ],
+  },
+  darkMode: true, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -11,6 +16,7 @@ module.exports = {
           base: "hsl(203, 89%, 53%)",
           dark: "hsl(203, 89%, 46%)",
           light: "hsl(203, 89%, 96%)",
+          extraLight: "hsl(203, 84%, 95%)",
         },
         gray: {
           dark: "#657786",
@@ -21,9 +27,15 @@ module.exports = {
           dropdown: '#f7f9f9',
           trendsHover: "#eff1f1",
         },
+        yellow: {
+          base: "#FFAD1F",
+        },
         black: "#14171A",
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui : {
+    themes:false,
+  }
 }

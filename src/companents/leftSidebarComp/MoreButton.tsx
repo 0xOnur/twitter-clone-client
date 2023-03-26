@@ -64,7 +64,7 @@ const MoreButton = () => {
   return (
     <>
       {menuOpen && (
-        <div className="relative" ref={dropdownRef}>
+        <div className="absolute" ref={dropdownRef}>
           <div className="absolute overflow-y-auto max-h-screen text-md font-bold z-10 w-72 -top-72 rounded-3xl bg-white border border-gray-100  shadow-xl ">
             <div>
               <a href="/lists" className="">
@@ -81,7 +81,7 @@ const MoreButton = () => {
               </a>
               <a href="/lists" className="">
                 <div className="flex hover:bg-gray-dropdown  px-4 py-3">
-                  <TwiiterCircleIcon />
+                  <TwiiterCircleIcon className={"w-7 h-7"} />
                   <span className="pl-6">Twitter Circle</span>
                 </div>
               </a>
@@ -154,7 +154,7 @@ const MoreButton = () => {
           </div>
         </div>
       )}
-      <li onClick={openMore} className="group cursor-pointer">
+      <div onClick={openMore} className="group cursor-pointer">
         <button className=" block text-xl mb-2">
           <div className="inline-block">
             <div className="flex  group-hover:bg-gray-lightest rounded-full pl-3 pr-3 py-3">
@@ -165,7 +165,7 @@ const MoreButton = () => {
             </div>
           </div>
         </button>
-      </li>
+      </div>
     </>
   )
 }

@@ -33,7 +33,7 @@ const UserBox: React.FC = () => {
     <>
       <div>
         {menuOpen && (
-          <div className="relative" ref={dropdownRef}>
+          <div className="absolute" ref={dropdownRef}>
             <div className="absolute text-left text-md font-bold z-10 w-72 mb-2 bottom-0 h-32 py-3 rounded-3xl bg-white border border-gray-100  shadow-lg">
               <hr />
               <div className="pb-3">

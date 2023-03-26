@@ -59,12 +59,12 @@ const LeftSideBar: React.FC = () => {
   };
 
   return (
-    <div className="text-center min-w-fit sm:ml-5 md:ml-16 lg:ml-0 h-screen overflow-auto lg:w-3/12 sticky top-0 flex flex-col justify-between">
-      <div className='lg:w-5/12 min-w-full sm:w-fit'>
+    <div className="flex flex-col text-center min-w-fit sm:ml-5 md:ml-16 lg:ml-0 h-screen overflow-y-auto lg:w-3/12 justify-between top-0">
+      <div className='lg:w-5/12 min-w-full sm:w-fit '>
         <div className="mt-1 mb-4 flex items-center justify-center w-12 h-12 rounded-full hover:bg-primary-light transform transition-colors duration-200">
           <img src={twitterLogo} alt="Twitter Logo" className="w-9 h-9" />
         </div>
-        <nav className=''>
+        <nav>
           <ul>
             {sideLinks.map(({ name, icon }) => (
               <SideLink

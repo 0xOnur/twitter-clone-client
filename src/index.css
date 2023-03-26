@@ -11,21 +11,6 @@ body {
 
 }
 
-.hideScrollBars::-webkit-scrollbar {
-  display: none;
-}
-
-.radial-progress-background {
-  background-color: rgba(0, 0, 0, 0.1); /* İstenilen renk */
-}
-
-.radial-progress-circle {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  clip: var(--progress-clip);
-}
-
 
 
 @layer components {

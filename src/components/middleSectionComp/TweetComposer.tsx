@@ -3,12 +3,12 @@ import {
   ImageIcon,
   GIFIcon,
   PollIcon,
-  EmojiIcon,
   ScheduleIcon,
   AddThreadIcon,
 } from "@icons/Icon";
 import { Composer } from "@components/index";
 import { MiddleSection } from "@components/index";
+import Emoji from "./ComposerComp/Emoji";
 
 const TweetComposer = () => {
   const [isWritingTweet, setWiritinTweet] = useState(false);
@@ -22,8 +22,6 @@ const TweetComposer = () => {
     visible: Audience,
     reply: whoCanReply,
   };
-
-  console.log(tweetSettings);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   Composer.useAutosizeTextArea(textAreaRef, tweet);
@@ -46,9 +44,17 @@ const TweetComposer = () => {
     []
   );
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log({
+      tweet,
+      tweetSettings,
+    })
+  }
+
   return (
     <div>
-      <div className="py-1  ">
+      <div className="py-1">
         <div className="px-4 border-b">
           <div className="flex  flex-row w-full h-fit">
             <div className="w-14 h-14 mr-2 pt-1">
@@ -60,17 +66,17 @@ const TweetComposer = () => {
                 />
               </a>
             </div>
-
             <div className="flex flex-col w-full pt-1">
-              <form className="flex flex-col">
-                {isWritingTweet && (
+              <form onSubmit={handleSubmit} className="flex flex-col">
+                {isWritingTweet || tweet.length>0 ? (
                   <Composer.ChooseAudience
                     Audience={Audience}
                     setAudience={setAudience}
                   />
-                )}
+                ): (null)}
 
                 <div className="relative flex-grow">
+                  
                   <div className="py-3">
                     {/* create textarea for tweet */}
                     <textarea
@@ -86,16 +92,17 @@ const TweetComposer = () => {
                     />
                   </div>
                 </div>
-                {isWritingTweet && (
+                {isWritingTweet || tweet.length>0 ? (
                   <Composer.ChooseCanReply
                     whoCanReply={whoCanReply}
                     setCanReply={setCanReply}
                   />
-                )}
+                ): (null)}
                 <div className="flex">
-                  <div className="flex z-10 justify-between w-full my-3">
+                  <div className="flex justify-between w-full my-3">
                     <div className="w-full flex">
-                      <div className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
+
+                      <button type="button" className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
                         <label
                           htmlFor="file-input"
                           className="cursor-pointer w-8 h-8"
@@ -112,9 +119,9 @@ const TweetComposer = () => {
                           type="file"
                           onChange={handleFileUpload}
                         />
-                      </div>
+                      </button>
 
-                      <div className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
+                      <button type="button" className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
                         <label className="cursor-pointer w-8 h-8">
                           <GIFIcon
                             className={
@@ -122,9 +129,9 @@ const TweetComposer = () => {
                             }
                           />
                         </label>
-                      </div>
-
-                      <div className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
+                      </button>
+                      
+                      <button type="button" className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
                         <label className="cursor-pointer w-8 h-8">
                           <PollIcon
                             className={
@@ -132,24 +139,19 @@ const TweetComposer = () => {
                             }
                           />
                         </label>
-                      </div>
+                      </button>
 
-                      <div className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
-                        <label className="cursor-pointer w-8 h-8">
-                          <EmojiIcon
-                            className={"w-5 h-5 text-primary-base fill-current"}
-                          />
-                        </label>
-                      </div>
+                      <Emoji setTweet={setTweet} />
 
-                      <div className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
+                      <button type="button" className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer">
                         <label className="cursor-pointer w-8 h-8">
                           <ScheduleIcon
                             className={"w-5 h-5 text-primary-base fill-current"}
                           />
                         </label>
-                      </div>
+                      </button>
                     </div>
+
                     <div className="w-full h-full text-right">
                       <div className="flex h-full justify-end items-center">
                         {tweet.length > 0 && (
@@ -165,7 +167,9 @@ const TweetComposer = () => {
                             </div>
                           </>
                         )}
-                        <button className="border h-full px-3 ml-3 rounded-full bg-primary-base hover:bg-primary-dark text-white font-bold">
+                        <button disabled={tweet.length===0} type="submit"
+                          className="border h-full px-3 ml-3 rounded-full bg-primary-base hover:bg-primary-dark text-white font-bold"
+                        >
                           Tweet
                         </button>
                       </div>

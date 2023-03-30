@@ -8,18 +8,24 @@ interface IProps {
 }
 
 const ChooseCanReply: React.FC<IProps> = ({whoCanReply, setCanReply}) => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [showMenu, setShowMenu] = useState(false);
+
+  const replyRef = useRef<HTMLDivElement>(null);
+  const replyButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleClose = useCallback(
     (event: MouseEvent) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        replyRef.current &&
+        !replyRef.current.contains(event.target as Node) &&
+        (!replyButtonRef.current ||
+          !replyButtonRef.current.contains(event.target as Node)
+        )
       ) {
         setShowMenu(false);
       }
     },
-    [dropdownRef]
+    [replyRef]
   );
 
   useEffect(() => {
@@ -29,13 +35,14 @@ const ChooseCanReply: React.FC<IProps> = ({whoCanReply, setCanReply}) => {
     };
   }, [handleClose]);
 
-  const [showMenu, setShowMenu] = useState(false);
 
   return (
     <div className="relative border-b">
       <div className="pb-3">
-        <div
-          onClick={() => setShowMenu(true)}
+        <button
+          ref={replyButtonRef}
+          type="button"
+          onClick={() => setShowMenu(!showMenu)}
           className="text-primary-base hover:bg-primary-extraLight border border-white rounded-full inline-flex items-center px-3 cursor-pointer"
         >
           <span className="mr-1">
@@ -44,15 +51,14 @@ const ChooseCanReply: React.FC<IProps> = ({whoCanReply, setCanReply}) => {
             }
           </span>
           <span className="text-sm font-bold py-1">
-            
             {whoCanReply} can reply
           </span>
-        </div>
+        </button>
       </div>
       {showMenu && (
         <div
-          ref={dropdownRef}
-          className="absolute w-80 h-fit bg-white border rounded-2xl top-8 z-20"
+          ref={replyRef}
+          className="absolute w-80 h-fit bg-white border rounded-2xl top-8 z-20 shadow-xl"
         >
             <CanReplyMenu whoCanReply={whoCanReply} setCanReply={setCanReply} onClose={() => setShowMenu(false)} />
         </div>

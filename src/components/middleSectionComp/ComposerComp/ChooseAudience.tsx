@@ -9,19 +9,22 @@ interface IProps {
 
 
 const ChooseAudience: React.FC<IProps> = ({setAudience, Audience}) => {
-    
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const audienceRef = useRef<HTMLDivElement>(null);
+  const audienceButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleClose = useCallback(
     (event: MouseEvent) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        audienceRef.current &&
+        !audienceRef.current.contains(event.target as Node) &&
+        (!audienceButtonRef.current ||
+          !audienceButtonRef.current.contains(event.target as Node)
+        )
       ) {
         setShowMenu(false);
       }
     },
-    [dropdownRef]
+    [audienceRef]
   );
 
   useEffect(() => {
@@ -36,7 +39,9 @@ const ChooseAudience: React.FC<IProps> = ({setAudience, Audience}) => {
   return (
     <>
         <div className="relative inline-flex pb-3">
-          <div
+          <button
+            ref={audienceButtonRef}
+            type="button"
             onClick={() => setShowMenu(!showMenu)}
             className="text-primary-base cursor-pointer hover:bg-primary-extraLight border rounded-full inline-flex items-center px-3"
           >
@@ -44,11 +49,11 @@ const ChooseAudience: React.FC<IProps> = ({setAudience, Audience}) => {
             <span className="">
               <DropDownMenuArrowIcon />
             </span>
-          </div>
+          </button>
           {showMenu && (
             <div
-              ref={dropdownRef}
-              className="absolute w-64 h-fit bg-white border rounded-2xl top-8 z-20"
+              ref={audienceRef}
+              className="absolute w-64 h-fit bg-white border rounded-2xl top-8 z-20 shadow-xl"
             >
               <AudienceMenu setAudience={setAudience} Audience={Audience} onClose={()=> setShowMenu(false)} />
             </div>

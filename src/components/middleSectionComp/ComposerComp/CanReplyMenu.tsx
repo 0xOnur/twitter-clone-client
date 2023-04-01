@@ -62,7 +62,7 @@ const CanReplyMenu:React.FC<IProps> = ({whoCanReply, setCanReply, onClose}) => {
             </div>
             <span className="font-bold">Only people you mention</span>
           </div>
-          {whoCanReply === "Only people you mentio" && (
+          {whoCanReply === "Only people you mention" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>

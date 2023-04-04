@@ -21,7 +21,7 @@ module.exports = {
         gray: {
           dark: "#657786",
           light: "#AAB8C2",
-          extraLight: "#E1E8ED",
+          extraLight: "rgba(15, 20, 25, 0.1)",
           lightest: "#e7e7e8",
           rightbar: '#f7f9f9',
           dropdown: '#f7f9f9',

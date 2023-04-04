@@ -8,7 +8,7 @@ interface Props {
 const Header: React.FC<Props> = (props) => {
     return (
       <div className="sticky top-0 z-10">
-        <div className="h-auto">
+        <div className="h-auto  backdrop-blur-md bg-white/80 ">
           <div className="h-full">
             <a href="/">
               <div className=" cursor-pointer z-10 p-3">
@@ -22,7 +22,7 @@ const Header: React.FC<Props> = (props) => {
                 onClick={() => {
                   props.setIsForYou(true);
                 }}
-                className="flex justify-center  w-full cursor-pointer hover:bg-gray-extraLight duration-150"
+                className="flex justify-center w-full cursor-pointer hover:bg-gray-extraLight duration-150"
               >
                 <div className="relative h-14 flex items-center w-fit">
                   <h1 className={` ${props.isForYou && "font-bold"}`}>For You</h1>
@@ -36,7 +36,7 @@ const Header: React.FC<Props> = (props) => {
                 onClick={() => {
                   props.setIsForYou(false);
                 }}
-                className="flex justify-center  w-full cursor-pointer hover:bg-gray-extraLight duration-150"
+                className="flex justify-center w-full cursor-pointer hover:bg-gray-extraLight duration-150"
               >
                 <div className="relative h-14 flex items-center w-fit">
                   <h1 className={` ${!props.isForYou && "font-bold"}`}>

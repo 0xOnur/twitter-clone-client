@@ -1,15 +1,13 @@
 import React, { useState, useRef, useCallback } from "react";
 import {
   ImageIcon,
-  GIFIcon,
   PollIcon,
   ScheduleIcon,
   AddThreadIcon,
   RemoveItemIcon,
 } from "@icons/Icon";
 import { Composer } from "@components/index";
-import { MiddleSection } from "@components/index";
-import Emoji from "./ComposerComp/Emoji";
+import GIFMenu from "./ComposerComp/GIFMenu";
 
 const TweetComposer = () => {
   const [isWritingTweet, setWiritinTweet] = useState(false);
@@ -18,14 +16,10 @@ const TweetComposer = () => {
   const [whoCanReply, setCanReply] = useState("Everyone");
 
   const [tweet, setTweet] = useState("");
-  const [mediaURLs, setMediaURLs] = useState<{ url: string; type: "image" | "video" }[]>([]);
+  const [mediaURLs, setMediaURLs] = useState<{ url: string; type: "image" | "video" | "gif";}[]>([]);
 
   console.log(mediaURLs)
 
-  const tweetSettings = {
-    visible: Audience,
-    reply: whoCanReply,
-  };
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   Composer.useAutosizeTextArea(textAreaRef, tweet);
@@ -71,7 +65,6 @@ const TweetComposer = () => {
   };
   
   
-  
   const handleDeleteImage = (indexToDelete: number) => {
     setMediaURLs((prevmediaURLs) =>
       prevmediaURLs.filter((_, index) => index !== indexToDelete)
@@ -80,10 +73,13 @@ const TweetComposer = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({
-      tweet,
-      tweetSettings,
-    });
+
+    const formData = new FormData();
+    formData.append("tweet", tweet);
+    formData.append("audience", Audience);  
+    formData.append("whoCanReply", whoCanReply);
+
+    
   };
 
   return (
@@ -136,7 +132,7 @@ const TweetComposer = () => {
                   >
                   {mediaURLs.map((media, index) => (
                     <div key={index} className="relative">
-                      {media.type === "image" ? (
+                      {media.type === "image" || "gif" ? (
                         <img
                           src={media.url}
                           alt={`Selected file ${index + 1}`}
@@ -163,7 +159,6 @@ const TweetComposer = () => {
                 </div>
 
 
-
                 {isWritingTweet || tweet.length > 0 || mediaURLs.length > 0 ? (
                   <Composer.ChooseCanReply
                     whoCanReply={whoCanReply}
@@ -175,21 +170,20 @@ const TweetComposer = () => {
                   <div className="flex justify-between w-full my-3">
                     <div className="w-full flex">
 
-
                       <label
                         htmlFor="file-input"
                         className={`w-fit p-2 ${
-                          mediaURLs.some((media) => media.type === "video") || mediaURLs.length >= 4
+                          mediaURLs.some((media) => media.type === "video" || media.type === "gif") || mediaURLs.length >= 4
                             ? "opacity-50"
                             : "hover:bg-primary-extraLight rounded-full"
                         } ${mediaURLs.every((media) => media.type === "image") && mediaURLs.length < 4 && "cursor-pointer"}`}
-                        aria-disabled={mediaURLs.some((media) => media.type === "video") || mediaURLs.length >= 4}
+                        aria-disabled={mediaURLs.some((media) => media.type === "video" || media.type === "gif") || mediaURLs.length >= 4}
                       >
                         <span className="w-8 h-8">
                           <ImageIcon className="w-5 h-5 text-primary-base font-bold" />
                         </span>
                         <input
-                          disabled={mediaURLs.some((media) => media.type === "video") || mediaURLs.length >= 4}
+                          disabled={mediaURLs.some((media) => media.type === "video" || media.type === "gif") || mediaURLs.length >= 4}
                           className="hidden"
                           id="file-input"
                           type="file"
@@ -199,27 +193,8 @@ const TweetComposer = () => {
                         />
                       </label>
 
+                      <GIFMenu setMediaURLs={setMediaURLs}  mediaURLs={mediaURLs} />
 
-
-                      <button
-                        type="button"
-                        disabled={mediaURLs.length > 0}
-                        className={`w-fit p-2 'hover:bg-primary-extraLight  rounded-full' ${
-                          mediaURLs.length > 0 && "opacity-50"
-                        }`}
-                      >
-                        <label
-                          className={`w-8 h-8 ${
-                            mediaURLs.length <= 0 && "cursor-pointer"
-                          }`}
-                        >
-                          <GIFIcon
-                            className={
-                              "w-5 h-5 text-primary-base fill-current font-bold"
-                            }
-                          />
-                        </label>
-                      </button>
 
                       <button
                         type="button"
@@ -241,7 +216,7 @@ const TweetComposer = () => {
                         </label>
                       </button>
 
-                      <Emoji setTweet={setTweet} />
+                      <Composer.Emoji setTweet={setTweet} />
 
                       <button
                         type="button"
@@ -259,7 +234,7 @@ const TweetComposer = () => {
                       <div className="flex h-full justify-end items-center">
                         {tweet.length > 0 && (
                           <>
-                            <MiddleSection.CircleProgressBar
+                            <Composer.CircleProgressBar
                               value={tweet.length}
                               limit={280}
                             />

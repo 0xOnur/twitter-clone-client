@@ -28,11 +28,11 @@ const TweetComposer = () => {
     (mediaFiles.length>0 || tenorGif) ? setGifAveilable(false) : setGifAveilable(true);
     (mediaFiles.length>=4 || tenorGif) ? setMediaAveilable(false) : setMediaAveilable(true);
 
-    mediaFiles.map(media => {
-      if(media.type === "video") {
-        setMediaAveilable(false)
+    mediaFiles.forEach((media) => {
+      if (media.type === "video") {
+        setMediaAveilable(false);
       }
-    })
+    });
 
   }, [mediaFiles, tenorGif])
 

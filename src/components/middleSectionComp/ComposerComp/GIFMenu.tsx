@@ -3,21 +3,12 @@ import GifPicker, { TenorImage } from "gif-picker-react";
 import { GIFIcon } from "@icons/Icon";
 
 interface IProps {
-    setMediaURLs: React.Dispatch<React.SetStateAction<{
-        url: string;
-        type: "image" | "video" | "gif";
-
-    }[]>>,
-    mediaURLs: {
-        url: string;
-        type: "image" | "video" | "gif";
-
-      }[];
+  tenorGif: TenorImage | undefined;
+  setTenorGif: React.Dispatch<React.SetStateAction<TenorImage | undefined>>;
+  gifAvailable: boolean;
 }
 
-
-
-const GIFMenu: React.FC<IProps> = ({setMediaURLs, mediaURLs}) => {
+const GIFMenu: React.FC<IProps> = ({tenorGif, setTenorGif, gifAvailable}) => {
   const gifPickerApi = process.env.REACT_APP_TENOR_API;
 
   const [showGifPicker, setShowGifPicker] = useState(false);
@@ -46,35 +37,27 @@ const GIFMenu: React.FC<IProps> = ({setMediaURLs, mediaURLs}) => {
     };
   }, [handleClose]);
 
+  
+
+  
 
   const onGifClick = (selectedGif: TenorImage) => {
-    console.log(selectedGif)
     setShowGifPicker(false);
-    setMediaURLs((prevMediaURLs) => [
-      ...prevMediaURLs,
-      {
-        url: selectedGif.url,
-        type: "gif",
-
-      },
-    ]);
-  
+    setTenorGif(selectedGif)
   };
 
-  console.log(mediaURLs)
+  console.log(tenorGif)
 
   return (
     <div>
       <button
         ref={gifButtonRef}
         type="button"
-        disabled={mediaURLs.length>0}
+        disabled={!gifAvailable}
         onClick={() => setShowGifPicker(!showGifPicker)}
-        className={`w-fit p-2 'hover:bg-primary-extraLight  rounded-full' ${
-            mediaURLs.length>0 && "opacity-50"
-          }`}
+        className={`w-fit p-2 ${!gifAvailable ? "opacity-50": "hover:bg-primary-extraLight rounded-full"}` }
       >
-        <label className={`w-8 h-8 ${mediaURLs.length<=0 && ("cursor-pointer")}`}>
+        <label className={`w-8 h-8 ${gifAvailable && ("cursor-pointer")} `}>
           <GIFIcon className={"w-5 h-5 text-primary-base fill-current"} />
         </label>
       </button>
@@ -88,9 +71,8 @@ const GIFMenu: React.FC<IProps> = ({setMediaURLs, mediaURLs}) => {
               width={600}
               height={650}
             />
+          </div>
         </div>
-        </div>
-
       )}
     </div>
   );

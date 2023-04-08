@@ -11,6 +11,9 @@ module.exports = {
   darkMode: true, // or 'media' or 'class'
   theme: {
     extend: {
+      transformOrigin: {
+        "0": "0%",
+      },
       colors: {
         primary: {
           base: "hsl(203, 89%, 53%)",
@@ -27,12 +30,19 @@ module.exports = {
           dropdown: '#f7f9f9',
           trendsHover: "#eff1f1",
         },
+        red: {
+          remove: "#fee8e9",
+          removeText: "rgb(244 33 46)",
+        },
         yellow: {
           base: "#FFAD1F",
         },
         black: "#14171A",
       },
     },
+  },
+  variants: {
+    borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
   },
   plugins: [require("daisyui")],
   daisyui : {

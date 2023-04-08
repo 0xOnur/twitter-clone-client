@@ -9,9 +9,12 @@ import {
 import { Composer } from "@components/index";
 import GIFMenu from "./ComposerComp/GIFMenu";
 import { TenorImage } from "gif-picker-react";
+import PollMenu from "./ComposerComp/PollMenu";
+
+
 
 const TweetComposer = () => {
-  const [isWritingTweet, setWiritinTweet] = useState(false);
+  const [isWritingTweet, setWiritingTweet] = useState(false);
 
   const [Audience, setAudience] = useState("Everyone");
   const [whoCanReply, setCanReply] = useState("Everyone");
@@ -23,10 +26,21 @@ const TweetComposer = () => {
   const [tenorGif, setTenorGif] = useState<TenorImage | undefined>()
   const [gifAvailable, setGifAveilable] = useState(true)
 
+  const [choices, setChoices] = useState([
+    { id: 1, text: "" },
+    { id: 2, text: "" },
+  ]);
+  const [pollLength, setPollLength] = useState({
+    days: 1,
+    hours: 0,
+    minutes: 0,
+  });
+  const [showPoll, setShowPoll] = useState(false);
+
 
   useEffect(()=> {
-    (mediaFiles.length>0 || tenorGif) ? setGifAveilable(false) : setGifAveilable(true);
-    (mediaFiles.length>=4 || tenorGif) ? setMediaAveilable(false) : setMediaAveilable(true);
+    (mediaFiles.length>0 || tenorGif || showPoll) ? setGifAveilable(false) : setGifAveilable(true);
+    (mediaFiles.length>=4 || tenorGif || showPoll) ? setMediaAveilable(false) : setMediaAveilable(true);
 
     mediaFiles.forEach((media) => {
       if (media.type === "video") {
@@ -34,10 +48,7 @@ const TweetComposer = () => {
       }
     });
 
-  }, [mediaFiles, tenorGif])
-
-  console.log("gifAvailable", gifAvailable);
-  console.log("mediaAveilable", mediaAveilable);
+  }, [mediaFiles, tenorGif, showPoll])
 
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -141,7 +152,7 @@ const TweetComposer = () => {
                       className="focus:outline-none resize-none text-xl block w-full"
                       placeholder="What's happening?"
                       onClick={() => {
-                        setWiritinTweet(true);
+                        setWiritingTweet(true);
                       }}
                       ref={textAreaRef}
                       value={tweet}
@@ -204,7 +215,18 @@ const TweetComposer = () => {
                       </div>
                   )}
                 </div>
-
+                
+                {
+                  showPoll && (
+                    <PollMenu 
+                      setShowPoll={setShowPoll}
+                      choices={choices}
+                      setChoices={setChoices}
+                      pollLength={pollLength}
+                      setPollLength={setPollLength}
+                    />
+                  )
+                }
 
 
                 {isWritingTweet || tweet.length > 0 || mediaFiles.length > 0 ? (
@@ -246,6 +268,7 @@ const TweetComposer = () => {
                       <button
                         type="button"
                         disabled={!gifAvailable || !mediaAveilable}
+                        onClick={() => setShowPoll(true)}
                         className={`w-fit p-2 ${mediaFiles.length>0 || !gifAvailable ? "opacity-50" : "hover:bg-primary-extraLight rounded-full"}`}
                       >
                         <label

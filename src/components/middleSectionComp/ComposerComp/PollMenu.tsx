@@ -60,13 +60,13 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
               {choices.map((choice) => (
                 
                 <div key={choice.id} className="pb-3">
-                  <div className="relative border-2  rounded-md focus-within:border-primary-base">
+                  <div className="relative border-2 rounded-md focus-within:border-primary-base">
                     <input
                       type="text"
                       name="Choice1"
                       placeholder=" "
                       maxLength={25}
-                      className="block p-4 w-full text-lg appearance-none focus:outline-none bg-transparent"
+                      className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
                       value={choice.text}
                       onChange={(e) =>
                         handleChoiceChange(choice.id, e.target.value)

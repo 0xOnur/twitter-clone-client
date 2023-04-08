@@ -1,19 +1,21 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 
-//props types
-type Props = {
+
+interface IProps {
     name: string;
-    Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-    active: string;
-    onMenuItemClick: (name: string) => void;
+    Icon: ({ isActive }: {isActive: any}) => JSX.Element;
 };
 
-const SideLink: React.FC<Props> = (props) => {
-  const isActive = props.active === props.name;
+const SideLink: React.FC<IProps> = ({name, Icon}) => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const isActive = currentPath.includes(name.toLowerCase());
+
   return (
-    <li className="group" onClick={() => props.onMenuItemClick(props.name)}>
+    <li className="group">
       <a
-        href={props.name.toLowerCase()}
+        href={name.toLowerCase()}
         className="text-left cursor-pointer block text-xl mb-2"
       >
         <div className="inline-block">
@@ -24,9 +26,9 @@ const SideLink: React.FC<Props> = (props) => {
             `}
             >
             <div className="">
-              <props.Icon />
+              <Icon isActive={isActive} />
             </div>
-            <span className="ml-4 hidden lg:inline-block">{props.name}</span>
+            <span className="ml-4 hidden lg:inline-block">{name}</span>
           </div>
         </div>
       </a>

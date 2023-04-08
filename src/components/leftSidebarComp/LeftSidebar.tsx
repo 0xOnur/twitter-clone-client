@@ -1,9 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {
   BookmarksIcon,
   ExploreIcon,
   HomeIcon,
-  ListsIcon,
   MessagesIcon,
   TweetIcon,
   NotificationsIcon,
@@ -14,12 +13,7 @@ import twitterLogo from "../../icons/twitter.svg";
 import UserBox from './UserBox';
 import MoreButton from './MoreButton';
 
-type Link = {
-  name: string;
-  icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-};
-
-const sideLinks: Link[] = [
+const sideLinks = [
   {
     name: "Home",
     icon: HomeIcon,
@@ -41,29 +35,22 @@ const sideLinks: Link[] = [
     icon: BookmarksIcon,
   },
   {
-    name: "Lists",
-    icon: ListsIcon,
-  },
-  {
     name: "Profile",
     icon: ProfileIcon,
   },
 ];
 
-const LeftSideBar: React.FC = () => {
-
-  const [active, setActive] = useState("Home");
-
-  const handleMenuItemClick = (name:string) => {
-    setActive(name);
-  };
+const LeftSideBar: React.FC= () => {
 
   return (
     <div className="flex flex-col text-center min-w-fit sm:ml-5 md:ml-16 lg:ml-0 h-screen overflow-y-auto lg:w-3/12 justify-between top-0">
-      <div className='lg:w-5/12 min-w-full sm:w-fit '>
-        <div className="mt-1 mb-4 flex items-center justify-center w-12 h-12 rounded-full hover:bg-primary-light transform transition-colors duration-200">
+      <div className='lg:w-5/12 min-w-full sm:w-fit'>
+        <a
+          href="/home"
+          className="mt-1 mb-4 flex items-center justify-center w-12 h-12 rounded-full hover:bg-primary-light transform transition-colors duration-200"
+        >
           <img src={twitterLogo} alt="Twitter Logo" className="w-9 h-9" />
-        </div>
+        </a>
         <nav>
           <ul>
             {sideLinks.map(({ name, icon }) => (
@@ -71,8 +58,6 @@ const LeftSideBar: React.FC = () => {
                 key={name}
                 name={name}
                 Icon={icon}
-                active={active}
-                onMenuItemClick={handleMenuItemClick}
               />
             ))}
             <MoreButton />

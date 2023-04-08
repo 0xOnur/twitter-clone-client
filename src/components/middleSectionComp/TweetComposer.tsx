@@ -20,6 +20,8 @@ const TweetComposer = () => {
   const [whoCanReply, setCanReply] = useState("Everyone");
 
   const [tweet, setTweet] = useState("");
+
+
   const [mediaFiles, setMediaFiles] = useState<Array<{file: File, url: string, type: string}>>([]);
   const [mediaAveilable, setMediaAveilable] = useState(true)
 
@@ -41,6 +43,7 @@ const TweetComposer = () => {
   useEffect(()=> {
     (mediaFiles.length>0 || tenorGif || showPoll) ? setGifAveilable(false) : setGifAveilable(true);
     (mediaFiles.length>=4 || tenorGif || showPoll) ? setMediaAveilable(false) : setMediaAveilable(true);
+    (showPoll || mediaFiles.length>0 || tweet.length>0 || tenorGif ) ? setWiritingTweet(true) : setWiritingTweet(false);
 
     mediaFiles.forEach((media) => {
       if (media.type === "video") {
@@ -48,7 +51,7 @@ const TweetComposer = () => {
       }
     });
 
-  }, [mediaFiles, tenorGif, showPoll])
+  }, [mediaFiles, tenorGif, showPoll, tweet])
 
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -72,27 +75,31 @@ const TweetComposer = () => {
       url: URL.createObjectURL(file),
       type: file.type.startsWith("image") ? "image" : "video",
     }));
-  
-    setMediaFiles((prevMediaFiles) => {
-      const imagesCount = prevMediaFiles.filter((media) => media.type === "image").length;
-      const videoCount = prevMediaFiles.filter((media) => media.type === "video").length;
-  
-      const newImages = mediaFiles.filter((media) => media.type === "image");
-      const newVideo = mediaFiles.find((media) => media.type === "video");
-  
-      const maxImagesAllowed = 4 - imagesCount;
-      const imagesToAdd = newImages.slice(0, maxImagesAllowed);
-  
-      if (videoCount === 0 && imagesCount === 0 && newVideo) {
-        return [newVideo];
-      }
-  
-      if (videoCount === 0 && newImages.length > 0) {
-        return [...prevMediaFiles, ...imagesToAdd];
-      }
-  
-      return prevMediaFiles;
-    });
+
+    try {
+      setMediaFiles((prevMediaFiles) => {
+        const imagesCount = prevMediaFiles.filter((media) => media.type === "image").length;
+        const videoCount = prevMediaFiles.filter((media) => media.type === "video").length;
+    
+        const newImages = mediaFiles.filter((media) => media.type === "image");
+        const newVideo = mediaFiles.find((media) => media.type === "video");
+    
+        const maxImagesAllowed = 4 - imagesCount;
+        const imagesToAdd = newImages.slice(0, maxImagesAllowed);
+    
+        if (videoCount === 0 && imagesCount === 0 && newVideo) {
+          return [newVideo];
+        }
+    
+        if (videoCount === 0 && newImages.length > 0) {
+          return [...prevMediaFiles, ...imagesToAdd];
+        }
+    
+        return prevMediaFiles;
+      });
+    } catch (error) {
+      console.log(error)
+    }
   };
   
   
@@ -138,7 +145,7 @@ const TweetComposer = () => {
             </div>
             <div className="flex flex-col w-full pt-1">
               <form onSubmit={handleSubmit} className="flex flex-col">
-                {isWritingTweet || tweet.length > 0 || mediaFiles.length > 0 ? (
+                {isWritingTweet ? (
                   <Composer.ChooseAudience
                     Audience={Audience}
                     setAudience={setAudience}
@@ -229,12 +236,12 @@ const TweetComposer = () => {
                 }
 
 
-                {isWritingTweet || tweet.length > 0 || mediaFiles.length > 0 ? (
+                {isWritingTweet && (
                   <Composer.ChooseCanReply
                     whoCanReply={whoCanReply}
                     setCanReply={setCanReply}
                   />
-                ) : null}
+                )}
 
                 <div className="flex">
                   <div className="flex justify-between w-full my-3">

@@ -19,7 +19,8 @@
     "paths": {
       // "@/*": ["*"],
       "@components/*": ["components/*"],
-      "@icons/*": ["icons/*"]
+      "@icons/*": ["icons/*"],
+      "@utils/*": ["utils/*"],
     }
   },
   "include": ["src", "craco.config.js"]

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
+import { TenorImage } from "gif-picker-react";
 import {
   ImageIcon,
   PollIcon,
@@ -6,10 +7,7 @@ import {
   AddThreadIcon,
   RemoveItemIcon,
 } from "@icons/Icon";
-import { Composer } from "@components/index";
-import GIFMenu from "./ComposerComp/GIFMenu";
-import { TenorImage } from "gif-picker-react";
-import PollMenu from "./ComposerComp/PollMenu";
+import { MiddleSection } from "@components/index";
 
 
 
@@ -55,7 +53,7 @@ const TweetComposer = () => {
 
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  Composer.useAutosizeTextArea(textAreaRef, tweet);
+  MiddleSection.ComposerComp.useAutosizeTextArea(textAreaRef, tweet);
 
   const handleTweetChange = useCallback(
     (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -131,7 +129,7 @@ const TweetComposer = () => {
 
   return (
     <div>
-      <div className="py-1">
+      <div className="pt-1">
         <div className="px-4 border-b">
           <div className="flex  flex-row w-full h-fit">
             <div className="w-14 h-14 mr-2 pt-1">
@@ -146,7 +144,7 @@ const TweetComposer = () => {
             <div className="flex flex-col w-full pt-1">
               <form onSubmit={handleSubmit} className="flex flex-col">
                 {isWritingTweet ? (
-                  <Composer.ChooseAudience
+                  <MiddleSection.ComposerComp.ChooseAudience
                     Audience={Audience}
                     setAudience={setAudience}
                   />
@@ -156,7 +154,7 @@ const TweetComposer = () => {
                   <div className="py-3">
                     {/* create textarea for tweet */}
                     <textarea
-                      className="focus:outline-none resize-none text-xl block w-full"
+                      className="focus:outline-none resize-none text-xl block w-full bg-transparent"
                       placeholder="What's happening?"
                       onClick={() => {
                         setWiritingTweet(true);
@@ -225,7 +223,7 @@ const TweetComposer = () => {
                 
                 {
                   showPoll && (
-                    <PollMenu 
+                    <MiddleSection.ComposerComp.PollMenu
                       setShowPoll={setShowPoll}
                       choices={choices}
                       setChoices={setChoices}
@@ -237,7 +235,7 @@ const TweetComposer = () => {
 
 
                 {isWritingTweet && (
-                  <Composer.ChooseCanReply
+                  <MiddleSection.ComposerComp.ChooseCanReply
                     whoCanReply={whoCanReply}
                     setCanReply={setCanReply}
                   />
@@ -265,7 +263,7 @@ const TweetComposer = () => {
                         />
                       </label>
 
-                      <GIFMenu 
+                      <MiddleSection.ComposerComp.GIFMenu
                         tenorGif={tenorGif}
                         setTenorGif={setTenorGif}
                         gifAvailable={gifAvailable}
@@ -291,7 +289,7 @@ const TweetComposer = () => {
                         </label>
                       </button>
 
-                      <Composer.Emoji setTweet={setTweet} />
+                      <MiddleSection.ComposerComp.Emoji setTweet={setTweet} />
 
                       <button
                         type="button"
@@ -309,7 +307,7 @@ const TweetComposer = () => {
                       <div className="flex h-full justify-end items-center">
                         {tweet.length > 0 && (
                           <>
-                            <Composer.CircleProgressBar
+                            <MiddleSection.ComposerComp.CircleProgressBar
                               value={tweet.length}
                               limit={280}
                             />

@@ -1,6 +1,4 @@
-import LeftSideBar from "./LeftSidebar";
-import MoreButton from "./MoreButton";
-import SideLink from "./SideLink";
-import UserBox from "./UserBox";
-
-export default { LeftSideBar, MoreButton, SideLink, UserBox };
+export {default as LeftSideBar} from "./LeftSidebar";
+export {default as MoreButton} from "./MoreButton";
+export {default as SideLink} from "./SideLink";
+export {default as UserBox} from "./UserBox";

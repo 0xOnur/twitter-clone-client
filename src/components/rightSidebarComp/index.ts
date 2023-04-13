@@ -1,5 +1,3 @@
-import RightSidebar from "./RightSidebar";
-import Trends from "./Trends";
-import WhoToFollow from "./WhoToFollow";
-
-export default { RightSidebar, Trends, WhoToFollow };
+export {default as RightSidebar} from "./RightSidebar";
+export {default as Trends} from "./Trends";
+export {default as WhoToFollow} from "./WhoToFollow";

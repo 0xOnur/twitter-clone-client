@@ -64,7 +64,7 @@ const MoreButton = () => {
   return (
     <>
       {menuOpen && (
-        <div className="absolute" ref={dropdownRef}>
+        <div className="absolute z-20" ref={dropdownRef}>
           <div className="absolute overflow-y-auto max-h-screen text-md font-bold z-10 w-72 -top-72 rounded-3xl bg-white border border-gray-100  shadow-xl ">
             <div>
               <a href="/lists" className="">
@@ -96,7 +96,7 @@ const MoreButton = () => {
               </button>
                 {creatorSisOn && (
                   <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><AnalyticsIcon /></span>
+                    <span className=""><AnalyticsIcon className={"w-4 h-4"} /></span>
                     <span className="font-normal pl-3">Analytics</span>
                 </button>
                 )}

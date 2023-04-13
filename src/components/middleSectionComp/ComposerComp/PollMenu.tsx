@@ -134,7 +134,7 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
                     ))
                   }
                 </select>
-                <div className="absolute -z-1 top-0 right-3 h-full flex items-center">
+                <div className="absolute -z-10 top-0 right-3 h-full flex items-center">
                   <div className="pointer-events-none">
                     <DropDownMenuArrowIcon />
                   </div>
@@ -163,7 +163,7 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
                     ))
                   }
                 </select>
-                <div className="absolute -z-1 top-0 right-3 h-full flex items-center">
+                <div className="absolute -z-10 top-0 right-3 h-full flex items-center">
                   <div className="pointer-events-none">
                     <DropDownMenuArrowIcon />
                   </div>
@@ -192,7 +192,7 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
                     ))
                   }
                 </select>
-                <div className="absolute -z-1 top-0 right-3 h-full flex items-center">
+                <div className="absolute -z-10 top-0 right-3 h-full flex items-center">
                   <div className="pointer-events-none">
                     <DropDownMenuArrowIcon />
                   </div>

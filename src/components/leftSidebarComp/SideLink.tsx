@@ -4,7 +4,10 @@ import { useLocation } from 'react-router-dom';
 
 interface IProps {
     name: string;
-    Icon: ({ isActive }: {isActive: any}) => JSX.Element;
+    Icon: ({ isActive, className }: {
+      isActive: any;
+      className: any;
+  }) => JSX.Element
 };
 
 const SideLink: React.FC<IProps> = ({name, Icon}) => {
@@ -26,7 +29,7 @@ const SideLink: React.FC<IProps> = ({name, Icon}) => {
             `}
             >
             <div className="">
-              <Icon isActive={isActive} />
+              <Icon className={"w-7 h-7"} isActive={isActive} />
             </div>
             <span className="ml-4 hidden lg:inline-block">{name}</span>
           </div>

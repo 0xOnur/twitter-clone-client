@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Header from './Header'
-import TweetComposer from './TweetComposer'
+import {TweetComposer} from './ComposerComp/'
 import Tweet from './Tweet'
+
 
 const MiddleSection: React.FC = () => {
 

@@ -66,7 +66,7 @@ const UserBox: React.FC = () => {
                 <span className="flex text-sm text-gray-dark">{username}</span>
             </div>
             <div className="ml-auto hidden lg:inline-block ">
-              <TreeDotIcon />
+              <TreeDotIcon className={"w-4 h-4"} />
             </div>
         </button>
       </div>

@@ -1,6 +1,5 @@
-import Header from "./Header";
-import MiddleSection from "./MiddleSection";
-import Tweet from "./Tweet";
-import TweetComposer from "./TweetComposer";
-
-export default { Header, MiddleSection, Tweet, TweetComposer };
+export * as ComposerComp from "./ComposerComp";
+export * as TweetCardComp from "./TweetCardComp";
+export{default as Header} from "./Header";
+export{default as MiddleSection} from "./MiddleSection";
+export{default as Tweet} from "./Tweet";

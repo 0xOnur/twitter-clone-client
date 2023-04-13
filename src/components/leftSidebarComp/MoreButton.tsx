@@ -64,7 +64,7 @@ const MoreButton = () => {
   return (
     <>
       {menuOpen && (
-        <div className="absolute z-20" ref={dropdownRef}>
+        <div className="absolute z-40" ref={dropdownRef}>
           <div className="absolute overflow-y-auto max-h-screen text-md font-bold z-10 w-72 -top-72 rounded-3xl bg-white border border-gray-100  shadow-xl ">
             <div>
               <a href="/lists" className="">

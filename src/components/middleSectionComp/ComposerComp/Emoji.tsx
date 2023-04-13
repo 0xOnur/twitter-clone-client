@@ -53,7 +53,7 @@ const Emoji: React.FC<IProps> = ({ setTweet }) => {
         </label>
       </button>
       {showEmoji && (
-        <div ref={emojiRef} className="absolute shadow-xl">
+        <div ref={emojiRef} className="absolute shadow-xl z-10">
           <Picker
             onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
             theme={"light"}

@@ -7,7 +7,7 @@ interface Props {
 
 const Header: React.FC<Props> = (props) => {
     return (
-      <div className="sticky top-0 z-10">
+      <div className="sticky top-0 z-30">
         <div className="h-auto  backdrop-blur-md bg-white/80 ">
           <div className="h-full">
             <a href="/">

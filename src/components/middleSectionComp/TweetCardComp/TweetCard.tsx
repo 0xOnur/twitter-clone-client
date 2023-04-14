@@ -10,6 +10,7 @@ import {
   TreeDotIcon,
 } from "@icons/Icon";
 import { MiddleSection } from "@components/index";
+import ReplyModal from "./ReplyModal";
 import type { TweetsProps } from "../Tweet";
 import { formatDate, formatNumber } from "@utils/index";
 
@@ -20,7 +21,11 @@ interface IProps {
 const TweetCard: React.FC<IProps> = ({ tweet }) => {
   const navigate = useNavigate();
 
+  const [composerMode, setComposerMode] = useState("")
+
   const [shareMenu, setShowShareMenu] = useState(false);
+
+  const [showReplyModal, setShowReply] = useState(false);
 
   const handleTweetClick = (event: React.MouseEvent) => {
     navigate(`/${tweet.owner.username}/status/${tweet._id}`);
@@ -29,12 +34,26 @@ const TweetCard: React.FC<IProps> = ({ tweet }) => {
   const handleIconClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const actionName = e.currentTarget.name;
+    if(actionName === "reply") {
+        setShowReply(true);
+        setComposerMode("reply")
+    }
     console.log(actionName);
   };
 
   return (
     <>
-      <article className="tweet relative border-b" onClick={handleTweetClick}>
+      {
+        showReplyModal && (
+          <ReplyModal
+            tweet={tweet}
+            setShowReply={setShowReply}
+            composerMode={composerMode}
+          />
+        )
+      }
+
+      <article className="tweet relative border-b border-t" onClick={handleTweetClick}>
         <div className="px-4 cursor-pointer min-w-min relative">
           <div className="flex flex-col ">
             <div className="pt-3">

@@ -1,16 +1,16 @@
-import React, {useRef, useEffect, useCallback, useState} from "react";
+import React, {useRef, useEffect, useCallback} from "react";
 import {
   CopyTweetIcon,
   MessagesIcon,
   BookmarkPlusIcon,
   ShareIcon,
 } from "@icons/Icon";
-import { TweetsProps } from "../Tweet";
+import { TweetProps } from "@customTypes/TweetTypes";
 
 
 interface IProps {
     onClose: () => void;
-    tweet: TweetsProps;
+    tweet: TweetProps;
 }
 
 const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {

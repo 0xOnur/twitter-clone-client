@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.14",
+    "classnames": "^2.3.2",
     "daisyui": "^2.51.5",
     "emoji-mart": "^5.5.2",
     "gif-picker-react": "^1.1.0",

@@ -1,16 +1,16 @@
 import React from "react";
 import {  EveryoneIcon, TwiiterCircleIcon, SelectedIcon } from "../../../icons/Icon";
+import {ComposerSettings} from "@customTypes/ComposerTypes"
 
 interface IProps {
-  Audience: string;
+  ComposerSettings: ComposerSettings;
   onClose: () => void;
-  setAudience: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const AudienceMenu: React.FC<IProps> = ({Audience, setAudience, onClose}) => {
+export const AudienceMenu: React.FC<IProps> = ({ComposerSettings, onClose}) => {
   
   const handleItemClick = (value: string) => {
-    setAudience(value);
+    ComposerSettings.Audience = value;
     onClose();
   }
 
@@ -19,6 +19,7 @@ export const AudienceMenu: React.FC<IProps> = ({Audience, setAudience, onClose})
       <div className="px-3 py-1">
         <span className="text-lg font-bold">Choose Audience</span>
       </div>
+
       <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => (handleItemClick("Everyone"))}>
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
@@ -28,7 +29,7 @@ export const AudienceMenu: React.FC<IProps> = ({Audience, setAudience, onClose})
             </div>
             <span className="font-bold">Everyone</span>
           </div>
-          {Audience === "Everyone" && (
+          {ComposerSettings.Audience === "Everyone" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
@@ -45,13 +46,14 @@ export const AudienceMenu: React.FC<IProps> = ({Audience, setAudience, onClose})
             </div>
             <span className="font-bold">People you follow</span>
           </div>
-          {Audience === "People you follow" && (
+          {ComposerSettings.Audience === "People you follow" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
           )}
         </div>
       </div>
+
     </div>
   );
 };

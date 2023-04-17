@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { EveryoneIcon, MentionIcon, TwiiterCircleIcon } from "../../../icons/Icon";
 import CanReplyMenu from "./CanReplyMenu";
+import {ComposerSettings} from "@customTypes/ComposerTypes"
 
 interface IProps {
-    whoCanReply: string;
-    setCanReply: React.Dispatch<React.SetStateAction<string>>;
+  ComposerSettings: ComposerSettings
 }
 
-const ChooseCanReply: React.FC<IProps> = ({whoCanReply, setCanReply}) => {
+const ChooseCanReply: React.FC<IProps> = ({ComposerSettings}) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const replyRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,6 @@ const ChooseCanReply: React.FC<IProps> = ({whoCanReply, setCanReply}) => {
     };
   }, [handleClose]);
 
-
   return (
     <div className="relative border-b">
       <div className="pb-3">
@@ -47,11 +46,11 @@ const ChooseCanReply: React.FC<IProps> = ({whoCanReply, setCanReply}) => {
         >
           <span className="mr-1">
             {
-              whoCanReply === "Everyone" ? (<EveryoneIcon className={"w-4 h-4"} />) : whoCanReply === "People you follow" ? (<TwiiterCircleIcon className={"w-4 h-4"} />) : (<MentionIcon className={"w-4 h-4"} />)
+              ComposerSettings.whoCanReply === "Everyone" ? (<EveryoneIcon className={"w-4 h-4"} />) : ComposerSettings.whoCanReply === "People you follow" ? (<TwiiterCircleIcon className={"w-4 h-4"} />) : (<MentionIcon className={"w-4 h-4"} />)
             }
           </span>
           <span className="text-sm font-bold py-1">
-            {whoCanReply} can reply
+            {ComposerSettings.whoCanReply} can reply
           </span>
         </button>
       </div>
@@ -60,7 +59,7 @@ const ChooseCanReply: React.FC<IProps> = ({whoCanReply, setCanReply}) => {
           ref={replyRef}
           className="absolute w-80 h-fit bg-white border rounded-2xl top-8 z-20 shadow-xl"
         >
-            <CanReplyMenu whoCanReply={whoCanReply} setCanReply={setCanReply} onClose={() => setShowMenu(false)} />
+            <CanReplyMenu ComposerSettings={ComposerSettings} onClose={() => setShowMenu(false)} />
         </div>
       )}
     </div>

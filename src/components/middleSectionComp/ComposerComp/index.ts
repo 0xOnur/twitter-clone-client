@@ -7,4 +7,5 @@ export {default as CircleProgressBar} from "./CircleProgressBar";
 export {default as Emoji} from "./Emoji";
 export {default as GIFMenu} from "./GIFMenu";
 export {default as PollMenu} from "./PollMenu";
-export {default as TweetComposer} from "./TweetComposer"
+export {default as TweetComposer} from "./TweetComposer";
+export {default as TextArea} from "./TextArea";

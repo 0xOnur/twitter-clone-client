@@ -21,6 +21,7 @@
       "@components/*": ["components/*"],
       "@icons/*": ["icons/*"],
       "@utils/*": ["utils/*"],
+      "@customTypes/*": ["types/*"],
     }
   },
   "include": ["src", "craco.config.js"]

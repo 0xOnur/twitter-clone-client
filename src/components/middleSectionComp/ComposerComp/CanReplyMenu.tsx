@@ -1,16 +1,16 @@
 import React from 'react'
 import { EveryoneIcon, TwiiterCircleIcon, SelectedIcon, MentionIcon } from '@icons/Icon'
+import {ComposerSettings} from "@customTypes/ComposerTypes"
 
 interface IProps {
-    whoCanReply: string;
-    onClose: () => void;
-    setCanReply: React.Dispatch<React.SetStateAction<string>>;
+  ComposerSettings: ComposerSettings
+  onClose: () => void;
 }
 
-const CanReplyMenu:React.FC<IProps> = ({whoCanReply, setCanReply, onClose}) => {
+const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
 
   const handleItemClick = (value: string) => {
-    setCanReply(value);
+    ComposerSettings.whoCanReply = value;
     onClose();
   }
 
@@ -30,7 +30,7 @@ const CanReplyMenu:React.FC<IProps> = ({whoCanReply, setCanReply, onClose}) => {
             </div>
             <span className="font-bold">Everyone</span>
           </div>
-          {whoCanReply === "Everyone" && (
+          {ComposerSettings.whoCanReply === "Everyone" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
@@ -46,7 +46,7 @@ const CanReplyMenu:React.FC<IProps> = ({whoCanReply, setCanReply, onClose}) => {
             </div>
             <span className="font-bold">People you follow</span>
           </div>
-          {whoCanReply === "People you follow" && (
+          {ComposerSettings.whoCanReply === "People you follow" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
@@ -62,7 +62,7 @@ const CanReplyMenu:React.FC<IProps> = ({whoCanReply, setCanReply, onClose}) => {
             </div>
             <span className="font-bold">Only people you mention</span>
           </div>
-          {whoCanReply === "Only people you mention" && (
+          {ComposerSettings.whoCanReply === "Only people you mention" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>

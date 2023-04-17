@@ -1,63 +1,70 @@
 import React from "react";
 import { AddThreadIcon, DropDownMenuArrowIcon } from "@icons/Icon";
-
-interface Choice {
-  id: number;
-  text: string;
-}
+import {Poll} from "@customTypes/ComposerTypes"
 
 interface IProps {
-  setShowPoll: React.Dispatch<React.SetStateAction<boolean>>;
-  choices: Choice[];
-  setChoices: React.Dispatch<React.SetStateAction<Choice[]>>;
-  pollLength: { days: number; hours: number; minutes: number };
-  setPollLength: React.Dispatch<React.SetStateAction<{ days: number; hours: number; minutes: number }>>;
+  pollSettings: Poll;
+  setPollSettings: React.Dispatch<React.SetStateAction<Poll>>;
 }
 
-const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollLength, setPollLength}) => {
-  
+
+const PollCreation = ({pollSettings, setPollSettings}:IProps) => {
 
   const days = 8;
   const hours = 24;
   const minutes = 60;
 
   const handleChoiceChange = (id: number, text: string) => {
-    setChoices(
-      choices.map((choice) => (choice.id === id ? { ...choice, text } : choice))
-    );
+    setPollSettings(
+      (prev) => ({
+        ...prev,
+        choices: prev.choices.map((choice) =>
+          choice.id === id ? { ...choice, text } : choice
+        ),
+      })
+    )
   };
 
   const handleRemovePoll = () => {
-    setShowPoll(false)
+    setPollSettings((prev) => ({
+      ...prev,
+      showPoll: false,
+    }));
   };
 
   const handleAddChoice = () => {
-    setChoices([...choices, { id: choices.length + 1, text: "" }]);
+    setPollSettings((prev) => ({
+      ...prev,
+      choices: [
+        ...prev.choices,
+        {
+          id: prev.choices.length + 1,
+          text: "",
+        },
+      ],
+    }));
   };
 
-  const handlePollLengthChange = (
+  const changePollTimer = (
     e: React.ChangeEvent<HTMLSelectElement>,
-    field: keyof typeof pollLength
+    type: string
   ) => {
-    setPollLength({
-      ...pollLength,
-      [field]: parseInt(e.target.value, 10),
-    });
+    setPollSettings((prev) => ({
+      ...prev,
+      pollTimer: {
+        ...prev.pollTimer,
+        [type]: parseInt(e.target.value),
+      },
+    }));
   };
-  
-
-  console.log({
-    choices,
-    pollLength: pollLength
-  });
 
   return (
-    <div className="my-1 border rounded-2xl">
+    <div className="my-1 border rounded-2xl z-10">
       <div className="pt-3">
         <div className="flex flex-col">
           <div className="px-3 flex flex-row">
             <div className="w-full flex flex-col">
-              {choices.map((choice) => (
+              {pollSettings.choices.map((choice) => (
                 
                 <div key={choice.id} className="pb-3">
                   <div className="relative border-2 rounded-md focus-within:border-primary-base">
@@ -88,7 +95,7 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
                 </div>
               ))}
             </div>
-            {choices.length < 4 && (
+            {pollSettings.choices.length < 4 && (
               <div className="flex flex-col-reverse">
                 <div className="mb-6 ml-1">
                   <button
@@ -122,8 +129,8 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
                 </label>
                 <select
                   name="selector1"
-                  value={pollLength.days}
-                  onChange={(e) => handlePollLengthChange(e, "days")}
+                  value={pollSettings.pollTimer.days}
+                  onChange={(e) => changePollTimer(e, "days")}
                   className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
                 >
                   {
@@ -151,8 +158,8 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
                 </label>
                 <select
                   name="selector1"
-                  value={pollLength.hours}
-                  onChange={(e) => handlePollLengthChange(e, "hours")}
+                  value={pollSettings.pollTimer.hours}
+                  onChange={(e) => changePollTimer(e, "hours")}
                   className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
                 >
                   {
@@ -180,8 +187,8 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
                 </label>
                 <select
                   name="selector1"
-                  value={pollLength.minutes}
-                  onChange={(e) => handlePollLengthChange(e, "minutes")}
+                  value={pollSettings.pollTimer.minutes}
+                  onChange={(e) => changePollTimer(e, "minutes")}
                   className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
                 >
                   {
@@ -209,7 +216,6 @@ const PollCreation: React.FC<IProps> = ({setShowPoll, choices, setChoices, pollL
               Remove Poll
             </button>
           </div>
-
 
         </div>
       </div>

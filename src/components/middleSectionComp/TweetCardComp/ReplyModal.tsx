@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import { CancelIcon } from "@icons/Icon";
-import { TweetsProps } from "../Tweet";
+import { TweetProps } from "@customTypes/TweetTypes";
 import { formatDate } from "@utils/formatDate";
 import { TweetComposer } from "../ComposerComp";
 
 interface IProps {
   setShowReply: React.Dispatch<React.SetStateAction<boolean>>;
-  tweet: TweetsProps;
+  tweet: TweetProps;
   composerMode: string;
 }
 
@@ -17,8 +17,8 @@ const ReplyModal = ({
 }: IProps) => {
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex place-content-start justify-center z-50 overflow-auto">
-      <div className="absolute top-80 w-full max-w-xl justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex place-content-start justify-center z-30 overflow-auto">
+      <div className="absolute top-16 w-full max-w-xl justify-center">
         <div className="bg-white opacity-100 border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row h-14 items-center px-4">
@@ -53,14 +53,25 @@ const ReplyModal = ({
                       <div className="flex flex-col pb-3">
                         <span>{tweet.content}</span>
                         <span>
-                          {tweet.images.map((image, index) => (
-                            <a href={image.url} key={index}>
-                              {image.url}
-                            </a>
-                          ))}
+                          {tweet.media && (
+                            tweet.media.map((image, index) => (
+                              <a href={image.url} key={index}>
+                                {image.url}
+                              </a>
+                            ))
+                          )}
                         </span>
                       </div>
-                      <div>relpying to @realist</div>
+                      <div>
+                        <a href={`/${tweet.owner.username}`}>
+                          <span>
+                            Replying to {" "}
+                          </span>
+                          <span className="text-primary-base">
+                            @{tweet.owner.username}
+                          </span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>

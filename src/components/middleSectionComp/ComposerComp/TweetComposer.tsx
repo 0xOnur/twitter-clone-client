@@ -1,19 +1,18 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { TenorImage } from "gif-picker-react";
 import { MiddleSection } from "@components/index";
-import { TweetProps } from "@customTypes/TweetTypes"
-import MediaCard from "./MediaCard";
+import { TweetProps } from "@customTypes/TweetTypes";
+import MediaCard from "./ComposerMedia";
 import Toolbar from "./Toolbar";
 
-import { ComposerSettings, Poll } from "@customTypes/ComposerTypes"
+import { ComposerSettings, Poll } from "@customTypes/ComposerTypes";
 
-interface IProps {
+type IProps = {
   composerMode?: string;
   tweet?: TweetProps;
 }
 
-const TweetComposer: React.FC<IProps> = ({ composerMode }) => {
-
+const TweetComposer = ({ composerMode }:IProps) => {
   const [tweetText, setTweetText] = useState("");
   const [tenorGif, setTenorGif] = useState<TenorImage>();
 
@@ -21,7 +20,7 @@ const TweetComposer: React.FC<IProps> = ({ composerMode }) => {
     Audience: "Everyone",
     whoCanReply: "Everyone",
     mediaFiles: [],
-  })
+  });
 
   const [pollSettings, setPollSettings] = useState<Poll>({
     pollTimer: {
@@ -40,36 +39,38 @@ const TweetComposer: React.FC<IProps> = ({ composerMode }) => {
       },
     ],
     showPoll: false,
-  })
-
-
+  });
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
-
     const formData = new FormData();
     formData.append("tweet", tweetText);
+
+    if (tenorGif) {
+      formData.append("url", JSON.stringify(tenorGif));
+    }
+
+    if (pollSettings.showPoll) {
+      formData.append("poll", JSON.stringify(pollSettings));
+    }
+
+    if (ComposerSettings.mediaFiles.length > 0) {
+      ComposerSettings.mediaFiles.forEach((mediaFile, index) => {
+        formData.append(`mediaFile${index}`, mediaFile.file);
+      });
+    }
+
     formData.append("audience", ComposerSettings.Audience);
     formData.append("whoCanReply", ComposerSettings.whoCanReply);
 
-    // Append media files if they exist
-    if (ComposerSettings.mediaFiles.length > 0) {
-      ComposerSettings.mediaFiles.forEach((media) => {
-        formData.append("mediaFiles", media.file);
-      });
-    } else if (tenorGif) {
-      // If no media files, check for tenorGif
-      // Assuming TenorImage has a 'url' property
-      formData.append("tenorGif", JSON.stringify(tenorGif));
-    }
-
     console.log({
-      tweet: tweetText,
+      composerMode: composerMode,
+      tweetText: tweetText,
       tenorGif: tenorGif,
       pollSettings: pollSettings,
       Audience: ComposerSettings.Audience,
       whoCanReply: ComposerSettings.whoCanReply,
       mediaFiles: ComposerSettings.mediaFiles,
-    })
+    });
   };
 
   return (
@@ -87,53 +88,58 @@ const TweetComposer: React.FC<IProps> = ({ composerMode }) => {
               </a>
             </div>
             <div className="flex flex-col w-full pt-1">
-                
-                {(tweetText.length>0 && composerMode !== "reply" ) && (
+              {(tweetText.length > 0 ||
+                ComposerSettings.mediaFiles.length > 0 ||
+                pollSettings.showPoll ||
+                tenorGif) &&
+                composerMode !== "reply" && (
                   <MiddleSection.ComposerComp.ChooseAudience
-                  ComposerSettings = {ComposerSettings}
+                    ComposerSettings={ComposerSettings}
                   />
                 )}
 
-                <MiddleSection.ComposerComp.TextArea
-                  tweetText={tweetText}
-                  setTweetText={setTweetText}
-                  composerMode={composerMode}
-                />
+              <MiddleSection.ComposerComp.TextArea
+                tweetText={tweetText}
+                setTweetText={setTweetText}
+                composerMode={composerMode}
+              />
 
-                <MediaCard 
-                  ComposerSettings={ComposerSettings}
-                  setComposerSettings={setComposerSettings}
-                  tenorGif={tenorGif}
-                  setTenorGif={setTenorGif}
-                />
-                
-                {pollSettings.showPoll && (
-                  <MiddleSection.ComposerComp.PollMenu
-                    pollSettings={pollSettings}
-                    setPollSettings={setPollSettings}
-                  />
-                )}
+              <MediaCard
+                ComposerSettings={ComposerSettings}
+                setComposerSettings={setComposerSettings}
+                tenorGif={tenorGif}
+                setTenorGif={setTenorGif}
+              />
 
-                {(tweetText.length>0 && composerMode !== "reply") && (
+              {pollSettings.showPoll && (
+                <MiddleSection.ComposerComp.PollMenu
+                  pollSettings={pollSettings}
+                  setPollSettings={setPollSettings}
+                />
+              )}
+
+              {(tweetText.length > 0 ||
+                ComposerSettings.mediaFiles.length > 0 ||
+                pollSettings.showPoll ||
+                tenorGif) &&
+                composerMode !== "reply" && (
                   <MiddleSection.ComposerComp.ChooseCanReply
                     ComposerSettings={ComposerSettings}
                   />
                 )}
 
-                <Toolbar
-                  composerMode = {composerMode}
-                  ComposerSettings={ComposerSettings}
-                  setComposerSettings={setComposerSettings}
-                  pollSettings={pollSettings}
-                  setPollSettings={setPollSettings}
-                  tweetText={tweetText}
-                  setTweetText={setTweetText}
-                  tenorGif={tenorGif}
-                  setTenorGif={setTenorGif}
-                  handleSubmit={handleSubmit}
-                 />
-                 
-                
+              <Toolbar
+                composerMode={composerMode}
+                ComposerSettings={ComposerSettings}
+                setComposerSettings={setComposerSettings}
+                pollSettings={pollSettings}
+                setPollSettings={setPollSettings}
+                tweetText={tweetText}
+                setTweetText={setTweetText}
+                tenorGif={tenorGif}
+                setTenorGif={setTenorGif}
+                handleSubmit={handleSubmit}
+              />
             </div>
           </div>
         </div>

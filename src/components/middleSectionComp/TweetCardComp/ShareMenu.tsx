@@ -39,7 +39,7 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        const tweetUrl = window.location.origin + `/${tweet.owner.username}/status/${tweet._id}`
+        const tweetUrl = window.location.origin + `/${tweet.author.username}/status/${tweet._id}`
         navigator.clipboard.writeText(tweetUrl)
         console.log(tweetUrl)
         onClose();

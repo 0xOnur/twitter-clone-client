@@ -1,25 +1,23 @@
 export interface TweetProps {
   _id: string;
-  owner: {
+  author: {
     id: string;
     name: string;
     username: string;
     avatar: string;
   };
   content: string;
-  media?: [
-    {
+  media?: {
       url: string;
       alt: string;
       type: string;
-    }
-  ];
+    }[];
   comments?: [
     {
       _id: string;
       userId: string;
       username: string;
-      content: string;
+      comment: string;
       createdAt: Date;
     }
   ];
@@ -32,6 +30,7 @@ export interface TweetProps {
       bio: string;
     }
   ];
+  quoteTweets? : TweetProps;
   likes?: [
     {
       _id: string;

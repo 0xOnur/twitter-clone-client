@@ -2,7 +2,7 @@ export {default as AudienceMenu} from "./AudienceMenu";
 export {default as CanReplyMenu} from "./CanReplyMenu";
 export {default as ChooseAudience} from "./ChooseAudience";
 export {default as ChooseCanReply} from "./ChooseCanReply";
-export {default as useAutosizeTextArea} from "./useAutosizeTextArea";
+export {default as useAutosizeTextArea} from "@hooks/useAutosizeTextArea";
 export {default as CircleProgressBar} from "./CircleProgressBar";
 export {default as Emoji} from "./Emoji";
 export {default as GIFMenu} from "./GIFMenu";

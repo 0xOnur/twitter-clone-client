@@ -2,28 +2,11 @@ import React from "react";
 import classNames from "classnames";
 import { TenorImage } from "gif-picker-react";
 import { RemoveItemIcon } from "@icons/Icon";
+import { ComposerSettings } from "@customTypes/ComposerTypes";
 
 type Props = {
-  ComposerSettings: {
-    Audience: string;
-    whoCanReply: string;
-    mediaFiles: {
-      file: File;
-      url: string;
-      type: string;
-    }[];
-  };
-  setComposerSettings: React.Dispatch<
-    React.SetStateAction<{
-      Audience: string;
-      whoCanReply: string;
-      mediaFiles: {
-        file: File;
-        url: string;
-        type: string;
-      }[];
-    }>
-  >;
+  ComposerSettings: ComposerSettings;
+  setComposerSettings: React.Dispatch<React.SetStateAction<ComposerSettings>>;
   tenorGif: TenorImage | undefined;
   setTenorGif: React.Dispatch<React.SetStateAction<TenorImage | undefined>>;
 };
@@ -44,25 +27,44 @@ const MediaCard = ({
     }));
   };
 
-  const mediaGridClasses = classNames("grid gap-2 mb-1", {
-    "grid-cols-1": ComposerSettings.mediaFiles.length <= 1 || tenorGif,
-    "grid-cols-2": ComposerSettings.mediaFiles.length > 1,
+
+  const mediaGridClasses = classNames("grid gap-0.5 mb-1", {
+    "grid-cols-1": ComposerSettings?.mediaFiles!.length <= 1,
+    "grid-cols-2": ComposerSettings?.mediaFiles!.length > 1,
   });
 
-  const imageClasses = classNames("w-full rounded-xl object-cover", {
-    "h-36": ComposerSettings.mediaFiles.length > 1,
-  });
+  const gridItemClasses = (index: number) =>
+    classNames("relative",{
+      "row-span-2 h-full": ComposerSettings?.mediaFiles!.length === 3 && index === 0,
+    });
+  
+
+  const imageClasses = (index: number) =>
+    classNames("w-full object-cover", {
+      "h-full rounded-tl-xl rounded-bl-xl":  ComposerSettings.mediaFiles?.length === 3 && index === 0,
+      "h-56": (ComposerSettings?.mediaFiles!.length > 3 || index !== 0) || ComposerSettings.mediaFiles!.length === 2,
+      
+      "rounded-xl": ComposerSettings?.mediaFiles?.length === 1,
+      
+      "rounded-tl-xl rounded-bl-xl": ComposerSettings?.mediaFiles!.length === 2 && index === 0,
+      "rounded-tr-xl rounded-br-xl": ComposerSettings?.mediaFiles!.length === 2 && index === 1,
+
+      "rounded-tl-xl": (ComposerSettings?.mediaFiles!.length === 3 || 4) && index === 0,
+      "rounded-tr-xl": (ComposerSettings?.mediaFiles!.length === 3 || 4) && index === 1,
+      "rounded-br-xl": (ComposerSettings?.mediaFiles!.length === 3 && index === 2) || (ComposerSettings?.mediaFiles!.length === 4 && index === 3),
+      "rounded-bl-xl": ComposerSettings?.mediaFiles!.length === 4 && index === 2,
+    });
 
   return (
     <div className={mediaGridClasses}>
       {ComposerSettings.mediaFiles.length > 0
         ? ComposerSettings.mediaFiles.map((media, index) => (
-            <div key={index} className="relative">
+            <div key={index} className={gridItemClasses(index)}>
               {media.type === "image" || media.type === "gif" ? (
                 <img
                   src={media.url}
                   alt={`Selected file ${index + 1}`}
-                  className={imageClasses}
+                  className={imageClasses(index)}
                 />
               ) : (
                 <video

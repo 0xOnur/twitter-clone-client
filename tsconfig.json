@@ -21,6 +21,7 @@
       "@components/*": ["components/*"],
       "@icons/*": ["icons/*"],
       "@utils/*": ["utils/*"],
+      "@hooks/*": ["hooks/*"],
       "@customTypes/*": ["types/*"],
     }
   },

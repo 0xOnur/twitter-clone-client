@@ -22,7 +22,7 @@ const TweetCard: React.FC<IProps> = ({ tweet }) => {
   const [showReplyModal, setShowReply] = useState(false);
 
   const handleTweetClick = (event: React.MouseEvent) => {
-    navigate(`/${tweet.owner.username}/status/${tweet._id}`);
+    navigate(`/${tweet.author.username}/status/${tweet._id}`);
   };
 
   
@@ -59,14 +59,14 @@ const TweetCard: React.FC<IProps> = ({ tweet }) => {
 
             <div className="flex flex-row">
               <Avatar
-                avatar={tweet.owner.avatar}
-                username={tweet.owner.username}
+                avatar={tweet.author.avatar}
+                username={tweet.author.username}
               />
               
               <div className="flex flex-col pb-3 flex-grow">
                 <AuthorInfo
-                  username={tweet.owner.username}
-                  name={tweet.owner.name}
+                  username={tweet.author.username}
+                  name={tweet.author.name}
                   createdAt={tweet.createdAt}
                 />
                 

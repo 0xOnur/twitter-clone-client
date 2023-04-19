@@ -1,5 +1,5 @@
 import React, {useRef, useCallback} from 'react'
-import { MiddleSection } from '@components/index';
+import useAutosizeTextArea from "@hooks/useAutosizeTextArea";
 
 type Props = {
     tweetText: string;
@@ -10,7 +10,7 @@ type Props = {
 const TextArea = ({tweetText, setTweetText, composerMode}:Props) => {
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  MiddleSection.ComposerComp.useAutosizeTextArea(textAreaRef, tweetText);
+  useAutosizeTextArea(textAreaRef, tweetText);
   
   
   const handleTweetChange = useCallback(

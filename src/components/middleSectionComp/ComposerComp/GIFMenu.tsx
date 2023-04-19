@@ -22,7 +22,7 @@ const GIFMenu: React.FC<IProps> = ({tenorGif, setTenorGif, setShowGifPicker}) =>
         setShowGifPicker(false);
       }
     },
-    []
+    [setShowGifPicker]
   );
 
   useEffect(() => {

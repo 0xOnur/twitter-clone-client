@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useEffect, useCallback} from "react";
 import { CancelIcon } from "@icons/Icon";
 import { TweetProps } from "@customTypes/TweetTypes";
 import { formatDate } from "@utils/formatDate";
@@ -16,10 +16,31 @@ const ReplyModal = ({
   composerMode,
 }: IProps) => {
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleClose = useCallback(
+    (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setShowReply(false);
+      }
+    },
+    [setShowReply]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClose);
+    return () => {
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, [handleClose]);
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex place-content-start justify-center z-30 overflow-auto">
       <div className="absolute top-16 w-full max-w-xl justify-center">
-        <div className="bg-white opacity-100 border rounded-2xl">
+        <div ref={modalRef} className="bg-white opacity-100 border rounded-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row h-14 items-center px-4">
               <button
@@ -34,9 +55,9 @@ const ReplyModal = ({
               <div className="flex flex-col py-1">
                 <div className="flex flex-col px-4">
                   <div className="flex flex-row">
-                    <div className="flex flex-col grow-0 basis-12 mr-3 items-center">
+                    <div className="flex flex-col grow-0 min-w-fit basis-12 mr-3 items-center">
                       <img
-                        src={tweet.owner.avatar}
+                        src={tweet.author.avatar}
                         alt="profile"
                         className="rounded-full w-12 h-12"
                       />
@@ -44,9 +65,9 @@ const ReplyModal = ({
                     </div>
                     <div className="flex flex-col grow">
                       <div className="flex flex-row mb-2px">
-                        <span className="font-bold">{tweet.owner.name}</span>
+                        <span className="font-bold">{tweet.author.name}</span>
                         <span className="ml-1">
-                          @{tweet.owner.username} -{" "}
+                          @{tweet.author.username} -{" "}
                           {formatDate(tweet.createdAt)}
                         </span>
                       </div>
@@ -55,20 +76,21 @@ const ReplyModal = ({
                         <span>
                           {tweet.media && (
                             tweet.media.map((image, index) => (
-                              <a href={image.url} key={index}>
+                              <span key={index}>
                                 {image.url}
-                              </a>
+                                <br/>
+                              </span>
                             ))
                           )}
                         </span>
                       </div>
                       <div>
-                        <a href={`/${tweet.owner.username}`}>
+                        <a href={`/${tweet.author.username}`}>
                           <span>
                             Replying to {" "}
                           </span>
                           <span className="text-primary-base">
-                            @{tweet.owner.username}
+                            @{tweet.author.username}
                           </span>
                         </a>
                       </div>

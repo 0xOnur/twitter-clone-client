@@ -6,81 +6,95 @@ import Avatar from "./Avatar";
 import AuthorInfo from "./AuthorInfo";
 import TweetContent from "./TweetContent";
 import TweetActions from "./TweetActions";
+import ReTweetedBy from "./ReTweetedBy";
+import classNames from "classnames";
 
-import {ReTweetIcon} from "@icons/Icon"
+import TweetStats from "./TweetStats";
 
 interface IProps {
+  pageType: string;
   tweet: TweetProps;
 }
 
-const TweetCard: React.FC<IProps> = ({ tweet }) => {
+const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
   const navigate = useNavigate();
 
-  const [composerMode, setComposerMode] = useState("")
+  const [composerMode, setComposerMode] = useState("");
 
-  
   const [showReplyModal, setShowReply] = useState(false);
 
   const handleTweetClick = (event: React.MouseEvent) => {
-    navigate(`/${tweet.author.username}/status/${tweet._id}`);
+    pageType==="home" && navigate(`/${tweet.author.username}/status/${tweet._id}`);
   };
 
-  
+  const articleClasses = classNames({
+    "cursor-pointer duration-200 hover:bg-gray-tweetHover border-b border-t": pageType === "home",
+  });
 
   return (
     <>
-      {
-        showReplyModal && (
-          <ReplyModal
-            tweet={tweet}
-            setShowReply={setShowReply}
-            composerMode={composerMode}
-          />
-        )
-      }
+      {showReplyModal && (
+        <ReplyModal
+          tweet={tweet}
+          setShowReply={setShowReply}
+          composerMode={composerMode}
+        />
+      )}
 
-      <article className="tweet relative border-b border-t" onClick={handleTweetClick}>
-        <div className="px-4 cursor-pointer min-w-min relative">
-          <div className="flex flex-col ">
-            
-            
-            <div className="pt-3">
-              <div className="flex flex-row relative items-center -mt-1 mb-1">
-                <div className="basis-12 mr-3">
-                  <span className="float-right">
-                    <ReTweetIcon className={"w-4 h-4"} />
-                  </span>
-                </div>
-                <span className="font-semibold text-gray-600 leading-5">
-                  Ahbap Retweeteed
-                </span>
-              </div>
-            </div>
+      <article className={articleClasses} onClick={handleTweetClick}>
+        <div className="px-4 min-w-fit">
+          <div className="flex flex-col mt-2">
+            {pageType !== "tweetDetails" && <ReTweetedBy />}
 
             <div className="flex flex-row">
-              <Avatar
-                avatar={tweet.author.avatar}
-                username={tweet.author.username}
-              />
               
-              <div className="flex flex-col pb-3 flex-grow">
-                <AuthorInfo
+              {pageType !== "tweetDetails" && (
+                <Avatar
+                  avatar={tweet.author.avatar}
                   username={tweet.author.username}
-                  name={tweet.author.name}
-                  createdAt={tweet.createdAt}
                 />
+              )}
+
+              <div className="flex flex-col pb-3 flex-grow">
+                {pageType === "tweetDetails" && (
+                  <div className="flex flex-row items-center">
+                    <Avatar
+                      avatar={tweet.author.avatar}
+                      username={tweet.author.username}
+                    />  
+                    <AuthorInfo
+                      pageType="tweetDetails"
+                      username={tweet.author.username}
+                      name={tweet.author.name}
+                      createdAt={tweet.createdAt}
+                    />
+                  </div>
+                )}
+
+                {pageType !== "tweetDetails" && (
+                  <AuthorInfo
+                    pageType="home"
+                    username={tweet.author.username}
+                    name={tweet.author.name}
+                    createdAt={tweet.createdAt}
+                  />
+                )}
+
+                <TweetContent tweet={tweet} />
                 
-                <TweetContent 
-                  tweet = {tweet}
-                />
+                {pageType === "tweetDetails" && (
+                  <TweetStats tweet={tweet} />
+                )}
+                
 
                 <TweetActions
+                  pageType={pageType}
                   tweet={tweet}
                   setShowReply={setShowReply}
                   setComposerMode={setComposerMode}
                 />
-                
               </div>
+
             </div>
           </div>
         </div>

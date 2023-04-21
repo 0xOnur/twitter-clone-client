@@ -61,7 +61,7 @@ const Tweet = () => {
         }
       ],
       "view": 37800,
-      "createdAt": new Date("2023-04-12T10:45:00.000Z")
+      "createdAt": new Date("2023-04-20T01:45:00.000Z")
     },
     {
       "_id": "60a3d5a3a942a21a487e7f25",
@@ -109,15 +109,13 @@ const Tweet = () => {
       "view": 1200,
       "createdAt": new Date("2023-04-12T10:45:00.000Z")
     },
-    
-
   ]);
 
   return (
     <>
       {
         tweets.map((tweet) => (
-          <MiddleSection.TweetCardComp.TweetCard key={tweet._id} tweet={tweet} />
+          <MiddleSection.TweetCardComp.TweetCard key={tweet._id} tweet={tweet} pageType="home" />
         ))
       }
     </>

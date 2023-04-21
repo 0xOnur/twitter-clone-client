@@ -6,6 +6,8 @@ export interface TweetProps {
     username: string;
     avatar: string;
   };
+  audience?: string;
+  whoCanReply?: string
   content: string;
   media?: {
       url: string;
@@ -30,7 +32,11 @@ export interface TweetProps {
       bio: string;
     }
   ];
-  quoteTweets? : TweetProps;
+  quoteTweets? : [
+    {
+      _id: string;
+    }
+  ];
   likes?: [
     {
       _id: string;
@@ -38,6 +44,11 @@ export interface TweetProps {
       username: string;
       avatar: string;
       bio: string;
+    }
+  ];
+  bookmarks? : [
+    {
+      _id: string;
     }
   ];
   view: number;

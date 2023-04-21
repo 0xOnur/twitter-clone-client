@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
-import Header from './Header'
-import Tweet from './Tweet'
+import { HeaderComp } from '@components/middleSectionComp'
+import Tweet from './TweetFeed'
 import { TweetComposer } from './ComposerComp'
 
 
-const MiddleSection: React.FC = () => {
+const HomeFeed: React.FC = () => {
 
   const [isForYou, setIsForYou] = useState(false)
 
-
   return (
-    <div className='container max-w-2xl border-x min-w-screen-sm'>
-      <Header isForYou={isForYou} setIsForYou={setIsForYou} />
+    <div className='container max-w-2xl border-x min-w-min'>
+      <HeaderComp.Header pageType='home' isForYou={isForYou} setIsForYou={setIsForYou} />
       {/* There is after header section for create twitter and something */}
       <TweetComposer
         composerMode='tweet'
@@ -20,4 +19,4 @@ const MiddleSection: React.FC = () => {
     </div>
   )
 }
-export default React.memo(MiddleSection)
+export default React.memo(HomeFeed)

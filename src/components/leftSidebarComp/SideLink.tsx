@@ -18,7 +18,7 @@ const SideLink: React.FC<IProps> = ({name, Icon}) => {
   return (
     <li className="group">
       <a
-        href={name.toLowerCase()}
+        href={`/${name.toLowerCase()}`}
         className="text-left cursor-pointer block text-xl mb-2"
       >
         <div className="inline-block">

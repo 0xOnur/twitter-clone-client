@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import HomeLayout from './layout/HomeLayout';
+import {HomeLayout, TweetDetailsLayout} from "./layout"
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
         <Route path="bookmarks" element={<HomeLayout />} />
         <Route path="lists" element={<HomeLayout />} />
         <Route path="profile" element={<HomeLayout />} />
+        <Route path="/:username/status/:tweet_id" element={<TweetDetailsLayout />} />
       </Routes>
     </div>
   );

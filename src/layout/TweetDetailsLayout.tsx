@@ -1,16 +1,16 @@
-import React from "react";
-import { MiddleSection, RightSideBar, LeftSideBar } from "@components/index";
+import React from 'react'
+import { MiddleSection, RightSideBar, LeftSideBar  } from '@components/index'
 
-const HomeLayout = () => {
+const TweetDetailsLayout = () => {
   return (
     <div className="flex min-h-screen max-w-7xl mx-auto sticky gap-3 ">
       <LeftSideBar.LeftSideBar />
       <div className="flex w-full">
-        <MiddleSection.HomeFeed />
+        <MiddleSection.TweetDetails />
         <RightSideBar.RightSidebar />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(HomeLayout);
+export default TweetDetailsLayout

@@ -8,16 +8,19 @@ import {
   LikeIcon,
   AnalyticsIcon,
   ShareIcon,
+  BookmarksIcon,
 } from "@icons/Icon";
 import { TweetProps } from "@customTypes/TweetTypes";
+import classNames from "classnames";
 
 type Props = {
+  pageType: string;
   tweet: TweetProps;
   setComposerMode: React.Dispatch<React.SetStateAction<string>>
   setShowReply: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const TweetActions = ({ tweet, setComposerMode, setShowReply }: Props) => {
+const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props) => {
   const [shareMenu, setShowShareMenu] = useState(false);
 
   const handleIconClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -29,9 +32,15 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply }: Props) => {
     }
     console.log(actionName);
   };
+
+  const testClasses = classNames({
+    "flex flex-row justify-between gap-2 mt-3 max-w-md w-full": pageType==="home",
+    "flex flex-row gap-2 justify-around h-12 items-center mx-1": pageType==="tweetDetails"
+  })
+
   return (
     <div>
-      <div className="flex flex-row justify-between gap-2 mt-3 max-w-md">
+      <div className={testClasses}>
         <button
           onClick={handleIconClick}
           name="reply"
@@ -44,7 +53,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply }: Props) => {
             </div>
             <div className="inline-flex  group-hover:text-primary-base">
               <span className="px-3 text-sm">
-                {tweet.comments && formatNumber(tweet.comments.length)}
+                {(tweet.comments && pageType === "home") && formatNumber(tweet.comments.length)}
               </span>
             </div>
           </div>
@@ -62,7 +71,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply }: Props) => {
             </div>
             <div className="inline-flex group-hover:text-green-base">
               <span className="px-3 text-sm">
-                {tweet.retweets && formatNumber(tweet.retweets.length)}
+                {(tweet.retweets && pageType === "home") && formatNumber(tweet.retweets.length)}
               </span>
             </div>
           </div>
@@ -80,29 +89,49 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply }: Props) => {
             </div>
             <div className="inline-flex  group-hover:text-red-base">
               <span className="px-3 text-sm">
-                {tweet.likes && formatNumber(tweet.likes.length)}
+                {(tweet.likes && pageType === "home") && formatNumber(tweet.likes.length)}
               </span>
             </div>
           </div>
         </button>
-
+        
         <button
           onClick={handleIconClick}
-          name="analyze"
+          name="bookmarks"
           className="group h-5 min-h-max"
         >
           <div className="flex text-base leading-5">
             <div className="inline-flex relative text-gray-dark group-hover:text-primary-base duration-150">
               <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
-              <AnalyticsIcon className={"w-5 h-5"} />
+              <BookmarksIcon isActive={false} className={"w-5 h-5"} />
             </div>
             <div className="inline-flex  group-hover:text-primary-base">
-              <span className="px-3 text-sm">{formatNumber(tweet.view)}</span>
+              <span className="px-3 text-sm">
+                {(tweet.bookmarks && pageType === "home") && formatNumber(tweet.bookmarks.length)}
+              </span>
             </div>
           </div>
         </button>
+        
+        {pageType !== "tweetDetails" && (
+          <button
+            onClick={handleIconClick}
+            name="analyze"
+            className="group h-5 min-h-max"
+          >
+            <div className="flex text-base leading-5">
+              <div className="inline-flex relative text-gray-dark group-hover:text-primary-base duration-150">
+                <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
+                <AnalyticsIcon className={"w-5 h-5"} />
+              </div>
+              <div className="inline-flex  group-hover:text-primary-base">
+                <span className="px-3 text-sm">{formatNumber(tweet.view)}</span>
+              </div>
+            </div>
+          </button>
+        )}
 
-        <div className="group h-5 min-h-max relative">
+        <button className="group h-5 min-h-max relative">
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -121,7 +150,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply }: Props) => {
               tweet={tweet}
             />
           )}
-        </div>
+        </button>
       </div>
     </div>
   );

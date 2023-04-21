@@ -46,7 +46,7 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
     }
 
   return (
-    <div ref={menuRef} className="absolute -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg">
+    <div ref={menuRef} className="absolute z-10 -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg">
       <div className="flex flex-col">
         
         <button onClick={handleClick} className="flex flex-row  hover:bg-gray-lightest rounded-t-2xl font-bold">

@@ -3,6 +3,7 @@ import { CancelIcon } from "@icons/Icon";
 import { TweetProps } from "@customTypes/TweetTypes";
 import { formatDate } from "@utils/formatDate";
 import { TweetComposer } from "../ComposerComp";
+import TweetMedia from "./TweetMedia";
 
 interface IProps {
   setShowReply: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,7 +39,7 @@ const ReplyModal = ({
   }, [handleClose]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex place-content-start justify-center z-30 overflow-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex place-content-start justify-center z-50 overflow-auto">
       <div className="absolute top-16 w-full max-w-xl justify-center">
         <div ref={modalRef} className="bg-white opacity-100 border rounded-2xl">
           <div className="flex flex-col">
@@ -73,16 +74,9 @@ const ReplyModal = ({
                       </div>
                       <div className="flex flex-col pb-3">
                         <span>{tweet.content}</span>
-                        <span>
-                          {tweet.media && (
-                            tweet.media.map((image, index) => (
-                              <span key={index}>
-                                {image.url}
-                                <br/>
-                              </span>
-                            ))
-                          )}
-                        </span>
+                        <div className="">
+                          <TweetMedia tweet={tweet} />
+                        </div>
                       </div>
                       <div>
                         <a href={`/${tweet.author.username}`}>

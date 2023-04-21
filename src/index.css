@@ -37,13 +37,3 @@ input:focus-within ~ label ~ .second-label {
     padding: 1rem 0rem 1rem 0rem;
   }
 }
-
-
-.tweet {
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.tweet:hover {
-  background-color: #f5f8fa;
-}

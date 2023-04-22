@@ -45,25 +45,47 @@ const Toolbar = ({
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
+  
     if (files) {
-      const mediaFiles = Array.from(files).map((file) => {
+      // Map the files to the mediaFiles format
+      const mediaFiles = Array.from(files).map((file) => ({
+        file,
+        url: URL.createObjectURL(file),
+        type: file.type.split("/")[0],
+      }));
+  
+      setComposerSettings((prevSettings) => {
+        // Separate the previous images and videos
+        const prevImages = prevSettings.mediaFiles.filter((media) => media.type === "image");
+        const prevVideos = prevSettings.mediaFiles.filter((media) => media.type === "video");
+  
+        // Separate the new images and videos
+        const newImages = mediaFiles.filter((media) => media.type === "image");
+        const newVideos = mediaFiles.filter((media) => media.type === "video");
+  
+        // Check if the new files violate the rules
+        if (newVideos.length > 0 && prevImages.length > 0) return prevSettings;
+        if (newImages.length > 0 && prevVideos.length > 0) return prevSettings;
+  
+        // Update the images and videos according to the rules
+        const updatedImages = [...prevImages, ...newImages].slice(0, 4);
+        const updatedVideos = newVideos.length > 0 ? [newVideos[0]] : prevVideos;
+  
+        // Return the updated mediaFiles state
         return {
-          file,
-          url: URL.createObjectURL(file),
-          type: file.type.split("/")[0],
+          ...prevSettings,
+          mediaFiles: [...updatedImages, ...updatedVideos],
         };
       });
-
-      setComposerSettings((prevmediaURLs) => ({
-        ...prevmediaURLs,
-        mediaFiles: [...prevmediaURLs.mediaFiles, ...mediaFiles],
-      }));
+      if(hiddenFileInput.current) {
+        hiddenFileInput.current.value = "";
+      }
     }
   };
 
   const hiddenFileInput = useRef<any>(null);
 
-  const handleClick = (event: any) => {
+  const handleClickFileInput = (event: any) => {
     hiddenFileInput.current?.click();
   };
 
@@ -96,7 +118,7 @@ const Toolbar = ({
         <div className="w-full flex">
           <button
             type="button"
-            onClick={handleClick}
+            onClick={handleClickFileInput}
             disabled={ComposerSettings.mediaFiles.length >= 4 || !!tenorGif || pollSettings.showPoll || ComposerSettings.mediaFiles.map((media) => media.type).includes("video")}
             className={imageButtonClasses}
           >
@@ -110,8 +132,8 @@ const Toolbar = ({
             id="select-image"
             accept="image/*,video/*,.gif"
             className="hidden"
-            multiple={true}
             ref={hiddenFileInput}
+            multiple={true}
             type="file"
             onChange={handleImageChange}
           />
@@ -155,7 +177,10 @@ const Toolbar = ({
             </span>
           </button>
 
-          <MiddleSection.ComposerComp.Emoji setTweet={setTweetText} />
+          <MiddleSection.ComposerComp.Emoji 
+            setTweet={setTweetText} 
+            composerMode={composerMode}
+          />
 
           <button
             type="button"

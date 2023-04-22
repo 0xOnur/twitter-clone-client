@@ -35,7 +35,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props)
 
   const testClasses = classNames({
     "flex flex-row justify-between gap-2 mt-3 max-w-md w-full": pageType==="home",
-    "flex flex-row gap-2 justify-around h-12 items-center mx-1": pageType==="tweetDetails"
+    "flex flex-row gap-2 justify-around h-12 items-center mx-1": pageType==="TweetDetails"
   })
 
   return (
@@ -131,14 +131,15 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props)
           </button>
         )}
 
-        <button className="group h-5 min-h-max relative">
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowShareMenu(!shareMenu);
-            }}
-            className="flex text-base leading-5 group-hover:text-primary-base duration-150"
-          >
+        <div
+          className="group h-5 min-h-max relative"
+          role="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowShareMenu(!shareMenu);
+          }}
+        >
+          <div className="flex text-base leading-5 group-hover:text-primary-base duration-150">
             <div className="inline-flex relative ">
               <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0 "></div>
               <ShareIcon className={"w-5 h-5"} />
@@ -150,7 +151,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props)
               tweet={tweet}
             />
           )}
-        </button>
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import React from 'react'
 import { HeaderComp } from '@components/middleSectionComp'
-import { TweetCard } from './TweetCardComp'
+import { TweetCard } from '../TweetCardComp'
 import {TweetProps} from "@customTypes/TweetTypes"
-import Comments from './TweetDetailsComp/Comments'
+import Comments from './Comments'
 
 const TweetDetails = () => {
 
@@ -77,7 +77,7 @@ const TweetDetails = () => {
   return (
     <div className='container max-w-screen-sm border-x min-w-screen-sm'>
         <HeaderComp.Header pageType='tweet'/>
-        <TweetCard tweet={tweet} pageType='tweetDetails' /> 
+        <TweetCard tweet={tweet} pageType='TweetDetails' /> 
         <Comments />
     </div>
   )

@@ -10,6 +10,9 @@ module.exports = {
   },
   darkMode: true, // or 'media' or 'class'
   theme: {
+    maxHeight: {
+      "90vh": "90vh",
+    },
     extend: {
       margin: {
         "2px": "2px",

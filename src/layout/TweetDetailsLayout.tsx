@@ -6,7 +6,7 @@ const TweetDetailsLayout = () => {
     <div className="flex min-h-screen max-w-7xl mx-auto sticky gap-3 ">
       <LeftSideBar.LeftSideBar />
       <div className="flex w-full">
-        <MiddleSection.TweetDetails />
+        <MiddleSection.TweetDetailsComp.TweetDetails />
         <RightSideBar.RightSidebar />
       </div>
     </div>

@@ -3,7 +3,7 @@ import {MiddleSection} from "@components/index";
 import {TweetProps} from "@customTypes/TweetTypes"
 
 
-const Tweet = () => {
+const TweetList = () => {
 
   const [tweets, setTweets] = useState<TweetProps[]>([
     {
@@ -122,4 +122,4 @@ const Tweet = () => {
   );
 };
 
-export default Tweet;
+export default TweetList;

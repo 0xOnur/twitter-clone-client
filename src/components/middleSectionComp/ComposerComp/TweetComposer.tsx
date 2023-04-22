@@ -10,9 +10,9 @@ import { ComposerSettings, Poll } from "@customTypes/ComposerTypes";
 type IProps = {
   composerMode?: string;
   tweet?: TweetProps;
-}
+};
 
-const TweetComposer = ({ composerMode }:IProps) => {
+const TweetComposer = ({ composerMode, tweet }: IProps) => {
   const [tweetText, setTweetText] = useState("");
   const [tenorGif, setTenorGif] = useState<TenorImage>();
 
@@ -63,6 +63,7 @@ const TweetComposer = ({ composerMode }:IProps) => {
     formData.append("whoCanReply", ComposerSettings.whoCanReply);
 
     console.log({
+      replyToTweetId: tweet?._id,
       composerMode: composerMode,
       tweetText: tweetText,
       tenorGif: tenorGif,
@@ -76,7 +77,7 @@ const TweetComposer = ({ composerMode }:IProps) => {
   return (
     <div>
       <div className="pt-1">
-        <div className="px-4">
+        <div className="flex flex-col">
           <div className="flex  flex-row w-full h-fit">
             <div className="w-14 h-14 mr-2 pt-1">
               <a href="/profile">
@@ -143,6 +144,7 @@ const TweetComposer = ({ composerMode }:IProps) => {
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   );

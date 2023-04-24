@@ -1,15 +1,15 @@
 import React from 'react'
 import { EveryoneIcon, TwiiterCircleIcon, SelectedIcon, MentionIcon } from '@icons/Icon'
-import {ComposerSettings} from "@customTypes/ComposerTypes"
+import {IComposer} from "@customTypes/ComposerTypes"
 
 interface IProps {
-  ComposerSettings: ComposerSettings
+  ComposerSettings: IComposer
   onClose: () => void;
 }
 
 const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
 
-  const handleItemClick = (value: string) => {
+  const handleItemClick = (value: "everyone" | "following" | "mentioned") => {
     ComposerSettings.whoCanReply = value;
     onClose();
   }
@@ -21,7 +21,7 @@ const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
         <span>Choose who can reply to this Tweet. Anyone mentioned can always reply.</span>
       </div>
 
-      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => handleItemClick("Everyone")}>
+      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => handleItemClick("everyone")}>
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
             {}
@@ -30,7 +30,7 @@ const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
             </div>
             <span className="font-bold">Everyone</span>
           </div>
-          {ComposerSettings.whoCanReply === "Everyone" && (
+          {ComposerSettings.whoCanReply === "everyone" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
@@ -38,7 +38,7 @@ const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
         </div>
       </div>
 
-      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => handleItemClick("People you follow")}>
+      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => handleItemClick("following")}>
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
             <div className="flex justify-center items-center bg-primary-base w-10 h-10 mr-3 rounded-full">
@@ -46,7 +46,7 @@ const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
             </div>
             <span className="font-bold">People you follow</span>
           </div>
-          {ComposerSettings.whoCanReply === "People you follow" && (
+          {ComposerSettings.whoCanReply === "following" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
@@ -54,7 +54,7 @@ const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
         </div>
       </div>
       
-      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => handleItemClick("Only people you mention")}>
+      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => handleItemClick("mentioned")}>
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
             <div className="flex justify-center items-center bg-primary-base w-10 h-10 mr-3 rounded-full">
@@ -62,7 +62,7 @@ const CanReplyMenu:React.FC<IProps> = ({ComposerSettings, onClose}) => {
             </div>
             <span className="font-bold">Only people you mention</span>
           </div>
-          {ComposerSettings.whoCanReply === "Only people you mention" && (
+          {ComposerSettings.whoCanReply === "mentioned" && (
             <div className="">
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>

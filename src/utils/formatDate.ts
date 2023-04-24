@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const formatDate = (date: Date): string => {
+export const formatDate = (date: string): string => {
   const now = moment();
   const tweetMoment = moment(date);
   const diffInMinutes = now.diff(tweetMoment, "minutes");
@@ -17,6 +17,3 @@ export const formatDate = (date: Date): string => {
     return tweetMoment.format("MMM D");
   }
 };
-
-const tweetDate = new Date("2023-04-20T21:26:00");
-console.log(formatDate(tweetDate));

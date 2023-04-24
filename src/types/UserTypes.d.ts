@@ -1,17 +1,14 @@
-export interface User {
+export interface IUser {
     _id: string;
-    name: string;
+    displayName: string;
     username: string;
-    email: string;
+    email?: string;
     bio?: string;
     location?: string;
-    avatar: string;
+    avatar?: string;
     cover?: string;
-    following?: [
-        {
-            _id: string;
-        }
-    ];
-    createdAt: Date;
-    updatedAt: Date;
-}
+    following?: IUser[]; // Assuming an array of user IDs
+    createdAt: string; // Assuming date is received as a string (e.g., ISO 8601 format)
+    updatedAt?: string; // Assuming date is received as a string (e.g., ISO 8601 format)
+  }
+  

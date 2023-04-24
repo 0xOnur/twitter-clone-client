@@ -1,6 +1,6 @@
-export interface ComposerSettings {
-    Audience: string;
-    whoCanReply: string;
+export interface IComposer {
+    audience: "everyone" | "specificUsers";
+    whoCanReply: "everyone" | "following" | "mentioned";
     mediaFiles: {
         file: File;
         url: string;
@@ -8,7 +8,7 @@ export interface ComposerSettings {
     }[];
 }
 
-export interface Poll {
+export interface IPoll {
     pollTimer: {
         days: number;
         hours: number;

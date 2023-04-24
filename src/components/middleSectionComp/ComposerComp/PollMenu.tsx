@@ -1,10 +1,10 @@
 import React from "react";
 import { AddThreadIcon, DropDownMenuArrowIcon } from "@icons/Icon";
-import {Poll} from "@customTypes/ComposerTypes"
+import {IPoll} from "@customTypes/ComposerTypes"
 
 interface IProps {
-  pollSettings: Poll;
-  setPollSettings: React.Dispatch<React.SetStateAction<Poll>>;
+  pollSettings: IPoll;
+  setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
 }
 
 

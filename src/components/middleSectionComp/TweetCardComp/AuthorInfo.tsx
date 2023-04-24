@@ -7,30 +7,31 @@ type Props = {
   pageType: string
   name: string;
   username: string;
-  createdAt: Date;
+  createdAt: string;
 };
 
 const AuthorInfo = ({ name, username, createdAt, pageType }: Props) => {
 
-  const userClasses = classNames("flex items-center", {
-    "flex-row": pageType === "home",
+  const userFlexClasses = classNames("flex ", {
+    "flex-row items-center": pageType === "home",
     "flex-col": pageType === "tweetDetails",
   })
+
 
   return (
     <div className="flex flex-col relative min-w-max mb-2px w-full">
       <div className="flex flex-row justify-between items-center">
-        <div className={userClasses}>
+        <div className={userFlexClasses}>
           <div className="text-lg">
             <a href={`/${username}`}>
-              <span className="font-bold">{name}</span>
+              <span className="font-bold hover:underline underline-offset-1">{name}</span>
             </a>
           </div>
-          <div className="ml-1">
+          <div>
             <a href={`/${username}`}>
               {pageType === "home" ? (
                 <div>
-                  <span className="text-gray-dark">@{username} - </span>
+                  <span className="text-gray-dark ml-1">@{username} - </span>
                   <span>{formatDate(createdAt)}</span>
                 </div>
               ): (

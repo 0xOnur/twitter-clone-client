@@ -1,56 +1,27 @@
-export interface TweetProps {
+import IUser from "./UserTypes"
+
+export interface Media {
+  url: string;
+  alt: string;
+  type: "image" | "gif" | "video";
+}
+
+export interface ITweet {
   _id: string;
-  author: {
-    id: string;
-    name: string;
-    username: string;
-    avatar: string;
-  };
-  audience?: string;
-  whoCanReply?: string
-  content: string;
-  media?: {
-      url: string;
-      alt: string;
-      type: string;
-    }[];
-  comments?: [
-    {
-      _id: string;
-      userId: string;
-      username: string;
-      comment: string;
-      createdAt: Date;
-    }
-  ];
-  retweets?: [
-    {
-      _id: string;
-      userId: string;
-      username: string;
-      avatar: string;
-      bio: string;
-    }
-  ];
-  quoteTweets? : [
-    {
-      _id: string;
-    }
-  ];
-  likes?: [
-    {
-      _id: string;
-      userId: string;
-      username: string;
-      avatar: string;
-      bio: string;
-    }
-  ];
-  bookmarks? : [
-    {
-      _id: string;
-    }
-  ];
+  author: IUser;
+  audience: "everyone" | "followers" | "specificUsers";
+  specificAudience?: IUser[];
+  whoCanReply: "everyone" | "following" | "mentioned";
+  content?: string;
+  media?: Media[];
+  likes?: IUser[];
+  retweets?: IUser[];
+  quoteTweets?: ITweet[];
+  bookmarks?: IUser[];
+  replyTweets?: ITweet[];
+  originalTweet?: ITweet;
+  tweetType: "tweet" | "reply" | "retweet" | "quote";
   view: number;
-  createdAt: Date;
+  createdAt: string; // Assuming date is received as a string (e.g., ISO 8601 format)
+  updatedAt?: string; // Assuming date is received as a string (e.g., ISO 8601 format)
 }

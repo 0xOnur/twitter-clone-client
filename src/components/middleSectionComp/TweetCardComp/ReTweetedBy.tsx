@@ -1,7 +1,12 @@
 import React from 'react'
 import { ReTweetIcon } from '@icons/Icon'
+import {IUser} from "@customTypes/UserTypes"
 
-const ReTweetedBy = () => {
+interface IProps {
+  reTweeterUser: IUser,
+}
+
+const ReTweetedBy = ({reTweeterUser}:IProps) => {
   return (
     <div>
         <div className="flex flex-row relative items-center -mt-1 mb-1">
@@ -11,7 +16,7 @@ const ReTweetedBy = () => {
             </span>
         </div>
         <span className="font-semibold text-gray-600 leading-5">
-            Ahbap Retweeteed
+            {reTweeterUser.displayName} Retweeted
         </span>
         </div>
     </div>

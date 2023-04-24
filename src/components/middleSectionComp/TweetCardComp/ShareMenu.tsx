@@ -5,12 +5,12 @@ import {
   BookmarkPlusIcon,
   ShareIcon,
 } from "@icons/Icon";
-import { TweetProps } from "@customTypes/TweetTypes";
+import { ITweet } from "@customTypes/TweetTypes";
 
 
 interface IProps {
     onClose: () => void;
-    tweet: TweetProps;
+    tweet: ITweet;
 }
 
 const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {

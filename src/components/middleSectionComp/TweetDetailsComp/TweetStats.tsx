@@ -1,10 +1,10 @@
 import React from "react";
 import { formatDetailedDate } from "@utils/formatDetailedDate";
 import { formatNumber } from "@utils/formatNumber";
-import { TweetProps } from "@customTypes/TweetTypes";
+import { ITweet } from "@customTypes/TweetTypes";
 
 type IProps = {
-    tweet: TweetProps;
+    tweet: ITweet;
 }
 
 const TweetStats = ({tweet}: IProps) => {

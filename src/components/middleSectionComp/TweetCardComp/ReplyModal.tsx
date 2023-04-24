@@ -1,14 +1,14 @@
 import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CancelIcon } from "@icons/Icon";
-import { TweetProps } from "@customTypes/TweetTypes";
+import { ITweet } from "@customTypes/TweetTypes";
 import { formatDate } from "@utils/formatDate";
 import { TweetComposer } from "../ComposerComp";
 import TweetMedia from "./TweetMedia";
 
 interface IProps {
   isOpen: boolean;
-  tweet: TweetProps;
+  tweet: ITweet;
   composerMode: string;
   onClose: () => void;
 }
@@ -47,7 +47,7 @@ const ReplyModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                         <div className="flex flex-col grow">
                           <div className="flex flex-row mb-2px">
                             <span className="font-bold">
-                              {tweet.author.name}
+                              {tweet.author.displayName}
                             </span>
                             <span className="ml-1">
                               @{tweet.author.username} -{" "}
@@ -74,7 +74,7 @@ const ReplyModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                     <div className="h-full px-4">
                       <TweetComposer
                         composerMode={composerMode}
-                        tweet={tweet}
+                        originalTweet={tweet}
                       />
                     </div>
                   </div>

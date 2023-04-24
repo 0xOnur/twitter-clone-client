@@ -10,12 +10,12 @@ import {
   ShareIcon,
   BookmarksIcon,
 } from "@icons/Icon";
-import { TweetProps } from "@customTypes/TweetTypes";
+import { ITweet } from "@customTypes/TweetTypes";
 import classNames from "classnames";
 
 type Props = {
   pageType: string;
-  tweet: TweetProps;
+  tweet: ITweet;
   setComposerMode: React.Dispatch<React.SetStateAction<string>>
   setShowReply: React.Dispatch<React.SetStateAction<boolean>>
 };
@@ -53,7 +53,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props)
             </div>
             <div className="inline-flex  group-hover:text-primary-base">
               <span className="px-3 text-sm">
-                {(tweet.comments && pageType === "home") && formatNumber(tweet.comments.length)}
+                {(tweet.replyTweets && pageType === "home") && formatNumber(tweet.replyTweets.length)}
               </span>
             </div>
           </div>

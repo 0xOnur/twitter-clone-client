@@ -9,16 +9,16 @@ import {
 import { MiddleSection } from "@components/index";
 import { TenorImage } from "gif-picker-react";
 import classNames from "classnames";
-import {ComposerSettings, Poll} from "@customTypes/ComposerTypes"
+import {IComposer, IPoll} from "@customTypes/ComposerTypes"
 
 type Props = {
   composerMode: string | undefined;
   
-  ComposerSettings: ComposerSettings
-  setComposerSettings: React.Dispatch<React.SetStateAction<ComposerSettings>>
+  ComposerSettings: IComposer
+  setComposerSettings: React.Dispatch<React.SetStateAction<IComposer>>
   
-  pollSettings: Poll;
-  setPollSettings: React.Dispatch<React.SetStateAction<Poll>>;
+  pollSettings: IPoll;
+  setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
 
   tweetText: string;
   setTweetText: React.Dispatch<React.SetStateAction<string>>;

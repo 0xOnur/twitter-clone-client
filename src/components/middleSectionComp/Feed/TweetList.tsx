@@ -1,22 +1,32 @@
 import React, { useState } from "react";
 import {MiddleSection} from "@components/index";
-import {TweetProps} from "@customTypes/TweetTypes"
+import {IUser, ITweet} from "@customTypes/index"
 
 
 const TweetList = () => {
+  // const [user, setUser] = useState<IUser>({} as IUser);
 
-  const [tweets, setTweets] = useState<TweetProps[]>([
+  const initialUser: IUser = {
+    _id: "60e1c7b0b0b5a40015b0b0b0",
+    displayName: "onur",
+    username: "0xZero",
+    avatar: "https://pbs.twimg.com/profile_images/1504849693452427265/08B4ILCz_400x400.jpg",
+    email: "onurabat3@gmail.com",
+    createdAt: "2023-04-01T15:30:00.000Z",
+  };
+
+  const [user, setUser] = useState<IUser>(initialUser);
+
+  const [tweets, setTweets] = useState<ITweet[]>([
     {
-      "_id": "60a3d5a3a942a21a487e7f26",
-      "author": {
-        "id": "60a2c1b2a942a21a487e7f2",
-        "name": "John Doe",
-        "username": "uniquser",
-        "avatar": "https://pbs.twimg.com/profile_images/1504849693452427265/08B4ILCz_400x400.jpg"
-      },
-      "content": "Im new here :)",
-      "media": [
-        
+      _id: "60e1c7b0b0b5a40015b0b0b0",
+      author: user,
+      audience: "everyone",
+      whoCanReply: "everyone",
+      content: "Im new here :)",
+      tweetType: "retweet",
+      media: [
+      
         {
           "url": "https://image.lexica.art/full_jpg/a7b048f4-e1f9-43f4-8f40-f6f91bb9ee97",
           "alt": "Portrait of a queen with long marsala color braided hair",
@@ -33,81 +43,36 @@ const TweetList = () => {
           "type": "image"
         }
       ],
-      "comments": [
-        {
-          "_id": "60a3d5a3a942a21a487e7f26",
-          "userId": "60a2c1b2a942a21a487e7f21",
-          "username": "commenting_user",
-          "comment": "",
-          "createdAt": new Date("2023-04-11T10:55:00.000Z")
-        }
+      retweets: [
+        user,
       ],
-      "retweets": [
+      replyTweets: [
         {
-          "_id": "60a3d5a3a942a21a487e7f27",
-          "userId": "60a2c1b2a942a21a487e7f22",
-          "username": "retweeting_user",
-          "avatar": "https://example.com/avatar.jpg",
-          "bio": "Hi, I am the retweeting user.",
-        }
-      ],
-      "likes": [
-        {
-          "_id": "60a3d5a3a942a21a487e7f28",
-          "userId": "60a2c1b2a942a21a487e7f23",
-          "username": "liking_user",
-          "avatar": "https://example.com/avatar.jpg",
-          "bio": "Hi, I am the liking user.",
-        }
-      ],
-      "view": 37800,
-      "createdAt": new Date("2023-04-20T01:45:00.000Z")
-    },
-    {
-      "_id": "60a3d5a3a942a21a487e7f25",
-      "author": {
-        "id": "60a2c1b2a942a21a487e7f20",
-        "name": "John Doe",
-        "username": "uniquser",
-        "avatar": "https://pbs.twimg.com/profile_images/1545489373143224321/M6KIvOIY_400x400.jpg"
-      },
-      "content": "Hello World!",
-      "media": [
-        {
-          "url": "https://image.lexica.art/full_jpg/c05d0414-5837-48dc-a40c-ffbda7dded22",
-          "alt": "Giant rodents hug everyone cozy village snow",
-          "type": "image"
+          _id: "60e1c7b0b0b5a40015b0b0b0",
+          author: {
+            _id: "60e1c7b0b0b5a40015b0b0b0",
+            displayName: "ahbap",
+            username: "ahbap",
+          },
+          audience: "everyone",
+          whoCanReply: "everyone",
+          tweetType: "tweet",
+          content: "Im new here :)",
+          view: 3800,
+          createdAt: "2023-04-01T15:30:00.000Z",
         },
       ],
-      "comments": [
-        {
-          "_id": "60a3d5a3a942a21a487e7f26",
-          "userId": "60a2c1b2a942a21a487e7f21",
-          "username": "commenting_user",
-          "comment": "",
-          "createdAt": new Date("2023-04-11T10:55:00.000Z")
-        }
+      likes: [
+        user,
       ],
-      "retweets": [
-        {
-          "_id": "60a3d5a3a942a21a487e7f27",
-          "userId": "60a2c1b2a942a21a487e7f22",
-          "username": "retweeting_user",
-          "avatar": "https://example.com/avatar.jpg",
-          "bio": "Hi, I am the retweeting user.",
-        }
+      bookmarks: [
+        user,
       ],
-      "likes": [
-        {
-          "_id": "60a3d5a3a942a21a487e7f28",
-          "userId": "60a2c1b2a942a21a487e7f23",
-          "username": "liking_user",
-          "avatar": "https://example.com/avatar.jpg",
-          "bio": "Hi, I am the liking user.",
-        }
-      ],
-      "view": 1200,
-      "createdAt": new Date("2023-04-12T10:45:00.000Z")
+
+
+      view: 3800,
+      createdAt: "2023-04-01T15:30:00.000Z",
+      updatedAt: "2023-04-01T15:30:00.000Z",
     },
   ]);
 

@@ -1,9 +1,9 @@
 import React from "react";
-import { TweetProps } from "@customTypes/TweetTypes";
+import { ITweet } from "@customTypes/TweetTypes";
 import classNames from "classnames";
 
 type Props = {
-  tweet: TweetProps;
+  tweet: ITweet;
 };
 
 const TweetMedia = ({ tweet }: Props) => {

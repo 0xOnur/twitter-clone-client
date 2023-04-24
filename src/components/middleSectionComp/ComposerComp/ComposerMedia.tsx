@@ -2,11 +2,11 @@ import React from "react";
 import classNames from "classnames";
 import { TenorImage } from "gif-picker-react";
 import { RemoveItemIcon } from "@icons/Icon";
-import { ComposerSettings } from "@customTypes/ComposerTypes";
+import { IComposer } from "@customTypes/ComposerTypes";
 
 type Props = {
-  ComposerSettings: ComposerSettings;
-  setComposerSettings: React.Dispatch<React.SetStateAction<ComposerSettings>>;
+  ComposerSettings: IComposer;
+  setComposerSettings: React.Dispatch<React.SetStateAction<IComposer>>;
   tenorGif: TenorImage | undefined;
   setTenorGif: React.Dispatch<React.SetStateAction<TenorImage | undefined>>;
 };

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { EveryoneIcon, MentionIcon, TwiiterCircleIcon } from "../../../icons/Icon";
 import CanReplyMenu from "./CanReplyMenu";
-import {ComposerSettings} from "@customTypes/ComposerTypes"
+import {IComposer} from "@customTypes/ComposerTypes"
 
 interface IProps {
-  ComposerSettings: ComposerSettings
+  ComposerSettings: IComposer
 }
 
 const ChooseCanReply: React.FC<IProps> = ({ComposerSettings}) => {
@@ -46,11 +46,11 @@ const ChooseCanReply: React.FC<IProps> = ({ComposerSettings}) => {
         >
           <span className="mr-1">
             {
-              ComposerSettings.whoCanReply === "Everyone" ? (<EveryoneIcon className={"w-4 h-4"} />) : ComposerSettings.whoCanReply === "People you follow" ? (<TwiiterCircleIcon className={"w-4 h-4"} />) : (<MentionIcon className={"w-4 h-4"} />)
+              ComposerSettings.whoCanReply === "everyone" ? (<EveryoneIcon className={"w-4 h-4"} />) : ComposerSettings.whoCanReply === "following" ? (<TwiiterCircleIcon className={"w-4 h-4"} />) : (<MentionIcon className={"w-4 h-4"} />)
             }
           </span>
           <span className="text-sm font-bold py-1">
-            {ComposerSettings.whoCanReply} can reply
+            {ComposerSettings.whoCanReply === "everyone" ? "Everyone" : ComposerSettings.whoCanReply=== "following" ? "People you follow" : "Only people you mention"} can reply
           </span>
         </button>
       </div>

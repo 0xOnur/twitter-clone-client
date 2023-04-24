@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { DropDownMenuArrowIcon } from "../../../icons/Icon";
 import AudienceMenu from "./AudienceMenu";
-import {ComposerSettings} from "@customTypes/ComposerTypes"
+import {IComposer} from "@customTypes/ComposerTypes"
+import classNames from "classnames";
 
 interface IProps {
-  ComposerSettings: ComposerSettings
+  ComposerSettings: IComposer
 }
 
 const ChooseAudience: React.FC<IProps> = ({ComposerSettings}) => {
@@ -35,6 +36,11 @@ const ChooseAudience: React.FC<IProps> = ({ComposerSettings}) => {
 
   const [showMenu, setShowMenu] = useState(false);
 
+  const audienceClasses= classNames("border rounded-full inline-flex items-center px-3 py-0.5", {
+    "text-primary-base hover:bg-primary-extraLight": ComposerSettings.audience === "everyone",
+    "text-green-500 hover:bg-green-50": ComposerSettings.audience === "specificUsers",
+  })
+
   return (
     <>
         <div className="relative inline-flex pb-3">
@@ -42,10 +48,10 @@ const ChooseAudience: React.FC<IProps> = ({ComposerSettings}) => {
             ref={audienceButtonRef}
             type="button"
             onClick={() => setShowMenu(!showMenu)}
-            className="text-primary-base cursor-pointer hover:bg-primary-extraLight border rounded-full inline-flex items-center px-3"
+            className={audienceClasses}
           >
-            <span className="text-sm font-medium">{ComposerSettings.Audience}</span>
-            <span className="">
+            <span className="text-sm font-medium">{ComposerSettings.audience === "everyone" ? "Everyone" : "Twitter Circle"}</span>
+            <span className="ml-1">
               <DropDownMenuArrowIcon />
             </span>
           </button>

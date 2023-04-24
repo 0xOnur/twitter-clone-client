@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TweetProps } from "@customTypes/TweetTypes";
+import { ITweet } from "@customTypes/TweetTypes";
 import ReplyModal from "./ReplyModal";
 import Avatar from "./Avatar";
 import AuthorInfo from "./AuthorInfo";
@@ -14,7 +14,7 @@ import { ComposerComp } from "@components/middleSectionComp";
 
 interface IProps {
   pageType: string;
-  tweet: TweetProps;
+  tweet: ITweet;
 }
 
 const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
@@ -48,7 +48,8 @@ const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
       <article className={articleClasses} onClick={handleTweetClick}>
         <div className="px-4 min-w-fit">
           <div className="flex flex-col mt-2">
-            {pageType !== "TweetDetails" && <ReTweetedBy />}
+
+            {(pageType === "home" && tweet.tweetType === "retweet") && <ReTweetedBy reTweeterUser={tweet.author} />}
 
             <div className="flex flex-row">
               {pageType !== "TweetDetails" && (
@@ -68,7 +69,7 @@ const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
                     <AuthorInfo
                       pageType="tweetDetails"
                       username={tweet.author.username}
-                      name={tweet.author.name}
+                      name={tweet.author.displayName}
                       createdAt={tweet.createdAt}
                     />
                   </div>
@@ -78,7 +79,7 @@ const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
                   <AuthorInfo
                     pageType="home"
                     username={tweet.author.username}
-                    name={tweet.author.name}
+                    name={tweet.author.displayName}
                     createdAt={tweet.createdAt}
                   />
                 )}
@@ -95,19 +96,19 @@ const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
                 />
 
                 {pageType === "TweetDetails" && (
-                  <a href={`/${tweet.author.username}`}>
                     <div className="flex flex-row">
-                      <div className="basis-12"></div>
-                      <span>Replying to </span>
-                      <span className="text-primary-base">
-                        @{tweet.author.username}
-                      </span>
+                      <div className="w-14"></div>
+                      <a href={`/${tweet.author.username}`}>
+                              <span>Replying to </span>
+                              <span className="text-primary-base">
+                                @{tweet.author.username}
+                              </span>
+                            </a>
                     </div>
-                  </a>
                 )}
 
                 {pageType === "TweetDetails" && (
-                  <ComposerComp.TweetComposer composerMode={composerMode} tweet={tweet} />
+                  <ComposerComp.TweetComposer composerMode={composerMode} originalTweet={tweet} />
                 )}
               </div>
             </div>

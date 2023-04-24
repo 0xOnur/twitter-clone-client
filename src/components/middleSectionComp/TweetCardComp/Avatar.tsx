@@ -12,7 +12,7 @@ const Avatar = ({avatar, username}:Props) => {
             <img
             src={avatar}
             alt="profile"
-            className="rounded-full w-12 h-12"
+            className="rounded-full w-12 h-12 hover:brightness-90"
             />
         </a>
     </div>

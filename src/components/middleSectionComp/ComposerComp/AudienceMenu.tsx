@@ -1,16 +1,16 @@
 import React from "react";
 import {  EveryoneIcon, TwiiterCircleIcon, SelectedIcon } from "../../../icons/Icon";
-import {ComposerSettings} from "@customTypes/ComposerTypes"
+import {IComposer} from "@customTypes/ComposerTypes"
 
 interface IProps {
-  ComposerSettings: ComposerSettings;
+  ComposerSettings: IComposer;
   onClose: () => void;
 }
 
 export const AudienceMenu: React.FC<IProps> = ({ComposerSettings, onClose}) => {
   
-  const handleItemClick = (value: string) => {
-    ComposerSettings.Audience = value;
+  const handleItemClick = (value: "everyone" | "specificUsers") => {
+    ComposerSettings.audience = value;
     onClose();
   }
 
@@ -20,7 +20,7 @@ export const AudienceMenu: React.FC<IProps> = ({ComposerSettings, onClose}) => {
         <span className="text-lg font-bold">Choose Audience</span>
       </div>
 
-      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={() => (handleItemClick("Everyone"))}>
+      <button className="hover:bg-gray-rightbar cursor-pointer" onClick={() => (handleItemClick("everyone"))}>
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
             {}
@@ -29,30 +29,30 @@ export const AudienceMenu: React.FC<IProps> = ({ComposerSettings, onClose}) => {
             </div>
             <span className="font-bold">Everyone</span>
           </div>
-          {ComposerSettings.Audience === "Everyone" && (
-            <div className="">
+          {ComposerSettings.audience === "everyone" && (
+            <div>
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
           )}
             
         </div>
-      </div>
+      </button>
 
-      <div className="hover:bg-gray-rightbar cursor-pointer" onClick={()=> (handleItemClick("People you follow"))}>
+      <button className="hover:bg-gray-rightbar cursor-pointer" onClick={()=> (handleItemClick("specificUsers"))}>
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
-            <div className="flex justify-center items-center bg-primary-base w-10 h-10 mr-3 rounded-full">
+            <div className="flex justify-center items-center bg-green-500 w-10 h-10 mr-3 rounded-full">
                 <TwiiterCircleIcon className={"h-5 w-5 text-white"} />
             </div>
-            <span className="font-bold">People you follow</span>
+            <span className="font-bold">Twitter Circle</span>
           </div>
-          {ComposerSettings.Audience === "People you follow" && (
-            <div className="">
+          {ComposerSettings.audience === "specificUsers" && (
+            <div>
               <span className="text-primary-base"> <SelectedIcon className={"w-5 h-5"} /> </span>
             </div>
           )}
         </div>
-      </div>
+      </button>
 
     </div>
   );

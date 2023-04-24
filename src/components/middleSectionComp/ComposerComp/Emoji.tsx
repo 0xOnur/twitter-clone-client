@@ -44,7 +44,7 @@ const Emoji: React.FC<IProps> = ({ setTweet, composerMode }) => {
 
   const pickerClasses = classNames("absolute z-10",
     {
-      "bottom-0": composerMode === "reply",
+      "bottom-0": composerMode === "reply" || composerMode === "quote",
     },)
 
   return (

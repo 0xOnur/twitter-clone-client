@@ -39,9 +39,18 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        const tweetUrl = window.location.origin + `/${tweet.author.username}/status/${tweet._id}`
-        navigator.clipboard.writeText(tweetUrl)
-        console.log(tweetUrl)
+        const actionName = e.currentTarget.name;
+        
+        if(actionName=== "copy") {
+          const tweetUrl = window.location.origin + `/${tweet.author.username}/status/${tweet._id}`
+          navigator.clipboard.writeText(tweetUrl)
+          console.log(tweetUrl)
+        }
+
+        if(actionName=== "bookmark") {
+          console.log(actionName)
+        }
+        
         onClose();
     }
 
@@ -49,7 +58,7 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
     <div ref={menuRef} className="absolute z-10 -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg">
       <div className="flex flex-col">
         
-        <button onClick={handleClick} className="flex flex-row  hover:bg-gray-lightest rounded-t-2xl font-bold">
+        <button onClick={handleClick} name="copy" className="flex flex-row  hover:bg-gray-lightest rounded-t-2xl font-bold">
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
               <CopyTweetIcon className={"w-5 h-5"} />
@@ -60,7 +69,7 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
           </div>
         </button>
 
-        <button onClick={handleClick} className="flex flex-row hover:bg-gray-lightest font-bold">
+        <button onClick={handleClick} className="flex flex-row cursor-not-allowed hover:bg-gray-lightest font-bold">
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
               <ShareIcon className={"w-5 h-5"} />
@@ -71,7 +80,7 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
           </div>
         </button>
 
-        <button onClick={handleClick} className="flex flex-row hover:bg-gray-lightest font-bold">
+        <button onClick={handleClick} className="flex flex-row cursor-not-allowed hover:bg-gray-lightest font-bold">
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
               <MessagesIcon isActive={false} className={"w-5 h-5"} />
@@ -82,7 +91,7 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
           </div>
         </button>
 
-        <button onClick={handleClick} className="flex flex-row hover:bg-gray-lightest rounded-b-2xl font-bold">
+        <button onClick={handleClick} name="bookmark" className="flex flex-row hover:bg-gray-lightest rounded-b-2xl font-bold">
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
               <BookmarkPlusIcon className={"w-5 h-5"} />

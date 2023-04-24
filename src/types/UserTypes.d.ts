@@ -3,6 +3,7 @@ export interface IUser {
     displayName: string;
     username: string;
     email?: string;
+    isVerified: boolean;
     bio?: string;
     location?: string;
     avatar?: string;

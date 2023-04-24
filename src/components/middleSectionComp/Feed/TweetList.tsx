@@ -10,6 +10,7 @@ const TweetList = () => {
     _id: "60e1c7b0b0b5a40015b0b0b0",
     displayName: "onur",
     username: "0xZero",
+    isVerified: true,
     avatar: "https://pbs.twimg.com/profile_images/1504849693452427265/08B4ILCz_400x400.jpg",
     email: "onurabat3@gmail.com",
     createdAt: "2023-04-01T15:30:00.000Z",

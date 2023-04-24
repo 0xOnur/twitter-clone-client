@@ -69,7 +69,8 @@ const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
                     <AuthorInfo
                       pageType="tweetDetails"
                       username={tweet.author.username}
-                      name={tweet.author.displayName}
+                      displayName={tweet.author.displayName}
+                      isVerified={tweet.author.isVerified}
                       createdAt={tweet.createdAt}
                     />
                   </div>
@@ -79,7 +80,8 @@ const TweetCard: React.FC<IProps> = ({ tweet, pageType }) => {
                   <AuthorInfo
                     pageType="home"
                     username={tweet.author.username}
-                    name={tweet.author.displayName}
+                    displayName={tweet.author.displayName}
+                    isVerified={tweet.author.isVerified}
                     createdAt={tweet.createdAt}
                   />
                 )}

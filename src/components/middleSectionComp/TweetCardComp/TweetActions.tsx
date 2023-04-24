@@ -12,16 +12,19 @@ import {
 } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
 import classNames from "classnames";
+import ReTweetMenu from "./ReTweetMenu";
 
 type Props = {
   pageType: string;
   tweet: ITweet;
   setComposerMode: React.Dispatch<React.SetStateAction<string>>
   setShowReply: React.Dispatch<React.SetStateAction<boolean>>
+  setQuoteModal: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props) => {
+const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pageType }: Props) => {
   const [shareMenu, setShowShareMenu] = useState(false);
+  const [reTweetMenu, setRetweetMenu] = useState(false);
 
   const handleIconClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -59,10 +62,10 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props)
           </div>
         </button>
 
-        <button
-          onClick={handleIconClick}
-          name="retweet"
-          className="group h-5 min-h-max"
+
+        <div
+          onClick={(e)=> {setRetweetMenu(!reTweetMenu); e.stopPropagation()}}
+          className="group h-5 min-h-max relative"
         >
           <div className="flex text-base leading-5">
             <div className="inline-flex relative text-gray-dark group-hover:text-green-base duration-150">
@@ -75,7 +78,11 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, pageType }: Props)
               </span>
             </div>
           </div>
-        </button>
+          {reTweetMenu && (<ReTweetMenu onClose={()=> setRetweetMenu(false)} tweet={tweet} setQuoteModal={setQuoteModal} />
+)}
+        </div>
+
+
 
         <button
           onClick={handleIconClick}

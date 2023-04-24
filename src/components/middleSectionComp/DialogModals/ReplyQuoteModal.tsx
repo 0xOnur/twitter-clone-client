@@ -3,8 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CancelIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
 import { TweetComposer } from "@components/middleSectionComp/ComposerComp";
-import {TweetCardComp} from "@components/middleSectionComp"
-
+import { TweetCardComp } from "@components/middleSectionComp";
 
 interface IProps {
   isOpen: boolean;
@@ -13,7 +12,7 @@ interface IProps {
   onClose: () => void;
 }
 
-const ReplyModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
+const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
   return (
     <Transition show={isOpen} as={React.Fragment}>
       <Dialog static open={isOpen} onClose={onClose}>
@@ -22,15 +21,17 @@ const ReplyModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
 
           <div className="absolute top-16 w-full max-w-xl justify-center">
             <div className="bg-white opacity-100 border rounded-2xl overflow-hidden">
-              <div className="flex flex-col max-h-90vh overflow-y-auto">
-                <div className="flex flex-row h-14 items-center px-4">
-                  <button
-                    type="button"
-                    onClick={onClose}
-                    className="p-3 -ml-2 hover:bg-gray-extraLight rounded-full"
-                  >
-                    <CancelIcon className={"w-5 h-5"} />
-                  </button>
+              <div className="overflow-y-auto max-h-90vh">
+                <div className="sticky top-0 z-10">
+                  <div className="flex flex-row justify-start items-center p-3 bg-white/80  backdrop-blur-md border-gray-200">
+                    <button
+                      type="button"
+                      onClick={onClose}
+                      className="p-3 hover:bg-gray-extraLight rounded-full"
+                    >
+                      <CancelIcon className={"w-5 h-5"} />
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <div className="flex flex-col py-1">
@@ -85,4 +86,4 @@ const ReplyModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
   );
 };
 
-export default ReplyModal;
+export default ReplyQuoteModal;

@@ -27,7 +27,7 @@ const TextArea = ({tweetText, setTweetText, composerMode}:Props) => {
             placeholder={
                 composerMode === "reply"
                 ? "Tweet your reply"
-                : composerMode === "retweet"
+                : composerMode === "quote"
                 ? "Add a comment"
                 : "What's happening?"
             }

@@ -1,18 +1,19 @@
 import React from "react";
 import { formatDate } from "@utils/index";
-import { TreeDotIcon } from "@icons/Icon";
+import { TreeDotIcon, VerifiedIcon } from "@icons/Icon";
 import classNames from "classnames";
 
 type Props = {
   pageType: string
-  name: string;
+  displayName: string;
   username: string;
+  isVerified: boolean;
   createdAt: string;
 };
 
-const AuthorInfo = ({ name, username, createdAt, pageType }: Props) => {
+const AuthorInfo = ({ displayName, username, createdAt, pageType, isVerified }: Props) => {
 
-  const userFlexClasses = classNames("flex ", {
+  const userFlexClasses = classNames("flex", {
     "flex-row items-center": pageType === "home",
     "flex-col": pageType === "tweetDetails",
   })
@@ -22,10 +23,11 @@ const AuthorInfo = ({ name, username, createdAt, pageType }: Props) => {
     <div className="flex flex-col relative min-w-max mb-2px w-full">
       <div className="flex flex-row justify-between items-center">
         <div className={userFlexClasses}>
-          <div className="text-lg">
+          <div className="flex text-lg items-center" >
             <a href={`/${username}`}>
-              <span className="font-bold hover:underline underline-offset-1">{name}</span>
+              <span className="font-bold hover:underline underline-offset-1">{displayName}</span>
             </a>
+            <span className="text-primary-base ml-1">{isVerified === true && (<VerifiedIcon className={"w-5 h-5"} />)}</span>
           </div>
           <div>
             <a href={`/${username}`}>

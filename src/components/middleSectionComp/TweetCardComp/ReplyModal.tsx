@@ -2,9 +2,9 @@ import React from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CancelIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
-import { formatDate } from "@utils/formatDate";
-import { TweetComposer } from "../ComposerComp";
-import TweetMedia from "./TweetMedia";
+import { TweetComposer } from "@components/middleSectionComp/ComposerComp";
+import {TweetCardComp} from "@components/middleSectionComp"
+
 
 interface IProps {
   isOpen: boolean;
@@ -37,27 +37,24 @@ const ReplyModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                     <div className="flex flex-col px-4">
                       <div className="flex flex-row">
                         <div className="flex flex-col grow-0 min-w-fit basis-12 mr-3 items-center">
-                          <img
-                            src={tweet.author.avatar}
-                            alt="profile"
-                            className="rounded-full w-12 h-12"
+                          <TweetCardComp.Avatar
+                            avatar={tweet.author.avatar}
+                            username={tweet.author.username}
                           />
-                          <div className="w-0.5 bg-gray-200 mt-1 h-full"></div>
+                          <div className="w-0.5 -ml-3 bg-gray-200 mt-1 h-full"></div>
                         </div>
                         <div className="flex flex-col grow">
-                          <div className="flex flex-row mb-2px">
-                            <span className="font-bold">
-                              {tweet.author.displayName}
-                            </span>
-                            <span className="ml-1">
-                              @{tweet.author.username} -{" "}
-                              {formatDate(tweet.createdAt)}
-                            </span>
-                          </div>
+                          <TweetCardComp.AuthorInfo
+                            pageType="home"
+                            displayName={tweet.author.displayName}
+                            username={tweet.author.username}
+                            isVerified={tweet.author.isVerified}
+                            createdAt={tweet.createdAt}
+                          />
                           <div className="flex flex-col pb-3">
                             <span>{tweet.content}</span>
                             <div>
-                              <TweetMedia tweet={tweet} />
+                              <TweetCardComp.TweetMedia tweet={tweet} />
                             </div>
                           </div>
                           <div>

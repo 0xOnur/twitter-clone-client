@@ -36,10 +36,7 @@ const TweetCard = ({ tweet, pageType }:IProps) => {
       pageType === "home",
   });
 
-  const navigateUser = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    navigate(`/${tweet.author.username}`);
-  }
+  
 
 
   return (
@@ -75,13 +72,10 @@ const TweetCard = ({ tweet, pageType }:IProps) => {
 
           <div className="flex flex-row">
             {pageType !== "TweetDetails" && (
-              <div onClick={navigateUser}>
-                <Avatar
-                  avatar={tweet.author.avatar}
-                  username={tweet.author.username}
-                />
-              </div>
-              
+              <Avatar
+                avatar={tweet.author.avatar}
+                username={tweet.author.username}
+              />
             )}
 
             <div className="flex flex-col pb-3 flex-grow">
@@ -102,15 +96,13 @@ const TweetCard = ({ tweet, pageType }:IProps) => {
               )}
 
               {pageType !== "TweetDetails" && (
-                <div onClick={navigateUser}>
-                  <AuthorInfo
-                    pageType="home"
-                    username={tweet.author.username}
-                    displayName={tweet.author.displayName}
-                    isVerified={tweet.author.isVerified}
-                    createdAt={tweet.createdAt}
-                  />
-                </div>
+                <AuthorInfo
+                  pageType="home"
+                  username={tweet.author.username}
+                  displayName={tweet.author.displayName}
+                  isVerified={tweet.author.isVerified}
+                  createdAt={tweet.createdAt}
+                />
               )}
 
               <TweetContent tweet={tweet} />

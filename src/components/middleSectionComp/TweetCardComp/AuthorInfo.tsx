@@ -2,6 +2,7 @@ import React from "react";
 import { formatDate } from "@utils/index";
 import { TreeDotIcon, VerifiedIcon } from "@icons/Icon";
 import classNames from "classnames";
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   pageType: string
@@ -12,22 +13,27 @@ type Props = {
 };
 
 const AuthorInfo = ({ displayName, username, createdAt, pageType, isVerified }: Props) => {
+  const navigate = useNavigate();
 
   const userFlexClasses = classNames("flex", {
     "flex-row items-center": pageType === "home",
     "flex-col": pageType === "tweetDetails",
   })
 
+  const navigateUser = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    navigate(`/${username}`);
+  }
 
   return (
     <div className="flex flex-col relative min-w-max mb-2px w-full">
       <div className="flex flex-row justify-between items-center">
-        <div className={userFlexClasses}>
+        <div className={userFlexClasses} onClick={navigateUser}>
           <div className="flex text-lg items-center" >
               <span className="font-bold hover:underline underline-offset-1">{displayName}</span>
             <span className="text-primary-base ml-1">{isVerified === true && (<VerifiedIcon className={"w-5 h-5"} />)}</span>
           </div>
-          <button>
+          <div onClick={navigateUser}>
             {pageType === "home" ? (
               <div>
                 <span className="text-gray-dark ml-1">@{username} - </span>
@@ -36,7 +42,7 @@ const AuthorInfo = ({ displayName, username, createdAt, pageType, isVerified }: 
             ): (
               <span className="text-gray-dark">@{username}</span>
             )}
-          </button>
+          </div>
         </div>
         <div className="group">
           <div className=" relative text-gray-dark group-hover:text-primary-base duration-150">

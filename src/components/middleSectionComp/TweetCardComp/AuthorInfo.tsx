@@ -24,23 +24,19 @@ const AuthorInfo = ({ displayName, username, createdAt, pageType, isVerified }: 
       <div className="flex flex-row justify-between items-center">
         <div className={userFlexClasses}>
           <div className="flex text-lg items-center" >
-            <a href={`/${username}`}>
               <span className="font-bold hover:underline underline-offset-1">{displayName}</span>
-            </a>
             <span className="text-primary-base ml-1">{isVerified === true && (<VerifiedIcon className={"w-5 h-5"} />)}</span>
           </div>
-          <div>
-            <a href={`/${username}`}>
-              {pageType === "home" ? (
-                <div>
-                  <span className="text-gray-dark ml-1">@{username} - </span>
-                  <span>{formatDate(createdAt)}</span>
-                </div>
-              ): (
-                <span className="text-gray-dark">@{username}</span>
-              )}
-            </a>
-          </div>
+          <button>
+            {pageType === "home" ? (
+              <div>
+                <span className="text-gray-dark ml-1">@{username} - </span>
+                <span>{formatDate(createdAt)}</span>
+              </div>
+            ): (
+              <span className="text-gray-dark">@{username}</span>
+            )}
+          </button>
         </div>
         <div className="group">
           <div className=" relative text-gray-dark group-hover:text-primary-base duration-150">

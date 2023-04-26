@@ -49,7 +49,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
           name="reply"
           className="group h-5 min-h-max"
         >
-          <div className="flex leading-5 ">
+          <div className="flex flex-row">
             <div className=" relative text-gray-dark group-hover:text-primary-base duration-150">
               <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
               <ReplyIcon className={"w-5 h-5"} />
@@ -65,9 +65,9 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
 
         <div
           onClick={(e)=> {setRetweetMenu(!reTweetMenu); e.stopPropagation()}}
-          className="group h-5 min-h-max relative"
+          className="group h-5 min-h-max relative cursor-pointer"
         >
-          <div className="flex text-base leading-5">
+          <div className="flex flex-row">
             <div className="inline-flex relative text-gray-dark group-hover:text-green-base duration-150">
               <div className="absolute -m-2 group-hover:bg-green-extraLigt  duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
               <ReTweetIcon className="w-5 h-5" />
@@ -78,8 +78,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
               </span>
             </div>
           </div>
-          {reTweetMenu && (<ReTweetMenu onClose={()=> setRetweetMenu(false)} tweet={tweet} setQuoteModal={setQuoteModal} />
-)}
+          {reTweetMenu && (<ReTweetMenu onClose={()=> setRetweetMenu(false)} tweet={tweet} setQuoteModal={setQuoteModal} />)}
         </div>
 
 
@@ -89,7 +88,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
           name="like"
           className="group h-5 min-h-max"
         >
-          <div className="flex text-base leading-5">
+          <div className="flex flex-row">
             <div className="inline-flex relative text-gray-dark group-hover:text-red-base duration-150">
               <div className="absolute -m-2 group-hover:bg-red-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
               <LikeIcon className={"w-5 h-5"} />
@@ -107,7 +106,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
           name="bookmarks"
           className="group h-5 min-h-max"
         >
-          <div className="flex text-base leading-5">
+          <div className="flex flex-row">
             <div className="inline-flex relative text-gray-dark group-hover:text-primary-base duration-150">
               <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
               <BookmarksIcon isActive={false} className={"w-5 h-5"} />
@@ -126,7 +125,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
             name="analyze"
             className="group h-5 min-h-max"
           >
-            <div className="flex text-base leading-5">
+            <div className="flex flex-row">
               <div className="inline-flex relative text-gray-dark group-hover:text-primary-base duration-150">
                 <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
                 <AnalyticsIcon className={"w-5 h-5"} />
@@ -146,7 +145,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
             setShowShareMenu(!shareMenu);
           }}
         >
-          <div className="flex text-base leading-5 group-hover:text-primary-base duration-150">
+          <div className="flex flex-row group-hover:text-primary-base duration-150">
             <div className="inline-flex relative ">
               <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0 "></div>
               <ShareIcon className={"w-5 h-5"} />

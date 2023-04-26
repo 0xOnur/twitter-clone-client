@@ -47,7 +47,7 @@ const GIFMenu: React.FC<IProps> = ({tenorGif, setTenorGif, setShowGifPicker}) =>
           tenorApiKey={gifPickerApi || ""}
           clientKey="twitter_clone"
           onGifClick={onGifClick}
-          width={600}
+          width={500}
           height={650}
         />
       </div>

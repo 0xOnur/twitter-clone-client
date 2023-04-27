@@ -32,10 +32,10 @@ const LoginBar: React.FC = () => {
         <div className="my-3 flex flex-row justify-between items-center">
           <div className="flex flex-col">
             <span className="leading-7 text-xl font-bold text-white">
-              See what’s happening in the world right now
+              Don’t miss what’s happening
             </span>
             <span className="leading-5 text-white">
-              Twitter users will be the first to know.
+              People on Twitter are the first to know.
             </span>
           </div>
           <div className="mx-4">

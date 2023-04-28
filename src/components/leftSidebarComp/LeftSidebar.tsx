@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   BookmarksIcon,
   ExploreIcon,
@@ -6,12 +6,13 @@ import {
   MessagesIcon,
   TweetIcon,
   NotificationsIcon,
-  ProfileIcon
-} from "../../icons/Icon";
-import SideLink from './SideLink';
-import twitterLogo from "../../icons/twitter.svg";
-import UserBox from './UserBox';
-import MoreButton from './MoreButton';
+  ProfileIcon,
+  TwitterIcon,
+} from "@icons/Icon";
+import SideLink from "./SideLink";
+import UserBox from "./UserBox";
+import MoreButton from "./MoreButton";
+
 
 const sideLinks = [
   {
@@ -40,40 +41,61 @@ const sideLinks = [
   },
 ];
 
-const LeftSideBar: React.FC= () => {
-
+const LeftSideBar = () => {
   return (
-    <div className="flex flex-col text-center min-w-fit sm:ml-5 md:ml-16 lg:ml-0 h-screen overflow-y-auto lg:w-3/12 justify-between top-0">
-      <div className='lg:w-5/12 min-w-full sm:w-fit'>
-        <a
-          href="/home"
-          className="mt-1 mb-4 flex items-center justify-center w-12 h-12 rounded-full hover:bg-primary-light transform transition-colors duration-200"
-        >
-          <img src={twitterLogo} alt="Twitter Logo" className="w-9 h-9" />
-        </a>
-        <nav>
-          <ul>
-            {sideLinks.map(({ name, icon }) => (
-              <SideLink
-                key={name}
-                name={name}
-                Icon={icon}
-              />
-            ))}
-            <MoreButton />
-          </ul>
-        </nav>
-        
-        <button className='pl-2 sm:visible lg:hidden w-12 h-12 px-2 text-white bg-primary-base hover:bg-primary-dark shadow-lg rounded-full transform transition-colors'>
-          <TweetIcon />
-        </button>
-        <button className="hidden lg:inline-block font-bold bg-primary-base hover:bg-primary-dark text-white shadow-lg rounded-full py-3 px-8 w-full transform transition-colors duration-200">
-          Tweet
-        </button>
-      </div>
-      <UserBox />
-    </div>
-  )
-}
+    <header className="flex flex-col grow-1 items-end z-50">
+      <div className="lg:w-275px min-w-88px">
+        <div className="h-full fixed">
+          <div className="flex flex-col lg:w-275px min-w-88px overflow-y-auto justify-between h-full px-2 items-center">
+            <div className="flex flex-col lg:items-start items-center w-full">
+              
+              <div className="flex flex-col max-w-full py-0.5">
+                <div className="flex flex-col min-w-32px cursor-pointer self-stretch justify-center items-center">
+                  <a
+                    href="/"
+                    className="flex justify-center items-center min-w-52px min-h-52px hover:bg-gray-extraLight duration-200 rounded-full"
+                  >
+                    <TwitterIcon
+                      className={"h-8 text-primary-base max-w-full "}
+                    />
+                  </a>
+                </div>
+              </div>
 
-export default LeftSideBar
+              <div className="flex flex-col w-full mt-0.5 mb-1">
+                <nav className="flex flex-col lg:items-start sm:items-center ">
+                  {sideLinks.map(({ name, icon }, index) => (
+                    <SideLink key={index} name={name} Icon={icon} />
+                  ))}
+
+                  <div className="w-full">
+                    <MoreButton />
+                  </div>
+                  
+                </nav>
+              </div>
+
+              <div className="sm:visible lg:hidden my-4 w-fulll">
+                <button className="min-w-52px min-h-52px px-2 text-white bg-primary-base hover:bg-primary-dark shadow-lg rounded-full ">
+                  <TweetIcon />
+                </button>
+              </div>
+              
+
+              <div className="hidden lg:inline-block w-90% my-4">
+                <button className="min-w-52px min-h-52px w-full h-full bg-primary-base hover:bg-primary-dark rounded-full">
+                  <div className="flex flex-row justify-center text-center">
+                    <span className="text-white font-bold">Tweet</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <UserBox />
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default LeftSideBar;

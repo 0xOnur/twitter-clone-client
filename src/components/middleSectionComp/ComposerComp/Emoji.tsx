@@ -42,13 +42,10 @@ const Emoji: React.FC<IProps> = ({ setTweet, composerMode }) => {
     );
   }
 
-  const pickerClasses = classNames("absolute z-10",
-    {
-      "bottom-0": composerMode === "reply" || composerMode === "quote",
-    },)
+  const pickerClasses = classNames("absolute left-1/2 z-10 transform -translate-x-1/2")
 
   return (
-    <div className=" relative">
+    <div className="relative">
       <button
         ref={emojiButtonRef}
         type="button"

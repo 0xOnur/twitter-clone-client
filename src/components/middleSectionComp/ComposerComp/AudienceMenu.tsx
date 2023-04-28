@@ -1,5 +1,5 @@
 import React from "react";
-import {  EveryoneIcon, TwiiterCircleIcon, SelectedIcon } from "../../../icons/Icon";
+import {  EveryoneIcon, TwiiterCircleIcon, SelectedIcon } from "@icons/Icon";
 import {IComposer} from "@customTypes/ComposerTypes"
 
 interface IProps {

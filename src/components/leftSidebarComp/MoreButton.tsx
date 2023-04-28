@@ -13,7 +13,7 @@ import {
   HelpCenterIcon,
   DisplayIcon,
   KeyboardShorcutsIcons,
-} from "../../icons/Icon";
+} from "@icons/Icon";
 
 const MoreButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -63,111 +63,155 @@ const MoreButton = () => {
 
   return (
     <>
-      {menuOpen && (
-        <div className="absolute z-40" ref={dropdownRef}>
-          <div className="absolute overflow-y-auto max-h-screen text-md font-bold z-10 w-72 -top-72 rounded-3xl bg-white border border-gray-100  shadow-xl ">
+      {/* <div onClick={openMore} className="w-full group"> */}
+        <button onClick={openMore} className="flex flex-col lg:items-start items-center cursor-pointer grow-1 w-full py-1 group">
+          <div className="flex group-hover:bg-gray-lightest rounded-full pl-3 pr-3 py-3">
             <div>
-              <a href="/lists" className="">
+              <MoreIcon />
+            </div>
+            <span className="ml-5 mr-4 text-xl hidden lg:inline-block">More</span>
+          </div>
+        </button>
+      {/* </div> */}
+
+      {menuOpen && (
+        <div className=" z-50" ref={dropdownRef}>
+          <div className="absolute overflow-y-auto text-md font-bold w-72 top-36 rounded-3xl bg-white border border-gray-100 shadow-xl">
+            <div>
+              <button className="w-full">
                 <div className="flex hover:bg-gray-dropdown rounded-t-2xl px-4 pb-3 pt-3">
                   <TopicsIcon />
                   <span className="pl-6">Topics</span>
                 </div>
-              </a>
-              <a href="/lists" className="">
+              </button>
+              <button className="w-full">
                 <div className="flex hover:bg-gray-dropdown  px-4 py-3">
                   <ListsIcon />
                   <span className="pl-6">Lists</span>
                 </div>
-              </a>
-              <a href="/lists" className="">
+              </button>
+              <button className="w-full">
                 <div className="flex hover:bg-gray-dropdown  px-4 py-3">
                   <TwiiterCircleIcon className={"w-7 h-7"} />
                   <span className="pl-6">Twitter Circle</span>
                 </div>
-              </a>
+              </button>
             </div>
             <div className="px-3 my-0.5">
               <hr />
             </div>
             <div>
-              <button onClick={openCreatorMenu} className="flex hover:bg-gray-dropdown w-full p-4 justify-between">
-                  <span className="">Creator Studio</span>
-                  <span className={`${creatorSisOn ? "rotate-180 text-primary-base " : ""}`}><DropDownMenuArrowIcon /></span>
+              <button
+                onClick={openCreatorMenu}
+                className="flex hover:bg-gray-dropdown w-full p-4 justify-between"
+              >
+                <span className="">Creator Studio</span>
+                <span
+                  className={`${
+                    creatorSisOn ? "rotate-180 text-primary-base " : ""
+                  }`}
+                >
+                  <DropDownMenuArrowIcon />
+                </span>
               </button>
-                {creatorSisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><AnalyticsIcon className={"w-4 h-4"} /></span>
-                    <span className="font-normal pl-3">Analytics</span>
+              {creatorSisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+                  <span className="">
+                    <AnalyticsIcon className={"w-4 h-4"} />
+                  </span>
+                  <span className="font-normal pl-3">Analytics</span>
                 </button>
-                )}
-              <button onClick={openProfToolMenu} className="flex hover:bg-gray-dropdown w-full p-4 justify-between">
-                  <span className="">Professional Tools</span>
-                  <span className={`${profToolisOn ? "rotate-180 text-primary-base " : ""}`}><DropDownMenuArrowIcon /></span>
+              )}
+              <button
+                onClick={openProfToolMenu}
+                className="flex hover:bg-gray-dropdown w-full p-4 justify-between"
+              >
+                <span className="">Professional Tools</span>
+                <span
+                  className={`${
+                    profToolisOn ? "rotate-180 text-primary-base " : ""
+                  }`}
+                >
+                  <DropDownMenuArrowIcon />
+                </span>
               </button>
-                {profToolisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><ProfessionalHomeIcon /></span>
-                    <span className="font-normal pl-3">Professional Home</span>
+              {profToolisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+                  <span className="">
+                    <ProfessionalHomeIcon />
+                  </span>
+                  <span className="font-normal pl-3">Professional Home</span>
                 </button>
-                )}
-                {profToolisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><TwitterAdsIcon /></span>
-                    <span className="font-normal pl-3">Twitter Ads</span>
+              )}
+              {profToolisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+                  <span className="">
+                    <TwitterAdsIcon />
+                  </span>
+                  <span className="font-normal pl-3">Twitter Ads</span>
                 </button>
-                )}
-                {profToolisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><MonetizetionIcon /></span>
-                    <span className="font-normal pl-3">Monetization</span>
+              )}
+              {profToolisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+                  <span className="">
+                    <MonetizetionIcon />
+                  </span>
+                  <span className="font-normal pl-3">Monetization</span>
                 </button>
-                )}
-              <button onClick={openSettingsMenu} className={`flex hover:bg-gray-dropdown w-full p-4 justify-between ${settingsisOn ? "" : "rounded-b-2xl"}` }>
-                  <span className={``}>Settings and Support</span>
-                  <span className={`${settingsisOn ? "rotate-180 text-primary-base " : ""}`}><DropDownMenuArrowIcon /></span>
+              )}
+              <button
+                onClick={openSettingsMenu}
+                className={`flex hover:bg-gray-dropdown w-full p-4 justify-between ${
+                  settingsisOn ? "" : "rounded-b-2xl"
+                }`}
+              >
+                <span className={``}>Settings and Support</span>
+                <span
+                  className={`${
+                    settingsisOn ? "rotate-180 text-primary-base " : ""
+                  }`}
+                >
+                  <DropDownMenuArrowIcon />
+                </span>
               </button>
-                {settingsisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><SettingsIcon /></span>
-                    <span className="font-normal pl-3">Settings and privacy</span>
-                  </button>
-                )}
-                {settingsisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><HelpCenterIcon /></span>
-                    <span className="font-normal pl-3">Help Center</span>
-                  </button>
-                )}
-                {settingsisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
-                    <span className=""><DisplayIcon /></span>
-                    <span className="font-normal pl-3">Display</span>
-                  </button>
-                )}
-                {settingsisOn && (
-                  <button className="flex hover:bg-gray-dropdown w-full rounded-b-2xl p-3 leading-4">
-                    <span className=""><KeyboardShorcutsIcons /></span>
-                    <span className="font-normal pl-3">Keyboard shorcuts</span>
-                  </button>
-                )}
+              {settingsisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+                  <span className="">
+                    <SettingsIcon />
+                  </span>
+                  <span className="font-normal pl-3">Settings and privacy</span>
+                </button>
+              )}
+              {settingsisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+                  <span className="">
+                    <HelpCenterIcon />
+                  </span>
+                  <span className="font-normal pl-3">Help Center</span>
+                </button>
+              )}
+              {settingsisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+                  <span className="">
+                    <DisplayIcon />
+                  </span>
+                  <span className="font-normal pl-3">Display</span>
+                </button>
+              )}
+              {settingsisOn && (
+                <button className="flex hover:bg-gray-dropdown w-full rounded-b-2xl p-3 leading-4">
+                  <span className="">
+                    <KeyboardShorcutsIcons />
+                  </span>
+                  <span className="font-normal pl-3">Keyboard shorcuts</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
       )}
-      <div onClick={openMore} className="group cursor-pointer">
-        <button className=" block text-xl mb-2">
-          <div className="inline-block">
-            <div className="flex  group-hover:bg-gray-lightest rounded-full pl-3 pr-3 py-3">
-              <div className="">
-                <MoreIcon />
-              </div>
-              <span className="ml-4 hidden lg:inline-block">More</span>
-            </div>
-          </div>
-        </button>
-      </div>
     </>
-  )
-}
+  );
+};
 
 export default React.memo(MoreButton);

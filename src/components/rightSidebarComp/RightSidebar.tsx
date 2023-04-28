@@ -1,7 +1,7 @@
 import React from 'react'
 import Trends from './Trends'
 import WhoToFollow from './WhoToFollow'
-import { SearchIcon } from "../../icons/Icon";
+import { SearchIcon } from "@icons/Icon";
 
 
 const RightSidebar = () => {

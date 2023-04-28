@@ -129,7 +129,7 @@ const TweetCard = ({ tweet, pageType }:IProps) => {
                   </a>
                 </div>
               )}
-
+              
               {pageType === "TweetDetails" && (
                 <ComposerComp.TweetComposer
                   composerMode={composerMode}

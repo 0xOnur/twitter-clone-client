@@ -1,4 +1,4 @@
-export * as MiddleSection from "./middleSectionComp/";
-export * as RightSideBar from "./rightSidebarComp/";
-export * as LeftSideBar from "./leftSidebarComp/";
-export * as Login from "./LoginPage"
+export * from "./middleSectionComp/";
+export * from "./rightSidebarComp/";
+export * from "./leftSidebarComp/";
+export * from "./LoginPage"

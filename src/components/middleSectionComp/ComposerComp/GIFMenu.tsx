@@ -55,4 +55,4 @@ const GIFMenu: React.FC<IProps> = ({tenorGif, setTenorGif, setShowGifPicker}) =>
   );
 };
 
-export default React.memo(GIFMenu);
+export default GIFMenu;

@@ -22,4 +22,4 @@ const HomeFeed: React.FC = () => {
     </div>
   );
 };
-export default React.memo(HomeFeed);
+export default HomeFeed;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {MiddleSection} from "@components/index";
+import {TweetCardComp} from "@components/index";
 import {IUser, ITweet} from "@customTypes/index"
 
 
@@ -81,7 +81,7 @@ const TweetList = () => {
     <>
       {
         tweets.map((tweet) => (
-          <MiddleSection.TweetCardComp.TweetCard key={tweet._id} tweet={tweet} pageType="home" />
+          <TweetCardComp.TweetCard key={tweet._id} tweet={tweet} pageType="home" />
         ))
       }
     </>

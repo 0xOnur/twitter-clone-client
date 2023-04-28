@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TenorImage } from "gif-picker-react";
-import { MiddleSection } from "@components/index";
+import { ComposerComp } from "@components/index";
 import { ITweet } from "@customTypes/TweetTypes";
 import MediaCard from "./ComposerMedia";
 import Toolbar from "./Toolbar";
@@ -94,12 +94,12 @@ const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
                 pollSettings.showPoll ||
                 tenorGif) &&
                 composerMode !== "reply" && (
-                  <MiddleSection.ComposerComp.ChooseAudience
+                  <ComposerComp.ChooseAudience
                     ComposerSettings={ComposerSettings}
                   />
                 )}
 
-              <MiddleSection.ComposerComp.TextArea
+              <ComposerComp.TextArea
                 tweetText={tweetText}
                 setTweetText={setTweetText}
                 composerMode={composerMode}
@@ -113,7 +113,7 @@ const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
               />
 
               {pollSettings.showPoll && (
-                <MiddleSection.ComposerComp.PollMenu
+                <ComposerComp.PollMenu
                   pollSettings={pollSettings}
                   setPollSettings={setPollSettings}
                 />
@@ -124,7 +124,7 @@ const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
                 pollSettings.showPoll ||
                 tenorGif) &&
                 composerMode !== "reply" && (
-                  <MiddleSection.ComposerComp.ChooseCanReply
+                  <ComposerComp.ChooseCanReply
                     ComposerSettings={ComposerSettings}
                   />
                 )}
@@ -150,4 +150,4 @@ const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
   );
 };
 
-export default React.memo(TweetComposer);
+export default TweetComposer;

@@ -120,4 +120,4 @@ const RightSidebar = () => {
   )
 }
 
-export default React.memo(RightSidebar);
+export default RightSidebar;

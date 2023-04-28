@@ -77,4 +77,4 @@ const UserBox: React.FC = () => {
   );
 };
 
-export default React.memo(UserBox);
+export default UserBox;

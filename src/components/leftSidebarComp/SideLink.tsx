@@ -42,4 +42,4 @@ const SideLink: React.FC<IProps> = ({ name, Icon }) => {
   );
 };
 
-export default React.memo(SideLink);
+export default SideLink;

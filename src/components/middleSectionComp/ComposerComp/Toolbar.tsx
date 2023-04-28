@@ -6,7 +6,7 @@ import {
   AddThreadIcon,
   GIFIcon,
 } from "@icons/Icon";
-import { MiddleSection } from "@components/index";
+import { ComposerComp } from "@components/index";
 import { TenorImage } from "gif-picker-react";
 import classNames from "classnames";
 import {IComposer, IPoll} from "@customTypes/ComposerTypes"
@@ -152,7 +152,7 @@ const Toolbar = ({
           </button>
 
           {showGifPicker && (
-            <MiddleSection.ComposerComp.GIFMenu
+            <ComposerComp.GIFMenu
               tenorGif={tenorGif}
               setTenorGif={setTenorGif}
               setShowGifPicker={setShowGifPicker}
@@ -177,7 +177,7 @@ const Toolbar = ({
             </span>
           </button>
 
-          <MiddleSection.ComposerComp.Emoji 
+          <ComposerComp.Emoji 
             setTweet={setTweetText} 
             composerMode={composerMode}
           />
@@ -199,7 +199,7 @@ const Toolbar = ({
           <div className="flex h-full justify-end items-center">
             {tweetText.length > 0 && (
               <>
-                <MiddleSection.ComposerComp.CircleProgressBar
+                <ComposerComp.CircleProgressBar
                   value={tweetText.length}
                   limit={280}
                 />

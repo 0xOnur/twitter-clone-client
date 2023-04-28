@@ -26,4 +26,4 @@ const Trends: React.FC<Props> = (props) => {
   )
 }
 
-export default React.memo(Trends)
+export default Trends

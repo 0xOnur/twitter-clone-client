@@ -1,4 +1,3 @@
-// components/AuthModal.tsx
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { CancelIcon, TwitterIcon } from "@icons/Icon";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MiddleSection } from "@components/index";
+import { TweetCardComp } from "@components/index";
 import { formatNumber } from "@utils/index";
 
 import {
@@ -152,7 +152,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
             </div>
           </div>
           {shareMenu && (
-            <MiddleSection.TweetCardComp.ShareMenu
+            <TweetCardComp.ShareMenu
               onClose={() => setShowShareMenu(false)}
               tweet={tweet}
             />

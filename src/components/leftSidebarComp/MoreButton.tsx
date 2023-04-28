@@ -214,4 +214,4 @@ const MoreButton = () => {
   );
 };
 
-export default React.memo(MoreButton);
+export default MoreButton;

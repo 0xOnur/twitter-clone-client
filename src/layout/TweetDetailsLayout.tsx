@@ -1,13 +1,13 @@
 import React from 'react'
-import { MiddleSection, RightSideBar, LeftSideBar  } from '@components/index'
+import { TweetDetailsComp, RightSidebar, LeftSideBar  } from '@components/index'
 
 const TweetDetailsLayout = () => {
   return (
     <div className="flex min-h-screen max-w-7xl mx-auto sticky">
-      <LeftSideBar.LeftSideBar />
+      <LeftSideBar />
       <div className="flex w-full">
-        <MiddleSection.TweetDetailsComp.TweetDetails />
-        <RightSideBar.RightSidebar />
+        <TweetDetailsComp.TweetDetails />
+        <RightSidebar />
       </div>
     </div>
   )

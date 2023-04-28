@@ -223,4 +223,4 @@ const PollCreation = ({pollSettings, setPollSettings}:IProps) => {
   );
 };
 
-export default React.memo(PollCreation);
+export default PollCreation;

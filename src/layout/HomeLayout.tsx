@@ -3,7 +3,7 @@ import { MiddleSection, RightSideBar, LeftSideBar } from "@components/index";
 
 const HomeLayout = () => {
   return (
-    <div className="flex min-h-screen max-w-7xl mx-auto sticky gap-3 ">
+    <div className="flex min-h-screen max-w-7xl mx-auto sticky">
       <LeftSideBar.LeftSideBar />
       <div className="flex w-full">
         <MiddleSection.HomeFeed />

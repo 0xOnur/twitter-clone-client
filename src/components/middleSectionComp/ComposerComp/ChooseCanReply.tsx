@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { EveryoneIcon, MentionIcon, TwiiterCircleIcon } from "../../../icons/Icon";
+import { EveryoneIcon, MentionIcon, TwiiterCircleIcon } from "@icons/Icon";
 import CanReplyMenu from "./CanReplyMenu";
 import {IComposer} from "@customTypes/ComposerTypes"
 

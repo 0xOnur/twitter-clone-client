@@ -1,6 +1,18 @@
-import React from "react";
+import React, { ReactNode } from 'react';
 
-const Svg = ({ children, className }) => {
+interface SvgProps {
+  children: ReactNode;
+  className?: string;
+  viewBox?: string;
+}
+
+interface PathProps {
+  isActive?: boolean;
+  className?: string;
+  isShow?: boolean;
+}
+
+const Svg: React.FC<SvgProps> = ({ children, className = '' }) => {
   return (
     <svg viewBox="0 0 24 24" className={`fill-current ${className}`}>
       {children}
@@ -10,8 +22,10 @@ const Svg = ({ children, className }) => {
 
 
 
+
+
 //LeftSidebar Icons
-export const HomeIcon = ({ isActive }) => {
+export const HomeIcon = ({ isActive }:PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
@@ -25,7 +39,7 @@ export const HomeIcon = ({ isActive }) => {
   );
 };
 
-export const ExploreIcon = ({ isActive }) => {
+export const ExploreIcon = ({ isActive }:PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
@@ -39,7 +53,7 @@ export const ExploreIcon = ({ isActive }) => {
   );
 };
 
-export const NotificationsIcon = ({isActive}) => {
+export const NotificationsIcon = ({isActive}:PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
@@ -53,7 +67,7 @@ export const NotificationsIcon = ({isActive}) => {
   );
 };
 
-export const MessagesIcon = ({ isActive, className }) => {
+export const MessagesIcon = ({ isActive, className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -67,7 +81,7 @@ export const MessagesIcon = ({ isActive, className }) => {
   );
 };
 
-export const BookmarksIcon = ({ isActive, className }) => {
+export const BookmarksIcon = ({ isActive, className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -81,7 +95,7 @@ export const BookmarksIcon = ({ isActive, className }) => {
   );
 };
 
-export const BookmarkPlusIcon = ({ className }) => {
+export const BookmarkPlusIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -104,7 +118,7 @@ export const ListsIcon = () => {
   );
 };
 
-export const ProfileIcon = ({isActive}) => {
+export const ProfileIcon = ({isActive}:PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
@@ -138,7 +152,7 @@ export const TopicsIcon = () => {
   );
 };
 
-export const TwiiterCircleIcon = ({className}) => {
+export const TwiiterCircleIcon = ({className}:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -158,7 +172,7 @@ export const TweetIcon = () => {
   );
 };
 
-export const TreeDotIcon = ({className}) => {
+export const TreeDotIcon = ({className}:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -178,7 +192,7 @@ export const DropDownMenuArrowIcon = () => {
   );
 };      
 
-export const AnalyticsIcon = ({className}) => {
+export const AnalyticsIcon = ({className}:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -262,7 +276,7 @@ export const KeyboardShorcutsIcons = () => {
 
 
 
-export const BackIcon = ({className}) => {
+export const BackIcon = ({className}:PathProps) => {
   return(
     <Svg className={className}>
       <g>
@@ -272,7 +286,7 @@ export const BackIcon = ({className}) => {
   )
 }
 
-export const EveryoneIcon = ({className}) => {
+export const EveryoneIcon = ({className}:PathProps) => {
   return(
     <Svg className={className}>
       <g>
@@ -282,7 +296,7 @@ export const EveryoneIcon = ({className}) => {
   )
 }
 
-export const MentionIcon = ({className}) => {
+export const MentionIcon = ({className}:PathProps) => {
   return(
     <Svg className={className}>
       <g>
@@ -292,7 +306,7 @@ export const MentionIcon = ({className}) => {
   )
 }
 
-export const SelectedIcon = ({className}) => {
+export const SelectedIcon = ({className}:PathProps) => {
   return(
     <Svg className={className}>
       <g>
@@ -302,7 +316,7 @@ export const SelectedIcon = ({className}) => {
   )
 }
 
-export const RemoveItemIcon = ({className}) => {
+export const RemoveItemIcon = ({className}:PathProps) => {
   return(
     <Svg className={className}>
       <g>
@@ -312,7 +326,7 @@ export const RemoveItemIcon = ({className}) => {
   )
 }
 
-export const PopulerIcon = ({ className }) => {
+export const PopulerIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -322,7 +336,7 @@ export const PopulerIcon = ({ className }) => {
   );
 };
 
-export const ImageIcon = ({ className }) => {
+export const ImageIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -332,7 +346,7 @@ export const ImageIcon = ({ className }) => {
   );
 };
 
-export const GIFIcon = ({ className }) => {
+export const GIFIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -342,7 +356,7 @@ export const GIFIcon = ({ className }) => {
   );
 };
 
-export const PollIcon = ({ className }) => {
+export const PollIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -352,7 +366,7 @@ export const PollIcon = ({ className }) => {
   );
 };
 
-export const EmojiIcon = ({ className }) => {
+export const EmojiIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -362,7 +376,7 @@ export const EmojiIcon = ({ className }) => {
   );
 };
 
-export const ScheduleIcon = ({ className }) => {
+export const ScheduleIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -372,7 +386,7 @@ export const ScheduleIcon = ({ className }) => {
   );
 };
 
-export const AddThreadIcon = ({ className }) => {
+export const AddThreadIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -382,7 +396,7 @@ export const AddThreadIcon = ({ className }) => {
   );
 };
 
-export const ReplyIcon = ({ className }) => {
+export const ReplyIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -392,7 +406,7 @@ export const ReplyIcon = ({ className }) => {
   );
 };
 
-export const ReTweetIcon = ({ className }) => {
+export const ReTweetIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -402,7 +416,7 @@ export const ReTweetIcon = ({ className }) => {
   );
 };
 
-export const LikeIcon = ({ className }) => {
+export const LikeIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -412,7 +426,7 @@ export const LikeIcon = ({ className }) => {
   );
 };
 
-export const ShareIcon = ({ className }) => {
+export const ShareIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -422,7 +436,7 @@ export const ShareIcon = ({ className }) => {
   );
 };
 
-export const CopyTweetIcon = ({ className }) => {
+export const CopyTweetIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -432,7 +446,7 @@ export const CopyTweetIcon = ({ className }) => {
   );
 };
 
-export const CancelIcon = ({ className }) => {
+export const CancelIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -444,7 +458,7 @@ export const CancelIcon = ({ className }) => {
 
 // Righbar Icons
 
-export const SearchIcon = ({ className }) => {
+export const SearchIcon = ({ className }:PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -457,7 +471,7 @@ export const SearchIcon = ({ className }) => {
 
 // Profile Icons
 
-export const VerifiedIcon = ({className}) => {
+export const VerifiedIcon = ({className}:PathProps) => {
   return (
     <Svg className={className}>
       <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
@@ -467,15 +481,15 @@ export const VerifiedIcon = ({className}) => {
 
 //Others
 
-export const TwitterIcon = ({className}) => {
+export const TwitterIcon = ({className}:PathProps) => {
   return (
-    <Svg className={className}>
+    <Svg className={className} viewBox="0 0 24 24">
       <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path>
     </Svg>
   )
 }
 
-export const GoogleIcon = ({ className }) => {
+export const GoogleIcon = ({ className }:PathProps) => {
   return (
     <svg
       version="1.1"
@@ -506,7 +520,7 @@ export const GoogleIcon = ({ className }) => {
   );
 };
 
-export const AppleIcon = ({ className }) => {
+export const AppleIcon = ({ className }:PathProps) => {
   return (
     <svg className={className}>
       <g>
@@ -516,7 +530,7 @@ export const AppleIcon = ({ className }) => {
   );
 };
 
-export const ShowPasswordIcon = ({className, isShow}) => {
+export const ShowPasswordIcon = ({className, isShow}:PathProps) => {
   return (
     <svg className={className}>
       <g>

@@ -17,6 +17,23 @@ module.exports = {
       margin: {
         "2px": "2px",
       },
+      width: {
+        "275px": "275px",
+        "52px": "52px",
+        "88px": "88px",
+        "90%": "90%",
+      },
+      height: {
+        "52px": "52px",
+      },
+      minWidth: {
+        "32px": "32px",
+        "52px": "52px",
+        "88px": "88px"
+      },
+      minHeight: {
+        "52px": "52px",
+      },
       transformOrigin: {
         "0": "0%",
       },

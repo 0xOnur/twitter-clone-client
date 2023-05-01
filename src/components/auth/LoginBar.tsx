@@ -23,7 +23,7 @@ const LoginBar: React.FC = () => {
     {showModal && (
         <AuthModal
           isOpen={showModal}
-          onClose={() => setShowModal(false)}
+          setOpen={setShowModal}
           mode={authMode}
         />
       )}

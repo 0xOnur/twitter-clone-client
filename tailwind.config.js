@@ -25,14 +25,19 @@ module.exports = {
       },
       height: {
         "52px": "52px",
+        "650px": "650px"
       },
       minWidth: {
         "32px": "32px",
         "52px": "52px",
-        "88px": "88px"
+        "88px": "88px",
       },
       minHeight: {
         "52px": "52px",
+        "400px": "400+px",
+      },
+      maxWidth: {
+        "600px": "600px",
       },
       transformOrigin: {
         "0": "0%",
@@ -72,7 +77,9 @@ module.exports = {
   variants: {
     borderColor: ['responsive', 'hover', 'focus', 'focus-within'],
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+  ],
   daisyui : {
     themes:false,
   }

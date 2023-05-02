@@ -5,6 +5,7 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
+import Step6 from "./Step6";
 
 interface StepData {
   [key: number]: any;
@@ -26,7 +27,7 @@ const CreateAccountSteps = ({isRoute, setOpen}:IProps) => {
   };
 
   const handleNextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setCurrentStep((prevStep) => prevStep + 1);
     }
   };
@@ -50,6 +51,8 @@ const CreateAccountSteps = ({isRoute, setOpen}:IProps) => {
         return <Step4 onNext={handleNextStep} onStepData={onStepData} prevData={stepData[currentStep]} />;
       case 5:
         return <Step5 onNext={handleNextStep} onStepData={onStepData} prevData={stepData[currentStep]} />;
+      case 6:
+        return <Step6 onStepData={onStepData} prevData={stepData[currentStep]} />;
       default:
         return <div>Invalid step</div>;
     }

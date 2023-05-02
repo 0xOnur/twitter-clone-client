@@ -25,7 +25,7 @@ const AuthHeader = ({
     <>
       {(currentStep && currentStep >=2) ? (
         <div className="flex flex-row h-14 px-4 w-full justify-center items-center">
-          <div className="flex-auto">
+          <div className="flex w-16 items-center">
             <button
               onClick={handlePreviousStep}
               className="relative group hover:bg-gray-extraLight rounded-full p-2"
@@ -33,9 +33,9 @@ const AuthHeader = ({
               <LeftArrowIcon className={"w-5 h-5"} />
             </button>
           </div>
-          <div className="flex-auto">
-            <TwitterIcon className={"w-8 -ml-4 text-primary-base"} />
-          </div>
+          <span className="flex grow text-xl font-bold">
+              Step {currentStep}/6
+            </span>
         </div>
       ) : !currentStep && (
         <div className="flex flex-row h-14 px-4 w-full justify-center items-center">

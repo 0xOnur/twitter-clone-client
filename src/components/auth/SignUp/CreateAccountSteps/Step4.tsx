@@ -5,7 +5,6 @@ import classNames from "classnames";
 
 interface StepProps {
   onNext: () => void;
-  onPrevious?: () => void;
   onStepData: (step: number, data: any) => void;
   prevData: {
     avatar: File;
@@ -104,7 +103,6 @@ const Step4 = ({ onNext, onStepData, prevData }: StepProps) => {
       <div className="flex flex-col">
         <div className="h-14 my-3">
           <button
-            type="submit"
             className={nextOrSkipButtonClasses}
             onClick={onNext}
           >

@@ -43,7 +43,7 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
             </div>
           </div>
           <div className="py-3">
-            <div className="relative border border-gray-500 rounded-md">
+            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-primary-base">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder=" "

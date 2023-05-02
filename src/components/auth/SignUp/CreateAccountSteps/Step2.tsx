@@ -3,7 +3,6 @@ import Terms from "@components/auth/SignUp/Terms";
 import classNames from "classnames";
 interface StepProps {
   onNext: () => void;
-  onPrevious?: () => void;
   onStepData: (step: number, data: any) => void;
 }
 
@@ -20,7 +19,7 @@ const Step2 = ({ onNext }: StepProps) => {
         </div>
         <div>
           <span className="font-bold text-xl leading-6">
-            Track where you see Twitter content acreoss the web
+            Track where you see Twitter content across the web
           </span>
           <label
             htmlFor="checkbox1"
@@ -48,7 +47,6 @@ const Step2 = ({ onNext }: StepProps) => {
       </div>
       <div className="h-14 my-3">
         <button
-          type="submit"
           className={nextButtonClassNames}
           onClick={onNext}
         >

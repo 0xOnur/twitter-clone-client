@@ -4,7 +4,6 @@ import classNames from "classnames";
 
 interface StepProps {
   onNext: () => void;
-  onPrevious?: () => void;
   onStepData: (step: number, data: any) => void;
   prevData: {
     displayName: string;
@@ -64,7 +63,7 @@ const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     if (userInfo.displayName && userInfo.email && userInfo.month && userInfo.day && userInfo.year) {
       onStepData(1, userInfo);
       onNext();

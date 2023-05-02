@@ -70,6 +70,9 @@ module.exports = {
           base: "hsl(160, 100%, 36%)",
           extraLigt: "rgba(0, 186, 124, 0.1)",
         },
+        yellow: {
+          base: "#FFAD1F",
+        },
         black: "#14171A",
       },
     },

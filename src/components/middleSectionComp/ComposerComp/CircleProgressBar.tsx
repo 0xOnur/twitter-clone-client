@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 interface Props {
@@ -15,11 +16,15 @@ const CircleProgressBar: React.FC<Props> = ({ value, limit }) => {
     "--thickness": "2px",
   } as React.CSSProperties
 
+  const circleClasses = classNames("radial-progress border border-1 text-primary-base", {
+    "text-yellow-base": remainingLimit <= 20 && remainingLimit > 0,
+    "text-primary-base": remainingLimit > 20,
+    "text-red-600": remainingLimit <= 0,
+  })
+
   return (
     <div 
-      className={`radial-progress border border-1 text-primary-base 
-        ${remainingLimit <= 20 && remainingLimit > 0 ? (`text-yellow-base`) : remainingLimit > 20 ? (`text-primary-base`) : ('text-red-600')} }`
-      } 
+      className={circleClasses} 
       style={styles}
     >
       {remainingLimit <= 20 && (

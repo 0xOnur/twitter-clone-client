@@ -1,20 +1,29 @@
 import React, { useState } from "react";
-import { DropDownMenuArrowIcon } from "@icons/Icon";
 import classNames from "classnames";
+import { useMutation } from "@tanstack/react-query";
+import { debounce } from "lodash";
+import { checkEmail } from "api/userApi";
+import { DropDownMenuArrowIcon, VerifiedIcon } from "@icons/Icon";
+
+
+type UserData = {
+  displayName: string;
+  email: string;
+  emailAvailable: boolean;
+  month: number;
+  day: number;
+  year: number;
+};
 
 interface StepProps {
   onNext: () => void;
-  onStepData: (step: number, data: any) => void;
-  prevData: {
-    displayName: string;
-    email: string;
-    month: number;
-    day: number;
-    year: number;
-  };
+  onStepData: (data: Partial<UserData>) => void;
+  user: UserData;
 }
 
-const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
+const Step1 = ({ onNext, onStepData, user }: StepProps) => {
+  const [lastEmailInputChangeTimestamp, setLastEmailInputChangeTimestamp] = useState(0);
+  const [emailMutationPending, setEmailMutationPending] = useState(false);
   const currentYear = new Date().getFullYear() - 1;
 
   const months = [
@@ -34,46 +43,75 @@ const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
   const days = 31;
   const years = currentYear - 1950;
 
-  const [userInfo, setUserInfo] = useState(prevData || {
-    displayName: "",
-    email: "",
-    month: 1,
-    day: 1,
-    year: 1,
+  const emailIsTakenMutation = useMutation(checkEmail, {
+    onSuccess: (data) => {
+      onStepData({ emailAvailable: data });
+      setEmailMutationPending(false);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo((prevData) => ({ ...prevData, [name]: value }));
+  const handleMailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const email = e.target.value.trim();
+    onStepData({ email: email });
+    if (email.length > 0) {
+      setEmailMutationPending(true);
+      setLastEmailInputChangeTimestamp(Date.now());
+      debouncedEmailIsTakenMutation(email);
+    } else {
+      onStepData({ email: "", emailAvailable: false });
+    }
   };
+
+  const debouncedEmailIsTakenMutation = debounce((email: string) => {
+    setEmailMutationPending(false);
+    emailIsTakenMutation.mutate(email);
+  }, 300);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    onStepData({ [name]: value });
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    onStepData({ ...user, [name]: parseInt(value) });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const timeSinceLastEmailInputChange = Date.now() - lastEmailInputChangeTimestamp;
+    if (
+      user.displayName &&
+      user.emailAvailable &&
+      !emailIsTakenMutation.isLoading &&
+      !emailMutationPending &&
+      timeSinceLastEmailInputChange >= 300
+    ) {
+      onNext();
+    }
+  };
+
+  const emailInputClasses = classNames("relative border-2 border-gray-300 rounded-lg", {
+    "border-primary-base": user.emailAvailable && user.email.length>0,
+    "border-red-600": !user.emailAvailable && user.email.length > 0,
+  });
 
   const nextButtonClassNames = classNames(
     " font-bold py-2 px-4 w-full h-full rounded-full ",
     {
       "bg-black text-white hover:brightness-200":
-      userInfo.displayName && userInfo.email && userInfo.month && userInfo.day && userInfo.year,
+        user.displayName && user.emailAvailable,
       "bg-gray-300 text-gray-500 cursor-not-allowed":
-        !userInfo.displayName && !userInfo.email,
+        !user.displayName || !user.emailAvailable,
     }
   );
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setUserInfo((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (userInfo.displayName && userInfo.email && userInfo.month && userInfo.day && userInfo.year) {
-      onStepData(1, userInfo);
-      onNext();
-    }
-  };
-
   return (
     <form onSubmit={handleSubmit} className="h-full">
-
-    <div className="flex flex-col justify-between px-20 h-full">
+      <div className="flex flex-col justify-between px-20 h-full">
         <div className="w-full">
           <div className="flex justify-start py-5">
             <h2 className="relative text-3xl font-bold mb-6">
@@ -88,33 +126,38 @@ const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
                 required={true}
                 placeholder=" "
                 maxLength={50}
-                onChange={handleChange}
-                value={userInfo.displayName}
+                onChange={handleNameChange}
+                value={user.displayName}
                 className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
               />
               <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
                 Name
               </label>
               <label htmlFor="Choice1" className="second-label text-lg p-4">
-                {userInfo.displayName.length} / 50
+                {user.displayName.length} / 50
               </label>
             </div>
           </div>
           <div className="py-3">
-            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-primary-base">
+            <div className={emailInputClasses}>
               <input
                 type="email"
                 name="email"
                 required={true}
                 placeholder=" "
                 maxLength={25}
-                onChange={handleChange}
-                value={userInfo.email}
+                onChange={handleMailChange}
+                value={user.email}
                 className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
               />
               <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
                 Email
               </label>
+              {user.emailAvailable && (
+                <div className="absolute  top-6 right-3">
+                  <VerifiedIcon className={" w-6 h-6 text-primary-base"} />
+                </div>
+              )}
             </div>
           </div>
           <div className="flex flex-col py-3">
@@ -132,7 +175,7 @@ const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
                   <select
                     name="month"
                     onChange={handleDateChange}
-                    value={userInfo.month}
+                    value={user.month}
                     className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
                   >
                     {months.map((month, i) => (
@@ -154,7 +197,7 @@ const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
                   <select
                     name="day"
                     onChange={handleDateChange}
-                    value={userInfo.day}
+                    value={user.day}
                     className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
                   >
                     {[...Array(days)].map((_, i) => (
@@ -176,7 +219,7 @@ const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
                   <select
                     name="year"
                     onChange={handleDateChange}
-                    value={userInfo.year}
+                    value={user.year}
                     className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
                   >
                     {[...Array(years)].map((_, i) => {
@@ -207,9 +250,8 @@ const Step1 = ({ onNext, onStepData, prevData }: StepProps) => {
             </button>
           </div>
         </div>
-    </div>
+      </div>
     </form>
-
   );
 };
 

@@ -1,54 +1,46 @@
-import React, { useState, useRef } from "react";
-import { Dialog } from "@headlessui/react";
+import React, { useRef } from "react";
 import { UploadImageIcon, CancelIcon } from "@icons/Icon";
 import classNames from "classnames";
 
 interface StepProps {
   onNext: () => void;
-  onStepData: (step: number, data: any) => void;
-  prevData: {
-    avatar: File;
-    url: string;
+  onStepData: (data: {avatar: File | null, avatarURL: string | null}) => void;
+  user: {
+    avatar: File | null;
+    avatarURL: string;
   };
 }
 
-const Step4 = ({ onNext, onStepData, prevData }: StepProps) => {
-  const [avatar, setAvatar] = useState<File | null>(prevData?.avatar || null);
-  const [avatarURL, setURL] = useState<string>(prevData?.url || "");
-
+const Step4 = ({ onNext, onStepData, user }: StepProps) => {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
     if (file && file.type.includes("image")) {
-      setAvatar(file);
       const url = URL.createObjectURL(file);
-      setURL(url);
-      onStepData(4, { avatar: file, url });
+      onStepData({avatar: file, avatarURL: url});
     }
   };
 
   const removeAvatar = () => {
-    setAvatar(null);
-    setURL("");
-    onStepData(4, null);
+    onStepData({avatar: null, avatarURL: null});
     if (inputFileRef.current) {
       inputFileRef.current.value = "";
     }
   };
 
   const nextOrSkipButtonClasses = classNames("w-full h-full rounded-full", {
-    "bg-black text-white hover:brightness-200": avatar,
-    "bg-gray-300 hover:bg-gray-200": !avatar,
+    "bg-black text-white hover:brightness-200": user.avatar,
+    "bg-gray-300 hover:bg-gray-200": !user.avatar,
   });
 
   return (
     <div className="flex flex-col justify-between px-20 h-full">
       <div>
         <div className="flex flex-col py-5">
-          <Dialog.Title as="h2" className="relative text-3xl font-bold ">
+          <h2 className="relative text-3xl font-bold ">
             Pick a profile picture
-          </Dialog.Title>
+          </h2>
           <div className="mt-2">
             <p className="text-lg text-gray-500">
               Have a favorite selfie? Upload it now
@@ -59,17 +51,17 @@ const Step4 = ({ onNext, onStepData, prevData }: StepProps) => {
           <input
             id="avatar"
             type="file"
-            accept=".jpg, .png, .gif"
+            accept=".jpg, .jpeg, .png, .gif"
             multiple={false}
             onChange={handleAvatarChange}
             ref={inputFileRef}
             hidden
           />
           <div className="flex relative justify-center items-center bg-gray-400 w-60 h-60 rounded-full">
-            {avatar ? (
+            {user.avatar ? (
               <>
                 <img
-                  src={avatarURL}
+                  src={user.avatarURL}
                   alt="Profile"
                   className="relative w-full h-full object-cover rounded-full"
                 />
@@ -107,7 +99,7 @@ const Step4 = ({ onNext, onStepData, prevData }: StepProps) => {
             onClick={onNext}
           >
             <div className="flex flex-row justify-center items-center">
-              <span className="font-bold">{avatar ? "Next" : "Skip"}</span>
+              <span className="font-bold">{user.avatar ? "Next" : "Skip"}</span>
             </div>
           </button>
         </div>

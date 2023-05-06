@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 
 interface SvgProps {
   children: ReactNode;
@@ -12,7 +12,7 @@ interface PathProps {
   isShow?: boolean;
 }
 
-const Svg: React.FC<SvgProps> = ({ children, className = '' }) => {
+const Svg: React.FC<SvgProps> = ({ children, className = "" }) => {
   return (
     <svg viewBox="0 0 24 24" className={`fill-current ${className}`}>
       {children}
@@ -20,12 +20,8 @@ const Svg: React.FC<SvgProps> = ({ children, className = '' }) => {
   );
 };
 
-
-
-
-
 //LeftSidebar Icons
-export const HomeIcon = ({ isActive }:PathProps) => {
+export const HomeIcon = ({ isActive }: PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
@@ -39,7 +35,7 @@ export const HomeIcon = ({ isActive }:PathProps) => {
   );
 };
 
-export const ExploreIcon = ({ isActive }:PathProps) => {
+export const ExploreIcon = ({ isActive }: PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
@@ -53,13 +49,13 @@ export const ExploreIcon = ({ isActive }:PathProps) => {
   );
 };
 
-export const NotificationsIcon = ({isActive}:PathProps) => {
+export const NotificationsIcon = ({ isActive }: PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
         {isActive ? (
           <path d="M11.996 2c-4.062 0-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958C19.48 5.017 16.054 2 11.996 2zM9.171 18h5.658c-.412 1.165-1.523 2-2.829 2s-2.417-.835-2.829-2z"></path>
-        ):(
+        ) : (
           <path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.698C6.364 6.272 8.941 4 11.996 4s5.627 2.268 6.013 5.295L18.864 16H5.134z"></path>
         )}
       </g>
@@ -67,7 +63,7 @@ export const NotificationsIcon = ({isActive}:PathProps) => {
   );
 };
 
-export const MessagesIcon = ({ isActive, className }:PathProps) => {
+export const MessagesIcon = ({ isActive, className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -81,7 +77,7 @@ export const MessagesIcon = ({ isActive, className }:PathProps) => {
   );
 };
 
-export const BookmarksIcon = ({ isActive, className }:PathProps) => {
+export const BookmarksIcon = ({ isActive, className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -95,7 +91,7 @@ export const BookmarksIcon = ({ isActive, className }:PathProps) => {
   );
 };
 
-export const BookmarkPlusIcon = ({ className }:PathProps) => {
+export const BookmarkPlusIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -104,8 +100,6 @@ export const BookmarkPlusIcon = ({ className }:PathProps) => {
     </Svg>
   );
 };
-
-
 
 export const ListsIcon = () => {
   return (
@@ -118,14 +112,14 @@ export const ListsIcon = () => {
   );
 };
 
-export const ProfileIcon = ({isActive}:PathProps) => {
+export const ProfileIcon = ({ isActive }: PathProps) => {
   return (
     <Svg className="w-7 h-7">
       <g>
         {isActive ? (
           <path d="M17.863 13.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44zM12 2C9.791 2 8 3.79 8 6s1.791 4 4 4 4-1.79 4-4-1.791-4-4-4z"></path>
-        ):(
-            <path d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"></path>
+        ) : (
+          <path d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"></path>
         )}
       </g>
     </Svg>
@@ -136,7 +130,7 @@ export const MoreIcon = () => {
   return (
     <Svg className="w-7 h-7">
       <g>
-      <path d="M3.75 12c0-4.56 3.69-8.25 8.25-8.25s8.25 3.69 8.25 8.25-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12zM12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-4.75 11.5c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25S6 11.31 6 12s.56 1.25 1.25 1.25zm9.5 0c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25-1.25.56-1.25 1.25.56 1.25 1.25 1.25zM13.25 12c0 .69-.56 1.25-1.25 1.25s-1.25-.56-1.25-1.25.56-1.25 1.25-1.25 1.25.56 1.25 1.25z"></path>
+        <path d="M3.75 12c0-4.56 3.69-8.25 8.25-8.25s8.25 3.69 8.25 8.25-3.69 8.25-8.25 8.25S3.75 16.56 3.75 12zM12 1.75C6.34 1.75 1.75 6.34 1.75 12S6.34 22.25 12 22.25 22.25 17.66 22.25 12 17.66 1.75 12 1.75zm-4.75 11.5c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25S6 11.31 6 12s.56 1.25 1.25 1.25zm9.5 0c.69 0 1.25-.56 1.25-1.25s-.56-1.25-1.25-1.25-1.25.56-1.25 1.25.56 1.25 1.25 1.25zM13.25 12c0 .69-.56 1.25-1.25 1.25s-1.25-.56-1.25-1.25.56-1.25 1.25-1.25 1.25.56 1.25 1.25z"></path>
       </g>
     </Svg>
   );
@@ -152,7 +146,7 @@ export const TopicsIcon = () => {
   );
 };
 
-export const TwiiterCircleIcon = ({className}:PathProps) => {
+export const TwiiterCircleIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -163,7 +157,7 @@ export const TwiiterCircleIcon = ({className}:PathProps) => {
 };
 
 export const TweetIcon = () => {
-   return (
+  return (
     <Svg className="w-7 h-7">
       <g>
         <path d="M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z"></path>
@@ -172,7 +166,7 @@ export const TweetIcon = () => {
   );
 };
 
-export const TreeDotIcon = ({className}:PathProps) => {
+export const TreeDotIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -180,7 +174,7 @@ export const TreeDotIcon = ({className}:PathProps) => {
       </g>
     </Svg>
   );
-};      
+};
 
 export const DropDownMenuArrowIcon = () => {
   return (
@@ -190,23 +184,25 @@ export const DropDownMenuArrowIcon = () => {
       </g>
     </Svg>
   );
-};      
+};
 
-export const AnalyticsIcon = ({className}:PathProps) => {
+export const AnalyticsIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
-        <path d="M8.75 21V3h2v18h-2zM18 21V8.5h2V21h-2zM4 21l.004-10h2L6 21H4zm9.248 0v-7h2v7h-2z"><path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></path>
+        <path d="M8.75 21V3h2v18h-2zM18 21V8.5h2V21h-2zM4 21l.004-10h2L6 21H4zm9.248 0v-7h2v7h-2z">
+          <path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path>
+        </path>
       </g>
     </Svg>
   );
-};      
+};
 
 export const ProfessionalHomeIcon = () => {
   return (
     <Svg className="w-4 h-4 fill-current">
       <g>
-      <path d="M5 22H2v-3c0-1.654 1.346-3 3-3s3 1.346 3 3-1.346 3-3 3zm-1-2h1c.551 0 1-.449 1-1s-.449-1-1-1-1 .449-1 1v1zm7.594 1.282l-.336-1.145c-.271-.923-.664-1.807-1.166-2.627-.452-.736-.992-1.421-1.607-2.036-.626-.625-1.322-1.173-2.069-1.627-.821-.499-1.706-.888-2.63-1.157l-1.151-.335L5.312 7h5.192c.613-.636 2.015-2.077 2.758-2.744C15.673 2.09 20.704 2.003 20.918 2l1.025-.013-.013 1.025c-.003.213-.09 5.245-2.256 7.656-.643.715-2.004 2.043-2.671 2.688v5.239l-5.407 2.688h-.002zm.64-4.046c.207.396.393.802.557 1.217l2.21-1.099v-2.333l-2.768 2.214zm-3.839-4.468c.531.391 1.034.823 1.503 1.292.459.459.883.951 1.267 1.471l4.104-3.284c.269-.257 2.169-2.084 2.916-2.915 1.084-1.208 1.531-3.667 1.681-5.269-1.602.149-4.061.596-5.268 1.68-.832.748-2.658 2.647-2.916 2.916l-3.287 4.109zM5.47 11.154c.414.163.819.347 1.214.551l2.165-2.706H6.548l-1.077 2.154z"></path>
+        <path d="M5 22H2v-3c0-1.654 1.346-3 3-3s3 1.346 3 3-1.346 3-3 3zm-1-2h1c.551 0 1-.449 1-1s-.449-1-1-1-1 .449-1 1v1zm7.594 1.282l-.336-1.145c-.271-.923-.664-1.807-1.166-2.627-.452-.736-.992-1.421-1.607-2.036-.626-.625-1.322-1.173-2.069-1.627-.821-.499-1.706-.888-2.63-1.157l-1.151-.335L5.312 7h5.192c.613-.636 2.015-2.077 2.758-2.744C15.673 2.09 20.704 2.003 20.918 2l1.025-.013-.013 1.025c-.003.213-.09 5.245-2.256 7.656-.643.715-2.004 2.043-2.671 2.688v5.239l-5.407 2.688h-.002zm.64-4.046c.207.396.393.802.557 1.217l2.21-1.099v-2.333l-2.768 2.214zm-3.839-4.468c.531.391 1.034.823 1.503 1.292.459.459.883.951 1.267 1.471l4.104-3.284c.269-.257 2.169-2.084 2.916-2.915 1.084-1.208 1.531-3.667 1.681-5.269-1.602.149-4.061.596-5.268 1.68-.832.748-2.658 2.647-2.916 2.916l-3.287 4.109zM5.47 11.154c.414.163.819.347 1.214.551l2.165-2.706H6.548l-1.077 2.154z"></path>
       </g>
     </Svg>
   );
@@ -274,59 +270,57 @@ export const KeyboardShorcutsIcons = () => {
 
 // Header Icons
 
-
-
-export const BackIcon = ({className}:PathProps) => {
-  return(
+export const BackIcon = ({ className }: PathProps) => {
+  return (
     <Svg className={className}>
       <g>
         <path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path>
       </g>
     </Svg>
-  )
-}
+  );
+};
 
-export const EveryoneIcon = ({className}:PathProps) => {
-  return(
+export const EveryoneIcon = ({ className }: PathProps) => {
+  return (
     <Svg className={className}>
       <g>
         <path d="M4.65 8.24c-.57 1.13-.9 2.41-.9 3.76 0 4.56 3.69 8.25 8.25 8.25 2.87 0 5.4-1.47 6.88-3.69l-2.99-1.5.56-3.32-3.01-4.21 4.16-1.59c-1.27-1.17-2.91-1.95-4.72-2.14l-.5 2.38-2.08 1.04-.53 1.41 4.82 1.93-2.16 2.87-1.23 5.54-3.7-1.85V13.1l-.53-2.68.26-.71-2.58-1.47zm1.13-1.66l2.16 1.23.77-2.03 1.91-.96.21-.99c-2.01.29-3.78 1.3-5.05 2.75zm3.26 4l.46 2.32v2.98l.3.15.77-3.46.85-1.13-2.35-.94-.03.08zm9.92-3.02l-2.39.91 1.99 2.79-.45 2.68 1.67.83c.3-.87.47-1.8.47-2.77 0-1.63-.47-3.16-1.29-4.44zM1.75 12C1.75 6.34 6.34 1.75 12 1.75S22.25 6.34 22.25 12 17.66 22.25 12 22.25 1.75 17.66 1.75 12z"></path>
       </g>
     </Svg>
-  )
-}
+  );
+};
 
-export const MentionIcon = ({className}:PathProps) => {
-  return(
+export const MentionIcon = ({ className }: PathProps) => {
+  return (
     <Svg className={className}>
       <g>
         <path d="M12 3.786c-4.556 0-8.25 3.694-8.25 8.25s3.694 8.25 8.25 8.25c1.595 0 3.081-.451 4.341-1.233l1.054 1.7c-1.568.972-3.418 1.534-5.395 1.534-5.661 0-10.25-4.589-10.25-10.25S6.339 1.786 12 1.786s10.25 4.589 10.25 10.25c0 .901-.21 1.77-.452 2.477-.592 1.731-2.343 2.477-3.917 2.334-1.242-.113-2.307-.74-3.013-1.647-.961 1.253-2.45 2.011-4.092 1.78-2.581-.363-4.127-2.971-3.76-5.578.366-2.606 2.571-4.688 5.152-4.325 1.019.143 1.877.637 2.519 1.342l1.803.258-.507 3.549c-.187 1.31.761 2.509 2.079 2.629.915.083 1.627-.356 1.843-.99.2-.585.345-1.224.345-1.83 0-4.556-3.694-8.25-8.25-8.25zm-.111 5.274c-1.247-.175-2.645.854-2.893 2.623-.249 1.769.811 3.143 2.058 3.319 1.247.175 2.645-.854 2.893-2.623.249-1.769-.811-3.144-2.058-3.319z"></path>
       </g>
     </Svg>
-  )
-}
+  );
+};
 
-export const SelectedIcon = ({className}:PathProps) => {
-  return(
+export const SelectedIcon = ({ className }: PathProps) => {
+  return (
     <Svg className={className}>
       <g>
         <path d="M9.64 18.952l-5.55-4.861 1.317-1.504 3.951 3.459 8.459-10.948L19.4 6.32 9.64 18.952z"></path>
       </g>
     </Svg>
-  )
-}
+  );
+};
 
-export const RemoveItemIcon = ({className}:PathProps) => {
-  return(
+export const RemoveItemIcon = ({ className }: PathProps) => {
+  return (
     <Svg className={className}>
       <g>
         <path d="M10.59 12L4.54 5.96l1.42-1.42L12 10.59l6.04-6.05 1.42 1.42L13.41 12l6.05 6.04-1.42 1.42L12 13.41l-6.04 6.05-1.42-1.42L10.59 12z"></path>
       </g>
     </Svg>
-  )
-}
+  );
+};
 
-export const PopulerIcon = ({ className }:PathProps) => {
+export const PopulerIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -336,7 +330,7 @@ export const PopulerIcon = ({ className }:PathProps) => {
   );
 };
 
-export const ImageIcon = ({ className }:PathProps) => {
+export const ImageIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -346,7 +340,7 @@ export const ImageIcon = ({ className }:PathProps) => {
   );
 };
 
-export const GIFIcon = ({ className }:PathProps) => {
+export const GIFIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -356,7 +350,7 @@ export const GIFIcon = ({ className }:PathProps) => {
   );
 };
 
-export const PollIcon = ({ className }:PathProps) => {
+export const PollIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -366,7 +360,7 @@ export const PollIcon = ({ className }:PathProps) => {
   );
 };
 
-export const EmojiIcon = ({ className }:PathProps) => {
+export const EmojiIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -376,7 +370,7 @@ export const EmojiIcon = ({ className }:PathProps) => {
   );
 };
 
-export const ScheduleIcon = ({ className }:PathProps) => {
+export const ScheduleIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -386,7 +380,7 @@ export const ScheduleIcon = ({ className }:PathProps) => {
   );
 };
 
-export const AddThreadIcon = ({ className }:PathProps) => {
+export const AddThreadIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -396,7 +390,7 @@ export const AddThreadIcon = ({ className }:PathProps) => {
   );
 };
 
-export const ReplyIcon = ({ className }:PathProps) => {
+export const ReplyIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -406,7 +400,7 @@ export const ReplyIcon = ({ className }:PathProps) => {
   );
 };
 
-export const ReTweetIcon = ({ className }:PathProps) => {
+export const ReTweetIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -416,7 +410,7 @@ export const ReTweetIcon = ({ className }:PathProps) => {
   );
 };
 
-export const LikeIcon = ({ className }:PathProps) => {
+export const LikeIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -426,7 +420,7 @@ export const LikeIcon = ({ className }:PathProps) => {
   );
 };
 
-export const ShareIcon = ({ className }:PathProps) => {
+export const ShareIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -436,7 +430,7 @@ export const ShareIcon = ({ className }:PathProps) => {
   );
 };
 
-export const CopyTweetIcon = ({ className }:PathProps) => {
+export const CopyTweetIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -446,7 +440,7 @@ export const CopyTweetIcon = ({ className }:PathProps) => {
   );
 };
 
-export const CancelIcon = ({ className }:PathProps) => {
+export const CancelIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -458,7 +452,7 @@ export const CancelIcon = ({ className }:PathProps) => {
 
 // Righbar Icons
 
-export const SearchIcon = ({ className }:PathProps) => {
+export const SearchIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
@@ -468,28 +462,27 @@ export const SearchIcon = ({ className }:PathProps) => {
   );
 };
 
-
 // Profile Icons
 
-export const VerifiedIcon = ({className}:PathProps) => {
+export const VerifiedIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"></path>
     </Svg>
-  )
-}
+  );
+};
 
 //Others
 
-export const TwitterIcon = ({className}:PathProps) => {
+export const TwitterIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className} viewBox="0 0 24 24">
       <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path>
     </Svg>
-  )
-}
+  );
+};
 
-export const GoogleIcon = ({ className }:PathProps) => {
+export const GoogleIcon = ({ className }: PathProps) => {
   return (
     <svg
       version="1.1"
@@ -520,7 +513,7 @@ export const GoogleIcon = ({ className }:PathProps) => {
   );
 };
 
-export const AppleIcon = ({ className }:PathProps) => {
+export const AppleIcon = ({ className }: PathProps) => {
   return (
     <svg className={className}>
       <g>
@@ -530,37 +523,44 @@ export const AppleIcon = ({ className }:PathProps) => {
   );
 };
 
-export const ShowPasswordIcon = ({className, isShow}:PathProps) => {
+export const ShowPasswordIcon = ({ className, isShow }: PathProps) => {
   return (
     <svg className={className}>
       <g>
-      {isShow ? (
-        <path d="M3.693 21.707l-1.414-1.414 2.429-2.429c-2.479-2.421-3.606-5.376-3.658-5.513l-.131-.352.131-.352c.133-.353 3.331-8.648 10.937-8.648 2.062 0 3.989.621 5.737 1.85l2.556-2.557 1.414 1.414L3.693 21.707zm-.622-9.706c.356.797 1.354 2.794 3.051 4.449l2.417-2.418c-.361-.609-.553-1.306-.553-2.032 0-2.206 1.794-4 4-4 .727 0 1.424.192 2.033.554l2.263-2.264C14.953 5.434 13.512 5 11.986 5c-5.416 0-8.258 5.535-8.915 7.001zM11.986 10c-1.103 0-2 .897-2 2 0 .178.023.352.067.519l2.451-2.451c-.167-.044-.341-.067-.519-.067zm10.951 1.647l.131.352-.131.352c-.133.353-3.331 8.648-10.937 8.648-.709 0-1.367-.092-2-.223v-2.047c.624.169 1.288.27 2 .27 5.415 0 8.257-5.533 8.915-7-.252-.562-.829-1.724-1.746-2.941l1.438-1.438c1.53 1.971 2.268 3.862 2.33 4.027z"></path>
-        
-      ) : (
-        <path d="M12 21c-7.605 0-10.804-8.296-10.937-8.648L.932 12l.131-.352C1.196 11.295 4.394 3 12 3s10.804 8.296 10.937 8.648l.131.352-.131.352C22.804 12.705 19.606 21 12 21zm-8.915-9c.658 1.467 3.5 7 8.915 7s8.257-5.533 8.915-7c-.658-1.467-3.5-7-8.915-7s-8.257 5.533-8.915 7zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm0-6c-1.103 0-2 .897-2 2s.897 2 2 2 2-.897 2-2-.897-2-2-2z"></path>
-      )}
+        {isShow ? (
+          <path d="M3.693 21.707l-1.414-1.414 2.429-2.429c-2.479-2.421-3.606-5.376-3.658-5.513l-.131-.352.131-.352c.133-.353 3.331-8.648 10.937-8.648 2.062 0 3.989.621 5.737 1.85l2.556-2.557 1.414 1.414L3.693 21.707zm-.622-9.706c.356.797 1.354 2.794 3.051 4.449l2.417-2.418c-.361-.609-.553-1.306-.553-2.032 0-2.206 1.794-4 4-4 .727 0 1.424.192 2.033.554l2.263-2.264C14.953 5.434 13.512 5 11.986 5c-5.416 0-8.258 5.535-8.915 7.001zM11.986 10c-1.103 0-2 .897-2 2 0 .178.023.352.067.519l2.451-2.451c-.167-.044-.341-.067-.519-.067zm10.951 1.647l.131.352-.131.352c-.133.353-3.331 8.648-10.937 8.648-.709 0-1.367-.092-2-.223v-2.047c.624.169 1.288.27 2 .27 5.415 0 8.257-5.533 8.915-7-.252-.562-.829-1.724-1.746-2.941l1.438-1.438c1.53 1.971 2.268 3.862 2.33 4.027z"></path>
+        ) : (
+          <path d="M12 21c-7.605 0-10.804-8.296-10.937-8.648L.932 12l.131-.352C1.196 11.295 4.394 3 12 3s10.804 8.296 10.937 8.648l.131.352-.131.352C22.804 12.705 19.606 21 12 21zm-8.915-9c.658 1.467 3.5 7 8.915 7s8.257-5.533 8.915-7c-.658-1.467-3.5-7-8.915-7s-8.257 5.533-8.915 7zM12 16c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm0-6c-1.103 0-2 .897-2 2s.897 2 2 2 2-.897 2-2-.897-2-2-2z"></path>
+        )}
       </g>
     </svg>
   );
-}
+};
 
-export const UploadImageIcon = ({className}:PathProps) => {
-    return (
-      <Svg className={className}>
-        <g>
-          <path d="M9.697 3H11v2h-.697l-3 2H5c-.276 0-.5.224-.5.5v11c0 .276.224.5.5.5h14c.276 0 .5-.224.5-.5V10h2v8.5c0 1.381-1.119 2.5-2.5 2.5H5c-1.381 0-2.5-1.119-2.5-2.5v-11C2.5 6.119 3.619 5 5 5h1.697l3-2zM12 10.5c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-4 2c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zM17 2c0 1.657-1.343 3-3 3v1c1.657 0 3 1.343 3 3h1c0-1.657 1.343-3 3-3V5c-1.657 0-3-1.343-3-3h-1z"></path>
-        </g>
-      </Svg>
-    )
-}
-
-export const LeftArrowIcon = ({className}:PathProps) => {
+export const UploadImageIcon = ({ className }: PathProps) => {
   return (
     <Svg className={className}>
       <g>
-      <path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path>
+        <path d="M9.697 3H11v2h-.697l-3 2H5c-.276 0-.5.224-.5.5v11c0 .276.224.5.5.5h14c.276 0 .5-.224.5-.5V10h2v8.5c0 1.381-1.119 2.5-2.5 2.5H5c-1.381 0-2.5-1.119-2.5-2.5v-11C2.5 6.119 3.619 5 5 5h1.697l3-2zM12 10.5c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-4 2c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zM17 2c0 1.657-1.343 3-3 3v1c1.657 0 3 1.343 3 3h1c0-1.657 1.343-3 3-3V5c-1.657 0-3-1.343-3-3h-1z"></path>
       </g>
     </Svg>
-  )
-}
+  );
+};
+
+export const LeftArrowIcon = ({ className }: PathProps) => {
+  return (
+    <Svg className={className}>
+      <g>
+        <path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path>
+      </g>
+    </Svg>
+  );
+};
+
+export const LoadingIcon = () => {
+  return (
+    <svg className="custom-loading-icon" viewBox="25 25 50 50">
+      <circle r="20" cy="50" cx="50"></circle>
+    </svg>
+  );
+};

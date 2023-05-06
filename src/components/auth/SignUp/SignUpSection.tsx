@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Terms from "./Terms";
-import SocialAuthButtons from "../SocialAuthButtons";
+import SocialAuthButtons from "@components/auth/SocialAuthButtons";
 import CreateAccountSteps from "./CreateAccountSteps";
-import AuthHeader from "../AuthHeader";
+import AuthHeader from "@components/auth/Modal/AuthHeader";
 
 interface IProps {
   title: string;

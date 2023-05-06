@@ -1,6 +1,5 @@
 import React from "react";
 import { GoogleIcon, AppleIcon } from "@icons/Icon";
-import { Dialog } from "@headlessui/react";
 
 interface IProps {
     mode: "login" | "signup";
@@ -11,9 +10,9 @@ const SocialAuthButtons = ({mode, title}: IProps) => {
   return (
     <>
       <div className="flex justify-center py-5">
-        <Dialog.Title as="h2" className="relative text-3xl font-bold mb-6">
+        <h2 className="relative text-3xl font-bold mb-6">
           {title}
-        </Dialog.Title>
+        </h2>
       </div>
       <div className="h-10 my-3">
         <button className="w-full h-full border rounded-full bg-white hover:bg-gray-200 text-black">

@@ -30,17 +30,17 @@ const AuthorInfo = ({ displayName, username, createdAt, pageType, isVerified }: 
       <div className="flex flex-row justify-between items-center">
         <div className={userFlexClasses} onClick={navigateUser}>
           <div className="flex text-lg items-center" >
-              <span className="font-bold hover:underline underline-offset-1">{displayName}</span>
+              <span className="font-bold hover:underline underline-offset-1 cursor-pointer">{displayName}</span>
             <span className="text-primary-base ml-1">{isVerified === true && (<VerifiedIcon className={"w-5 h-5"} />)}</span>
           </div>
           <div onClick={navigateUser}>
             {pageType === "home" ? (
               <div>
-                <span className="text-gray-dark ml-1">@{username} - </span>
+                <span className="text-gray-dark ml-1 cursor-pointer">@{username} - </span>
                 <span>{formatDate(createdAt)}</span>
               </div>
             ): (
-              <span className="text-gray-dark">@{username}</span>
+              <span className="text-gray-dark cursor-pointer">@{username}</span>
             )}
           </div>
         </div>

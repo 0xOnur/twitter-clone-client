@@ -1,6 +1,6 @@
 // components/LoginBar.tsx
 import React, {useState} from "react";
-import AuthModal from "./AuthModal";
+import AuthModal from "./Modal/AuthModal";
 
 
 const LoginBar: React.FC = () => {

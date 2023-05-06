@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SocialAuthButtons from "../SocialAuthButtons";
+import SocialAuthButtons from "@components/auth/SocialAuthButtons";
 import PasswordScreen from "./PasswordScreen";
-import AuthHeader from "../AuthHeader";
+import AuthHeader from "@components/auth/Modal/AuthHeader";
 
 interface IProps {
   title: string;

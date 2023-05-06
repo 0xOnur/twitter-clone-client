@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { TwitterIcon, CancelIcon, LeftArrowIcon } from "@icons/Icon";
 
 interface IProps {
@@ -13,9 +14,12 @@ const AuthHeader = ({
   currentStep,
   handlePreviousStep,
 }: IProps) => {
+
+  const navigate = useNavigate();
+
   const onClose = () => {
     if (isRoute) {
-      window.history.back();
+      navigate("/");
     } else {
       setOpen?.(false);
     }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Dialog } from "@headlessui/react";
 import { ShowPasswordIcon } from "@icons/Icon";
 
 interface IProps {
@@ -24,9 +23,9 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
       <div className="flex flex-col justify-between px-20 h-full">
         <div>
           <div className="flex justify-center py-5">
-            <Dialog.Title as="h2" className="relative text-3xl font-bold mb-6">
+            <h2 className="relative text-3xl font-bold mb-6">
               Enter your password
-            </Dialog.Title>
+            </h2>
           </div>
 
           <div className="py-3">

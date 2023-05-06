@@ -22,6 +22,7 @@
       "@utils/*": ["utils/*"],
       "@hooks/*": ["hooks/*"],
       "@customTypes/*": ["types/*"],
+      "@redux/*": ["redux/*"],
     }
   },
   "include": ["src", "craco.config.js"]

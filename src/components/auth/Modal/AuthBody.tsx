@@ -1,6 +1,6 @@
 import React from "react";
-import SignInSection from "./SıgnIn/SignInSection";
-import SignUpSection from "./SignUp/SignUpSection";
+import SignInSection from "@components/auth/SıgnIn/SignInSection";
+import SignUpSection from "@components/auth/SignUp/SignUpSection";
 
 interface IProps {
     title: string;
@@ -10,7 +10,6 @@ interface IProps {
 }
 
 const AuthBody = ({title, mode, isRoute, setOpen}:IProps) => {
-  
   return (
         mode === "login" ? (
             <SignInSection title={title} mode={mode} isRoute={isRoute} setOpen={setOpen} />

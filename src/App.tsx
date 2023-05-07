@@ -7,6 +7,7 @@ import { RootState } from "@redux/config/store";
 import { HomeLayout, TweetDetailsLayout, UserProfileLayout } from "./layout";
 import { LoginBar, AuthModal } from "@components/index";
 import Logout from "@components/auth/Logout";
+import { ToastProvider } from "contexts/ToastContext";
 
 function App() {
   const reduxUser = useSelector((state: RootState) => state.user);
@@ -20,7 +21,9 @@ function App() {
   }, [reduxUser]);
 
   return (
+
     <div>
+    <ToastProvider>
       <Routes>
         <Route path="/" element={<Navigate to="home" />} />
         <Route
@@ -94,6 +97,7 @@ function App() {
         />
       </Routes>
       {!isAuthenticated && <LoginBar />}
+    </ToastProvider>
     </div>
   );
 }

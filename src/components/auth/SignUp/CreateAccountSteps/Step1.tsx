@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
-import { useMutation } from "@tanstack/react-query";
-import { debounce } from "lodash";
-import { checkEmail } from "api/userApi";
-import { DropDownMenuArrowIcon, VerifiedIcon } from "@icons/Icon";
+import { useQuery } from "@tanstack/react-query";
+import { emailIsAvailable } from "api/userApi";
+import { DropDownMenuArrowIcon} from "@icons/Icon";
+import useToast from "@hooks/useToast";
+import { LoadingIcon } from "@icons/Icon";
 
 
 type UserData = {
   displayName: string;
   email: string;
-  emailAvailable: boolean;
   month: number;
   day: number;
   year: number;
@@ -22,10 +22,11 @@ interface StepProps {
 }
 
 const Step1 = ({ onNext, onStepData, user }: StepProps) => {
-  const [lastEmailInputChangeTimestamp, setLastEmailInputChangeTimestamp] = useState(0);
-  const [emailMutationPending, setEmailMutationPending] = useState(false);
-  const currentYear = new Date().getFullYear() - 1;
+  const { showToast } = useToast();
 
+  const currentYear = new Date().getFullYear() - 1;
+  const days = 31;
+  const years = currentYear - 1950;
   const months = [
     "January",
     "February",
@@ -40,77 +41,79 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
     "November",
     "December",
   ];
-  const days = 31;
-  const years = currentYear - 1950;
+  
 
-  const emailIsTakenMutation = useMutation(checkEmail, {
-    onSuccess: (data) => {
-      onStepData({ emailAvailable: data });
-      setEmailMutationPending(false);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const handleError = () => {
+    showToast("Error checking username.", "error");
+  };
+
+  const { refetch, isFetching } = useQuery(
+    ["emailIsAvailable", user.email],
+    () => emailIsAvailable(user.email),
+    {
+      enabled: false,
+      onError: handleError,
+    }
+  )
 
   const handleMailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value.trim();
-    onStepData({ email: email });
-    if (email.length > 0) {
-      setEmailMutationPending(true);
-      setLastEmailInputChangeTimestamp(Date.now());
-      debouncedEmailIsTakenMutation(email);
-    } else {
-      onStepData({ email: "", emailAvailable: false });
-    }
+    onStepData({ ...user, email: email });
   };
-
-  const debouncedEmailIsTakenMutation = debounce((email: string) => {
-    setEmailMutationPending(false);
-    emailIsTakenMutation.mutate(email);
-  }, 300);
+  
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     onStepData({ [name]: value });
   };
 
+
   const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     onStepData({ ...user, [name]: parseInt(value) });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  
+  const handleNext = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const timeSinceLastEmailInputChange = Date.now() - lastEmailInputChangeTimestamp;
-    if (
-      user.displayName &&
-      user.emailAvailable &&
-      !emailIsTakenMutation.isLoading &&
-      !emailMutationPending &&
-      timeSinceLastEmailInputChange >= 300
-    ) {
-      onNext();
+    try {
+      const { data: emailIsAvailableResult } = await refetch();
+      if (emailIsAvailableResult) {
+        onNext();
+      } else {
+        showToast("Email is already taken.", "error");
+      }
+    }
+    catch (error) {
+      handleError();
     }
   };
 
+   if (isFetching) {
+    return(
+      <div className="flex h-full items-center justify-center">
+        <LoadingIcon />
+      </div>
+    )
+  }
+
+
   const emailInputClasses = classNames("relative border-2 border-gray-300 rounded-lg", {
-    "border-primary-base": user.emailAvailable && user.email.length>0,
-    "border-red-600": !user.emailAvailable && user.email.length > 0,
+    "border-primary-base": user.email.length>0,
   });
 
   const nextButtonClassNames = classNames(
     " font-bold py-2 px-4 w-full h-full rounded-full ",
     {
       "bg-black text-white hover:brightness-200":
-        user.displayName && user.emailAvailable,
+        user.displayName,
       "bg-gray-300 text-gray-500 cursor-not-allowed":
-        !user.displayName || !user.emailAvailable,
+        !user.displayName,
     }
   );
 
   return (
-    <form onSubmit={handleSubmit} className="h-full">
+    <form onSubmit={handleNext} className="h-full">
       <div className="flex flex-col justify-between px-20 h-full">
         <div className="w-full">
           <div className="flex justify-start py-5">
@@ -153,11 +156,6 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
               <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
                 Email
               </label>
-              {user.emailAvailable && (
-                <div className="absolute  top-6 right-3">
-                  <VerifiedIcon className={" w-6 h-6 text-primary-base"} />
-                </div>
-              )}
             </div>
           </div>
           <div className="flex flex-col py-3">

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { ShowPasswordIcon } from "@icons/Icon";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "redux/config/store";
+import { loginUser } from "api/userApi";
+import useToast from "@hooks/useToast";
+import { LoadingIcon, ShowPasswordIcon } from "@icons/Icon";
 
 interface IProps {
   username: string;
@@ -8,15 +13,34 @@ interface IProps {
 }
 
 const PasswordScreen = ({ username, password, setPassword }: IProps) => {
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+  const redux = useSelector((state: RootState) => state.user)
+  const { showToast } = useToast();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      username: username,
-      password: password,
+    dispatch(loginUser({ username, password })).then((response) => {
+      if (response.meta.requestStatus === "rejected") {
+        showToast(response.payload.message, "error")
+      }
     });
   };
+
+  if (redux.isPending) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <LoadingIcon />
+      </div>
+    )
+  } else if (redux.isAuthenticated) {
+    setTimeout(() => {
+      showToast("Logged in", "success");
+      navigate("/");
+    }, 3000)
+  }
 
   return (
     <form onSubmit={handleSubmit} className="h-full">
@@ -54,6 +78,7 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
               <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
                 Password
               </label>
+
               <button
                 onClick={() => setShowPassword(!showPassword)}
                 type="button"
@@ -65,6 +90,11 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
                 />
               </button>
             </div>
+            {redux.error.message && (
+              <span className="bottom-0 left-0 text-sm text-red-600">
+                {redux.error.message}
+              </span>
+            )}
             <div className="px-2">
               <a href="/reset_password" className="text-primary-dark">
                 Forgot your password?

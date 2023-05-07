@@ -25,7 +25,7 @@ const AuthModal = ({ isOpen, setOpen, onClose, mode, isRoute }: IProps) => {
   }, [isOpen]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-40 flex items-center justify-center">
       <div className="fixed inset-0 bg-black opacity-50" />
       <div className="z-10 text-black bg-white w-full max-w-600px min-h-400px rounded-xl overflow-hidden">
         <div className="overflow-y-auto max-h-90vh">

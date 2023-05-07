@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { usernameExist } from "api/userApi";
 import SocialAuthButtons from "@components/auth/SocialAuthButtons";
 import PasswordScreen from "./PasswordScreen";
 import AuthHeader from "@components/auth/Modal/AuthHeader";
+import useToast from "@hooks/useToast";
+import { LoadingIcon } from "@icons/Icon";
 
 interface IProps {
   title: string;
@@ -13,15 +17,51 @@ interface IProps {
 
 const SignInSection = ({ title, mode, isRoute, setOpen }: IProps) => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
-  const [username, setUsername] = useState(String);
-  const [password, setPassword] = useState(String);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPasswordSection, setPasswordMode] = useState(false);
 
-  const handleNext = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setPasswordMode(true);
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
   };
+
+  const handleError = () => {
+    showToast("Error checking username.", "error");
+  };
+
+  const { refetch, isFetching } = useQuery(
+    ["usernameExist", username],
+    () => usernameExist(username),
+    {
+      enabled: false,
+      onError: handleError,
+    }
+  );
+
+  const handleNext = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const { data: userIsExistResult } = await refetch();
+      if (userIsExistResult) {
+        setPasswordMode(true);
+      } else {
+        showToast("User not found.", "error");
+      }
+    } catch (error) {
+      handleError();
+    }
+  };
+
+  if (isFetching) {
+    return(
+      <div className="flex h-full items-center justify-center">
+        <LoadingIcon />
+      </div>
+    )
+  }
+  
 
   if (showPasswordSection) {
     return (
@@ -61,7 +101,7 @@ const SignInSection = ({ title, mode, isRoute, setOpen }: IProps) => {
                     maxLength={25}
                     className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={handleUsernameChange}
                   />
                   <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
                     Username

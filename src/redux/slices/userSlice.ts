@@ -8,7 +8,9 @@ interface UserState {
     accessToken: string | null;
     refreshToken: string | null;
     isPending: boolean;
-    error: string | null;
+    error: {
+        message: string | null;
+    }
   }
 
 const initialState: UserState = {
@@ -32,7 +34,9 @@ const initialState: UserState = {
     accessToken: null,
     refreshToken: null,
     isPending: false,
-    error: null
+    error: {
+        message: null
+    }
 }
 
 const userSlice = createSlice({
@@ -46,7 +50,7 @@ const userSlice = createSlice({
         },
         [userApi.createUser.fulfilled.type]: (state, action) => {
             state.isPending = false;
-            state.error = null;
+            state.error.message = null;
             state.isAuthenticated = true;
             state.user = action.payload.user;
             state.accessToken = action.payload.tokens.accessToken;
@@ -62,7 +66,7 @@ const userSlice = createSlice({
         },
         [userApi.loginUser.fulfilled.type]: (state, action) => {
             state.isPending = false;
-            state.error = null;
+            state.error.message = null;
             state.isAuthenticated = true;
             state.user = action.payload.user;
             state.accessToken = action.payload.accessToken;
@@ -78,7 +82,7 @@ const userSlice = createSlice({
         },
         [userApi.logoutUser.fulfilled.type]: (state, action) => {
             state.isPending = false;
-            state.error = null;
+            state.error.message = null;
             state.isAuthenticated = false;
             state.user = initialState.user;
             state.accessToken = null;

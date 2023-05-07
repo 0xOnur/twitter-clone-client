@@ -1,80 +1,73 @@
-import React, {useState} from "react";
-import { VerifiedIcon } from "@icons/Icon";
+import React from "react";
 import classNames from "classnames";
-import { useMutation } from "@tanstack/react-query";
-import { debounce } from "lodash";
-import { checkUsername } from "api/userApi";
+import { useQuery } from "@tanstack/react-query";
+import { usernameIsAvailable } from "api/userApi";
+import useToast from "@hooks/useToast";
+import { LoadingIcon } from "@icons/Icon";
 
 type User = {
   username: string;
-  usernameAvailable: boolean;
 };
 
 interface StepProps {
   onNext: () => void;
-  onStepData: (data: {
-    username?: string;
-    usernameAvailable?: boolean;
-  }) => void;
+  onStepData: (data: {username?: string}) => void;
   user: User;
 }
 const Step5 = ({ onNext, onStepData, user }: StepProps) => {
-  const [lastInputChangeTimestamp, setLastInputChangeTimestamp] = useState(0);
-  const [mutationPending, setMutationPending] = useState(false);
+  const { showToast } = useToast();
 
-  const usernameIsTakenMutation = useMutation(checkUsername, {
-    onSuccess: (data) => {
-      onStepData({ usernameAvailable: data });
-      setMutationPending(false);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const handleError = ()=> {
+    showToast("Error checking username.", "error");
+  }
+
+  const {refetch, isFetching} = useQuery(
+    ["usernameIsAvailable", user.username],
+    () => usernameIsAvailable(user.username),
+    {
+      enabled: false,
+      onError: handleError,
+    }
+  );
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.trim();
-    onStepData({ username: inputValue });
-    if (inputValue.length > 0) {
-      setMutationPending(true);
-      setLastInputChangeTimestamp(Date.now());
-      debouncedUsernameIsTakenMutation(inputValue);
-    } else {
-      onStepData({ username: "", usernameAvailable: false });
-    }
+    onStepData({username: e.target.value});
   };
 
-  const debouncedUsernameIsTakenMutation = debounce((inputValue: string) => {
-    setMutationPending(false);
-    usernameIsTakenMutation.mutate(inputValue);
-  }, 300);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleNext = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const timeSinceLastInputChange = Date.now() - lastInputChangeTimestamp;
-    
-    if (
-      user.usernameAvailable &&
-      !usernameIsTakenMutation.isLoading &&
-      !mutationPending &&
-      timeSinceLastInputChange >= 300
-    ) {
-      onNext();
+    try {
+      const {data: usernameIsAvailable} = await refetch();
+      if (usernameIsAvailable) {
+        onNext();
+      }else {
+        showToast("Username is already taken.", "error");
+      }
+    } catch (error) {
+      handleError();
     }
-  };
+  }
+
+  if (isFetching) {
+    return(
+      <div className="flex h-full items-center justify-center">
+        <LoadingIcon />
+      </div>
+    )
+  }
+
 
   const usernameInputClasses = classNames("relative border-2 border-gray-300 rounded-lg", {
-    "border-primary-base": user.usernameAvailable && user.username.length>0,
-    "border-red-600": !user.usernameAvailable && user.username.length > 0,
+    "border-primary-base": user.username.length>0,
   });
 
   const nextButtonClasses = classNames("w-full h-full rounded-full", {
-    "bg-black text-white hover:brightness-200": user.usernameAvailable,
-    "bg-gray-300 hover:bg-gray-200 cursor-not-allowed": !user.usernameAvailable,
+    "bg-black text-white hover:brightness-200": user.username,
+    "bg-gray-300 hover:bg-gray-200 cursor-not-allowed": !user.username,
   });
 
   return (
-    <form onSubmit={handleSubmit} className="h-full">
+    <form onSubmit={handleNext} className="h-full">
       <div className="flex flex-col justify-between px-20 h-full">
         <div>
           <div className="flex flex-col py-5">
@@ -104,11 +97,6 @@ const Step5 = ({ onNext, onStepData, user }: StepProps) => {
               <label htmlFor="Choice1" className="second-label text-lg p-4">
                 {user.username.length} / 30
               </label>
-              {user.usernameAvailable && (
-                <div className="absolute  top-6 right-3">
-                  <VerifiedIcon className={" w-6 h-6 text-primary-base"} />
-                </div>
-              )}
             </div>
           </div>
         </div>

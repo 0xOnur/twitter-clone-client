@@ -12,10 +12,10 @@ export const loginUser = createAsyncThunk(
     "loginUser",
     async (user: any, thunkAPI) => {
         try {
-            const response = await axiosInstance.post("/user/login-user", user);
+            const response = await axiosInstance.post("/user/login", user);
             const data = response.data;
-            localStorage.setItem('accessToken', data.accessToken)
-            localStorage.setItem('refreshToken', data.refreshToken)
+            localStorage.setItem('accessToken', data.tokens.accessToken);
+            localStorage.setItem('refreshToken', data.tokens.refreshToken);
             return data;
         } catch (error:any) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -56,22 +56,32 @@ export const createUser = createAsyncThunk(
     }
   );
 
-// Check username is taken
-export const checkUsername = async (username: string) => {
+// Check username is available
+export const usernameIsAvailable = async (username: string) => {
     try {
-        const response = await axiosInstance.get(`/user/check-username/${username}`);
+        const response = await axiosInstance.get(`/user/username-available/${username}`);
         return response.data;
     } catch (error) {
         throw new Error("Error checking username");
     }
 };
 
-// Check email is taken
-export const checkEmail = async (email: string) => {
+// Check email is available
+export const emailIsAvailable = async (email: string) => {
     try {
-        const response = await axiosInstance.get(`/user/check-email/${email}`);
+        const response = await axiosInstance.get(`/user/email-available/${email}`);
         return response.data;
     } catch (error) {
         throw new Error("Error checking email");
+    }
+};
+
+// Check username exist
+export const usernameExist = async (username: string) => {
+    try {
+        const response = await axiosInstance.get(`/user/username-exist/${username}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error checking username");
     }
 };

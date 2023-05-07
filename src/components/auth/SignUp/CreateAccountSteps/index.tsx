@@ -27,10 +27,8 @@ const CreateAccountSteps = ({ isRoute, setOpen }: IProps) => {
     day: 1,
     year: 1,
     email: "",
-    emailAvailable: false,
     password: "",
     username: "",
-    usernameAvailable: false,
     bio: "",
     avatar: null,
     avatarURL: "",
@@ -54,10 +52,16 @@ const CreateAccountSteps = ({ isRoute, setOpen }: IProps) => {
 
   const handleCreateAccount = async () => {
     const formData = new FormData();
+    const birthDay = {
+      day: user.day.toString(),
+      month: user.month.toString(),
+      year: user.year.toString(),
+    };
     formData.append("displayName", user.displayName);
-    formData.append("month", user.month.toString());
-    formData.append("day", user.day.toString());
-    formData.append("year", user.year.toString());
+    // formData.append("month", user.month.toString());
+    // formData.append("day", user.day.toString());
+    // formData.append("year", user.year.toString());
+    formData.append("birthDay", JSON.stringify(birthDay));
     formData.append("email", user.email);
     formData.append("password", user.password);
     formData.append("username", user.username);

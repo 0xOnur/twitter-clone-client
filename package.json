@@ -23,6 +23,7 @@
     "daisyui": "^2.51.5",
     "emoji-mart": "^5.5.2",
     "gif-picker-react": "^1.1.0",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "react-redux": "^8.0.5",

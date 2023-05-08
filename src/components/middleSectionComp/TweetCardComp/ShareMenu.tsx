@@ -6,6 +6,7 @@ import {
   ShareIcon,
 } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
+import useToast from "@hooks/useToast";
 
 
 interface IProps {
@@ -14,7 +15,7 @@ interface IProps {
 }
 
 const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
-
+  const { showToast } = useToast();
     const menuRef = useRef<HTMLDivElement>(null);
 
     const handleClose = useCallback(
@@ -44,7 +45,7 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
         if(actionName=== "copy") {
           const tweetUrl = window.location.origin + `/${tweet.author.username}/status/${tweet._id}`
           navigator.clipboard.writeText(tweetUrl)
-          console.log(tweetUrl)
+          showToast("Copied to clipboard", "success");
         }
 
         if(actionName=== "bookmark") {

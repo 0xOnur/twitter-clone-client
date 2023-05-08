@@ -10,7 +10,7 @@ interface UserState {
     isPending: boolean;
     error: {
         message: string | null;
-    }
+    } | null
   }
 
 const initialState: UserState = {
@@ -42,57 +42,64 @@ const initialState: UserState = {
 const userSlice = createSlice({
     name: "user",
     initialState,
-    reducers: {},
-    extraReducers: {
-        // Create user
-        [userApi.createUser.pending.type]: (state, action) => {
-            state.isPending = true;
-        },
-        [userApi.createUser.fulfilled.type]: (state, action) => {
-            state.isPending = false;
-            state.error.message = null;
-            state.isAuthenticated = true;
-            state.user = action.payload.user;
-            state.accessToken = action.payload.tokens.accessToken;
-            state.refreshToken = action.payload.tokens.refreshToken;
-        },
-        [userApi.createUser.rejected.type]: (state, action) => {
-            state.isPending = false;
-            state.error = action.payload;
-        },
-        // Login user
-        [userApi.loginUser.pending.type]: (state, action) => {
-            state.isPending = true;
-        },
-        [userApi.loginUser.fulfilled.type]: (state, action) => {
-            state.isPending = false;
-            state.error.message = null;
-            state.isAuthenticated = true;
-            state.user = action.payload.user;
-            state.accessToken = action.payload.accessToken;
-            state.refreshToken = action.payload.refreshToken;
-        },
-        [userApi.loginUser.rejected.type]: (state, action) => {
-            state.isPending = false;
-            state.error = action.payload;
-        },
-        // Logout user
-        [userApi.logoutUser.pending.type]: (state, action) => {
-            state.isPending = true;
-        },
-        [userApi.logoutUser.fulfilled.type]: (state, action) => {
-            state.isPending = false;
-            state.error.message = null;
+    reducers: {
+        logoutUser: (state) => {
             state.isAuthenticated = false;
             state.user = initialState.user;
             state.accessToken = null;
             state.refreshToken = null;
-        },
-        [userApi.logoutUser.rejected.type]: (state, action) => {
-            state.isPending = false;
-            state.error = action.payload;
+            state.error = null;
         }
+    },
+    extraReducers: (builder) => {
+        // Create user
+        builder.addCase(userApi.createUser.pending, (state, action) => {
+            state.isPending = true;
+        });
+        builder.addCase(userApi.createUser.fulfilled, (state, action) => {
+            state.isPending = false;
+            state.error = null;
+            state.isAuthenticated = true;
+            state.user = action.payload.user;
+            state.accessToken = action.payload.tokens.accessToken;
+            state.refreshToken = action.payload.tokens.refreshToken;
+        });
+        builder.addCase(userApi.createUser.rejected, (state, action) => {
+            state.isPending = false;
+            state.error = action.payload ? {message: action.payload as string} : {message: "Error creating user"};
+        });
+        // Login user
+        builder.addCase(userApi.loginUser.pending, (state, action) => {
+            state.isPending = true;
+        });
+        builder.addCase(userApi.loginUser.fulfilled, (state, action) => {
+            state.isPending = false;
+            state.error = null;
+            state.isAuthenticated = true;
+            state.user = action.payload.user;
+            state.accessToken = action.payload.tokens.accessToken;
+            state.refreshToken = action.payload.tokens.refreshToken;
+        });
+        builder.addCase(userApi.loginUser.rejected, (state, action) => {
+            state.isPending = false;
+            state.error = action.payload ? {message: action.payload as string} : {message: "Error logging in user"};
+        });
+        // Get new accessToken
+        builder.addCase(userApi.updateAccessToken.pending, (state, action) => {
+            state.isPending = true;
+        });
+        builder.addCase(userApi.updateAccessToken.fulfilled, (state, action) => {
+            state.isPending = false;
+            state.error = null;
+            state.accessToken = action.payload.accessToken;
+        });
+        builder.addCase(userApi.updateAccessToken.rejected, (state, action) => {
+            state.isPending = false;
+            state.error = action.payload ? {message: action.payload as string} : {message: "Error getting new access token"};
+        });
     }
 });
+
+export const { logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;

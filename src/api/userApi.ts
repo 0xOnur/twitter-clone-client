@@ -1,12 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "./axiosInstance";
 
-const config = {
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    },
-}
-
 // Login user
 export const loginUser = createAsyncThunk(
     "loginUser",
@@ -14,8 +8,6 @@ export const loginUser = createAsyncThunk(
         try {
             const response = await axiosInstance.post("/user/login", user);
             const data = response.data;
-            localStorage.setItem('accessToken', data.tokens.accessToken);
-            localStorage.setItem('refreshToken', data.tokens.refreshToken);
             return data;
         } catch (error:any) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -23,15 +15,16 @@ export const loginUser = createAsyncThunk(
     }
 );
 
-// Logout user
-export const logoutUser = createAsyncThunk(
-    "logoutUser",
+// Get new accessToken
+export const updateAccessToken = createAsyncThunk(
+    "getNewToken",
     async (userId: any, thunkAPI) => {
         try {
-            const response = await axiosInstance.post("/user/logout", {userId});
-            const data = response.data;
-            return data;
-        } catch (error:any) {
+            console.log({userId});
+            const response = await axiosInstance.post("/user/update-token", {userId});
+            const accessToken = response.data.accessToken;
+            return accessToken;
+        } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data);
         }
     }
@@ -43,11 +36,13 @@ export const createUser = createAsyncThunk(
     "user/createUser",
     async (formData: FormData, thunkAPI) => {
       try {
-        const response = await axiosInstance.post("/user/create-user", formData);
+        const response = await axiosInstance.post("/user/create-user", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
         console.log(response);
         const data = response.data;
-        localStorage.setItem('accessToken', data.tokens.accessToken)
-        localStorage.setItem('refreshToken', data.tokens.refreshToken)
         return data;
       } catch (error:any) {
         console.error("Error creating user:", error);

@@ -8,9 +8,9 @@ interface ToastProps {
 const Toast = ({ message, type }: ToastProps) => {
     const toastClasses = classNames(
       'fixed',
-      'font-bold',
       'z-50',
-      'bottom-4',
+      'font-bold',
+      'bottom-10',
       'left-1/2',
       'transform',
       '-translate-x-1/2',
@@ -22,6 +22,7 @@ const Toast = ({ message, type }: ToastProps) => {
       'transition',
       'duration-300',
       'border-l-4',
+      'border',
       {
         'border-green-400 text-green-800': type === 'success',
         'border-red-400 text-red-800': type === 'error',

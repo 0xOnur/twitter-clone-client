@@ -25,6 +25,11 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
     dispatch(loginUser({ username, password })).then((response) => {
       if (response.meta.requestStatus === "rejected") {
         showToast(response.payload.message, "error")
+      }else if(response.meta.requestStatus === "fulfilled") {
+        setTimeout(() => {
+          showToast("Logged in", "success");
+          navigate("/");
+        }, 3000)
       }
     });
   };
@@ -35,11 +40,6 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
         <LoadingIcon />
       </div>
     )
-  } else if (redux.isAuthenticated) {
-    setTimeout(() => {
-      showToast("Logged in", "success");
-      navigate("/");
-    }, 3000)
   }
 
   return (
@@ -90,7 +90,7 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
                 />
               </button>
             </div>
-            {redux.error.message && (
+            {redux.error?.message && (
               <span className="bottom-0 left-0 text-sm text-red-600">
                 {redux.error.message}
               </span>

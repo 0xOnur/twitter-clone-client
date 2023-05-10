@@ -19,46 +19,48 @@ const TweetStats = ({tweet}: IProps) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row border-t border-b">
+      <div className="flex flex-row border-t border-b min-w-full">
         {tweet.retweets && (
           <div className="mr-5 py-4">
-            <button className="hover:underline decoration-1 text-gray-500">
+            <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
               <span className="font-bold text-black">
                 {formatNumber(tweet?.retweets!.length)}
               </span>
-              <span className=""> Retweets</span>
+              <span>Retweets</span>
             </button>
           </div>
         )}
 
         {tweet.quoteTweets && (
           <div className="mr-5 py-4">
-            <button className="hover:underline decoration-1 text-gray-500">
+            <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
               <span className="font-bold text-black">
                 {formatNumber(tweet?.quoteTweets!.length)}
               </span>
-              <span className=""> Quotes</span>
+              <span>Quotes</span>
             </button>
           </div>
         )}
 
         {tweet.likes && (
           <div className="mr-5 py-4">
-            <button className="hover:underline decoration-1 text-gray-500">
+            <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
               <span className="font-bold text-black">
                 {formatNumber(tweet?.likes!.length)}
               </span>
-              <span className=""> Likes</span>
+              <span> Likes</span>
             </button>
           </div>
         )}
 
         {tweet.bookmarks && (
           <div className="mr-5 py-4">
-              <span className="font-bold">
+            <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
+              <span className="font-bold text-black">
                 {formatNumber(tweet?.bookmarks!.length)}
               </span>
-              <span className=""> Bookmarks</span>
+              <span>Bookmarks</span>
+            </button>
           </div>
         )}
       </div>

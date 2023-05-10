@@ -14,36 +14,54 @@ import { ITweet } from "@customTypes/TweetTypes";
 import classNames from "classnames";
 import ReTweetMenu from "./ReTweetMenu";
 
-type Props = {
-  pageType: string;
+interface Props {
+  pageType: "home" | "TweetDetails";
   tweet: ITweet;
-  setComposerMode: React.Dispatch<React.SetStateAction<string>>
-  setShowReply: React.Dispatch<React.SetStateAction<boolean>>
-  setQuoteModal: React.Dispatch<React.SetStateAction<boolean>>
-};
+  isAuthenticated: boolean;
+  setComposerMode: React.Dispatch<React.SetStateAction<string>>;
+  setShowReply: React.Dispatch<React.SetStateAction<boolean>>;
+  setQuoteModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pageType }: Props) => {
+const TweetActions = ({
+  tweet,
+  setComposerMode,
+  setShowReply,
+  setQuoteModal,
+  pageType,
+  isAuthenticated,
+}: Props) => {
   const [shareMenu, setShowShareMenu] = useState(false);
   const [reTweetMenu, setRetweetMenu] = useState(false);
 
   const handleIconClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const actionName = e.currentTarget.name;
-    if (actionName === "reply") {
-      setShowReply(true);
-      setComposerMode("reply");
+  
+    if (isAuthenticated) {
+      switch (actionName) {
+        case "reply":
+          setComposerMode("reply");
+          setShowReply(true);
+          break;
+        case "like":
+          console.log(actionName);
+          break;
+        case "bookmarks":
+      }
     }
-    console.log(actionName);
   };
 
-  const testClasses = classNames({
-    "flex flex-row justify-between gap-2 mt-3 max-w-md w-full": pageType==="home",
-    "flex flex-row gap-2 justify-around h-12 items-center mx-1": pageType==="TweetDetails"
-  })
+  const actionClasses = classNames({
+    "flex flex-row justify-between gap-2 mt-3 max-w-md w-full":
+      pageType === "home",
+    "flex flex-row justify-around gap-2 h-12 items-center mx-1 w-full":
+      pageType === "TweetDetails",
+  });
 
   return (
     <div>
-      <div className={testClasses}>
+      <div className={actionClasses}>
         <button
           onClick={handleIconClick}
           name="reply"
@@ -56,15 +74,19 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
             </div>
             <div className="inline-flex  group-hover:text-primary-base">
               <span className="px-3 text-sm">
-                {(tweet.replyTweets && pageType === "home") && formatNumber(tweet.replyTweets.length)}
+                {tweet.replyTweets &&
+                  pageType === "home" &&
+                  formatNumber(tweet.replyTweets.length)}
               </span>
             </div>
           </div>
         </button>
 
-
         <div
-          onClick={(e)=> {setRetweetMenu(!reTweetMenu); e.stopPropagation()}}
+          onClick={(e) => {
+            setRetweetMenu(!reTweetMenu);
+            e.stopPropagation();
+          }}
           className="group h-5 min-h-max relative cursor-pointer"
         >
           <div className="flex flex-row">
@@ -74,14 +96,20 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
             </div>
             <div className="inline-flex group-hover:text-green-base">
               <span className="px-3 text-sm">
-                {(tweet.retweets && pageType === "home") && formatNumber(tweet.retweets.length)}
+                {tweet.retweets &&
+                  pageType === "home" &&
+                  formatNumber(tweet.retweets.length)}
               </span>
             </div>
           </div>
-          {reTweetMenu && (<ReTweetMenu onClose={()=> setRetweetMenu(false)} tweet={tweet} setQuoteModal={setQuoteModal} />)}
+          {reTweetMenu && isAuthenticated && (
+            <ReTweetMenu
+              onClose={() => setRetweetMenu(false)}
+              tweet={tweet}
+              setQuoteModal={setQuoteModal}
+            />
+          )}
         </div>
-
-
 
         <button
           onClick={handleIconClick}
@@ -95,31 +123,30 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
             </div>
             <div className="inline-flex  group-hover:text-red-base">
               <span className="px-3 text-sm">
-                {(tweet.likes && pageType === "home") && formatNumber(tweet.likes.length)}
+                {tweet.likes &&
+                  pageType === "home" &&
+                  formatNumber(tweet.likes.length)}
               </span>
             </div>
           </div>
         </button>
-        
-        <button
-          onClick={handleIconClick}
-          name="bookmarks"
-          className="group h-5 min-h-max"
-        >
-          <div className="flex flex-row">
-            <div className="inline-flex relative text-gray-dark group-hover:text-primary-base duration-150">
-              <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
-              <BookmarksIcon isActive={false} className={"w-5 h-5"} />
+
+        {pageType === "TweetDetails" && (
+          <button
+            onClick={handleIconClick}
+            name="bookmarks"
+            className="group h-5 min-h-max"
+          >
+            <div className="flex flex-row">
+              <div className="inline-flex relative text-gray-dark group-hover:text-primary-base duration-150">
+                <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
+                <BookmarksIcon isActive={false} className={"w-5 h-5"} />
+              </div>
             </div>
-            <div className="inline-flex  group-hover:text-primary-base">
-              <span className="px-3 text-sm">
-                {(tweet.bookmarks && pageType === "home") && formatNumber(tweet.bookmarks.length)}
-              </span>
-            </div>
-          </div>
-        </button>
-        
-        {pageType !== "tweetDetails" && (
+          </button>
+        )}
+
+        {pageType !== "TweetDetails" && (
           <button
             onClick={handleIconClick}
             name="analyze"
@@ -155,6 +182,7 @@ const TweetActions = ({ tweet, setComposerMode, setShowReply, setQuoteModal, pag
             <TweetCardComp.ShareMenu
               onClose={() => setShowShareMenu(false)}
               tweet={tweet}
+              isAuthenticated={isAuthenticated}
             />
           )}
         </div>

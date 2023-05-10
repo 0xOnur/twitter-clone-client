@@ -3,22 +3,29 @@ import { HeaderComp } from "@components/middleSectionComp";
 import TweetList from "./TweetList";
 import { TweetComposer } from "../ComposerComp";
 
-const HomeFeed: React.FC = () => {
-  const [isForYou, setIsForYou] = useState(false);
+interface IProps {
+  isAuthenticated: boolean;
+}
 
+const HomeFeed = ({isAuthenticated}: IProps) => {
+  const [isForYou, setIsForYou] = useState(false);
+  
   return (
-    <div className="container max-w-2xl border-x min-w-min">
+    <div className="container max-w-600px border-x">
       <HeaderComp.Header
         pageType="home"
         isForYou={isForYou}
         setIsForYou={setIsForYou}
       />
-      {/* There is after header section for create twitter and something */}
-      <div className="px-4">
-        <TweetComposer composerMode="tweet" />
-      </div>
-      {/* There is  */}
-      <TweetList />
+      {/* composer shows when user is Authenticated */}
+      {isAuthenticated && (
+        <div className="px-4">
+          <TweetComposer composerMode="tweet" />
+        </div>
+      )}
+
+      {/* There is List all Tweets */}
+      <TweetList isAuthenticated={isAuthenticated} />
     </div>
   );
 };

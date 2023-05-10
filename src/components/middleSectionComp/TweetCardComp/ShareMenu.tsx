@@ -12,9 +12,10 @@ import useToast from "@hooks/useToast";
 interface IProps {
     onClose: () => void;
     tweet: ITweet;
+    isAuthenticated: boolean;
 }
 
-const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
+const ShareMenu = ({onClose, tweet, isAuthenticated}:IProps) => {
   const { showToast } = useToast();
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -81,27 +82,32 @@ const ShareMenu: React.FC<IProps> = ({onClose, tweet}) => {
           </div>
         </button>
 
-        <button onClick={handleClick} className="flex flex-row cursor-not-allowed hover:bg-gray-lightest font-bold">
-          <div className="flex flex-row py-3 px-4 items-center">
-            <div className="mr-2">
-              <MessagesIcon isActive={false} className={"w-5 h-5"} />
+        {isAuthenticated && (
+          <button onClick={handleClick} className="flex flex-row cursor-not-allowed hover:bg-gray-lightest font-bold">
+            <div className="flex flex-row py-3 px-4 items-center">
+              <div className="mr-2">
+                <MessagesIcon isActive={false} className={"w-5 h-5"} />
+              </div>
+              <div>
+                <span>Send via Direct Message</span>
+              </div>
             </div>
-            <div>
-              <span>Send via Direct Message</span>
+          </button>
+        )}
+        
+        {isAuthenticated && (
+          <button onClick={handleClick} name="bookmark" className="flex flex-row hover:bg-gray-lightest rounded-b-2xl font-bold">
+            <div className="flex flex-row py-3 px-4 items-center">
+              <div className="mr-2">
+                <BookmarkPlusIcon className={"w-5 h-5"} />
+              </div>
+              <div>
+                <span>Bookmark</span>
+              </div>
             </div>
-          </div>
-        </button>
-
-        <button onClick={handleClick} name="bookmark" className="flex flex-row hover:bg-gray-lightest rounded-b-2xl font-bold">
-          <div className="flex flex-row py-3 px-4 items-center">
-            <div className="mr-2">
-              <BookmarkPlusIcon className={"w-5 h-5"} />
-            </div>
-            <div>
-              <span>Bookmark</span>
-            </div>
-          </div>
-        </button>
+          </button>
+        )}
+        
       </div>
     </div>
   );

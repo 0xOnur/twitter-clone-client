@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/config/store";
 
 type Props = {
   isForYou: boolean | undefined;
@@ -6,17 +8,23 @@ type Props = {
 };
 
 const HomeHeader = ({ isForYou, setIsForYou }: Props) => {
+  const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
   return (
     <div className="sticky top-0 z-30">
       <div className="h-auto  backdrop-blur-md bg-white/80 ">
         <div className="h-full">
           <a href="/">
             <div className=" cursor-pointer z-10 p-3">
-              <h1 className="text-2xl font-bold">Home</h1>
+              {isAuthenticated ? (
+                <h1 className="text-2xl font-bold">Home</h1>
+              ): (
+                <h1 className="text-2xl font-bold">Explore</h1>
+              )}
             </div>
           </a>
         </div>
-        <div className="flex w-full h-14">
+        {isAuthenticated && (
+          <div className="flex w-full h-14">
           <div className="w-full h-full flex col-span-2">
             <button
               onClick={() => {
@@ -47,6 +55,8 @@ const HomeHeader = ({ isForYou, setIsForYou }: Props) => {
             </button>
           </div>
         </div>
+        )}
+        
         <hr />
       </div>
     </div>

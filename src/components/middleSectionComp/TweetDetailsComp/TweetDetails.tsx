@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/config/store";
 import { HeaderComp } from '@components/middleSectionComp'
 import { TweetCard } from '../TweetCardComp'
 import {ITweet, IUser} from "@customTypes/index"
@@ -8,7 +10,8 @@ import Comments from './Comments'
 const TweetDetails = () => {
   const { tweet_id } = useParams<{ tweet_id: string }>()
 
-  
+  const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+
   const initialUser: IUser = {
     _id: "60e1c7b0b0b5a40015b0b0b0",
     displayName: "onur",
@@ -89,9 +92,9 @@ const TweetDetails = () => {
 
 
   return (
-    <div className='container max-w-screen-sm border-x min-w-screen-sm'>
-        <HeaderComp.Header pageType='tweet'/>
-        <TweetCard tweet={tweet} pageType='TweetDetails' /> 
+    <div className='container max-w-600px border-x'>
+        <HeaderComp.Header pageType='TweetDetails'/>
+        <TweetCard tweet={tweet} pageType='TweetDetails' isAuthenticated={isAuthenticated} /> 
         <Comments />
     </div>
   )

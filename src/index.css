@@ -11,6 +11,7 @@ body {
 
 }
 
+/* Input */
 input:focus-within ~ label,
 input:not(:placeholder-shown) ~ label {
   @apply transform scale-75 -translate-y-4;
@@ -38,6 +39,8 @@ input:focus-within ~ label ~ .second-label {
   }
 }
 
+
+/* Loading Icon */
 .custom-loading-icon {
   width: 3.25em;
   transform-origin: center;
@@ -76,3 +79,10 @@ input:focus-within ~ label ~ .second-label {
   }
 }
 
+
+/* RightSidebar hidden */
+@media (max-width: 868px) {
+  .right-sidebar {
+      display: none !important;
+  }
+}

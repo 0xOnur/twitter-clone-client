@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { useNavigate } from 'react-router-dom'
 
 type Props = {
-  pageType: string
+  pageType: "home" | "TweetDetails"
   displayName: string;
   username: string;
   isVerified: boolean;
@@ -17,7 +17,7 @@ const AuthorInfo = ({ displayName, username, createdAt, pageType, isVerified }: 
 
   const userFlexClasses = classNames("flex", {
     "flex-row items-center": pageType === "home",
-    "flex-col": pageType === "tweetDetails",
+    "flex-col": pageType === "TweetDetails",
   })
 
   const navigateUser = (e: React.MouseEvent<HTMLDivElement>) => {

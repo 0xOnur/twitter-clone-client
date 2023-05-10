@@ -20,7 +20,6 @@ export const updateAccessToken = createAsyncThunk(
     "getNewToken",
     async (userId: any, thunkAPI) => {
         try {
-            console.log({userId});
             const response = await axiosInstance.post("/user/update-token", {userId});
             const accessToken = response.data.accessToken;
             return accessToken;

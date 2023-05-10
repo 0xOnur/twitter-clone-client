@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import {TweetCardComp} from "@components/index";
 import {IUser, ITweet} from "@customTypes/index"
 
+interface IProps {
+  isAuthenticated: boolean;
+}
 
-const TweetList = () => {
+
+const TweetList = ({isAuthenticated}:IProps) => {
   // const [user, setUser] = useState<IUser>({} as IUser);
 
   const initialUser: IUser = {
@@ -81,7 +85,7 @@ const TweetList = () => {
     <>
       {
         tweets.map((tweet) => (
-          <TweetCardComp.TweetCard key={tweet._id} tweet={tweet} pageType="home" />
+          <TweetCardComp.TweetCard key={tweet._id} tweet={tweet} pageType="home" isAuthenticated={isAuthenticated} />
         ))
       }
     </>

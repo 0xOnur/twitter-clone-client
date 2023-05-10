@@ -16,27 +16,32 @@ module.exports = {
     extend: {
       margin: {
         "2px": "2px",
+        "10px": "10px",
       },
       width: {
         "275px": "275px",
         "52px": "52px",
         "88px": "88px",
+        "290px": "290px",
+        "350px": "350px",
         "90%": "90%",
       },
       height: {
         "52px": "52px",
-        "650px": "650px"
+        "650px": "650px",
       },
       minWidth: {
         "32px": "32px",
         "52px": "52px",
         "88px": "88px",
+        "290px": "290px",
       },
       minHeight: {
         "52px": "52px",
-        "400px": "400+px",
+        "510px": "510px",
       },
       maxWidth: {
+        "350px": "350px",
         "600px": "600px",
       },
       transformOrigin: {

@@ -6,6 +6,8 @@ import MediaCard from "./ComposerMedia";
 import Toolbar from "./Toolbar";
 import { IComposer, IPoll } from "@customTypes/index";
 import {TweetCardComp} from "@components/middleSectionComp";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/config/store";
 
 type IProps = {
   composerMode?: string;
@@ -13,6 +15,7 @@ type IProps = {
 };
 
 const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
+  const reduxUser = useSelector((state: RootState) => state.user);
   const [tweetText, setTweetText] = useState("");
   const [tenorGif, setTenorGif] = useState<TenorImage>();
 
@@ -63,6 +66,7 @@ const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
     formData.append("whoCanReply", ComposerSettings.whoCanReply);
 
     console.log({
+      author: reduxUser.user._id,
       originalTweetId: originalTweet?._id,
       composerMode: composerMode,
       tweetText: tweetText,
@@ -82,8 +86,8 @@ const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
             
             <div className="w-14 h-14 pt-1">
               <TweetCardComp.Avatar
-                avatar="https://pbs.twimg.com/profile_images/1545489373143224321/M6KIvOIY_400x400.jpg"
-                username="username"
+                avatar= {reduxUser.user.avatar!}
+                username={reduxUser.user.username!}
               />
             </div>
        

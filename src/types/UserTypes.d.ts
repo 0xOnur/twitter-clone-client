@@ -10,7 +10,17 @@ export interface IUser {
     avatarId?: string | null;
     cover?: string | null;
     coverId?: string | null;
-    following?: IUser[]; // Assuming an array of user IDs
+    birthDay?: {
+      day: number;
+      month: number;
+      year: number;
+    };
+    following?: IUser[
+      _id
+    ]; // Assuming an array of user IDs
+    followers?: IUser[
+      _id
+    ]; // Assuming an array of user IDs
     createdAt: string | null; // Assuming date is received as a string (e.g., ISO 8601 format)
     updatedAt?: string | null; // Assuming date is received as a string (e.g., ISO 8601 format)
   }

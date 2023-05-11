@@ -1,11 +1,32 @@
-import React from 'react'
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "api/userApi";
+import { HeaderComp } from "@components/middleSectionComp";
+import UserCard from "./UserCard";
+import {IUser} from "@customTypes/UserTypes"
 
 const UserProfile = () => {
-  return (
-    <div className="container max-w-2xl border-x min-w-min">
-        user profile soon...
-    </div>
-  )
-}
+  const username = useParams().username;
 
-export default UserProfile
+  const userQuery = useQuery<IUser>({
+    queryKey: ["user", username],
+    queryFn: () => getUser(username!),
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  return (
+    <div className="container max-w-600px w-full border-x">
+      <HeaderComp.Header pageType="Profile" headerTitle={userQuery.data ? userQuery.data.displayName! :  "Profile"} />
+      <UserCard 
+        isLoading={userQuery.isLoading}
+        user={userQuery.data!}
+        username={username!}
+        error={userQuery.error}
+      />
+    </div>
+  );
+};
+
+export default UserProfile;

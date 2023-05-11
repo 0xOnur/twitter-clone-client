@@ -75,7 +75,7 @@ const Step4 = ({ onNext, onStepData, user }: StepProps) => {
             ) : (
               <>
                 <img
-                  src="https://res.cloudinary.com/dwcw9iftp/image/upload/v1682952193/Twitter/Users/Avatar/default_profile_400x400_ao7twz.png"
+                  src="https://res.cloudinary.com/dwcw9iftp/image/upload/v1683417676/Twitter/Users/Avatar/default_profile_400x400_dctbia.png"
                   className="rounded-full"
                   alt="default profile"
                 />

@@ -63,7 +63,8 @@ module.exports = {
           rightbar: '#f7f9f9',
           dropdown: '#f7f9f9',
           trendsHover: "#eff1f1",
-          tweetHover: "rgba(0, 0, 0, 0.03)"
+          tweetHover: "rgba(0, 0, 0, 0.03)",
+          defaultCover: "rgb(207, 217, 222)",
         },
         red: {
           base: "hsl(332, 94%, 61%)",

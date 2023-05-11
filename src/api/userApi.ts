@@ -79,3 +79,13 @@ export const usernameExist = async (username: string) => {
         throw new Error("Error checking username");
     }
 };
+
+// Get a user with username
+export const getUser = async (username: string) => {
+    try {
+        const response = await axiosInstance.get(`/user/get-user/${username}`);
+        return response.data;
+    } catch (error:any) {
+        throw new Error(error.response.data);
+    }
+}

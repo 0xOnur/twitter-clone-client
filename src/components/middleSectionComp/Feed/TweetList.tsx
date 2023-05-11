@@ -82,13 +82,13 @@ const TweetList = ({isAuthenticated}:IProps) => {
   ]);
 
   return (
-    <>
+    <div>
       {
         tweets.map((tweet) => (
           <TweetCardComp.TweetCard key={tweet._id} tweet={tweet} pageType="home" isAuthenticated={isAuthenticated} />
         ))
       }
-    </>
+    </div>
   );
 };
 

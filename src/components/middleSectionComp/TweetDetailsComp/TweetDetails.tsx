@@ -93,7 +93,7 @@ const TweetDetails = () => {
 
   return (
     <div className='container max-w-600px border-x'>
-        <HeaderComp.Header pageType='TweetDetails'/>
+        <HeaderComp.Header pageType='TweetDetails' headerTitle='Tweet' />
         <TweetCard tweet={tweet} pageType='TweetDetails' isAuthenticated={isAuthenticated} /> 
         <Comments />
     </div>

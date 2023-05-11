@@ -9,7 +9,7 @@ const TweetDetailsLayout = () => {
   return (
     <div className="flex min-h-screen max-w-7xl mx-auto sticky">
       <LeftSideBar />
-      <div className="flex flex-row gap-5 min-h-full justify-between">
+      <div className="flex flex-row gap-5 min-h-full">
         <TweetDetailsComp.TweetDetails />
         <RightSidebar isAuthenticated={isAuthenticated} />
       </div>

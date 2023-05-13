@@ -88,4 +88,13 @@ export const getUser = async (username: string) => {
     } catch (error:any) {
         throw new Error(error.response.data);
     }
-}
+};
+
+export const searchUser = async (username: string) => {
+    try {
+        const response = await axiosInstance.get(`/user/search-user/${username}`);
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response.data);
+    }
+};

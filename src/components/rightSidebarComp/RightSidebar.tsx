@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Trends from "./Trends";
 import WhoToFollow from "./WhoToFollow";
-import { SearchIcon } from "@icons/Icon";
 import SocialAuthButtons from "@components/auth/SocialAuthButtons";
+import Search from "./Search";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -91,21 +91,9 @@ const RightSidebar = ({ isAuthenticated }: IProps) => {
       <div className="flex flex-col relative h-full min-h-510px">
         {isAuthenticated ? (
           <div className="flex flex-col">
-            {/* Search section */}
             <div className="xl:w-350px md:w-290px">
-              <div className="fixed xl:w-350px md:w-290px z-10">
-                <div className="py-0.5 bg-white">
-                  <div className="flex items-center space-x-4 p-3 m-3 bg-gray-rightbar rounded-full text-gray-600 focus-within:bg-white focus-within:ring-1 focus-within:ring-primary-base">
-                    <SearchIcon className="w-5 h-5" />
-                    <input
-                      type="text"
-                      placeholder="Search Twitter"
-                      className="placeholder-black bg-transparent focus:outline-none w-full text-sm"
-                    />
-                  </div>
-                </div>
-                
-              </div>
+              {/* Search section */}
+              <Search />
 
               {/* <Trends section after search input /> */}
               <div className="mt-20 bg-gray-rightbar rounded-2xl m-3">

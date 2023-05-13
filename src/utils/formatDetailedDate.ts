@@ -15,9 +15,7 @@ export const formatDetailedDate = (date: string): string => {
   };
 
   const time = new Intl.DateTimeFormat("en-US", timeOptions).format(newDate);
-  const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(
-    newDate
-  );
+  const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(newDate);
 
   return `${time} · ${formattedDate} ·`;
 };

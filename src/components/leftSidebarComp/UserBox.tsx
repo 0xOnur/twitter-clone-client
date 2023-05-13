@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { TreeDotIcon } from "@icons/Icon";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
+import { TreeDotIcon, VerifiedIcon } from "@icons/Icon";
+
 
 const UserBox = () => {
   const reduxUser = useSelector((state: RootState) => state.user.user);
@@ -79,8 +80,11 @@ const UserBox = () => {
               className="min-w-fit h-11 w-11 object-cover rounded-full"
             />
             <div className="pl-2 hidden  lg:inline-block">
-              <span className="flex font-bold">
+              <span className="flex flex-row gap-1 items-center font-bold">
                 {displayName.length > 20 ? displayName.slice(0, 15) + "..." : displayName}
+                {reduxUser.isVerified && (
+                  <VerifiedIcon className="w-5 h-5 text-primary-base" />
+                )}
               </span>
               <span className="flex  text-gray-dark">@{username}</span>
             </div>

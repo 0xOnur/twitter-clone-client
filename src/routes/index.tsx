@@ -74,6 +74,11 @@ const AppRoutes = ({isAuthenticated}:IAppRoutes) => {
           path="/:username"
           element={<UserProfileLayout />}
         />
+        
+        <Route
+          path="/:username/:tab"
+          element={<UserProfileLayout />}
+        />
 
         <Route
           path="/:username/status/:tweet_id"

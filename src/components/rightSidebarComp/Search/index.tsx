@@ -90,7 +90,7 @@ const Search = () => {
           >
             <div className="flex flex-col min-h-[100px] max-h-[80vh] overflow-y-auto">
               {isLoading && searchText.length > 0 && (
-                <div className="flex w-full h-full items-center justify-center">
+                <div className="flex w-full h-full mt-5 items-center justify-center">
                   <LoadingIcon />
                 </div>
               )}

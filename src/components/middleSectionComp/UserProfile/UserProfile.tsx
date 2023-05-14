@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getUser } from "api/userApi";
 import { HeaderComp } from "@components/middleSectionComp";
 import UserCard from "./UserCard";
-import {IUser} from "@customTypes/UserTypes"
+import UserFeed from "./UserFeed"
+import {IUser} from "@customTypes/UserTypes";
 
 const UserProfile = () => {
   const username = useParams().username;
@@ -25,6 +26,7 @@ const UserProfile = () => {
         username={username!}
         error={userQuery.error}
       />
+      <UserFeed />
     </div>
   );
 };

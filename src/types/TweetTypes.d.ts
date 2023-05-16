@@ -1,4 +1,4 @@
-import IUser from "./UserTypes"
+import {IUser} from "./UserTypes"
 
 export interface Media {
   url: string;
@@ -14,11 +14,11 @@ export interface ITweet {
   whoCanReply: "everyone" | "following" | "mentioned";
   content?: string;
   media?: Media[];
+  replyCount?: number;
+  retweetCount?: number;
+  quoteCount?: number;
   likes?: IUser[];
-  retweets?: IUser[];
-  quoteTweets?: ITweet[];
   bookmarks?: IUser[];
-  replyTweets?: ITweet[];
   originalTweet?: ITweet;
   tweetType: "tweet" | "reply" | "retweet" | "quote";
   view: number;

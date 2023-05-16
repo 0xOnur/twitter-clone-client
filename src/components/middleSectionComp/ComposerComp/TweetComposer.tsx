@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/config/store";
 import { TenorImage } from "gif-picker-react";
 import { ComposerComp } from "@components/index";
 import { ITweet } from "@customTypes/TweetTypes";
+import { IComposer, IPoll } from "@customTypes/index";
 import MediaCard from "./ComposerMedia";
 import Toolbar from "./Toolbar";
-import { IComposer, IPoll } from "@customTypes/index";
-import {TweetCardComp} from "@components/middleSectionComp";
-import { useSelector } from "react-redux";
-import { RootState } from "@redux/config/store";
+import { Avatar } from "@components/middleSectionComp/TweetCard/components";
+
 
 type IProps = {
-  composerMode?: string;
+  composerMode: "tweet"| "reply" | "quote"
   originalTweet?: ITweet;
 };
 
@@ -85,7 +86,7 @@ const TweetComposer = ({ composerMode, originalTweet }: IProps) => {
           <div className="flex  flex-row w-full h-fit">
             
             <div className="w-14 h-14 pt-1">
-              <TweetCardComp.Avatar
+              <Avatar
                 avatar= {reduxUser.user.avatar!}
                 username={reduxUser.user.username!}
               />

@@ -26,7 +26,9 @@ const UserProfile = () => {
         username={username!}
         error={userQuery.error}
       />
-      <UserFeed />
+      {userQuery.data && (
+        <UserFeed />
+      )}
     </div>
   );
 };

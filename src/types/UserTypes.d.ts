@@ -1,15 +1,15 @@
 export interface IUser {
-    _id: string | null;
-    displayName: string | null;
-    username: string | null;
-    email: string | null;
-    isVerified: boolean | null;
-    bio?: string | null;
-    location?: string | null;
-    avatar?: string | null;
-    avatarId?: string | null;
-    cover?: string | null;
-    coverId?: string | null;
+    _id: string;
+    displayName: string;
+    username: string;
+    email: string;
+    isVerified: boolean;
+    bio?: string;
+    location?: string;
+    avatar?: string;
+    avatarId?: string;
+    cover?: string;
+    coverId?: string;
     birthDay?: {
       day: number;
       month: number;
@@ -21,7 +21,7 @@ export interface IUser {
     followers?: IUser[
       _id
     ]; // Assuming an array of user IDs
-    createdAt: string | null; // Assuming date is received as a string (e.g., ISO 8601 format)
-    updatedAt?: string | null; // Assuming date is received as a string (e.g., ISO 8601 format)
+    createdAt: string; // Assuming date is received as a string (e.g., ISO 8601 format)
+    updatedAt?: string; // Assuming date is received as a string (e.g., ISO 8601 format)
   }
   

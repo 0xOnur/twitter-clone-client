@@ -90,6 +90,7 @@ export const getUser = async (username: string) => {
     }
 };
 
+// Search user with username
 export const searchUser = async (username: string) => {
     try {
         const response = await axiosInstance.get(`/user/search-user/${username}`);
@@ -98,3 +99,4 @@ export const searchUser = async (username: string) => {
         throw new Error(error.response.data);
     }
 };
+

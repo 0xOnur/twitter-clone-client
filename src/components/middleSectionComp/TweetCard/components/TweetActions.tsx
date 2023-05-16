@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { TweetCardComp } from "@components/index";
+import { TweetCardComp } from "@components/middleSectionComp/index";
 import { formatNumber } from "@utils/index";
-
 import {
   ReplyIcon,
   ReTweetIcon,
@@ -17,16 +16,20 @@ import ReTweetMenu from "./ReTweetMenu";
 interface Props {
   pageType: "home" | "TweetDetails";
   tweet: ITweet;
+  replyCount?: number;
+  retweetCount?: number;
   isAuthenticated: boolean;
-  setComposerMode: React.Dispatch<React.SetStateAction<string>>;
-  setShowReply: React.Dispatch<React.SetStateAction<boolean>>;
+  setComposerMode: React.Dispatch<React.SetStateAction<"reply" | "quote">>
+  setReplyModal: React.Dispatch<React.SetStateAction<boolean>>;
   setQuoteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TweetActions = ({
   tweet,
+  replyCount,
+  retweetCount,
   setComposerMode,
-  setShowReply,
+  setReplyModal,
   setQuoteModal,
   pageType,
   isAuthenticated,
@@ -42,7 +45,7 @@ const TweetActions = ({
       switch (actionName) {
         case "reply":
           setComposerMode("reply");
-          setShowReply(true);
+          setReplyModal(true);
           break;
         case "like":
           console.log(actionName);
@@ -55,7 +58,7 @@ const TweetActions = ({
   const actionClasses = classNames({
     "flex flex-row justify-between gap-2 mt-3 max-w-md w-full":
       pageType === "home",
-    "flex flex-row justify-around gap-2 h-12 items-center mx-1 w-full":
+    "flex flex-row border-b justify-around gap-2 h-12 items-center mx-1 w-full":
       pageType === "TweetDetails",
   });
 
@@ -74,9 +77,9 @@ const TweetActions = ({
             </div>
             <div className="inline-flex  group-hover:text-primary-base">
               <span className="px-3 text-sm">
-                {tweet.replyTweets &&
+                {replyCount! > 0 &&
                   pageType === "home" &&
-                  formatNumber(tweet.replyTweets.length)}
+                  formatNumber(replyCount!)}
               </span>
             </div>
           </div>
@@ -96,9 +99,9 @@ const TweetActions = ({
             </div>
             <div className="inline-flex group-hover:text-green-base">
               <span className="px-3 text-sm">
-                {tweet.retweets &&
+                {retweetCount! > 0 &&
                   pageType === "home" &&
-                  formatNumber(tweet.retweets.length)}
+                  formatNumber(retweetCount!)}
               </span>
             </div>
           </div>
@@ -123,9 +126,9 @@ const TweetActions = ({
             </div>
             <div className="inline-flex  group-hover:text-red-base">
               <span className="px-3 text-sm">
-                {tweet.likes &&
+                {tweet.likes!.length! > 0 &&
                   pageType === "home" &&
-                  formatNumber(tweet.likes.length)}
+                  formatNumber(tweet.likes!.length)}
               </span>
             </div>
           </div>

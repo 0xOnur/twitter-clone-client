@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {TweetCardComp} from "@components/index";
 import {IUser, ITweet} from "@customTypes/index"
+import TweetCard from "@components/middleSectionComp/TweetCard";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -48,25 +48,9 @@ const TweetList = ({isAuthenticated}:IProps) => {
           "type": "image"
         }
       ],
-      retweets: [
-        user,
-      ],
-      replyTweets: [
-        {
-          _id: "60e1c7b0b0b5a40015b0b0b0",
-          author: {
-            _id: "60e1c7b0b0b5a40015b0b0b0",
-            displayName: "ahbap",
-            username: "ahbap",
-          },
-          audience: "everyone",
-          whoCanReply: "everyone",
-          tweetType: "tweet",
-          content: "Im new here :)",
-          view: 3800,
-          createdAt: "2023-04-01T15:30:00.000Z",
-        },
-      ],
+      replyCount: 12,
+      retweetCount: 12,
+      quoteCount: 12,
       likes: [
         user,
       ],
@@ -85,7 +69,12 @@ const TweetList = ({isAuthenticated}:IProps) => {
     <div>
       {
         tweets.map((tweet) => (
-          <TweetCardComp.TweetCard key={tweet._id} tweet={tweet} pageType="home" isAuthenticated={isAuthenticated} />
+          <TweetCard
+            key={tweet._id}
+            tweet={tweet}
+            pageType="home"
+            isAuthenticated={isAuthenticated}
+           />
         ))
       }
     </div>

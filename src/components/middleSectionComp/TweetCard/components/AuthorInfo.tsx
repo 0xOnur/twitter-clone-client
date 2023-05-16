@@ -29,7 +29,7 @@ const AuthorInfo = ({ displayName, username, createdAt, pageType, isVerified }: 
     <div className="flex flex-col relative min-w-max mb-2px w-full">
       <div className="flex flex-row justify-between items-center">
         <div className={userFlexClasses} onClick={navigateUser}>
-          <div className="flex text-lg items-center" >
+          <div className="flex text items-center" >
               <span className="font-bold hover:underline underline-offset-1 cursor-pointer">{displayName}</span>
             <span className="text-primary-base ml-1">{isVerified === true && (<VerifiedIcon className={"w-5 h-5"} />)}</span>
           </div>

@@ -5,9 +5,11 @@ import { ITweet } from "@customTypes/TweetTypes";
 
 type IProps = {
     tweet: ITweet;
+    retweetCount?: number;
+    quoteCount?: number;
 }
 
-const TweetStats = ({tweet}: IProps) => {
+const TweetStats = ({tweet, retweetCount, quoteCount}: IProps) => {
   return (
     <div>
       <div className="relative my-4">
@@ -20,29 +22,24 @@ const TweetStats = ({tweet}: IProps) => {
         </div>
       </div>
       <div className="flex flex-row border-t border-b min-w-full">
-        {tweet.retweets && (
           <div className="mr-5 py-4">
             <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
               <span className="font-bold text-black">
-                {formatNumber(tweet?.retweets!.length)}
+                {formatNumber(retweetCount!)}
               </span>
               <span>Retweets</span>
             </button>
           </div>
-        )}
 
-        {tweet.quoteTweets && (
           <div className="mr-5 py-4">
             <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
               <span className="font-bold text-black">
-                {formatNumber(tweet?.quoteTweets!.length)}
+                {formatNumber(quoteCount!)}
               </span>
               <span>Quotes</span>
             </button>
           </div>
-        )}
 
-        {tweet.likes && (
           <div className="mr-5 py-4">
             <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
               <span className="font-bold text-black">
@@ -51,9 +48,7 @@ const TweetStats = ({tweet}: IProps) => {
               <span> Likes</span>
             </button>
           </div>
-        )}
 
-        {tweet.bookmarks && (
           <div className="mr-5 py-4">
             <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
               <span className="font-bold text-black">
@@ -62,7 +57,6 @@ const TweetStats = ({tweet}: IProps) => {
               <span>Bookmarks</span>
             </button>
           </div>
-        )}
       </div>
     </div>
   );

@@ -1,103 +1,55 @@
-import React, {useState} from 'react'
-import { useParams } from 'react-router-dom'
+import React from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { getSpecificTweet } from "api/tweetApi";
 import { RootState } from "@redux/config/store";
-import { HeaderComp } from '@components/middleSectionComp'
-import { TweetCard } from '../TweetCardComp'
-import {ITweet, IUser} from "@customTypes/index"
-import Comments from './Comments'
+import { HeaderComp } from "@components/middleSectionComp";
+import TweetCard from "@components/middleSectionComp/TweetCard/";
+import { ITweet } from "@customTypes/index";
+import Replies from "./Replies";
+import { LoadingIcon } from "@icons/Icon";
 
 const TweetDetails = () => {
-  const { tweet_id } = useParams<{ tweet_id: string }>()
+  const { tweetId } = useParams<{ tweetId: string }>();
 
-  const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.user.isAuthenticated
+  );
 
-  const initialUser: IUser = {
-    _id: "60e1c7b0b0b5a40015b0b0b0",
-    displayName: "onur",
-    username: "0xZero",
-    isVerified: true,
-    avatar: "https://pbs.twimg.com/profile_images/1504849693452427265/08B4ILCz_400x400.jpg",
-    email: "onurabat3@gmail.com",
-    createdAt: "2023-04-01T15:30:00.000Z",
-  };
-
-  const [user, setUser] = useState<IUser>(initialUser);
-
-  const tweet: ITweet = {
-    _id: "60e1c7b0b0b5a40015b0b0b0",
-    author: user,
-    audience: "everyone",
-    whoCanReply: "everyone",
-    content: "Im new here :)",
-    tweetType: "tweet",
-    media: [
-    
-      {
-        "url": "https://image.lexica.art/full_jpg/a7b048f4-e1f9-43f4-8f40-f6f91bb9ee97",
-        "alt": "Portrait of a queen with long marsala color braided hair",
-        "type": "image"
-      },
-      {
-        "url": "https://image.lexica.art/full_jpg/21013189-6dee-4921-9578-6319626f4793",
-        "alt": "Jennifer lawrence, black metal girl makeup, realistic detailed",
-        "type": "image"
-      },
-      {
-        "url": "https://image.lexica.art/full_jpg/8de701f4-d4b0-4948-929f-39b5f6c62688",
-        "alt": "Mason jar overflowing with coins with transparent background",
-        "type": "image"
-      }
-    ],
-    retweets: [
-      user,
-    ],
-    replyTweets: [
-      {
-        _id: "60e1c7b0b0b5a40015b0b0b0",
-        author: user,
-        audience: "everyone",
-        whoCanReply: "everyone",
-        tweetType: "tweet",
-        content: "I reply this tweet :)",
-        view: 3800,
-        createdAt: "2023-04-01T15:30:00.000Z",
-      },
-    ],
-    quoteTweets: [
-      {
-        _id: "60e1c7b0b0b5a40015b0b0b0",
-        audience: "everyone",
-        whoCanReply: "everyone",
-        author: user,
-        tweetType: "quote",
-        content: "Im quoted this tweet :)",
-        view: 3800,
-        createdAt: "2023-04-01T15:30:00.000Z",
-      },
-    ],
-    likes: [
-      user,
-    ],
-    bookmarks: [
-      user,
-    ],
-
-
-    view: 3800,
-    createdAt: "2023-04-01T15:30:00.000Z",
-    updatedAt: "2023-04-01T15:30:00.000Z",
-  }
-
-
-
+  const tweetQuery = useQuery<ITweet>({
+    queryKey: ["tweet", tweetId],
+    queryFn: () => getSpecificTweet(tweetId!),
+  });
   return (
-    <div className='container max-w-600px border-x'>
-        <HeaderComp.Header pageType='TweetDetails' headerTitle='Tweet' />
-        <TweetCard tweet={tweet} pageType='TweetDetails' isAuthenticated={isAuthenticated} /> 
-        <Comments />
-    </div>
-  )
-}
+    <div className="container max-w-600px border-x">
+      <HeaderComp.Header pageType="TweetDetails" headerTitle="Tweet" />
+      {tweetQuery.isLoading && (
+        <div className="flex justify-center items-center h-56">
+          <LoadingIcon />
+        </div>
+      )}
 
-export default TweetDetails
+      {tweetQuery.isError && (
+        <div className="flex justify-center items-center h-56">
+          <span className="text-2xl font-bold text-gray-500">
+            Something went wrong
+          </span>
+        </div>
+      )}
+
+      {tweetQuery.data && (
+        <div>
+          <TweetCard
+            tweet={tweetQuery.data}
+            pageType="TweetDetails"
+            isAuthenticated={isAuthenticated}
+          />
+          <Replies tweetId={tweetId!} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default TweetDetails;

@@ -81,7 +81,7 @@ const AppRoutes = ({isAuthenticated}:IAppRoutes) => {
         />
 
         <Route
-          path="/:username/status/:tweet_id"
+          path="/:username/status/:tweetId"
           element={<TweetDetailsLayout />}
         />
       </Routes>

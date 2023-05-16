@@ -1,14 +1,26 @@
 import React from "react";
 import { ITweet } from "@customTypes/TweetTypes";
 import TweetMedia from "./TweetMedia";
+import classNames from "classnames";
 
 type Props = {
     tweet: ITweet
+    pageType: "home" | "TweetDetails";
 }
 
-const TweetContent = ({tweet}:Props) => {
+const TweetContent = ({tweet, pageType}:Props) => {
+
+  const contentAreaClasses = classNames({
+    "mt-3": pageType === "TweetDetails",
+  })
+
+  const contentTextClasses = classNames({
+    "text-[17px] leading-5": pageType === "TweetDetails"
+
+  })
+
   return (
-    <div>
+    <div className={contentAreaClasses}>
       <div>
         {tweet?.content!.length > 280 ? (
           <>
@@ -21,7 +33,14 @@ const TweetContent = ({tweet}:Props) => {
             </a>
           </>
         ) : (
-          tweet.content
+          <span className={contentTextClasses}>
+            {tweet?.content!.split("\n").map((text, index) => (
+              <span key={index}>
+                {text}
+                <br />
+                </span>
+            ))}
+          </span>
         )}
       </div>
 

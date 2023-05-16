@@ -1,12 +1,17 @@
 import React from "react";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 
-const NavigationHeader = () => {
+interface IProps {
+  username: string;
+  tab: string;
+}
+
+
+const NavigationHeader = ({username, tab}: IProps) => {
   const navigate = useNavigate();
-  const { username } = useParams();
-  const tab = useParams().tab || "tweets";
+  
 
   console.log(username, tab);
 

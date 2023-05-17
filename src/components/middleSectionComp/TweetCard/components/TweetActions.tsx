@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import classNames from "classnames";
 import { TweetCardComp } from "@components/middleSectionComp/index";
+import { DigalogModals } from "@components/middleSectionComp";
 import { formatNumber } from "@utils/index";
 import {
   ReplyIcon,
@@ -10,7 +12,6 @@ import {
   BookmarksIcon,
 } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
-import classNames from "classnames";
 import ReTweetMenu from "./ReTweetMenu";
 
 interface Props {
@@ -19,28 +20,27 @@ interface Props {
   replyCount?: number;
   retweetCount?: number;
   isAuthenticated: boolean;
-  setComposerMode: React.Dispatch<React.SetStateAction<"reply" | "quote">>
-  setReplyModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setQuoteModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TweetActions = ({
   tweet,
   replyCount,
   retweetCount,
-  setComposerMode,
-  setReplyModal,
-  setQuoteModal,
   pageType,
   isAuthenticated,
 }: Props) => {
+  const [composerMode, setComposerMode] = useState<"reply" | "quote">("reply");
+
+  const [showReplyModal, setReplyModal] = useState(false);
+  const [showQuoteModal, setQuoteModal] = useState(false);
+
   const [shareMenu, setShowShareMenu] = useState(false);
-  const [reTweetMenu, setRetweetMenu] = useState(false);
+  const [reTweetMenu, setShowRetweetMenu] = useState(false);
 
   const handleIconClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const actionName = e.currentTarget.name;
-  
+
     if (isAuthenticated) {
       switch (actionName) {
         case "reply":
@@ -48,7 +48,6 @@ const TweetActions = ({
           setReplyModal(true);
           break;
         case "like":
-          console.log(actionName);
           break;
         case "bookmarks":
       }
@@ -62,8 +61,27 @@ const TweetActions = ({
       pageType === "TweetDetails",
   });
 
+
   return (
     <div>
+      {showReplyModal && isAuthenticated && (
+        <DigalogModals.ReplyQuoteModal
+          composerMode={composerMode}
+          tweet={tweet}
+          isOpen={showReplyModal}
+          onClose={() => setReplyModal(false)}
+        />
+      )}
+
+      {showQuoteModal && isAuthenticated && (
+        <DigalogModals.ReplyQuoteModal
+          composerMode={composerMode}
+          tweet={tweet}
+          isOpen={showQuoteModal}
+          onClose={() => setQuoteModal(false)}
+        />
+      )}
+      
       <div className={actionClasses}>
         <button
           onClick={handleIconClick}
@@ -72,7 +90,7 @@ const TweetActions = ({
         >
           <div className="flex flex-row">
             <div className=" relative text-gray-dark group-hover:text-primary-base duration-150">
-              <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
+              <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
               <ReplyIcon className={"w-5 h-5"} />
             </div>
             <div className="inline-flex  group-hover:text-primary-base">
@@ -87,14 +105,14 @@ const TweetActions = ({
 
         <div
           onClick={(e) => {
-            setRetweetMenu(!reTweetMenu);
+            setShowRetweetMenu(!reTweetMenu);
             e.stopPropagation();
           }}
           className="group h-5 min-h-max relative cursor-pointer"
         >
           <div className="flex flex-row">
             <div className="inline-flex relative text-gray-dark group-hover:text-green-base duration-150">
-              <div className="absolute -m-2 group-hover:bg-green-extraLigt  duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
+              <div className="absolute -m-2 group-hover:bg-green-extraLigt  duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
               <ReTweetIcon className="w-5 h-5" />
             </div>
             <div className="inline-flex group-hover:text-green-base">
@@ -107,8 +125,8 @@ const TweetActions = ({
           </div>
           {reTweetMenu && isAuthenticated && (
             <ReTweetMenu
-              onClose={() => setRetweetMenu(false)}
-              tweet={tweet}
+              onClose={() => setShowRetweetMenu(false)}
+              setComposerMode={setComposerMode}
               setQuoteModal={setQuoteModal}
             />
           )}
@@ -126,7 +144,7 @@ const TweetActions = ({
             </div>
             <div className="inline-flex  group-hover:text-red-base">
               <span className="px-3 text-sm">
-                {tweet.likes!.length! > 0 &&
+                {tweet?.likes!.length! > 0 &&
                   pageType === "home" &&
                   formatNumber(tweet.likes!.length)}
               </span>
@@ -161,7 +179,7 @@ const TweetActions = ({
                 <AnalyticsIcon className={"w-5 h-5"} />
               </div>
               <div className="inline-flex  group-hover:text-primary-base">
-                <span className="px-3 text-sm">{formatNumber(tweet.view)}</span>
+                <span className="px-3 text-sm">{formatNumber(tweet?.view)}</span>
               </div>
             </div>
           </button>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 interface IProps {
   username: string;
-  tab: string;
+  tab: "replies" | "media" | "likes" | "tweets"
 }
 
 

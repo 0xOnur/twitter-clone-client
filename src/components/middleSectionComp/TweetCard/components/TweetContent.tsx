@@ -15,7 +15,7 @@ const TweetContent = ({tweet, pageType}:Props) => {
   })
 
   const contentTextClasses = classNames({
-    "text-[17px] leading-5": pageType === "TweetDetails"
+    "text-[23px] leading-7": pageType === "TweetDetails"
 
   })
 

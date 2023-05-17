@@ -1,54 +1,42 @@
-import React from "react";
-import { ComposerComp, DigalogModals } from "@components/middleSectionComp";
+import { useQuery } from "@tanstack/react-query";
+import { getSpecificTweetStats } from "api/tweetApi";
+import { ComposerComp } from "@components/middleSectionComp";
 import { ITweet } from "@customTypes/TweetTypes";
 import {
   AuthorInfo,
   Avatar,
 } from "@components/middleSectionComp/TweetCard/components";
 import TweetContent from "./components/TweetContent";
-import { TweetStats } from "../TweetDetailsComp";
+import { TweetStats } from "@components/middleSectionComp/TweetDetailsPage";
 import TweetActions from "./components/TweetActions";
+import TweetCard from ".";
+
+type tweetStats = {
+  replyCount: number;
+  retweetCount: number;
+  quoteCount: number;
+};
 
 interface IProps {
   isAuthenticated: boolean;
   tweet: ITweet;
-  tweetStats: { replyCount: number; retweetCount: number; quoteCount: number };
-  showReplyModal: boolean;
-  showQuoteModal: boolean;
-  setReplyModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setQuoteModal: React.Dispatch<React.SetStateAction<boolean>>;
-  composerMode: "reply" | "quote";
-  setComposerMode: React.Dispatch<React.SetStateAction<"reply" | "quote">>;
 }
 
-const DetailedCard = ({
-  tweet,
-  tweetStats,
-  isAuthenticated,
-  setReplyModal,
-  showReplyModal,
-  setQuoteModal,
-  showQuoteModal,
-  composerMode,
-  setComposerMode,
-}: IProps) => {
+const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
+  const tweetStats = useQuery<tweetStats>({
+    queryKey: ["tweetStats", tweet._id],
+    queryFn: () => getSpecificTweetStats(tweet._id),
+  });
+
   return (
     <div>
-      {showReplyModal && isAuthenticated && (
-        <DigalogModals.ReplyQuoteModal
-          composerMode={"reply"}
-          tweet={tweet}
-          isOpen={showReplyModal}
-          onClose={() => setReplyModal(false)}
-        />
-      )}
-
-      {showQuoteModal && isAuthenticated && (
-        <DigalogModals.ReplyQuoteModal
-          composerMode={"quote"}
-          tweet={tweet}
-          isOpen={showQuoteModal}
-          onClose={() => setQuoteModal(false)}
+      {tweet.originalTweet && tweet.tweetType === "reply" && (
+        <TweetCard
+          tweet={tweet.originalTweet}
+          pageType="home"
+          hideActions={false}
+          isReply={true}
+          isAuthenticated={isAuthenticated}
         />
       )}
       <article>
@@ -72,22 +60,30 @@ const DetailedCard = ({
 
                 <TweetContent tweet={tweet} pageType="TweetDetails" />
 
+                {tweet.originalTweet && tweet.tweetType === "quote" && (
+                  <div className="border-2 shadow-md rounded-3xl overflow-hidden">
+                    <TweetCard
+                      tweet={tweet.originalTweet}
+                      pageType="home"
+                      hideActions={true}
+                      isAuthenticated={isAuthenticated}
+                    />
+                  </div>
+                )}
+
                 {tweetStats && (
                   <TweetStats
                     tweet={tweet}
-                    retweetCount={tweetStats?.retweetCount}
-                    quoteCount={tweetStats?.quoteCount}
+                    retweetCount={tweetStats.data?.retweetCount}
+                    quoteCount={tweetStats.data?.quoteCount}
                   />
                 )}
 
                 <TweetActions
                   pageType="TweetDetails"
                   tweet={tweet}
-                  replyCount={tweetStats?.replyCount}
-                  retweetCount={tweetStats?.retweetCount}
-                  setReplyModal={setReplyModal}
-                  setComposerMode={setComposerMode}
-                  setQuoteModal={setQuoteModal}
+                  replyCount={tweetStats.data?.replyCount}
+                  retweetCount={tweetStats.data?.retweetCount}
                   isAuthenticated={isAuthenticated}
                 />
 
@@ -105,7 +101,7 @@ const DetailedCard = ({
 
                 {isAuthenticated && (
                   <ComposerComp.TweetComposer
-                    composerMode={composerMode}
+                    composerMode={"reply"}
                     originalTweet={tweet}
                   />
                 )}

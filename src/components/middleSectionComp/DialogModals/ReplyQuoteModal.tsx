@@ -25,7 +25,10 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
   }, [isOpen]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="fixed cursor-default inset-0 z-50 flex items-center justify-center"
+    >
       <div className="fixed inset-0 bg-black opacity-60" />
 
       <div className="z-10 text-black bg-white w-full max-w-600px min-h-400px rounded-xl overflow-hidden">
@@ -50,7 +53,7 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                       avatar={tweet.author.avatar!}
                       username={tweet.author.username}
                     />
-                    <div className="w-0.5 -ml-3 bg-gray-200 mt-1 h-full"></div>
+                    <div className="w-0.5 -ml-3 bg-gray-200 mt-1 h-full"/>
                   </div>
                   <div className="flex flex-col grow">
                     <TweetCardComp.AuthorInfo

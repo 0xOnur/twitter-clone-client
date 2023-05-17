@@ -8,7 +8,7 @@ import { HeaderComp } from "@components/middleSectionComp";
 import TweetCard from "@components/middleSectionComp/TweetCard/";
 import { ITweet } from "@customTypes/index";
 import Replies from "./Replies";
-import { LoadingIcon } from "@icons/Icon";
+import { LoadingIcon, RetryIcon } from "@icons/Icon";
 
 const TweetDetails = () => {
   const { tweetId } = useParams<{ tweetId: string }>();
@@ -20,6 +20,8 @@ const TweetDetails = () => {
   const tweetQuery = useQuery<ITweet>({
     queryKey: ["tweet", tweetId],
     queryFn: () => getSpecificTweet(tweetId!),
+    retry: false,
+    refetchOnWindowFocus: false,
   });
   return (
     <div className="container max-w-600px border-x">
@@ -31,10 +33,17 @@ const TweetDetails = () => {
       )}
 
       {tweetQuery.isError && (
-        <div className="flex justify-center items-center h-56">
-          <span className="text-2xl font-bold text-gray-500">
-            Something went wrong
+        <div className="flex flex-col max-w-600px w-full justify-center items-center py-5 px-3">
+          <span className="mb-5 text-center">
+            Something went wrong. Try reloading.
           </span>
+          <button
+            onClick={() => tweetQuery.refetch()}
+            className="flex gap-1 items-center px-4 py-2 min-h-[36px] bg-primary-base hover:bg-primary-dark duration-200 rounded-full"
+          >
+            <RetryIcon className="w-6 h-6 text-white" />
+            <span className="font-bold text-white">Retry</span>
+          </button>
         </div>
       )}
 

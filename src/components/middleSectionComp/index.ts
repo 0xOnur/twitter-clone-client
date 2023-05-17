@@ -4,4 +4,4 @@ export * as HeaderComp from "./Header";
 export * as UserProfileComp from "./UserProfile"
 export * as DigalogModals from "./DialogModals"
 export * as Feed from "./Feed";
-export * as TweetDetailsComp from "./TweetDetailsComp";
+export * as TweetDetailsComp from "./TweetDetailsPage";

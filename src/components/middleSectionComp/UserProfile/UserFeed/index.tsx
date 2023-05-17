@@ -1,20 +1,37 @@
-import React from 'react'
+import React from "react";
 import { useParams } from "react-router-dom";
-import NavigationHeader from './NavigationHeader';
-import Tweets from './Tweets';
+import NavigationHeader from "./NavigationHeader";
+import TweetsTab from "./TweetsTab";
+import RepliesTab from "./RepliesTab";
+
+type Params = {
+  tab: "replies" | "media" | "likes";
+};
 
 const UserFeed = () => {
   const { username } = useParams();
-  const tab = useParams().tab || "tweets";
+  const { tab = "tweets" } = useParams<Params>();
 
-  return (
-    <div>
-      <NavigationHeader username={username!} tab={tab} />
-      {tab === "tweets" && (
-        <Tweets username={username!} />
-      )}
-    </div>
-  )
-}
+  switch (tab) {
+    case "tweets":
+      return (
+        <>
+          <NavigationHeader username={username!} tab={tab!} />
+          <TweetsTab username={username!} />
+        </>
+      );
+    case "replies":
+      return (
+        <>
+          <NavigationHeader username={username!} tab={tab!} />
+          <RepliesTab username={username!} />
+        </>
+      );
+    default:
+      break;
+  }
+
+  return null;
+};
 
 export default UserFeed;

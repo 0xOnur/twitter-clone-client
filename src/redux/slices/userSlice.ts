@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import * as userApi from "../../api/userApi";
 import {IUser} from "@customTypes/UserTypes"
 
-interface UserState {
+export interface UserState {
     isAuthenticated: boolean;
     user: IUser;
     accessToken: string | null;
@@ -96,6 +96,16 @@ const userSlice = createSlice({
         builder.addCase(userApi.updateAccessToken.rejected, (state, action) => {
             state.isPending = false;
             state.error = action.payload ? {message: action.payload as string} : {message: "Error getting new access token"};
+        });
+        // Update User
+        builder.addCase(userApi.updateUser.fulfilled, (state, action) => {
+            state.isPending = false;
+            state.error = null;
+            state.user = action.payload;
+        });
+        builder.addCase(userApi.updateUser.rejected, (state, action) => {
+            state.isPending = false;
+            state.error = action.payload ? {message: action.payload as string} : {message: "Error updating user"};
         });
     }
 });

@@ -9,10 +9,10 @@ interface IProps {
 const Username = ({ user }: IProps) => {
   return (
     <div>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row gap-1 items-center">
         <span className="text-xl font-extrabold">{user.displayName}</span>
         {user.isVerified && (
-          <VerifiedIcon className="w-5 h-5 ml-1 text-primary-base" />
+          <VerifiedIcon className="w-6 h-6 mt-1 text-primary-base" />
         )}
       </div>
       <span>@{user.username}</span>

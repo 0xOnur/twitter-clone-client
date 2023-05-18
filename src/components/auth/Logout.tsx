@@ -19,7 +19,7 @@ const Logout = () => {
         persistor.purge();
         showToast("Logged out", "success");
         navigate("/");
-      }, 3000);
+      }, 1000);
     } else {
       navigate("/");
     }

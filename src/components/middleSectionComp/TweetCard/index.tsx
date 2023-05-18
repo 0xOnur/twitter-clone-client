@@ -1,4 +1,3 @@
-import React from "react";
 import { ITweet } from "@customTypes/TweetTypes";
 import BasicCard from "./BasicCard";
 import DetailedCard from "./DetailedCard";

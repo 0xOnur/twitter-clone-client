@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "redux/config/store";
 import { loginUser } from "api/userApi";
@@ -14,7 +13,6 @@ interface IProps {
 
 const PasswordScreen = ({ username, password, setPassword }: IProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
   const redux = useSelector((state: RootState) => state.user)
   const { showToast } = useToast();
 
@@ -28,7 +26,6 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
       }else if(response.meta.requestStatus === "fulfilled") {
         setTimeout(() => {
           showToast("Logged in", "success");
-          navigate("/");
         }, 3000)
       }
     });

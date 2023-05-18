@@ -1,7 +1,7 @@
 import { LoadingIcon } from "@icons/Icon";
 import { IUser } from "@customTypes/UserTypes";
 import CoverAndAvatar from "./CoverAndAvatar";
-import UserActionButtons from "./UserActionButtons";
+import UserActions from "./UserActions";
 import UserInfo from "./UserInfo";
 import NotFound from "./NotFound";
 import Username from "./Username";
@@ -34,7 +34,7 @@ const UserCard = ({ isLoading, error, user, username }: IProps) => {
         <div className="flex flex-col">
           <CoverAndAvatar cover={user.cover!} avatar={user.avatar!} />
           <div className="flex flex-col pb-3 px-4 pt-[74px] relative">
-            <UserActionButtons user={user} />
+            <UserActions user={user}/>
             <Username user={user} />
           </div>
         </div>

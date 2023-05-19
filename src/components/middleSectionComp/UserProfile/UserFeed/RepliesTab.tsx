@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getUserReplies } from "api/tweetApi";
+import { getUserReplies } from "api/userApi"; 
 import { ITweet } from "@customTypes/TweetTypes";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import TweetCard from "@components/middleSectionComp/TweetCard";
@@ -44,7 +44,7 @@ const RepliesTab = ({ username }: IProps) => {
 
   if (userRepliesQuery.data.length > 0) {
     return (
-      <div className="flex flex-col pb-96">
+      <div className="flex flex-col">
         {userRepliesQuery.data.map((tweet, index) => (
           <div key={index} className="border-b">
             <TweetCard
@@ -62,7 +62,7 @@ const RepliesTab = ({ username }: IProps) => {
   return (
     <div className="flex p-8 justify-center">
       <div className="flex flex-col max-w-sm">
-        <span className="text-2xl font-bold">@{username} hasn't reply</span>
+        <span className="text-3xl font-bold">@{username} hasn't reply</span>
         <span>When they do, their Replys will show up here.</span>
       </div>
     </div>

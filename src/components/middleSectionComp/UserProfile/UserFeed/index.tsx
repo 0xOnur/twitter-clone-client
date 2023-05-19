@@ -1,8 +1,9 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import NavigationHeader from "./NavigationHeader";
 import TweetsTab from "./TweetsTab";
 import RepliesTab from "./RepliesTab";
+import MediaTab from "./MediaTab";
+import LikesTab from "./LikesTab";
 
 type Params = {
   tab: "replies" | "media" | "likes";
@@ -27,6 +28,20 @@ const UserFeed = () => {
           <RepliesTab username={username!} />
         </>
       );
+      case "media":
+        return (
+          <>
+            <NavigationHeader username={username!} tab={tab!} />
+            <MediaTab username={username!} />
+          </>
+        )
+        case "likes":
+          return (
+            <>
+              <NavigationHeader username={username!} tab={tab!} />
+              <LikesTab username={username!} />
+            </>
+          )
     default:
       break;
   }

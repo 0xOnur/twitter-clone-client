@@ -20,25 +20,6 @@ export const getSpecificTweetStats = async (tweetId:string) => {
     }
 };
 
-// Get user Tweets
-export const getUserTweets = async (username:string) => {
-    try {
-        const response = await axiosInstance.get(`/tweet/get-user-tweets/${username}`);
-        return response.data;
-    } catch (error: any) {
-        throw new Error(error.response.data);
-    }
-};
-
-// Get User Replies
-export const getUserReplies =async (username:string) => {
-    try {
-        const response = await axiosInstance.get(`/tweet/get-user-replies/${username}`);
-        return response.data;
-    } catch (error:any) {
-        throw new Error(error.response.data);
-    }
-};
 
 // Get Tweet Replies
 export const getTweetReplies =async (tweetId:string) => {

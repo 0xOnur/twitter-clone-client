@@ -138,3 +138,43 @@ export const unFollowUser =async (userId:string) => {
         throw new Error(error.response.data);
     }
 };
+
+// Get user Tweets
+export const getUserTweets = async (username:string) => {
+  try {
+      const response = await axiosInstance.get(`/user/get-user-tweets/${username}`);
+      return response.data;
+  } catch (error: any) {
+      throw new Error(error.response.data);
+  }
+};
+
+// Get  Media only User Tweets
+export const getMediaOnlyUserTweets =async (username:string) => {
+  try {
+      const response = await axiosInstance.get(`/user/get-user-media-only-tweets/${username}`);
+      return response.data;
+  } catch (error: any) {
+      throw new Error(error.response.data);
+  }
+};
+
+// Get User Replies
+export const getUserReplies =async (username:string) => {
+  try {
+      const response = await axiosInstance.get(`/user/get-user-replies/${username}`);
+      return response.data;
+  } catch (error:any) {
+      throw new Error(error.response.data);
+  }
+};
+
+// Get User Likes
+export const getUserLikes =async (username:string) => {
+  try {
+      const response = await axiosInstance.get(`/user/get-user-likes/${username}`);
+      return response.data;
+  } catch (error:any) {
+      throw new Error(error.response.data);
+  }
+};

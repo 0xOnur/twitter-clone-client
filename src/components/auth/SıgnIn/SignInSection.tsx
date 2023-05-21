@@ -98,7 +98,7 @@ const SignInSection = ({ title, mode, isRoute, setOpen }: IProps) => {
                     type="text"
                     required={true}
                     placeholder=" "
-                    maxLength={25}
+                    maxLength={30}
                     className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
                     value={username}
                     onChange={handleUsernameChange}

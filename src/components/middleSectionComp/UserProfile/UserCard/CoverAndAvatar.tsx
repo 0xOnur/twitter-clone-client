@@ -21,7 +21,7 @@ const CoverAndAvatar = ({ cover, avatar }: IProps) => {
       )}
       {avatar ? (
         <img
-          className="absolute z-10 -bottom-1/3 left-4 w-[145px] h-[145px] rounded-full border-4 border-white"
+          className="absolute z-10 -bottom-1/3 left-4 w-[145px] h-[145px] object-cover rounded-full border-4 border-white"
           src={avatar}
           alt="Profile"
         />

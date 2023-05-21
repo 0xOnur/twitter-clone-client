@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "redux/config/store";
-import { updateUser, followUser, unFollowUser } from "api/userApi";
+import { updateRedux, followUser, unFollowUser } from "api/userApi";
 import { IUser } from "@customTypes/UserTypes";
 import { UserState } from "@redux/slices/userSlice";
 
@@ -13,26 +13,35 @@ interface IProps {
 }
 
 const FollowUnfollow = ({ user, reduxUser }: IProps) => {
+  const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();
   const [followButtonText, setButtonText] = useState<"Following" | "Unfollow">(
     "Following" || "Unfollow"
   );
 
-  const followUserQuery = useQuery({
-    queryKey: ["follow", user.username],
-    queryFn: () => followUser(user._id),
-    enabled: false,
-    retry: false,
-    refetchOnWindowFocus: false,
+  const followUserQuery = useMutation(followUser, {
+    onSuccess: () => {
+      setButtonText("Following");
+      dispatch(updateRedux(reduxUser.user.username));
+      queryClient.invalidateQueries(["user", user.username]);
+    },
   });
 
-  const unFollowUserQuery = useQuery({
-    queryKey: ["unfollow", user.username],
-    queryFn: () => unFollowUser(user._id),
-    enabled: false,
-    retry: false,
-    refetchOnWindowFocus: false,
+  const unFollowUserQuery = useMutation(unFollowUser, {
+    onSuccess: () => {
+      setButtonText("Unfollow");
+      dispatch(updateRedux(reduxUser.user.username));
+      queryClient.invalidateQueries(["user", user.username]);
+    },
   });
+
+  const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (reduxUser.user.following?.includes(user._id)) {
+      unFollowUserQuery.mutate(user._id);
+    } else {
+      followUserQuery.mutate(user._id);
+    }
+  };
 
   const handleFollowHover = () => {
     if (followButtonText === "Following") {
@@ -43,18 +52,6 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
   const handleFollowOut = () => {
     if (followButtonText === "Unfollow") {
       setButtonText("Following");
-    }
-  };
-
-  const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (reduxUser.user.following?.includes(user._id)) {
-        unFollowUserQuery.refetch().then(()=> {
-            dispatch(updateUser(reduxUser.user.username));
-        });
-    } else {
-        followUserQuery.refetch().then(() => {
-            dispatch(updateUser(reduxUser.user.username));
-      });
     }
   };
 

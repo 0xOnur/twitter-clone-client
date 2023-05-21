@@ -15,9 +15,9 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Update redux user
-export const updateUser = createAsyncThunk(
-    "user/updateUser",
+// Update redux user for follow/unfollow functionality
+export const updateRedux = createAsyncThunk(
+    "user/updateRedux",
     async (username: string, thunkAPI) => {
         try {
             const response = await axiosInstance.get(`/user/get-user/${username}`);
@@ -28,6 +28,22 @@ export const updateUser = createAsyncThunk(
         }
     }
 );
+
+// Update User
+export const updateUser =async (formData: FormData) => {
+  try {
+    const response = await axiosInstance.put("/user/update-user", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error("Error updating user");
+  }
+};
+
 
 // Get new accessToken
 export const updateAccessToken = createAsyncThunk(

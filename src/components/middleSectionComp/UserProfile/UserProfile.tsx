@@ -1,11 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getUser } from "api/userApi";
+import { useParams } from "react-router-dom";
+import { IUser } from "@customTypes/UserTypes";
 import { HeaderComp } from "@components/middleSectionComp";
-import UserCard from "./UserCard";
-import UserFeed from "./UserFeed"
-import {IUser} from "@customTypes/UserTypes";
+import { getUser } from "api/userApi";
+import UserCard from "./UserCard/Card";
+import UserFeed from "./UserFeed";
 
 const UserProfile = () => {
   const username = useParams().username;
@@ -19,16 +19,17 @@ const UserProfile = () => {
 
   return (
     <div className="container max-w-600px w-full border-x">
-      <HeaderComp.Header pageType="Profile" headerTitle={userQuery.data ? userQuery.data.displayName! :  "Profile"} />
-      <UserCard 
+      <HeaderComp.Header
+        pageType="Profile"
+        headerTitle={userQuery.data ? userQuery.data.displayName! : "Profile"}
+      />
+      <UserCard
         isLoading={userQuery.isLoading}
         user={userQuery.data!}
         username={username!}
         error={userQuery.error}
       />
-      {userQuery.data && (
-        <UserFeed />
-      )}
+      {userQuery.data && <UserFeed />}
     </div>
   );
 };

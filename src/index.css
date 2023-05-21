@@ -8,20 +8,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "TwitterChirp",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-
 }
 
 /* Input */
 input:focus-within ~ label,
-input:not(:placeholder-shown) ~ label {
+textarea:focus-within ~ label,
+input:not(:placeholder-shown) ~ label,
+textarea:not(:placeholder-shown) ~ label {
   @apply transform scale-75 -translate-y-4;
 }
 
-input:focus-within ~ label {
+input:focus-within ~ label,
+textarea:focus-within ~ label {
   @apply text-blue-500;
 }
 
-input:focus-within ~ label ~ .second-label {
+input:focus-within ~ label ~ .second-label,
+textarea:focus-within ~ label ~ .second-label {
   display: block;
 }
 

@@ -32,7 +32,7 @@ const UserCard = ({ isLoading, error, user, username }: IProps) => {
     return (
       <div className="flex flex-col">
         <div className="flex flex-col">
-          <CoverAndAvatar cover={user.cover!} avatar={user.avatar!} />
+          <CoverAndAvatar cover={user?.cover} avatar={user?.avatar} />
           <div className="flex flex-col pb-3 px-4 pt-[74px] relative">
             <UserActions user={user}/>
             <Username user={user} />

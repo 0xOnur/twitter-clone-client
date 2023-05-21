@@ -98,12 +98,12 @@ const userSlice = createSlice({
             state.error = action.payload ? {message: action.payload as string} : {message: "Error getting new access token"};
         });
         // Update User
-        builder.addCase(userApi.updateUser.fulfilled, (state, action) => {
+        builder.addCase(userApi.updateRedux.fulfilled, (state, action) => {
             state.isPending = false;
             state.error = null;
             state.user = action.payload;
         });
-        builder.addCase(userApi.updateUser.rejected, (state, action) => {
+        builder.addCase(userApi.updateRedux.rejected, (state, action) => {
             state.isPending = false;
             state.error = action.payload ? {message: action.payload as string} : {message: "Error updating user"};
         });

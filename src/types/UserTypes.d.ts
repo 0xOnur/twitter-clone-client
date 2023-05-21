@@ -6,6 +6,7 @@ export interface IUser {
     isVerified: boolean;
     bio?: string;
     location?: string;
+    website?: string;
     avatar?: string;
     avatarId?: string;
     cover?: string;

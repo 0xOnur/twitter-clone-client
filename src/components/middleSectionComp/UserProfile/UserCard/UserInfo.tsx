@@ -20,14 +20,17 @@ const UserInfo = ({ user }: IProps) => {
             <span>{user.location}</span>
           </div>
         )}
-        <div className="flex flex-row items-center gap-1">
-          <BirthIcon className="w-5 h-5" />
-          <div className="flex gap-1">
-            <span>Born</span>
-            <span>{getMonthNameFromNumber(user.birthDay?.month!)}</span>
-            <span>{user.birthDay?.day}</span>
+        {user.birthDay && (
+          <div className="flex flex-row items-center gap-1">
+            <BirthIcon className="w-5 h-5" />
+            <div className="flex gap-1">
+              <span>Born</span>
+              <span>{getMonthNameFromNumber(user.birthDay?.month!)}</span>
+              <span>{user.birthDay?.day}</span>
+            </div>
           </div>
-        </div>
+        )}
+
         <div className="flex flex-row items-center gap-1">
           <CalendarIcon className="w-5 h-5" />
           <div className="flex gap-1">

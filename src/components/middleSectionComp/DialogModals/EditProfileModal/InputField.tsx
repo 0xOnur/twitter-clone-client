@@ -35,7 +35,7 @@ const InputField = ({
                 {labelText}
               </label>
               <label htmlFor="Choice1" className="second-label text-lg p-4">
-                {value.length} / {maxLength}
+                {value?.length | 0} / {maxLength}
               </label>
             </div>
           </div>

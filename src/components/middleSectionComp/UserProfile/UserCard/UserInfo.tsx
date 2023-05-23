@@ -1,5 +1,5 @@
 import React from "react";
-import { LocationIcon, BirthIcon, CalendarIcon } from "@icons/Icon";
+import { LocationIcon, BirthIcon, WebsiteIcon, CalendarIcon } from "@icons/Icon";
 import { formatDate, getMonthNameFromNumber } from "utils";
 import { IUser } from "@customTypes/UserTypes";
 
@@ -49,6 +49,21 @@ const UserInfo = ({ user }: IProps) => {
           <span>Followers</span>
         </div>
       </div>
+      {/* website info */}
+      {user.website && (
+        <div className="flex flex-row items-center gap-1 mt-3">
+          <WebsiteIcon className="w-5 h-5" />
+          <a
+            href={user.website}
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary-base hover:underline"
+          >
+            {user.website}
+          </a>
+          </div>
+      )}
+
     </div>
   );
 };

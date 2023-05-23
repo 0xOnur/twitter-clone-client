@@ -24,9 +24,7 @@ const initialState: UserState = {
         bio: "",
         location: "",
         avatar: "",
-        avatarId: "",
         cover: "",
-        coverId: "",
         following:[],
         createdAt: "",
         updatedAt: ""
@@ -91,7 +89,7 @@ const userSlice = createSlice({
         builder.addCase(userApi.updateAccessToken.fulfilled, (state, action) => {
             state.isPending = false;
             state.error = null;
-            state.accessToken = action.payload.accessToken;
+            state.accessToken = action.payload;
         });
         builder.addCase(userApi.updateAccessToken.rejected, (state, action) => {
             state.isPending = false;

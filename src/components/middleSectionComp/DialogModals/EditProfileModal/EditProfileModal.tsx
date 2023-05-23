@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CancelIcon, LoadingIcon } from "@icons/Icon";
 import { IUser } from "@customTypes/UserTypes";
-import { usernameIsAvailable } from "api/userApi";
 import useToast from "@hooks/useToast";
 import { UserCardComp } from "@components/middleSectionComp/UserProfile";
 import { useDispatch } from "react-redux";
@@ -17,7 +16,7 @@ interface IProps {
 }
 
 type Cover = {
-  cover: File | null;
+  coverFile: File | undefined;
   coverURL: string | null;
 };
 
@@ -26,45 +25,45 @@ type Avatar = {
   avatarURL: string | null;
 };
 
+
 const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
+  
   const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();
   const formData = new FormData();
 
   const { showToast } = useToast();
   const [cover, setCover] = useState<Cover>({
-    cover: new File([], ""),
-    coverURL: user.cover!,
+    coverFile: undefined,
+    coverURL: user?.cover!,
   });
 
   const [avatar, setAvatar] = useState<Avatar>({
     avatar: new File([], ""),
-    avatarURL: user.avatar!,
+    avatarURL: user?.avatar!,
   });
 
   const [userInfo, setUserInfo] = useState({
     displayName: user.displayName,
-    username: user.username,
     bio: user?.bio || "",
     location: user?.location || "",
     website: user?.website || "",
   });
 
-  const editProfileQuery = useMutation(updateUser, {
-    onSuccess: () => {
+  const updateProfileMutation = useMutation({
+    mutationKey: ["updateProfile", user.username],
+    mutationFn: updateUser,
+    onSuccess: (data) => {
+      console.log(data);
       dispatch(updateRedux(user.username));
       queryClient.invalidateQueries(["user", user.username]);
-      showToast("Profile Updated", "success");
+      showToast(data.message, "success");
       onClose();
     },
-  });
-
-  const checkUsernameQuery = useQuery({
-    queryKey: ["usernameIsAvailable", userInfo.username],
-    queryFn: () => usernameIsAvailable(userInfo.username),
-    enabled: false,
-    retry: false,
-    refetchOnWindowFocus: false,
+    onError: (err:any) => {
+      console.log(err);
+      showToast(err?.message || "error", "error");
+    }
   });
 
   const isChanges = () => {
@@ -72,20 +71,18 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
       cover: user.cover,
       avatar: user.avatar,
       displayName: user.displayName,
-      username: user.username,
       bio: user.bio,
       location: user.location,
       website: user.website,
     };
 
     const currentState = {
-      cover: cover.coverURL === null ? undefined : cover.coverURL,
-      avatar: avatar.avatarURL === null ? undefined : avatar.avatarURL,
+      cover: cover.coverURL,
+      avatar: avatar.avatarURL,
       displayName: userInfo.displayName,
-      username: userInfo.username,
-      bio: userInfo.bio === "" ? undefined : userInfo.bio,
-      location: userInfo.location,
-      website: userInfo.website,
+      bio: userInfo.bio,
+      location: userInfo.location === "" ? undefined : userInfo.location,
+      website: userInfo.website === "" ? undefined : userInfo.website,
     };
     console.log({
       originalState,
@@ -94,28 +91,17 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
 
     return JSON.stringify(originalState) !== JSON.stringify(currentState);
   };
-
-  const handleSave = () => {
+  console.log(user.location, userInfo.location);
+  const handleSave = async() => {
     if (isChanges()) {
-      if (user.username !== userInfo.username) {
-        checkUsernameQuery.refetch().then((response) => {
-          console.log(response.data);
-          if (response.data) {
-            formData.append("username", userInfo.username);
-            console.log("Save");
-          } else {
-            showToast("Username is already taken.", "error");
-          }
-        });
-      }
-      formData.append("cover", cover.cover!);
+      cover.coverFile && formData.append("cover", cover?.coverFile!);
       formData.append("avatar", avatar.avatar!);
       formData.append("displayName", userInfo.displayName);
-      formData.append("bio", userInfo.bio);
-      formData.append("location", userInfo.location);
-      formData.append("website", userInfo.website);
+      userInfo.bio && formData.append("bio", userInfo?.bio!);
+      userInfo.location && formData.append("location", userInfo?.location!);
+      userInfo.website && formData.append("website", userInfo?.website!);
 
-      editProfileQuery.mutate(formData);
+      updateProfileMutation.mutate(formData);
     } else {
       console.log("No changes");
       showToast("No Changes", "info");
@@ -137,7 +123,7 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
   return (
     <div className="fixed cursor-default inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black opacity-60" />
-      {editProfileQuery.isLoading ? (
+      {updateProfileMutation.isLoading ? (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <LoadingIcon />
         </div>
@@ -186,21 +172,8 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
                 />
 
                 <InputField
-                  type="input"
-                  value={userInfo.username}
-                  maxLength={30}
-                  labelText={"Username"}
-                  onChange={(e) =>
-                    setUserInfo({
-                      ...userInfo,
-                      username: e.target.value,
-                    })
-                  }
-                />
-
-                <InputField
                   type="textarea"
-                  value={userInfo.bio}
+                  value={userInfo?.bio!}
                   maxLength={160}
                   labelText={"Bio"}
                   onChange={(e) =>
@@ -213,7 +186,7 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
 
                 <InputField
                   type="input"
-                  value={userInfo.location}
+                  value={userInfo?.location!}
                   maxLength={30}
                   labelText={"Location"}
                   onChange={(e) =>
@@ -226,7 +199,7 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
 
                 <InputField
                   type="input"
-                  value={userInfo.website}
+                  value={userInfo?.website!}
                   maxLength={100}
                   labelText={"Website"}
                   onChange={(e) =>

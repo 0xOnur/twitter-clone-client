@@ -17,8 +17,8 @@ export interface ITweet {
   replyCount?: number;
   retweetCount?: number;
   quoteCount?: number;
-  likes?: IUser[];
-  bookmarks?: IUser[];
+  likes?: string[];
+  bookmarks?: string[];
   originalTweet?: ITweet;
   tweetType: "tweet" | "reply" | "retweet" | "quote";
   view: number;

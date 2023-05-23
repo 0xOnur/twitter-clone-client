@@ -20,7 +20,7 @@ const Avatar = ({ avatar, username }: Props) => {
         <img
           src={avatar}
           alt="profile"
-          className="w-12 h-12 cursor-pointer object-cover hover:brightness-90 rounded-full"
+          className="w-11 h-11 cursor-pointer object-cover hover:brightness-90 rounded-full"
         />
       </div>
       

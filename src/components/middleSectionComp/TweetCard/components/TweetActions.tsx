@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/config/store";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { likeTweet, unlikeTweet } from "api/tweetApi";
 import { TweetCardComp } from "@components/middleSectionComp/index";
 import { DigalogModals } from "@components/middleSectionComp";
 import { formatNumber } from "@utils/index";
@@ -10,9 +14,11 @@ import {
   AnalyticsIcon,
   ShareIcon,
   BookmarksIcon,
+  LikedIcon,
 } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
 import ReTweetMenu from "./ReTweetMenu";
+import useToast from "@hooks/useToast";
 
 interface Props {
   pageType: "home" | "TweetDetails";
@@ -29,6 +35,37 @@ const TweetActions = ({
   pageType,
   isAuthenticated,
 }: Props) => {
+  const queryClient = useQueryClient();
+  const { showToast } = useToast();
+
+  const likeMutation = useMutation({
+    mutationKey: ["likeTweet", tweet._id],
+    mutationFn: likeTweet,
+    onError: (err: any) => {
+      console.log(err);
+      showToast(err?.message || "error", "error");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tweet", tweet._id]);
+      queryClient.invalidateQueries(["userTweets", tweet.author.username]);
+    },
+  });
+
+  const unlikeMutation = useMutation({
+    mutationKey: ["unlikeTweet", tweet._id],
+    mutationFn: unlikeTweet,
+    onError: (err: any) => {
+      console.log(err);
+      showToast(err?.message || "error", "error");
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tweet", tweet._id]);
+      queryClient.invalidateQueries(["userTweets", tweet.author.username]);
+    }
+  });
+
+
+  const reduxUser = useSelector((state: RootState) => state.user);
   const [composerMode, setComposerMode] = useState<"reply" | "quote">("reply");
 
   const [showReplyModal, setReplyModal] = useState(false);
@@ -48,6 +85,11 @@ const TweetActions = ({
           setReplyModal(true);
           break;
         case "like":
+          if (tweet.likes?.includes(reduxUser.user?._id)) {
+            unlikeMutation.mutate(tweet._id);
+          } else {
+            likeMutation.mutate(tweet._id);
+          }
           break;
         case "bookmarks":
       }
@@ -60,7 +102,6 @@ const TweetActions = ({
     "flex flex-row border-b justify-around gap-2 h-12 items-center mx-1 w-full":
       pageType === "TweetDetails",
   });
-
 
   return (
     <div>
@@ -81,7 +122,7 @@ const TweetActions = ({
           onClose={() => setQuoteModal(false)}
         />
       )}
-      
+
       <div className={actionClasses}>
         <button
           onClick={handleIconClick}
@@ -140,7 +181,11 @@ const TweetActions = ({
           <div className="flex flex-row">
             <div className="inline-flex relative text-gray-dark group-hover:text-red-base duration-150">
               <div className="absolute -m-2 group-hover:bg-red-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
-              <LikeIcon className={"w-5 h-5"} />
+              {tweet.likes?.includes(reduxUser.user?._id) ? (
+                <LikedIcon className={"w-5 h-5 fill-red-removeText"} />
+              ) : (
+                <LikeIcon className={"w-5 h-5"} />
+              )}
             </div>
             <div className="inline-flex  group-hover:text-red-base">
               <span className="px-3 text-sm">
@@ -179,7 +224,9 @@ const TweetActions = ({
                 <AnalyticsIcon className={"w-5 h-5"} />
               </div>
               <div className="inline-flex  group-hover:text-primary-base">
-                <span className="px-3 text-sm">{formatNumber(tweet?.view)}</span>
+                <span className="px-3 text-sm">
+                  {formatNumber(tweet?.view)}
+                </span>
               </div>
             </div>
           </button>

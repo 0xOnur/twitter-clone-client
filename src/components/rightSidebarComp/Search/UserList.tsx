@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { VerifiedIcon } from "@icons/Icon";
 import { IUser } from "@customTypes/UserTypes";
+import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 
 interface IProps {
   user: IUser;
@@ -15,7 +16,7 @@ const UserList = ({ user }: IProps) => {
       key={user._id}
       className="flex items-center px-4 py-3 hover:bg-gray-100 cursor-pointer"
     >
-      <img src={user.avatar!} alt="avatar" className="w-11 h-11 rounded-full" />
+      <Avatar avatar={user?.avatar!} username={user.username}  />
       <div key={user._id} className="flex flex-col ml-3">
         <span className="flex flex-row items-center gap-1 font-bold text-md">
           {user.displayName?.length! > 25

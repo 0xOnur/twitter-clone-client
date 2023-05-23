@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "./axiosInstance";
+import axios from "axios";
 
 // Login user
 export const loginUser = createAsyncThunk(
@@ -17,20 +18,20 @@ export const loginUser = createAsyncThunk(
 
 // Update redux user for follow/unfollow functionality
 export const updateRedux = createAsyncThunk(
-    "user/updateRedux",
-    async (username: string, thunkAPI) => {
-        try {
-            const response = await axiosInstance.get(`/user/get-user/${username}`);
-            const data = response.data;
-            return data;
-        } catch (error: any) {
-            return thunkAPI.rejectWithValue(error.response.data);
-        }
+  "user/updateRedux",
+  async (username: string, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get(`/user/get-user/${username}`);
+      const data = response.data;
+      return data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
+  }
 );
 
 // Update User
-export const updateUser =async (formData: FormData) => {
+export const updateUser = async (formData: FormData) => {
   try {
     const response = await axiosInstance.put("/user/update-user", formData, {
       headers: {
@@ -39,11 +40,13 @@ export const updateUser =async (formData: FormData) => {
     });
     const data = response.data;
     return data;
-  } catch (error) {
-    throw new Error("Error updating user");
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
-
 
 // Get new accessToken
 export const updateAccessToken = createAsyncThunk(
@@ -53,7 +56,7 @@ export const updateAccessToken = createAsyncThunk(
       const response = await axiosInstance.post("/user/update-token", {
         userId,
       });
-      const accessToken = response.data.accessToken;
+      const accessToken = response.data;
       return accessToken;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -88,8 +91,11 @@ export const usernameIsAvailable = async (username: string) => {
       `/user/username-available/${username}`
     );
     return response.data;
-  } catch (error) {
-    throw new Error("Error checking username");
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
@@ -98,8 +104,11 @@ export const emailIsAvailable = async (email: string) => {
   try {
     const response = await axiosInstance.get(`/user/email-available/${email}`);
     return response.data;
-  } catch (error) {
-    throw new Error("Error checking email");
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
@@ -110,8 +119,11 @@ export const usernameExist = async (username: string) => {
       `/user/username-exist/${username}`
     );
     return response.data;
-  } catch (error) {
-    throw new Error("Error checking username");
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
@@ -120,8 +132,11 @@ export const getUser = async (username: string) => {
   try {
     const response = await axiosInstance.get(`/user/get-user/${username}`);
     return response.data;
-  } catch (error: any) {
-    throw new Error(error.response.data);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
@@ -130,8 +145,11 @@ export const searchUser = async (username: string) => {
   try {
     const response = await axiosInstance.get(`/user/search-user/${username}`);
     return response.data;
-  } catch (error: any) {
-    throw new Error(error.response.data);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
@@ -140,57 +158,83 @@ export const followUser = async (userId: string) => {
   try {
     const response = await axiosInstance.put(`/user/follow-user/${userId}`);
     return response.data;
-  } catch (error: any) {
-    throw new Error(error.response.data);
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
 // Unfollow User
-export const unFollowUser =async (userId:string) => {
-    try {
-        const response = await axiosInstance.put(`/user/unfollow-user/${userId}`);
-        return response.data;
-    } catch (error: any) {
-        throw new Error(error.response.data);
+export const unFollowUser = async (userId: string) => {
+  try {
+    const response = await axiosInstance.put(`/user/unfollow-user/${userId}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
     }
+    return Promise.reject(error);
+  }
 };
 
 // Get user Tweets
-export const getUserTweets = async (username:string) => {
+export const getUserTweets = async (username: string) => {
   try {
-      const response = await axiosInstance.get(`/user/get-user-tweets/${username}`);
-      return response.data;
-  } catch (error: any) {
-      throw new Error(error.response.data);
+    const response = await axiosInstance.get(
+      `/user/get-user-tweets/${username}`
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
 // Get  Media only User Tweets
-export const getMediaOnlyUserTweets =async (username:string) => {
+export const getMediaOnlyUserTweets = async (username: string) => {
   try {
-      const response = await axiosInstance.get(`/user/get-user-media-only-tweets/${username}`);
-      return response.data;
-  } catch (error: any) {
-      throw new Error(error.response.data);
+    const response = await axiosInstance.get(
+      `/user/get-user-media-only-tweets/${username}`
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
 // Get User Replies
-export const getUserReplies =async (username:string) => {
+export const getUserReplies = async (username: string) => {
   try {
-      const response = await axiosInstance.get(`/user/get-user-replies/${username}`);
-      return response.data;
-  } catch (error:any) {
-      throw new Error(error.response.data);
+    const response = await axiosInstance.get(
+      `/user/get-user-replies/${username}`
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };
 
 // Get User Likes
-export const getUserLikes =async (username:string) => {
+export const getUserLikes = async (username: string) => {
   try {
-      const response = await axiosInstance.get(`/user/get-user-likes/${username}`);
-      return response.data;
-  } catch (error:any) {
-      throw new Error(error.response.data);
+    const response = await axiosInstance.get(
+      `/user/get-user-likes/${username}`
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 };

@@ -3,12 +3,12 @@ import { useRef } from "react";
 
 interface IProps {
   cover: {
-    cover: File | null;
+    coverFile: File | undefined;
     coverURL: string | null;
   };
   setCover: React.Dispatch<
     React.SetStateAction<{
-      cover: File | null;
+      coverFile: File | undefined;
       coverURL: string | null;
     }>
   >;
@@ -32,12 +32,12 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
     const file = e.target.files![0];
     if (file && file.type.includes("image")) {
       const url = URL.createObjectURL(file);
-      setCover!({ cover: file, coverURL: url });
+      setCover!({ coverFile: file, coverURL: url });
     }
   };
 
   const removeCover = () => {
-    setCover!({ cover: null, coverURL: null });
+    setCover!({ coverFile: undefined, coverURL: null });
     if (coverInputRef.current) {
       coverInputRef.current.value = "";
     }

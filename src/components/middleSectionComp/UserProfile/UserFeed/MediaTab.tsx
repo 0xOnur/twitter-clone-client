@@ -47,10 +47,9 @@ const MediaTab = ({ username }: IProps) => {
         {mediaOnlyUserTweetsQuery.data.map((tweet, index) => (
           <div key={index} className="border-b">
             <TweetCard
-              key={index}
+              tweetId={tweet._id}
               isAuthenticated={true}
               pageType="home"
-              tweet={tweet}
             />
           </div>
         ))}

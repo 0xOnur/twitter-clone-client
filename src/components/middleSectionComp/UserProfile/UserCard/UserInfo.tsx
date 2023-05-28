@@ -11,7 +11,7 @@ const UserInfo = ({ user }: IProps) => {
   return (
     <div className="flex flex-col pb-3 px-4 min-w-max">
       <div className="mb-3">
-        <span>{user.bio}</span>
+        <span className="whitespace-pre-line">{user.bio}</span>
       </div>
       <div className="flex flex-row items-center justify-start gap-5 mb-3">
         {user.location && (

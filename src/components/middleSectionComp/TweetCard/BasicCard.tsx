@@ -19,7 +19,7 @@ const BasicCard = ({
   isReply,
   hideActions,
 }: IProps) => {
-  switch (tweet.tweetType) {
+  switch (tweet?.tweetType) {
     case "tweet":
       return (
         <Tweet

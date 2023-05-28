@@ -4,6 +4,7 @@ import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import TweetCard from "@components/middleSectionComp/TweetCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/config/store";
+import { ITweet } from "@customTypes/TweetTypes";
 
 interface IProps {
   tweetId: string;
@@ -14,7 +15,7 @@ const Replies = ({ tweetId }: IProps) => {
     (state: RootState) => state.user.isAuthenticated
   );
 
-  const tweetRepliesQuery = useQuery<[]>({
+  const tweetRepliesQuery = useQuery<ITweet[]>({
     queryKey: ["tweetReplies", tweetId],
     queryFn: () => getTweetReplies(tweetId!),
     retry: false,
@@ -54,7 +55,7 @@ const Replies = ({ tweetId }: IProps) => {
             <div key={index} className="border-b">
               <TweetCard
                 key={index}
-                tweet={tweet}
+                tweetId={tweet._id}
                 pageType="home"
                 isAuthenticated={isAuthenticated}
               />

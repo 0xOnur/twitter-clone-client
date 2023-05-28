@@ -70,7 +70,7 @@ const Quote = ({ tweet, isAuthenticated }: IProps) => {
                 className="border-2 shadow-md rounded-3xl overflow-hidden"
               >
                 <TweetCard
-                  tweet={tweet.originalTweet!}
+                  tweetId={tweet?.originalTweet?._id!}
                   pageType="home"
                   hideActions={true}
                   isAuthenticated={isAuthenticated}

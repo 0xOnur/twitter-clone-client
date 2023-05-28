@@ -51,7 +51,7 @@ const TweetsTab = ({ username }: IProps) => {
               key={index}
               isAuthenticated={true}
               pageType="home"
-              tweet={tweet}
+              tweetId={tweet._id}
             />
           </div>
         ))}

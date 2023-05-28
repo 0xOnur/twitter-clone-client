@@ -25,9 +25,7 @@ type Avatar = {
   avatarURL: string | null;
 };
 
-
 const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
-  
   const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();
   const formData = new FormData();
@@ -54,16 +52,14 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
     mutationKey: ["updateProfile", user.username],
     mutationFn: updateUser,
     onSuccess: (data) => {
-      console.log(data);
       dispatch(updateRedux(user.username));
       queryClient.invalidateQueries(["user", user.username]);
       showToast(data.message, "success");
       onClose();
     },
-    onError: (err:any) => {
-      console.log(err);
+    onError: (err: any) => {
       showToast(err?.message || "error", "error");
-    }
+    },
   });
 
   const isChanges = () => {
@@ -84,15 +80,11 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
       location: userInfo.location === "" ? undefined : userInfo.location,
       website: userInfo.website === "" ? undefined : userInfo.website,
     };
-    console.log({
-      originalState,
-      currentState,
-    });
 
     return JSON.stringify(originalState) !== JSON.stringify(currentState);
   };
-  console.log(user.location, userInfo.location);
-  const handleSave = async() => {
+
+  const handleSave = async () => {
     if (isChanges()) {
       cover.coverFile && formData.append("cover", cover?.coverFile!);
       formData.append("avatar", avatar.avatar!);
@@ -103,7 +95,6 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
 
       updateProfileMutation.mutate(formData);
     } else {
-      console.log("No changes");
       showToast("No Changes", "info");
     }
   };

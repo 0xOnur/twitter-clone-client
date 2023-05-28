@@ -39,9 +39,9 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
 
   return (
     <div>
-      {tweet.originalTweet && (
+      {tweet.originalTweet && isReply && (
         <TweetCard
-          tweet={tweet.originalTweet}
+          tweetId={tweet.originalTweet._id}
           pageType="home"
           isReply={true}
           hideActions={false}
@@ -55,6 +55,7 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
         <div className="px-4 min-w-fit">
           <div className="flex flex-col pt-2">
             <div className="flex flex-row">
+
               {isReply ? (
                 <div className="flex flex-col justify-center items-center">
                   <Avatar
@@ -70,7 +71,9 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                 />
               )}
 
+               
               <div className="flex flex-col flex-grow pb-3">
+                
                 <AuthorInfo
                   pageType="home"
                   username={tweet.author.username}
@@ -78,7 +81,23 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                   isVerified={tweet.author.isVerified}
                   createdAt={tweet.createdAt}
                 />
-                {tweet.content && (
+
+                {tweet.tweetType === "reply" && (
+                  <div>
+                    <span className="mr-1">Replying to</span>
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/${tweet.originalTweet?.author.username}/status/${tweet.originalTweet?._id}`);
+                      }}
+                      className="mr-1 text-primary-base hover:underline cursor-pointer"
+                    >
+                      @{tweet.originalTweet?.author.username}
+                    </span>
+                  </div>
+                )}
+                
+                {tweet?.content && (
                   <TweetContent tweet={tweet} pageType="home" />
                 )}
 

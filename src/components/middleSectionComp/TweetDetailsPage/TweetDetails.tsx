@@ -23,6 +23,7 @@ const TweetDetails = () => {
     retry: false,
     refetchOnWindowFocus: false,
   });
+  
   return (
     <div className="container max-w-600px border-x">
       <HeaderComp.Header pageType="TweetDetails" headerTitle="Tweet" />
@@ -50,7 +51,7 @@ const TweetDetails = () => {
       {tweetQuery.data && (
         <div>
           <TweetCard
-            tweet={tweetQuery.data}
+            tweetId={tweetId!}
             pageType="TweetDetails"
             isAuthenticated={isAuthenticated}
           />

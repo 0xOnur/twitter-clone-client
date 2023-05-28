@@ -4,49 +4,39 @@ import TweetMedia from "./TweetMedia";
 import classNames from "classnames";
 
 type Props = {
-    tweet: ITweet
-    pageType: "home" | "TweetDetails";
-}
+  tweet: ITweet;
+  pageType: "home" | "TweetDetails";
+};
 
-const TweetContent = ({tweet, pageType}:Props) => {
-
+const TweetContent = ({ tweet, pageType }: Props) => {
   const contentAreaClasses = classNames({
     "mt-3": pageType === "TweetDetails",
-  })
+  });
 
-  const contentTextClasses = classNames({
-    "text-[23px] leading-7": pageType === "TweetDetails"
-
-  })
+  const contentTextClasses = classNames("whitespace-pre-line",{
+    "text-[23px] leading-7": pageType === "TweetDetails",
+  });
 
   return (
     <div className={contentAreaClasses}>
       <div>
-        {tweet?.content!.length > 280 ? (
+        {tweet?.content!.length > 280 && pageType === "home" ? (
           <>
-            {tweet?.content!.slice(0, 280)}...
-            <a
-              className="text-primary-base"
-              href={`/${tweet.author.username}/status/${tweet._id}`}
-            >
+            <span className={contentTextClasses}>
+              {tweet?.content!.slice(0, 280)}...
+            </span>
+            <span className="ml-1 text-primary-base hover:underline">
               Show More
-            </a>
+            </span>
           </>
         ) : (
           <span className={contentTextClasses}>
-            {tweet?.content!.split("\n").map((text, index) => (
-              <span key={index}>
-                {text}
-                <br />
-                </span>
-            ))}
+            {tweet?.content}
           </span>
         )}
       </div>
 
-      {tweet.media && (
-        <TweetMedia tweet={tweet} />
-      )}
+      {tweet?.media && <TweetMedia tweet={tweet} />}
     </div>
   );
 };

@@ -48,10 +48,9 @@ const RepliesTab = ({ username }: IProps) => {
         {userRepliesQuery.data.map((tweet, index) => (
           <div key={index} className="border-b">
             <TweetCard
-              key={index}
+              tweetId={tweet._id}
               isAuthenticated={true}
               pageType="home"
-              tweet={tweet}
             />
           </div>
         ))}

@@ -47,7 +47,6 @@ const TweetActions = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
-      queryClient.invalidateQueries(["userTweets", tweet.author.username]);
     },
   });
 
@@ -60,7 +59,6 @@ const TweetActions = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
-      queryClient.invalidateQueries(["userTweets", tweet.author.username]);
     }
   });
 

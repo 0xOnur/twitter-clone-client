@@ -32,7 +32,7 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
     <div>
       {tweet.originalTweet && tweet.tweetType === "reply" && (
         <TweetCard
-          tweet={tweet.originalTweet}
+          tweetId={tweet.originalTweet._id}
           pageType="home"
           hideActions={false}
           isReply={true}
@@ -63,7 +63,7 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                 {tweet.originalTweet && tweet.tweetType === "quote" && (
                   <div className="border-2 shadow-md rounded-3xl overflow-hidden">
                     <TweetCard
-                      tweet={tweet.originalTweet}
+                      tweetId={tweet.originalTweet._id}
                       pageType="home"
                       hideActions={true}
                       isAuthenticated={isAuthenticated}

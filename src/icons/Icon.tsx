@@ -624,3 +624,13 @@ export const WebsiteIcon = ({ className }: PathProps) => {
     </Svg>
   )
 }
+
+export const RightArrowIcon = ({className}: PathProps) => {
+  return (
+    <Svg className={className}>
+      <g>
+        <path d="M12.957 4.54L20.414 12l-7.457 7.46-1.414-1.42L16.586 13H3v-2h13.586l-5.043-5.04 1.414-1.42z"></path>
+      </g>
+    </Svg>
+  )
+}

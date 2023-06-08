@@ -56,15 +56,19 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
   };
 
   const followerTextClasses = classNames(
-    "min-w-[110px] min-h-[36px] px-4 py-2 font-bold border rounded-full",
+    "min-h-[36px] h-full px-4 font-bold border rounded-full duration-200",
     {
       "hover:bg-red-remove hover:text-red-removeText duration-200":
         followButtonText === "Unfollow",
     }
   );
 
+  const followTextClasses = classNames(
+    "min-h-[36px] h-full px-4 bg-black text-white font-bold border rounded-full duration-200"
+  );
+
   return (
-    <div className="absolute top-0 py-3 px-4 right-0">
+    <div>
       {reduxUser.user.following.includes(user._id) ? (
         <button
           onClick={handleFollowClick}
@@ -75,10 +79,7 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
           {followButtonText}
         </button>
       ) : (
-        <button
-          onClick={handleFollowClick}
-          className="px-4 py-2 text-sm font-bold text-white bg-primary-base hover:bg-primary-dark rounded-full"
-        >
+        <button onClick={handleFollowClick} className={followTextClasses}>
           Follow
         </button>
       )}

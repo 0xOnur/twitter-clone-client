@@ -35,8 +35,9 @@ const TweetContent = ({ tweet, pageType }: Props) => {
           </span>
         )}
       </div>
-
-      {tweet?.media && <TweetMedia tweet={tweet} />}
+      <div>
+        {tweet?.media && <TweetMedia tweet={tweet} />}
+      </div>
     </div>
   );
 };

@@ -19,24 +19,24 @@ const MoreButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [creatorSisOn, setCreatorS] = useState(false);
-  const [profToolisOn, setProfTool] = useState(false);
-  const [settingsisOn, setSettings] = useState(false);
+  const [creatorIsOpen, setCreatorOpen] = useState(false);
+  const [profToolIsOpen, setProfToolOpen] = useState(false);
+  const [settingsIsOpen, setSettingsOpen] = useState(false);
 
   const openMore = useCallback(() => {
     setMenuOpen((prev) => !prev);
   }, []);
 
   const openCreatorMenu = useCallback(() => {
-    setCreatorS((prev) => !prev);
+    setCreatorOpen((prev) => !prev);
   }, []);
 
   const openProfToolMenu = useCallback(() => {
-    setProfTool((prev) => !prev);
+    setProfToolOpen((prev) => !prev);
   }, []);
 
   const openSettingsMenu = useCallback(() => {
-    setSettings((prev) => !prev);
+    setSettingsOpen((prev) => !prev);
   }, []);
 
   const handleClose = useCallback(
@@ -46,9 +46,9 @@ const MoreButton = () => {
         !dropdownRef.current.contains(event.target as Node)
       ) {
         setMenuOpen(false);
-        setCreatorS(false);
-        setProfTool(false);
-        setSettings(false);
+        setCreatorOpen(false);
+        setProfToolOpen(false);
+        setSettingsOpen(false);
       }
     },
     [dropdownRef]
@@ -108,13 +108,13 @@ const MoreButton = () => {
                 <span className="">Creator Studio</span>
                 <span
                   className={`${
-                    creatorSisOn ? "rotate-180 text-primary-base " : ""
+                    creatorIsOpen ? "rotate-180 text-primary-base " : ""
                   }`}
                 >
                   <DropDownMenuArrowIcon />
                 </span>
               </button>
-              {creatorSisOn && (
+              {creatorIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
                     <AnalyticsIcon className={"w-4 h-4"} />
@@ -129,13 +129,13 @@ const MoreButton = () => {
                 <span className="">Professional Tools</span>
                 <span
                   className={`${
-                    profToolisOn ? "rotate-180 text-primary-base " : ""
+                    profToolIsOpen ? "rotate-180 text-primary-base " : ""
                   }`}
                 >
                   <DropDownMenuArrowIcon />
                 </span>
               </button>
-              {profToolisOn && (
+              {profToolIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
                     <ProfessionalHomeIcon />
@@ -143,7 +143,7 @@ const MoreButton = () => {
                   <span className="font-normal pl-3">Professional Home</span>
                 </button>
               )}
-              {profToolisOn && (
+              {profToolIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
                     <TwitterAdsIcon />
@@ -151,7 +151,7 @@ const MoreButton = () => {
                   <span className="font-normal pl-3">Twitter Ads</span>
                 </button>
               )}
-              {profToolisOn && (
+              {profToolIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
                     <MonetizetionIcon />
@@ -162,19 +162,19 @@ const MoreButton = () => {
               <button
                 onClick={openSettingsMenu}
                 className={`flex hover:bg-gray-dropdown w-full p-4 justify-between ${
-                  settingsisOn ? "" : "rounded-b-2xl"
+                  settingsIsOpen ? "" : "rounded-b-2xl"
                 }`}
               >
                 <span className={``}>Settings and Support</span>
                 <span
                   className={`${
-                    settingsisOn ? "rotate-180 text-primary-base " : ""
+                    settingsIsOpen ? "rotate-180 text-primary-base " : ""
                   }`}
                 >
                   <DropDownMenuArrowIcon />
                 </span>
               </button>
-              {settingsisOn && (
+              {settingsIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
                     <SettingsIcon />
@@ -182,7 +182,7 @@ const MoreButton = () => {
                   <span className="font-normal pl-3">Settings and privacy</span>
                 </button>
               )}
-              {settingsisOn && (
+              {settingsIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
                     <HelpCenterIcon />
@@ -190,7 +190,7 @@ const MoreButton = () => {
                   <span className="font-normal pl-3">Help Center</span>
                 </button>
               )}
-              {settingsisOn && (
+              {settingsIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
                     <DisplayIcon />
@@ -198,7 +198,7 @@ const MoreButton = () => {
                   <span className="font-normal pl-3">Display</span>
                 </button>
               )}
-              {settingsisOn && (
+              {settingsIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full rounded-b-2xl p-3 leading-4">
                   <span className="">
                     <KeyboardShorcutsIcons />

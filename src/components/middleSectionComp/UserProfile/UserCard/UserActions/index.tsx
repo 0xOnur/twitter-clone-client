@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
 import FollowUnfollow from "./FollowUnfollow";
 import EditProfile from "./EditProfile";
+import More from "./More";
+import Message from "./Message";
 
 interface IProps {
   user: IUser;
@@ -18,7 +20,13 @@ const UserActions = ({ user }: IProps) => {
   if (reduxUser.user._id === user._id) {
     return <EditProfile user={user} />;
   } else {
-    return <FollowUnfollow user={user} reduxUser={reduxUser} />;
+    return(
+      <div className="flex flex-row gap-3 absolute right-0 top-0 py-3 px-4">
+        <More user={user} />
+        <Message />
+        <FollowUnfollow user={user} reduxUser={reduxUser} />
+      </div>
+    );
   }
 };
 

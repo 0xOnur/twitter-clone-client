@@ -115,7 +115,7 @@ const TweetActions = ({
   });
 
   return (
-    <div>
+    <div key={tweet._id}>
       {showReplyModal && isAuthenticated && (
         <DigalogModals.ReplyQuoteModal
           composerMode={composerMode}
@@ -134,7 +134,7 @@ const TweetActions = ({
         />
       )}
 
-      <div className={actionClasses}>
+      <div key={tweet._id} className={actionClasses}>
         <button
           onClick={handleIconClick}
           name="reply"
@@ -166,13 +166,13 @@ const TweetActions = ({
             <div className="inline-flex relative text-gray-dark group-hover:text-green-base duration-150">
               <div className="absolute -m-2 group-hover:bg-green-extraLigt  duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
               {retweetStats?.length > 0 ? (
-                retweetStats?.map((retweet) => {
+                retweetStats?.map((retweet, index) => {
                   if (retweet.author === reduxUser.user?._id) {
                     return (
-                      <ReTweetIcon className={"w-5 h-5 text-green-base"} />
+                      <ReTweetIcon key={index} className={"w-5 h-5 text-green-base"} />
                     );
                   }
-                  return <ReTweetIcon className={"w-5 h-5"} />;
+                  return <ReTweetIcon key={index} className={"w-5 h-5"} />;
                 })
               ) : (
                 <ReTweetIcon className={"w-5 h-5"} />

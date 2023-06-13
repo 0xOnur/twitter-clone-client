@@ -59,33 +59,6 @@ const RightSidebar = ({ isAuthenticated }: IProps) => {
     },
   ];
 
-  type Account = {
-    name: string;
-    username: string;
-    avatar: string;
-  };
-
-  const whoToFollows: Account[] = [
-    {
-      name: "Account 1",
-      username: "@account1",
-      avatar:
-        "https://pbs.twimg.com/profile_images/1552608564371460098/cfJ8z7zb_400x400.jpg",
-    },
-    {
-      name: "Account 2",
-      username: "@account2",
-      avatar:
-        "https://pbs.twimg.com/profile_images/1525224493127544832/MWJSwspp_400x400.jpg",
-    },
-    {
-      name: "Account 3",
-      username: "@account3",
-      avatar:
-        "https://pbs.twimg.com/profile_images/1634576243747069956/3E3yRyhL_400x400.jpg",
-    },
-  ];
-
   return (
     <aside className="max-w-350px min-w-290px mr-10px hidden md:inline-block right-sidebar overflow-y-auto">
       <div className="flex flex-col relative h-full min-h-510px">
@@ -117,27 +90,7 @@ const RightSidebar = ({ isAuthenticated }: IProps) => {
                 </a>
               </div>
               {/* account suggestion */}
-              <div className="mt-5 bg-gray-rightbar rounded-2xl m-3">
-                <div className="p-3">
-                  <span className="text-xl font-bold">Who to follow</span>
-                </div>
-                <div className=" flex flex-col">
-                  {whoToFollows.map((account) => (
-                    <WhoToFollow
-                      key={account.username}
-                      name={account.name}
-                      username={account.username}
-                      avatar={account.avatar}
-                    />
-                  ))}
-                </div>
-                <a
-                  href="/"
-                  className="flex flex-col hover:bg-gray-trendsHover rounded-b-2xl px-3 py-4 duration-100"
-                >
-                  <span className="text-primary-base">Show More</span>
-                </a>
-              </div>
+              <WhoToFollow />
             </div>
           </div>
         ) : (

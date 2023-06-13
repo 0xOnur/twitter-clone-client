@@ -73,9 +73,7 @@ const Followers = () => {
                         <span className="">@{user.username}</span>
                       </div>
                       <div>
-                        {user._id !== reduxUser.user._id && (
-                          <FollowUnfollow user={user} reduxUser={reduxUser} />
-                        )}
+                        <FollowUnfollow user={user} reduxUser={reduxUser} />
                       </div>
                     </div>
 

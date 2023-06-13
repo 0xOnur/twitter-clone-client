@@ -23,15 +23,27 @@ import useToast from "@hooks/useToast";
 interface Props {
   pageType: "home" | "TweetDetails";
   tweet: ITweet;
-  replyCount?: number;
-  retweetCount?: number;
+  replyStats: {
+    _id: string;
+    author: string;
+  }[];
+  retweetStats: {
+    _id: string;
+    author: string;
+  }[];
+  quoteStats?: {
+    _id: string;
+    author: string;
+  }[];
+  retweetId?: string;
   isAuthenticated: boolean;
 }
 
 const TweetActions = ({
   tweet,
-  replyCount,
-  retweetCount,
+  replyStats,
+  retweetStats,
+  retweetId,
   pageType,
   isAuthenticated,
 }: Props) => {
@@ -47,6 +59,7 @@ const TweetActions = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
+      retweetId && queryClient.invalidateQueries(["tweet", retweetId]);
     },
   });
 
@@ -59,9 +72,9 @@ const TweetActions = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
-    }
+      retweetId && queryClient.invalidateQueries(["tweet", retweetId]);
+    },
   });
-
 
   const reduxUser = useSelector((state: RootState) => state.user);
   const [composerMode, setComposerMode] = useState<"reply" | "quote">("reply");
@@ -134,9 +147,9 @@ const TweetActions = ({
             </div>
             <div className="inline-flex  group-hover:text-primary-base">
               <span className="px-3 text-sm">
-                {replyCount! > 0 &&
+                {replyStats?.length! > 0 &&
                   pageType === "home" &&
-                  formatNumber(replyCount!)}
+                  formatNumber(replyStats?.length!)}
               </span>
             </div>
           </div>
@@ -152,13 +165,24 @@ const TweetActions = ({
           <div className="flex flex-row">
             <div className="inline-flex relative text-gray-dark group-hover:text-green-base duration-150">
               <div className="absolute -m-2 group-hover:bg-green-extraLigt  duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
-              <ReTweetIcon className="w-5 h-5" />
+              {retweetStats?.length > 0 ? (
+                retweetStats?.map((retweet) => {
+                  if (retweet.author === reduxUser.user?._id) {
+                    return (
+                      <ReTweetIcon className={"w-5 h-5 text-green-base"} />
+                    );
+                  }
+                  return <ReTweetIcon className={"w-5 h-5"} />;
+                })
+              ) : (
+                <ReTweetIcon className={"w-5 h-5"} />
+              )}
             </div>
             <div className="inline-flex group-hover:text-green-base">
               <span className="px-3 text-sm">
-                {retweetCount! > 0 &&
+                {retweetStats?.length! > 0 &&
                   pageType === "home" &&
-                  formatNumber(retweetCount!)}
+                  formatNumber(retweetStats?.length!)}
               </span>
             </div>
           </div>

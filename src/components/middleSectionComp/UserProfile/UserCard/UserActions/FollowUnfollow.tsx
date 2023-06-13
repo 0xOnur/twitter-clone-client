@@ -36,6 +36,7 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
   });
 
   const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (reduxUser.user.following?.includes(user._id)) {
       unFollowUserQuery.mutate(user._id);
     } else {

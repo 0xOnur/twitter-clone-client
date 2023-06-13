@@ -1,4 +1,3 @@
-import React from "react";
 import { LocationIcon, BirthIcon, WebsiteIcon, CalendarIcon } from "@icons/Icon";
 import { formatDate, getMonthNameFromNumber } from "utils";
 import { IUser } from "@customTypes/UserTypes";
@@ -40,14 +39,14 @@ const UserInfo = ({ user }: IProps) => {
         </div>
       </div>
       <div className="flex flex-row gap-5">
-        <div className="flex flex-row gap-1 cursor-pointer hover:underline underline-offset-auto">
+        <a href={`/${user.username}/following`} className="flex flex-row gap-1 cursor-pointer hover:underline underline-offset-auto">
           <span className="font-bold">{user.following.length}</span>
           <span>Following</span>
-        </div>
-        <div className="flex flex-row gap-1 cursor-pointer hover:underline underline-offset-auto">
+        </a>
+        <a href={`/${user.username}/followers`} className="flex flex-row gap-1 cursor-pointer hover:underline underline-offset-auto">
           <span className="font-bold">{user.followers.length}</span>
           <span>Followers</span>
-        </div>
+        </a>
       </div>
       {/* website info */}
       {user.website && (

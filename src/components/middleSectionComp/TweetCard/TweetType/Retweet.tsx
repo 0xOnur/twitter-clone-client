@@ -12,19 +12,21 @@ import {
 } from "@components/middleSectionComp/TweetCard/components";
 
 type tweetStats = {
-  replyCount: number;
-  retweetCount: number;
-  quoteCount: number;
+  replyStats: {
+    "_id": string,
+    "author": string,
+  }[];
+  retweetStats: {
+    "_id": string,
+    "author": string,
+  }[];
 };
 
 interface IProps {
   tweet: ITweet;
   isAuthenticated: boolean;
 }
-const Retweet = ({
-  tweet,
-  isAuthenticated,
-}: IProps) => {
+const Retweet = ({ tweet, isAuthenticated }: IProps) => {
   const navigate = useNavigate();
 
   const originalTweetStats = useQuery<tweetStats>({
@@ -69,8 +71,9 @@ const Retweet = ({
                 <TweetActions
                   pageType={"home"}
                   tweet={tweet.originalTweet!}
-                  replyCount={originalTweetStats.data?.replyCount}
-                  retweetCount={originalTweetStats.data?.retweetCount}
+                  retweetId={tweet._id}
+                  replyStats={originalTweetStats.data?.replyStats!}
+                  retweetStats={originalTweetStats.data?.retweetStats!}
                   isAuthenticated={isAuthenticated}
                 />
               )}

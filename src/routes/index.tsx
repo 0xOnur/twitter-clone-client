@@ -4,7 +4,7 @@ import PrivateRoute from './PrivateRoute'; // for ignore the authenticated users
 import { Navigate } from 'react-router-dom';
 import { AuthModal } from '@components/auth';
 import Logout from '@components/auth/Logout';
-import { HomeLayout, TweetDetailsLayout, UserProfileLayout } from "@layout/index";
+import { HomeLayout, TweetDetailsLayout, UserProfileLayout, FollowsLayout } from "@layout/index";
 
 interface IAppRoutes {
     isAuthenticated: boolean;
@@ -72,17 +72,26 @@ const AppRoutes = ({isAuthenticated}:IAppRoutes) => {
         />
         <Route
           path="/:username"
-          element={<UserProfileLayout />}
+          element={<UserProfileLayout isAuthenticated={isAuthenticated} />}
         />
         
         <Route
           path="/:username/:tab"
-          element={<UserProfileLayout />}
+          element={<UserProfileLayout isAuthenticated={isAuthenticated} />}
         />
 
         <Route
           path="/:username/status/:tweetId"
           element={<TweetDetailsLayout />}
+        />
+
+        <Route
+          path='/:username/followers'
+          element={<FollowsLayout isAuthenticated={isAuthenticated} followsTab='followers' />}
+        />
+        <Route
+          path='/:username/following'
+          element={<FollowsLayout isAuthenticated={isAuthenticated} followsTab='following' />}
         />
       </Routes>
   )

@@ -13,7 +13,7 @@ const HomeFeed = ({isAuthenticated}: IProps) => {
   return (
     <div className="container max-w-600px border-x">
       <HeaderComp.Header
-        pageType="home"
+        pageType="Home"
         isForYou={isForYou}
         setIsForYou={setIsForYou}
       />

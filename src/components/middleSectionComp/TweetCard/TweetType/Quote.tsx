@@ -12,9 +12,14 @@ import {
 import TweetCard from "..";
 
 type tweetStats = {
-  replyCount: number;
-  retweetCount: number;
-  quoteCount: number;
+  replyStats: {
+    "_id": string,
+    "author": string,
+  }[];
+  retweetStats: {
+    "_id": string,
+    "author": string,
+  }[];
 };
 
 interface IProps {
@@ -81,8 +86,8 @@ const Quote = ({ tweet, isAuthenticated }: IProps) => {
                 <TweetActions
                   pageType={"home"}
                   tweet={tweet}
-                  replyCount={tweetStats.data?.replyCount}
-                  retweetCount={tweetStats.data?.retweetCount}
+                  replyStats={tweetStats.data?.replyStats!}
+                  retweetStats={tweetStats.data?.retweetStats!}
                   isAuthenticated={isAuthenticated}
                 />
               )}

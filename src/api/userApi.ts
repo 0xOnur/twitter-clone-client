@@ -179,6 +179,32 @@ export const unFollowUser = async (userId: string) => {
   }
 };
 
+// Get User Followings
+export const getUserFollowings =async (username:string) => {
+  try {
+    const response = await axiosInstance.get(`/user/get-user-followings/${username}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+}
+
+// Get User Followers
+export const getUserFollowers =async (username:string) => {
+  try {
+    const response = await axiosInstance.get(`/user/get-user-followers/${username}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+}
+
 // Get user Tweets
 export const getUserTweets = async (username: string) => {
   try {

@@ -28,7 +28,6 @@ const ProfileHeader = ({displayName}:IProps) => {
             <span className="text-2xl font-bold">{displayName}</span>
           </div>
         </div>
-        <hr />
       </div>
     </div>
   );

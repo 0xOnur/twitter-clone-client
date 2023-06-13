@@ -14,9 +14,6 @@ export interface ITweet {
   whoCanReply: "everyone" | "following" | "mentioned";
   content?: string;
   media?: Media[];
-  replyCount?: number;
-  retweetCount?: number;
-  quoteCount?: number;
   likes?: string[];
   bookmarks?: string[];
   originalTweet?: ITweet;

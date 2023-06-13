@@ -68,6 +68,10 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
     "min-h-[36px] h-full px-4 bg-black text-white font-bold border rounded-full duration-200"
   );
 
+  if(reduxUser.user._id === user._id) {
+    return null;
+  }
+
   return (
     <div>
       {reduxUser.user.following.includes(user._id) ? (

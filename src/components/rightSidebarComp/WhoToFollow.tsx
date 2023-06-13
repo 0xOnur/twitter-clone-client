@@ -1,29 +1,113 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/config/store";
+import { LoadingIcon, RetryIcon, VerifiedIcon } from "@icons/Icon";
+import { useQuery } from "@tanstack/react-query";
+import { whoToFollow } from "api/userApi";
+import { Avatar } from "@components/middleSectionComp/TweetCard/components";
+import { IUser } from "@customTypes/UserTypes";
+import FollowUnfollow from "@components/middleSectionComp/UserProfile/UserCard/UserActions/FollowUnfollow";
 
-interface Props {
-    name: string
-    username: string
-    avatar: string
-}
+const WhoToFollow = () => {
+  const navigate = useNavigate();
 
-const WhoToFollow: React.FC<Props> = (props) => {
-  return (
-        <div>
-            <div className='flex items-center justify-between p-3 hover:bg-gray-trendsHover cursor-pointer duration-150'>
-                <div className='flex items-center'>
-                    <img src={props.avatar} alt="avatar" className='w-10 h-10 rounded-full' />
-                    <div className='flex flex-col ml-3'>
-                        <span className='text-md font-bold'>{props.name}</span>
-                        <span className='text-sm'>{props.username}</span>
-                    </div>
-                </div>
-                <div className='flex bg-black py-2 px-5 text-white rounded-2xl'>
-                    <span className='text-sm'>Follow</span>
-                </div>
-            </div>
+  const reduxUser = useSelector((state: RootState) => state.user);
+
+  const whoToFollowQuery = useQuery<IUser[]>({
+    queryKey: ["whoToFollow"],
+    queryFn: () => whoToFollow(3),
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (whoToFollowQuery.isLoading) {
+    return (
+        <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
+            <div className="p-3">
+          <span className="text-xl font-bold">Who to follow</span>
         </div>
-        
-  )
-}
+        <LoadingIcon />
+      </div>
+    );
+  }
 
-export default WhoToFollow
+  if (whoToFollowQuery.isError) {
+    return (
+        <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
+        <div className="p-3">
+          <span className="text-xl font-bold">Who to follow</span>
+        </div>
+        <span className="mb-5 text-center">
+          Something went wrong. Try reloading.
+        </span>
+        <button
+          onClick={() => whoToFollowQuery.refetch()}
+          className="flex gap-1 items-center px-4 py-2 min-h-[36px] bg-primary-base hover:bg-primary-dark duration-200 rounded-full"
+        >
+          <RetryIcon className="w-6 h-6 text-white" />
+          <span className="font-bold text-white">Retry</span>
+        </button>
+      </div>
+    );
+  }
+
+  if (whoToFollowQuery.data.length > 0) {
+    return (
+      <div className="bg-gray-rightbar rounded-2xl m-3 mt-5">
+        <div className="p-3">
+          <span className="text-xl font-bold">Who to follow</span>
+        </div>
+        {whoToFollowQuery.data?.map((user: IUser) => {
+          return (
+            <div key={user._id} className="flex flex-col w-full">
+              <div
+                onClick={() => navigate(`/${user.username}`)}
+                className="cursor-pointer py-3 px-4 hover:bg-gray-trendsHover duration-200"
+              >
+                <div className="flex flex-row ">
+                  <Avatar avatar={user?.avatar!} username={user?.username!} />
+
+                  <div className="flex flex-col w-full">
+                    <div className="flex flex-row w-full justify-between items-center">
+                      <div className="flex flex-col text-left">
+                        <span className="flex flex-row items-center gap-1 font-bold text-md">
+                          {user.displayName?.length! > 15
+                            ? user.displayName?.slice(0, 14) + "..."
+                            : user.displayName}
+                          {user.isVerified && (
+                            <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+                          )}
+                        </span>
+                        <span>@{user.username}</span>
+                      </div>
+                      <div>
+                        <FollowUnfollow user={user} reduxUser={reduxUser} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+        <a
+          href="/"
+          className="flex flex-col w-full hover:bg-gray-trendsHover rounded-b-2xl px-3 py-4 duration-100"
+        >
+          <span className="text-primary-base">Show More</span>
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex p-8 justify-center">
+      <div className="flex flex-col max-w-sm">
+        <span className="text-3xl font-bold">can not found</span>
+        <span>When they do, their Tweets will show up here.</span>
+      </div>
+    </div>
+  );
+};
+
+export default WhoToFollow;

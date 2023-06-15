@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BackIcon } from "@icons/Icon";
 
@@ -25,7 +24,7 @@ const ProfileHeader = ({displayName}:IProps) => {
                 </div>
               </button>
             </div>
-            <span className="text-2xl font-bold">{displayName}</span>
+            <span className="text-2xl font-bold max-w-sm truncate">{displayName}</span>
           </div>
         </div>
       </div>

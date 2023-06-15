@@ -4,7 +4,7 @@ import { updateAccessToken } from "./userApi";
 import { logoutUser } from "@redux/slices/userSlice";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: process.env.REACT_APP_API_BASE_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

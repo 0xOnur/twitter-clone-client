@@ -22,8 +22,8 @@ const WhoToFollow = () => {
 
   if (whoToFollowQuery.isLoading) {
     return (
-        <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
-            <div className="p-3">
+      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
+        <div className="p-3">
           <span className="text-xl font-bold">Who to follow</span>
         </div>
         <LoadingIcon />
@@ -33,7 +33,7 @@ const WhoToFollow = () => {
 
   if (whoToFollowQuery.isError) {
     return (
-        <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
+      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
         <div className="p-3">
           <span className="text-xl font-bold">Who to follow</span>
         </div>
@@ -53,7 +53,7 @@ const WhoToFollow = () => {
 
   if (whoToFollowQuery.data.length > 0) {
     return (
-      <div className="bg-gray-rightbar rounded-2xl m-3 mt-5">
+      <div className="bg-gray-rightbar rounded-2xl mt-5">
         <div className="p-3">
           <span className="text-xl font-bold">Who to follow</span>
         </div>
@@ -62,23 +62,25 @@ const WhoToFollow = () => {
             <div key={user._id} className="flex flex-col w-full">
               <div
                 onClick={() => navigate(`/${user.username}`)}
-                className="cursor-pointer py-3 px-4 hover:bg-gray-trendsHover duration-200"
+                className="cursor-pointer py-3 px-3 hover:bg-gray-trendsHover duration-200"
               >
-                <div className="flex flex-row ">
+                <div className="flex flex-row w-full">
                   <Avatar avatar={user?.avatar!} username={user?.username!} />
+                  <div className="flex flex-col w-full overflow-hidden">
+                    <div className="flex flex-row justify-between items-center">
+                      <div className="flex flex-col w-full min-w-0 pr-2">
+                        <div className="flex flex-row items-center gap-1">
+                          <span className="truncate font-bold ">
+                            {user.displayName}
+                          </span>
+                          <span>
+                            {user.isVerified && (
+                              <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+                            )}
+                          </span>
+                        </div>
 
-                  <div className="flex flex-col w-full">
-                    <div className="flex flex-row w-full justify-between items-center">
-                      <div className="flex flex-col text-left">
-                        <span className="flex flex-row items-center gap-1 font-bold text-md">
-                          {user.displayName?.length! > 15
-                            ? user.displayName?.slice(0, 14) + "..."
-                            : user.displayName}
-                          {user.isVerified && (
-                            <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
-                          )}
-                        </span>
-                        <span>@{user.username}</span>
+                        <p className="truncate">@{user.username}</p>
                       </div>
                       <div>
                         <FollowUnfollow user={user} reduxUser={reduxUser} />

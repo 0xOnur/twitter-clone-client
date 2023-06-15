@@ -6,8 +6,6 @@ import { TreeDotIcon, VerifiedIcon } from "@icons/Icon";
 const UserBox = () => {
   const reduxUser = useSelector((state: RootState) => state.user.user);
   const [menuOpen, setMenuOpen] = useState(false);
-  const displayName = reduxUser.displayName;
-  const username = reduxUser.username;
 
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -51,7 +49,7 @@ const UserBox = () => {
               </a>
               <a href="/logout" className="py-6">
                 <div className="hover:bg-gray-dropdown  px-4 py-3">
-                  Log out @{username}
+                  Log out @{reduxUser.username}
                 </div>
               </a>
             </div>
@@ -66,24 +64,28 @@ const UserBox = () => {
         className="flex flex-col lg:items-start sm:items-center cursor-pointer grow-1 w-full my-2 group relative"
       >
         <div className="flex flex-row justify-center items-center w-full p-3 group-hover:bg-gray-extraLight duration-200 rounded-full">
+          <div className="min-w-max">
             <img
               className="w-11 h-11 rounded-full object-cover"
               src={reduxUser.avatar}
               alt="avatar"
             />
-          <div className="pl-2 hidden  lg:inline-block">
-            <span className="flex flex-row gap-1 items-center font-bold">
-              {displayName.length > 20
-                ? displayName.slice(0, 15) + "..."
-                : displayName}
-              {reduxUser.isVerified && (
-                <VerifiedIcon className="w-5 h-5 text-primary-base" />
-              )}
-            </span>
-            <span className="flex  text-gray-dark">@{username}</span>
+          </div>
+          <div className="min-w-0 px-2 hidden lg:inline-block">
+            <div className="flex flex-row items-center gap-1">
+              <span className="truncate font-bold ">
+                {reduxUser.displayName}
+              </span>
+              <span>
+                {reduxUser.isVerified && (
+                  <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+                )}
+              </span>
+            </div>
+            <span className="flex text-gray-dark">@{reduxUser.username}</span>
           </div>
           <div className="ml-auto hidden lg:inline-block">
-            <TreeDotIcon className={"w-4 h-4"} />
+            <TreeDotIcon className={"w-5 h-5"} />
           </div>
         </div>
       </button>

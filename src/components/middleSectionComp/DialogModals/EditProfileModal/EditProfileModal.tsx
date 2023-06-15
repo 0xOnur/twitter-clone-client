@@ -67,16 +67,16 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
       cover: user.cover,
       avatar: user.avatar,
       displayName: user.displayName,
-      bio: user.bio,
-      location: user.location,
-      website: user.website,
+      bio: user.bio === "" ? undefined : user.bio,
+      location: user.location === "" ? undefined : user.location,
+      website: user.website === "" ? undefined : user.location,
     };
 
     const currentState = {
       cover: cover.coverURL,
       avatar: avatar.avatarURL,
       displayName: userInfo.displayName,
-      bio: userInfo.bio,
+      bio: userInfo.bio === "" ? undefined : userInfo.bio,
       location: userInfo.location === "" ? undefined : userInfo.location,
       website: userInfo.website === "" ? undefined : userInfo.website,
     };
@@ -89,9 +89,9 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
       cover.coverFile && formData.append("cover", cover?.coverFile!);
       formData.append("avatar", avatar.avatar!);
       formData.append("displayName", userInfo.displayName);
-      userInfo.bio && formData.append("bio", userInfo?.bio!);
-      userInfo.location && formData.append("location", userInfo?.location!);
-      userInfo.website && formData.append("website", userInfo?.website!);
+      formData.append("bio", userInfo?.bio!);
+      formData.append("location", userInfo?.location!);
+      formData.append("website", userInfo?.website);
 
       updateProfileMutation.mutate(formData);
     } else {

@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import * as userApi from "../../api/userApi";
 import {IUser} from "@customTypes/UserTypes"
 
+type errorPayload = {
+    message: string;
+}
+
 export interface UserState {
     isAuthenticated: boolean;
     user: IUser;
@@ -10,7 +14,7 @@ export interface UserState {
     isPending: boolean;
     error: {
         message: string | null;
-    } | null
+    }
   }
 
 const initialState: UserState = {
@@ -46,7 +50,8 @@ const userSlice = createSlice({
             state.user = initialState.user;
             state.accessToken = null;
             state.refreshToken = null;
-            state.error = null;
+            state.isPending = false;
+            state.error = initialState.error;
         }
     },
     extraReducers: (builder) => {
@@ -56,7 +61,7 @@ const userSlice = createSlice({
         });
         builder.addCase(userApi.createUser.fulfilled, (state, action) => {
             state.isPending = false;
-            state.error = null;
+            state.error.message = null;
             state.isAuthenticated = true;
             state.user = action.payload.user;
             state.accessToken = action.payload.tokens.accessToken;
@@ -64,7 +69,7 @@ const userSlice = createSlice({
         });
         builder.addCase(userApi.createUser.rejected, (state, action) => {
             state.isPending = false;
-            state.error = action.payload ? {message: action.payload as string} : {message: "Error creating user"};
+            state.error.message = (action.payload as errorPayload)?.message || "Error creating user";
         });
         // Login user
         builder.addCase(userApi.loginUser.pending, (state, action) => {
@@ -72,7 +77,7 @@ const userSlice = createSlice({
         });
         builder.addCase(userApi.loginUser.fulfilled, (state, action) => {
             state.isPending = false;
-            state.error = null;
+            state.error.message = null;
             state.isAuthenticated = true;
             state.user = action.payload.user;
             state.accessToken = action.payload.tokens.accessToken;
@@ -80,7 +85,7 @@ const userSlice = createSlice({
         });
         builder.addCase(userApi.loginUser.rejected, (state, action) => {
             state.isPending = false;
-            state.error = action.payload ? {message: action.payload as string} : {message: "Error logging in user"};
+            state.error.message = (action.payload as errorPayload)?.message || "Error login user";
         });
         // Get new accessToken
         builder.addCase(userApi.updateAccessToken.pending, (state, action) => {
@@ -88,22 +93,22 @@ const userSlice = createSlice({
         });
         builder.addCase(userApi.updateAccessToken.fulfilled, (state, action) => {
             state.isPending = false;
-            state.error = null;
+            state.error.message = null;
             state.accessToken = action.payload;
         });
         builder.addCase(userApi.updateAccessToken.rejected, (state, action) => {
             state.isPending = false;
-            state.error = action.payload ? {message: action.payload as string} : {message: "Error getting new access token"};
+            state.error.message = (action.payload as errorPayload)?.message || "Error getting new access token";
         });
         // Update User
         builder.addCase(userApi.updateRedux.fulfilled, (state, action) => {
             state.isPending = false;
-            state.error = null;
+            state.error.message = null;
             state.user = action.payload;
         });
         builder.addCase(userApi.updateRedux.rejected, (state, action) => {
             state.isPending = false;
-            state.error = action.payload ? {message: action.payload as string} : {message: "Error updating user"};
+            state.error.message = (action.payload as errorPayload)?.message || "Error updating user";
         });
     }
 });

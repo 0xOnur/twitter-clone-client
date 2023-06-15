@@ -69,7 +69,7 @@ const RightSidebar = ({ isAuthenticated }: IProps) => {
               <Search />
 
               {/* <Trends section after search input /> */}
-              <div className="mt-20 bg-gray-rightbar rounded-2xl m-3">
+              <div className="mt-20 bg-gray-rightbar rounded-2xl">
                 <div className="p-3">
                   <span className="text-xl font-bold">Trends For you</span>
                 </div>

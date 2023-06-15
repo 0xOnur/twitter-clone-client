@@ -55,7 +55,7 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
       )}
       <article
         onClick={navigateTweetDetails}
-        className="cursor-pointer hover:bg-gray-tweetHover duration-200"
+        className="cursor-pointer hover:bg-gray-tweetHover duration-200 max-w-full overflow-hidden"
       >
         <div className="px-4 min-w-fit">
           <div className="flex flex-col pt-2">

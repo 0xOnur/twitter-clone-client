@@ -45,6 +45,7 @@ const AuthHeader = ({
         <div className="flex flex-row h-14 px-4 w-full justify-center items-center">
           <div className="flex-auto">
             <button
+              tabIndex={-1}
               onClick={onClose}
               className="relative group hover:bg-gray-extraLight rounded-full p-2"
             >

@@ -16,7 +16,7 @@ export interface ITweet {
   media?: Media[];
   likes?: string[];
   bookmarks?: string[];
-  originalTweet?: ITweet;
+  originalTweet?: string;
   tweetType: "tweet" | "reply" | "retweet" | "quote";
   view: number;
   createdAt: string; // Assuming date is received as a string (e.g., ISO 8601 format)

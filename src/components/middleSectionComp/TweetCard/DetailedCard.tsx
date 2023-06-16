@@ -36,12 +36,13 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
     queryKey: ["tweetStats", tweet._id],
     queryFn: () => getSpecificTweetStats(tweet._id),
   });
-
+  console.log(tweet.originalTweet);
+  
   return (
     <div>
       {tweet.originalTweet && tweet.tweetType === "reply" && (
         <TweetCard
-          tweetId={tweet.originalTweet._id}
+          tweetId={tweet.originalTweet}
           pageType="home"
           hideActions={false}
           isReply={true}
@@ -52,7 +53,7 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
         <div className="px-4 min-w-fit border-b">
           <div className="flex flex-col mt-2">
             <div className="flex flex-row">
-              <div className="flex flex-col flex-grow pb-3">
+              <div className="flex flex-col flex-grow">
                 <div className="flex flex-row items-center">
                   <Avatar
                     avatar={tweet.author.avatar!}
@@ -72,7 +73,7 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                 {tweet.originalTweet && tweet.tweetType === "quote" && (
                   <div className="border-2 shadow-md rounded-3xl overflow-hidden">
                     <TweetCard
-                      tweetId={tweet.originalTweet._id}
+                      tweetId={tweet.originalTweet}
                       pageType="home"
                       hideActions={true}
                       isAuthenticated={isAuthenticated}

@@ -27,6 +27,19 @@ export const getSpecificTweetStats = async (tweetId:string) => {
     }
 };
 
+// Get specific Tweet Author
+export const getSpecificTweetAuthor = async (tweetId:string) => {
+    try {
+        const response = await axiosInstance.get(`/tweet/get-tweet-author/${tweetId}`);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};
+
 
 // Get Tweet Replies
 export const getTweetReplies =async (tweetId:string) => {

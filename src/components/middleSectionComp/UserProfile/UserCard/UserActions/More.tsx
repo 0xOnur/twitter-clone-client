@@ -46,7 +46,7 @@ const More = ({ user }: IProps) => {
       {showMenu && (
         <div
           ref={menuRef}
-          className="flex flex-col absolute top-0 right-0 w-fit bg-white border rounded-xl shadow-lg"
+          className="flex flex-col absolute z-10 top-0 right-0 w-fit bg-white border rounded-xl shadow-lg"
         >
           <button
             onClick={copyProfileLink}

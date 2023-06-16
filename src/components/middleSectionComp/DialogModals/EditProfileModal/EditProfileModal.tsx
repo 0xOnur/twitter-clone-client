@@ -69,7 +69,7 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
       displayName: user.displayName,
       bio: user.bio === "" ? undefined : user.bio,
       location: user.location === "" ? undefined : user.location,
-      website: user.website === "" ? undefined : user.location,
+      website: user.website === "" ? undefined : user.website,
     };
 
     const currentState = {

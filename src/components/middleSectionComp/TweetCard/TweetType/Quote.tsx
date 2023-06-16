@@ -40,13 +40,6 @@ const Quote = ({ tweet, isAuthenticated }: IProps) => {
     navigate(`/${tweet.author.username}/status/${tweet._id}`);
   };
 
-  const navigateOriginalTweetDetails = (e: React.MouseEvent<HTMLElement>) => {
-    e.stopPropagation();
-    navigate(
-      `/${tweet.originalTweet?.author.username}/status/${tweet.originalTweet?._id}`
-    );
-  };
-
   return (
     <article
       onClick={navigateTweetDetails}
@@ -71,15 +64,14 @@ const Quote = ({ tweet, isAuthenticated }: IProps) => {
               {tweet.content && <TweetContent tweet={tweet} pageType="home" />}
               
               <div
-                onClick={navigateOriginalTweetDetails}
-                className="border-2 shadow-md rounded-3xl overflow-hidden"
+                className="border-2 shadow-md rounded-2xl overflow-hidden"
               >
-                <TweetCard
-                  tweetId={tweet?.originalTweet?._id!}
-                  pageType="home"
-                  hideActions={true}
-                  isAuthenticated={isAuthenticated}
-                />
+              <TweetCard
+                tweetId={tweet?.originalTweet!}
+                pageType="home"
+                hideActions={true}
+                isAuthenticated={isAuthenticated}
+              />
               </div>
 
               {tweetStats && (

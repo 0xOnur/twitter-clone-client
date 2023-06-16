@@ -1,7 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getSpecificTweetStats } from "api/tweetApi";
+import {
+  getSpecificTweetAuthorUsername,
+  getSpecificTweetStats,
+} from "api/tweetApi";
 import { ITweet } from "@customTypes/TweetTypes";
 import {
   AuthorInfo,
@@ -13,12 +16,12 @@ import TweetCard from "..";
 
 type tweetStats = {
   replyStats: {
-    "_id": string,
-    "author": string,
+    _id: string;
+    author: string;
   }[];
   retweetStats: {
-    "_id": string,
-    "author": string,
+    _id: string;
+    author: string;
   }[];
 };
 
@@ -42,11 +45,22 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
     queryFn: () => getSpecificTweetStats(tweet._id),
   });
 
+  const originalTweetAuthorUsername = useQuery({
+    queryKey: ["originalTweetAuthorUsername", tweet?.originalTweet],
+    queryFn: () => getSpecificTweetAuthorUsername(tweet?.originalTweet!),
+    refetchOnWindowFocus: false,
+    enabled: false,
+  });
+
+  if (tweet.tweetType === "reply") {
+    originalTweetAuthorUsername.refetch();
+  }
+
   return (
     <div>
-      {tweet.originalTweet && isReply && (
+      {tweet?.originalTweet && isReply && (
         <TweetCard
-          tweetId={tweet.originalTweet._id}
+          tweetId={tweet.originalTweet}
           pageType="home"
           isReply={true}
           hideActions={false}
@@ -55,12 +69,11 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
       )}
       <article
         onClick={navigateTweetDetails}
-        className="cursor-pointer hover:bg-gray-tweetHover duration-200 max-w-full overflow-hidden"
+        className="cursor-pointer hover:bg-gray-tweetHover duration-200 max-w-full"
       >
         <div className="px-4 min-w-fit">
           <div className="flex flex-col pt-2">
             <div className="flex flex-row">
-
               {isReply ? (
                 <div className="flex flex-col justify-center items-center">
                   <Avatar
@@ -76,9 +89,7 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                 />
               )}
 
-               
               <div className="flex flex-col flex-grow pb-3">
-                
                 <AuthorInfo
                   pageType="home"
                   username={tweet.author.username}
@@ -93,15 +104,17 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                     <span
                       onClick={(e) => {
                         e.stopPropagation();
-                        navigate(`/${tweet.originalTweet?.author.username}/status/${tweet.originalTweet?._id}`);
+                        navigate(
+                          `/${originalTweetAuthorUsername.data?.username}/status/${tweet?.originalTweet}`
+                        );
                       }}
                       className="mr-1 text-primary-base hover:underline cursor-pointer"
                     >
-                      @{tweet.originalTweet?.author.username}
+                      @{originalTweetAuthorUsername.data?.username}
                     </span>
                   </div>
                 )}
-                
+
                 {tweet?.content && (
                   <TweetContent tweet={tweet} pageType="home" />
                 )}

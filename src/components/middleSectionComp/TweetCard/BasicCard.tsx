@@ -1,4 +1,3 @@
-import React from "react";
 import { ITweet } from "@customTypes/TweetTypes";
 import Tweet from "./TweetType/Tweet";
 import Retweet from "./TweetType/Retweet";

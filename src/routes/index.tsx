@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import PublicRoute from './PublicRoute'; // for authenticated users routes.
-import PrivateRoute from './PrivateRoute'; // for ignore the authenticated users to login/signup page
+import PublicRoute from './PublicRoute'; //for ignore the authenticated users to login/signup page
+import PrivateRoute from './PrivateRoute'; // for authenticated users routes.
 import { Navigate } from 'react-router-dom';
 import { AuthModal } from '@components/auth';
 import Logout from '@components/auth/Logout';
 import { HomeLayout, TweetDetailsLayout, UserProfileLayout, FollowsLayout } from "@layout/index";
+import ConnectPeopleLayout from '@layout/ConnectPeopleLayout';
 
 interface IAppRoutes {
     isAuthenticated: boolean;
@@ -92,6 +93,15 @@ const AppRoutes = ({isAuthenticated}:IAppRoutes) => {
         <Route
           path='/:username/following'
           element={<FollowsLayout isAuthenticated={isAuthenticated} followsTab='following' />}
+        />
+
+        <Route
+          path='/i/connect_people'
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <ConnectPeopleLayout isAuthenticated={isAuthenticated} />
+            </PrivateRoute>
+          }
         />
       </Routes>
   )

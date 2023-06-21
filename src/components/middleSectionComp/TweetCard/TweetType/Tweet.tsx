@@ -45,15 +45,15 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
     queryFn: () => getSpecificTweetStats(tweet._id),
   });
 
-  const originalTweetAuthorUsername = useQuery({
-    queryKey: ["originalTweetAuthorUsername", tweet?.originalTweet],
+  const originalTweetAuthor = useQuery({
+    queryKey: ["originalTweetAuthor", tweet?.originalTweet],
     queryFn: () => getSpecificTweetAuthor(tweet?.originalTweet!),
     refetchOnWindowFocus: false,
     enabled: false,
   });
 
   if (tweet.tweetType === "reply") {
-    originalTweetAuthorUsername.refetch();
+    originalTweetAuthor.refetch();
   }
 
   return (
@@ -105,12 +105,12 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(
-                          `/${originalTweetAuthorUsername.data?.username}/status/${tweet?.originalTweet}`
+                          `/${originalTweetAuthor.data?.username}/status/${tweet?.originalTweet}`
                         );
                       }}
                       className="mr-1 text-primary-base hover:underline cursor-pointer"
                     >
-                      @{originalTweetAuthorUsername.data?.username}
+                      @{originalTweetAuthor.data?.username}
                     </span>
                   </div>
                 )}

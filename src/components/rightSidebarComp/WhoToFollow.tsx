@@ -6,23 +6,31 @@ import { useQuery } from "@tanstack/react-query";
 import { whoToFollow } from "api/userApi";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { IUser } from "@customTypes/UserTypes";
-import FollowUnfollow from "@components/middleSectionComp/UserProfile/UserCard/UserActions/FollowUnfollow";
+import { FollowsButton } from "@components/middleSectionComp/UserProfile";
+
+type WhoToFollowResponse = {
+  page: number;
+  perPage: number;
+  total: number;
+  totalPages: number;
+  data: IUser[];
+};
 
 const WhoToFollow = () => {
   const navigate = useNavigate();
 
   const reduxUser = useSelector((state: RootState) => state.user);
 
-  const whoToFollowQuery = useQuery<IUser[]>({
+  const whoToFollowQuery = useQuery<WhoToFollowResponse>({
     queryKey: ["whoToFollow"],
-    queryFn: () => whoToFollow(3),
+    queryFn: () => whoToFollow(3, 0),
     retry: false,
     refetchOnWindowFocus: false,
   });
 
   if (whoToFollowQuery.isLoading) {
     return (
-      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
+      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl mt-5">
         <div className="p-3">
           <span className="text-xl font-bold">Who to follow</span>
         </div>
@@ -33,7 +41,7 @@ const WhoToFollow = () => {
 
   if (whoToFollowQuery.isError) {
     return (
-      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl m-3 mt-5 pb-6">
+      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl mt-5">
         <div className="p-3">
           <span className="text-xl font-bold">Who to follow</span>
         </div>
@@ -51,14 +59,15 @@ const WhoToFollow = () => {
     );
   }
 
-  if (whoToFollowQuery.data.length > 0) {
+  if (whoToFollowQuery.data.data) {
     return (
       <div className="bg-gray-rightbar rounded-2xl mt-5">
         <div className="p-3">
           <span className="text-xl font-bold">Who to follow</span>
         </div>
-        {whoToFollowQuery.data?.map((user: IUser) => {
-          return (
+
+        <div>
+          {whoToFollowQuery.data.data.map((user: any) => (
             <div key={user._id} className="flex flex-col w-full">
               <div
                 onClick={() => navigate(`/${user.username}`)}
@@ -83,17 +92,17 @@ const WhoToFollow = () => {
                         <p className="truncate">@{user.username}</p>
                       </div>
                       <div>
-                        <FollowUnfollow user={user} reduxUser={reduxUser} />
+                        <FollowsButton user={user} reduxUser={reduxUser} />
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
         <a
-          href="/"
+          href="/i/connect_people/"
           className="flex flex-col w-full hover:bg-gray-trendsHover rounded-b-2xl px-3 py-4 duration-100"
         >
           <span className="text-primary-base">Show More</span>
@@ -102,14 +111,7 @@ const WhoToFollow = () => {
     );
   }
 
-  return (
-    <div className="flex p-8 justify-center">
-      <div className="flex flex-col max-w-sm">
-        <span className="text-3xl font-bold">can not found</span>
-        <span>When they do, their Tweets will show up here.</span>
-      </div>
-    </div>
-  );
+  return null;
 };
 
 export default WhoToFollow;

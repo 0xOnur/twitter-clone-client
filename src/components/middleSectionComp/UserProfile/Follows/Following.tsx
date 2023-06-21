@@ -5,7 +5,7 @@ import { getUserFollowings } from "api/userApi";
 import { useQuery } from "@tanstack/react-query";
 import { IUser } from "@customTypes/UserTypes";
 import { LoadingIcon, RetryIcon, VerifiedIcon } from "@icons/Icon";
-import FollowUnfollow from "../UserCard/UserActions/FollowUnfollow";
+import { FollowsButton } from "@components/middleSectionComp/UserProfile";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 
 const Following = () => {
@@ -73,7 +73,7 @@ const Following = () => {
                         <span className="">@{user.username}</span>
                       </div>
                       <div>
-                        <FollowUnfollow user={user} reduxUser={reduxUser} />
+                        <FollowsButton user={user} reduxUser={reduxUser} />
                       </div>
                     </div>
 

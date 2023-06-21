@@ -20,7 +20,7 @@ const Header = ({pageType, headerTitle, isForYou, setIsForYou, followsTab}: Prop
         case "TweetDetails":
           return <TweetHeader />;
         case "Profile":
-          return <ProfileHeader displayName={headerTitle!} />
+          return <ProfileHeader title={headerTitle!} />
         case "Follows": 
           return <FollowsHeader followsTab={followsTab!} />
         default:

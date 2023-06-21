@@ -2,10 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { BackIcon } from "@icons/Icon";
 
 interface IProps {
-    displayName: string;
+    title: string;
 }
 
-const ProfileHeader = ({displayName}:IProps) => {
+const ProfileHeader = ({title}:IProps) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -16,15 +16,15 @@ const ProfileHeader = ({displayName}:IProps) => {
     <div className="sticky top-0 z-30">
       <div className="h-auto backdrop-blur-md bg-white/80">
         <div className="h-full">
-          <div className="flex flex-row items-center cursor-pointer z-10 p-3">
-            <div className="relative text-2xl w-14 leading-5">
+          <div className="flex flex-row gap-5 items-center cursor-pointer z-10 p-3">
+            <div className="relative leading-5">
               <button onClick={handleBack}>
-                <div className="w-9 h-9 hover:bg-gray-extraLight duration-150 rounded-full flex justify-center items-center">
+                <div className="w-10 h-10 hover:bg-gray-extraLight duration-150 rounded-full flex justify-center items-center">
                   <BackIcon className="w-5 h-5" />
                 </div>
               </button>
             </div>
-            <span className="text-2xl font-bold max-w-sm truncate">{displayName}</span>
+            <span className="text-xl leading-6 font-bold max-w-sm truncate">{title}</span>
           </div>
         </div>
       </div>

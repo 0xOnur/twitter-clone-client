@@ -1,7 +1,7 @@
 import { IUser } from "@customTypes/UserTypes";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
-import FollowUnfollow from "./FollowUnfollow";
+import FollowUnfollow from "./FollowsButton";
 import EditProfile from "./EditProfile";
 import More from "./More";
 import Message from "./Message";

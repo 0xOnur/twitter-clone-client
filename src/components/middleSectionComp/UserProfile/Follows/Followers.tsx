@@ -5,7 +5,7 @@ import { getUserFollowers } from "api/userApi";
 import { useQuery } from "@tanstack/react-query";
 import { IUser } from "@customTypes/UserTypes";
 import { LoadingIcon, RetryIcon, VerifiedIcon } from "@icons/Icon";
-import FollowUnfollow from "../UserCard/UserActions/FollowUnfollow";
+import { FollowsButton } from "@components/middleSectionComp/UserProfile";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 
 const Followers = () => {
@@ -59,7 +59,7 @@ const Followers = () => {
                 className="cursor-pointer py-3 px-4 hover:bg-gray-tweetHover duration-200"
               >
                 <div className="flex flex-row ">
-                  <Avatar avatar={user.avatar!} username={username!} />
+                  <Avatar avatar={user.avatar!} username={user.username} />
 
                   <div className="flex flex-col w-full">
                     <div className="flex flex-row w-full justify-between items-center">
@@ -73,7 +73,7 @@ const Followers = () => {
                         <span className="">@{user.username}</span>
                       </div>
                       <div>
-                        <FollowUnfollow user={user} reduxUser={reduxUser} />
+                        <FollowsButton user={user} reduxUser={reduxUser} />
                       </div>
                     </div>
 

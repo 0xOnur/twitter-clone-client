@@ -23,7 +23,7 @@ const WhoToFollow = () => {
 
   const whoToFollowQuery = useQuery<WhoToFollowResponse>({
     queryKey: ["whoToFollow"],
-    queryFn: () => whoToFollow(3, 0),
+    queryFn: () => whoToFollow(0, 3),
     retry: false,
     refetchOnWindowFocus: false,
   });

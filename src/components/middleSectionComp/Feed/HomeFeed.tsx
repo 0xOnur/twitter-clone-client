@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { HeaderComp } from "@components/middleSectionComp";
-import TweetList from "./TweetList";
 import { TweetComposer } from "../ComposerComp";
+import FollowingFeed from "./FollowingFeed";
+import ForYouFeed from "./ForYouFeed";
 
 interface IProps {
   isAuthenticated: boolean;
 }
 
 const HomeFeed = ({isAuthenticated}: IProps) => {
-  const [isForYou, setIsForYou] = useState(false);
+  const [isForYou, setIsForYou] = useState(true);
   
   return (
     <div className="container max-w-600px border-x">
@@ -19,13 +20,15 @@ const HomeFeed = ({isAuthenticated}: IProps) => {
       />
       {/* composer shows when user is Authenticated */}
       {isAuthenticated && (
-        <div className="px-4">
+        <div className="px-4 border-b">
           <TweetComposer composerMode="tweet" />
         </div>
       )}
 
-      {/* There is List all Tweets */}
-      <TweetList isAuthenticated={isAuthenticated} />
+      {isForYou && <ForYouFeed />}
+
+      {!isForYou && isAuthenticated && <FollowingFeed />}
+
     </div>
   );
 };

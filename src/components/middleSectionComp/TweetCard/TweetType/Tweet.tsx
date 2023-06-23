@@ -50,6 +50,7 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
     queryFn: () => getSpecificTweetAuthor(tweet?.originalTweet!),
     refetchOnWindowFocus: false,
     enabled: false,
+    retry: false,
   });
 
   if (tweet.tweetType === "reply") {
@@ -137,4 +138,4 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
   );
 };
 
-export default Tweet;
+export default React.memo(Tweet);

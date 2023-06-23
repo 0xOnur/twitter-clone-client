@@ -154,9 +154,9 @@ export const searchUser = async (username: string) => {
 };
 
 // Suggest new users
-export const whoToFollow = async (limit: number, offset: number) => {
+export const whoToFollow = async (page: number, limit: number) => {
   try {
-    const response = await axiosInstance.get(`/user/who-to-follow?limit=${limit}&offset=${offset}`);
+    const response = await axiosInstance.get(`/user/who-to-follow?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
     return Promise.reject(error);

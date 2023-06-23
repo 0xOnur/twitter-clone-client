@@ -16,7 +16,7 @@ const Peoples = () => {
   const { ref, inView } = useInView()
 
   const fetchConnectPeople = ({ pageParam = 0 }) => {
-    return whoToFollow(20, pageParam);
+    return whoToFollow(pageParam, 20);
   };
 
   const {
@@ -28,7 +28,7 @@ const Peoples = () => {
     refetch,
   } = useInfiniteQuery(["connectPeople"], fetchConnectPeople, {
     getNextPageParam: (lastPage) => {
-      if (lastPage.page < lastPage.totalPages - 1) {
+      if (lastPage.page < lastPage.totalPages) {
         return lastPage.page + 1;
       }
       return false;

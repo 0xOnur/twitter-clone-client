@@ -29,7 +29,7 @@ const TweetCard = ({
 
   if (tweet.isLoading) {
     return (
-      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl p-5 m-3">
+      <div className="flex flex-col items-center rounded-2xl p-5 m-3">
         <LoadingIcon />
       </div>
     );

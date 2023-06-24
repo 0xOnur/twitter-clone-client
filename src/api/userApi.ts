@@ -159,7 +159,10 @@ export const whoToFollow = async (page: number, limit: number) => {
     const response = await axiosInstance.get(`/user/who-to-follow?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
-    return Promise.reject(error);
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
   }
 };
 
@@ -201,7 +204,7 @@ export const getUserFollowings =async (username:string) => {
     }
     return Promise.reject(error)
   }
-}
+};
 
 // Get User Followers
 export const getUserFollowers =async (username:string) => {
@@ -214,7 +217,20 @@ export const getUserFollowers =async (username:string) => {
     }
     return Promise.reject(error)
   }
-}
+};
+
+// Get User Following Tweets
+export const getUserFollowingTweets =async (page: number, limit: number) => {
+  try {
+    const response = await axiosInstance.get(`/user/get-user-following-tweets?page=${page}&limit=${limit}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+};
 
 // Get user Tweets
 export const getUserTweets = async (username: string) => {

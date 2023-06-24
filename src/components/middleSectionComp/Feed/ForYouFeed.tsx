@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useInView } from 'react-intersection-observer'
+import { useInView } from "react-intersection-observer";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
 import { getPopularTweets } from "api/tweetApi";
@@ -10,12 +10,12 @@ import TweetCard from "../TweetCard";
 
 const ForYouFeed = () => {
   const reduxUser = useSelector((state: RootState) => state.user);
-  const { ref, inView } = useInView()
+  const { ref, inView } = useInView();
 
-  const fetchForYou = ({pageParam = 0}) => {
+  const fetchForYou = ({ pageParam = 0 }) => {
     return getPopularTweets(pageParam, 20);
-  }
- 
+  };
+
   const {
     data,
     status,
@@ -23,7 +23,7 @@ const ForYouFeed = () => {
     hasNextPage,
     isFetchingNextPage,
     refetch,
-  } = useInfiniteQuery(["forYou"], fetchForYou, {
+  } = useInfiniteQuery(["forYouFeed"], fetchForYou, {
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.totalPages) {
         return lastPage.page + 1;
@@ -33,17 +33,17 @@ const ForYouFeed = () => {
     refetchOnWindowFocus: false,
   });
 
-  useEffect(()=> {
-    if(inView && hasNextPage) {
+  useEffect(() => {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, isFetchingNextPage])
+  }, [inView, isFetchingNextPage]);
 
   if (status === "loading") {
     return (
       <div className="flex w-full mt-20 items-center justify-center">
-      <LoadingIcon />
-    </div>
+        <LoadingIcon />
+      </div>
     );
   }
 
@@ -80,12 +80,17 @@ const ForYouFeed = () => {
             ))}
           </div>
         ))}
+        {isFetchingNextPage && (
+          <div className="flex w-full mt-20 items-center justify-center">
+            <LoadingIcon />
+          </div>
+        )}
         <div ref={ref}></div>
       </div>
-    )
+    );
   }
 
   return null;
-}
+};
 
-export default ForYouFeed
+export default ForYouFeed;

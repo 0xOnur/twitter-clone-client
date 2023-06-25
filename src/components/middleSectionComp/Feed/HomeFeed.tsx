@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HeaderComp } from "@components/middleSectionComp";
 import { TweetComposer } from "../ComposerComp";
 import FollowingFeed from "./FollowingFeed";
@@ -9,8 +9,13 @@ interface IProps {
 }
 
 const HomeFeed = ({isAuthenticated}: IProps) => {
-  const [isForYou, setIsForYou] = useState(true);
+  const localIsForYou = localStorage.getItem("isForYou");
+  const [isForYou, setIsForYou] = useState(localIsForYou !== null ? JSON.parse(localIsForYou) : true);
   
+  useEffect(() => {
+    localStorage.setItem("isForYou", JSON.stringify(isForYou));
+  }, [isForYou]);
+
   return (
     <div className="container max-w-600px border-x">
       <HeaderComp.Header

@@ -36,7 +36,6 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
     queryKey: ["tweetStats", tweet._id],
     queryFn: () => getSpecificTweetStats(tweet._id),
   });
-  console.log(tweet.originalTweet);
   
   return (
     <div>

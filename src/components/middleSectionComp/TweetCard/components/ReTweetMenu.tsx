@@ -2,12 +2,11 @@ import React, { useRef, useEffect, useCallback } from "react";
 import { ReTweetIcon } from "@icons/Icon";
 
 interface IProps {
-  setComposerMode: React.Dispatch<React.SetStateAction<"reply" | "quote">>;
-  setQuoteModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowQuotModal: React.Dispatch<React.SetStateAction<boolean>>;
   onClose: () => void;
 }
 
-const ShareMenu = ({ onClose, setQuoteModal, setComposerMode }: IProps) => {
+const ReTweetMenu = ({ onClose, setShowQuotModal }: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -19,8 +18,7 @@ const ShareMenu = ({ onClose, setQuoteModal, setComposerMode }: IProps) => {
         console.log(actionName);
         break;
       case "quote":
-        setComposerMode("quote");
-        setQuoteModal(true);
+        setShowQuotModal(true);
         break;
       default:
         break;
@@ -46,7 +44,7 @@ const ShareMenu = ({ onClose, setQuoteModal, setComposerMode }: IProps) => {
   return (
     <div
       ref={menuRef}
-      className="absolute z-10 top-0 -right-3 w-max border bg-white rounded-2xl shadow-lg"
+      className="absolute z-10 -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg"
     >
       <div className="flex flex-col">
         <button
@@ -83,4 +81,4 @@ const ShareMenu = ({ onClose, setQuoteModal, setComposerMode }: IProps) => {
   );
 };
 
-export default ShareMenu;
+export default ReTweetMenu;

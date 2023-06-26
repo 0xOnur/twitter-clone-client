@@ -11,7 +11,6 @@ interface IProps {
   isAuthenticated: boolean;
   reduxUser: UserState & PersistPartial;
   tweet: ITweet;
-  retweetId?: string;
   pageType: "home" | "TweetDetails";
 }
 
@@ -19,7 +18,6 @@ const LikeAction = ({
   isAuthenticated,
   reduxUser,
   tweet,
-  retweetId,
   pageType,
 }: IProps) => {
   const queryClient = useQueryClient();
@@ -35,7 +33,6 @@ const LikeAction = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
-      retweetId && queryClient.invalidateQueries(["tweet", retweetId]);
     },
   });
 
@@ -48,7 +45,6 @@ const LikeAction = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
-      retweetId && queryClient.invalidateQueries(["tweet", retweetId]);
     },
   });
 

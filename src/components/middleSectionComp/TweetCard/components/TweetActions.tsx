@@ -24,7 +24,6 @@ interface Props {
     _id: string;
     author: string;
   }[];
-  retweetId?: string;
   isAuthenticated: boolean;
 }
 
@@ -32,7 +31,6 @@ const TweetActions = ({
   tweet,
   replyStats,
   retweetStats,
-  retweetId,
   pageType,
   isAuthenticated,
 }: Props) => {
@@ -57,10 +55,10 @@ const TweetActions = ({
 
         <RetweetAction
           isAuthenticated={isAuthenticated}
+          tweet={tweet}
           pageType={pageType}
           reduxUser={reduxUser}
           retweetStats={retweetStats}
-          tweet={tweet}
         />
 
         <LikeAction
@@ -68,7 +66,6 @@ const TweetActions = ({
           tweet={tweet}
           pageType={pageType}
           reduxUser={reduxUser}
-          retweetId={retweetId}
         />
 
         {pageType === "TweetDetails" && (

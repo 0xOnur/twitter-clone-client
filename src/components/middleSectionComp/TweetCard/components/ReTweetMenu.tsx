@@ -4,25 +4,22 @@ import { ReTweetIcon } from "@icons/Icon";
 interface IProps {
   setShowQuotModal: React.Dispatch<React.SetStateAction<boolean>>;
   onClose: () => void;
+  handleRetweet: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isReteeted: boolean;
 }
 
-const ReTweetMenu = ({ onClose, setShowQuotModal }: IProps) => {
+const ReTweetMenu = ({
+  onClose,
+  setShowQuotModal,
+  handleRetweet,
+  isReteeted,
+}: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleQuote = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     onClose();
-    const actionName = e.currentTarget.name;
-    switch (actionName) {
-      case "retweet":
-        console.log(actionName);
-        break;
-      case "quote":
-        setShowQuotModal(true);
-        break;
-      default:
-        break;
-    }
+    setShowQuotModal(true);
   };
 
   const handleClose = useCallback(
@@ -48,8 +45,7 @@ const ReTweetMenu = ({ onClose, setShowQuotModal }: IProps) => {
     >
       <div className="flex flex-col">
         <button
-          onClick={handleClick}
-          name="retweet"
+          onClick={handleRetweet}
           className="flex flex-row hover:bg-gray-lightest rounded-t-2xl font-bold"
         >
           <div className="flex flex-row py-3 px-4 items-center">
@@ -57,14 +53,13 @@ const ReTweetMenu = ({ onClose, setShowQuotModal }: IProps) => {
               <ReTweetIcon className={"w-5 h-5"} />
             </div>
             <div>
-              <span>Retweet</span>
+              {isReteeted ? <span>Undo Retweet</span> : <span>Retweet</span>}
             </div>
           </div>
         </button>
 
         <button
-          onClick={handleClick}
-          name="quote"
+          onClick={handleQuote}
           className="flex flex-row hover:bg-gray-lightest rounded-b-2xl font-bold"
         >
           <div className="flex flex-row py-3 px-4 items-center">

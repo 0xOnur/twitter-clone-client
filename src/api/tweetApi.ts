@@ -115,3 +115,29 @@ export const unlikeTweet =async (tweetId:string) => {
         return Promise.reject(error);
     }
 };
+
+// Retweet Tweet
+export const retweetTweet =async (tweetId:string) => {
+    try {
+        const response = await axiosInstance.put(`/tweet/retweet-tweet/${tweetId}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};
+
+// Undo Retweet
+export const undoRetweet =async (tweetId:string) => {
+    try {
+        const response = await axiosInstance.put(`/tweet/undo-retweet/${tweetId}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+}

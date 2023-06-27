@@ -291,3 +291,16 @@ export const getUserLikes = async (username: string) => {
     return Promise.reject(error);
   }
 };
+
+// Get User Bookmarked Tweets
+export const getUserBookmarks = async (page: number, limit: number) => {
+  try {
+    const response = await axiosInstance.get(`/user/get-user-bookmarks?page=${page}&limit=${limit}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+};

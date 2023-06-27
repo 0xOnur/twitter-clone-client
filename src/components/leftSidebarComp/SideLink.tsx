@@ -6,6 +6,7 @@ import { RootState } from "redux/config/store";
 
 interface IProps {
   name: string;
+  url: string;
   Icon: ({
     isActive,
     className,
@@ -15,34 +16,31 @@ interface IProps {
   }) => JSX.Element;
 }
 
-const SideLink: React.FC<IProps> = ({ name, Icon }) => {
+const SideLink: React.FC<IProps> = ({ name, url, Icon }) => {
   const reduxUser = useSelector((state: RootState) => state.user);
   const username = reduxUser.user?.username!;
 
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const currentPath = useLocation().pathname;
   const isActive = currentPath.includes(name.toLowerCase());
 
   const navTextClasses = classNames(
     "ml-5 mr-4 text-xl hidden lg:inline-block",
     {
       "font-bold":
-        isActive ||
-        (name === "Profile" && currentPath.includes(username)),
+        isActive || (name === "Profile" && currentPath.includes(username)),
     }
   );
 
   return (
     <a
       className="flex flex-col lg:items-start sm:items-center cursor-pointer grow-1 w-full py-1 group"
-      href={`/${name === "Profile" ? username : name.toLowerCase()}`}
+      href={url}
     >
       <div className="flex flex-row justify-center items-center max-w-full p-3 group-hover:bg-gray-extraLight duration-200 rounded-full">
         <Icon
           className={"w-7 h-7 align-text-bottom"}
           isActive={
-            isActive ||
-            (name === "Profile" && currentPath.includes(username))
+            isActive || (name === "Profile" && currentPath.includes(username))
           }
         />
 

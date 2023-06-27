@@ -15,36 +15,42 @@ import SideLink from "./SideLink";
 import UserBox from "./UserBox";
 import MoreButton from "./MoreButton";
 
-const sideLinks = [
-  {
-    name: "Home",
-    icon: HomeIcon,
-  },
-  {
-    name: "Explore",
-    icon: ExploreIcon,
-  },
-  {
-    name: "Notifications",
-    icon: NotificationsIcon,
-  },
-  {
-    name: "Messages",
-    icon: MessagesIcon,
-  },
-  {
-    name: "Bookmarks",
-    icon: BookmarksIcon,
-  },
-  {
-    name: "Profile",
-    icon: ProfileIcon,
-  },
-];
-
 const LeftSideBar = () => {
   const reduxUser = useSelector((state: RootState) => state.user);
   const isAuthenticated = reduxUser.isAuthenticated;
+
+  const sideLinks = [
+    {
+      name: "Home",
+      url: "/home",
+      icon: HomeIcon,
+    },
+    {
+      name: "Explore",
+      url: "/explore",
+      icon: ExploreIcon,
+    },
+    {
+      name: "Notifications",
+      url: "/notifications",
+      icon: NotificationsIcon,
+    },
+    {
+      name: "Messages",
+      url: "/messages",
+      icon: MessagesIcon,
+    },
+    {
+      name: "Bookmarks",
+      url: "/i/bookmarks",
+      icon: BookmarksIcon,
+    },
+    {
+      name: "Profile",
+      url: `/${reduxUser.user.username}`,
+      icon: ProfileIcon,
+    },
+  ];
 
   const authenticatedSideLinks = sideLinks.slice(2);
 
@@ -69,12 +75,12 @@ const LeftSideBar = () => {
 
               <div className="flex flex-col w-full mt-0.5 mb-1">
                 <nav className="flex flex-col lg:items-start sm:items-center ">
-                  {sideLinks.slice(0, 2).map(({ name, icon }, index) => (
-                    <SideLink key={index} name={name} Icon={icon} />
+                  {sideLinks.slice(0, 2).map(({ name, url, icon }, index) => (
+                    <SideLink key={index} name={name} url={url} Icon={icon} />
                   ))}
                   {isAuthenticated &&
-                    authenticatedSideLinks.map(({ name, icon }, index) => (
-                      <SideLink key={index} name={name} Icon={icon} />
+                    authenticatedSideLinks.map(({ name, url, icon }, index) => (
+                      <SideLink key={index} name={name} url={url} Icon={icon} />
                     ))}
                   {isAuthenticated && (
                     <div className="w-full">

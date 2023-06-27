@@ -21,8 +21,9 @@ const LikeAction = ({
   pageType,
 }: IProps) => {
   const queryClient = useQueryClient();
-
   const { showToast } = useToast();
+
+  const isLiked = tweet.likes?.includes(reduxUser.user?._id);
 
   const likeMutation = useMutation({
     mutationKey: ["likeTweet", tweet._id],
@@ -48,19 +49,21 @@ const LikeAction = ({
     },
   });
 
+  const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (isAuthenticated) {
+      if (isLiked) {
+        unlikeMutation.mutate(tweet._id);
+      } else {
+        likeMutation.mutate(tweet._id);
+      }
+    }
+  };
+
   return (
     <button
-      title="Like"
-      onClick={(e) => {
-        e.stopPropagation();
-        if (isAuthenticated) {
-          if (tweet.likes?.includes(reduxUser.user?._id)) {
-            unlikeMutation.mutate(tweet._id);
-          } else {
-            likeMutation.mutate(tweet._id);
-          }
-        }
-      }}
+      title={isLiked ? "Unlike" : "Like"}
+      onClick={handleLike}
       className="group h-5 min-h-max"
     >
       <div className="flex flex-row">

@@ -4,7 +4,7 @@ import PrivateRoute from './PrivateRoute'; // for authenticated users routes.
 import { Navigate } from 'react-router-dom';
 import { AuthModal } from '@components/auth';
 import Logout from '@components/auth/Logout';
-import { HomeLayout, TweetDetailsLayout, UserProfileLayout, FollowsLayout } from "@layout/index";
+import { HomeLayout, TweetDetailsLayout, UserProfileLayout, FollowsLayout, BookmarksLayout } from "@layout/index";
 import ConnectPeopleLayout from '@layout/ConnectPeopleLayout';
 
 interface IAppRoutes {
@@ -56,10 +56,10 @@ const AppRoutes = ({isAuthenticated}:IAppRoutes) => {
           }
         />
         <Route
-          path="bookmarks"
+          path="/i/bookmarks"
           element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
-              <HomeLayout />
+              <BookmarksLayout isAuthenticated={isAuthenticated} />
             </PrivateRoute>
           }
         />

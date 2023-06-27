@@ -34,6 +34,10 @@ const RetweetAction = ({
   const [reTweetMenu, setShowRetweetMenu] = useState(false);
   const [showQuoteModal, setShowQuotModal] = useState(false);
 
+  const isReteeted =
+    retweetStats?.length! > 0 &&
+    retweetStats?.some((retweet) => retweet.author === reduxUser.user?._id);
+
   const retweetMutation = useMutation({
     mutationKey: ["retweet", tweet._id],
     mutationFn: retweetTweet,
@@ -47,10 +51,6 @@ const RetweetAction = ({
       showToast(res?.message || "Tweet retweeted", "success");
     },
   });
-
-  const isReteeted =
-    retweetStats?.length! > 0 &&
-    retweetStats?.some((retweet) => retweet.author === reduxUser.user?._id);
 
   const undoRetweetMutation = useMutation({
     mutationKey: ["undoRetweet", tweet._id],
@@ -90,7 +90,7 @@ const RetweetAction = ({
       )}
 
       <div
-        title="Retweet"
+        title={isReteeted ? "Undo Retweet" : "Retweet"}
         onClick={(e) => {
           setShowRetweetMenu(!reTweetMenu);
           e.stopPropagation();

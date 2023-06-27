@@ -140,4 +140,30 @@ export const undoRetweet =async (tweetId:string) => {
         }
         return Promise.reject(error);
     }
-}
+};
+
+// Add Bookmark
+export const addBookmark =async (tweetId:string) => {
+    try {
+        const response = await axiosInstance.put(`/tweet/add-bookmark/${tweetId}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};
+
+// Remove Bookmark
+export const removeBookmark =async (tweetId:string) => {
+    try {
+        const response = await axiosInstance.put(`/tweet/remove-bookmark/${tweetId}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};

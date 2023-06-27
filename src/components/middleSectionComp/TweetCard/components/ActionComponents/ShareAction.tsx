@@ -1,15 +1,50 @@
 import React, { useState } from "react";
+import { useBookmarkMutation } from "@hooks/useBookmarkMutation";
 import { TweetCardComp } from "@components/middleSectionComp";
+import { PersistPartial } from "redux-persist/es/persistReducer";
+import { UserState } from "@redux/slices/userSlice";
 import { ITweet } from "@customTypes/TweetTypes";
+
 import { ShareIcon } from "@icons/Icon";
+import useToast from "@hooks/useToast";
 
 interface IProps {
-  tweet: ITweet;
   isAuthenticated: boolean;
+  reduxUser: UserState & PersistPartial;
+  tweet: ITweet;
 }
 
-const ShareAction = ({ isAuthenticated, tweet }: IProps) => {
+const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
+  const { showToast } = useToast();
   const [shareMenu, setShowShareMenu] = useState(false);
+
+  const { addBookmarkMutation, removeBookmarkMutation } = useBookmarkMutation(
+    tweet._id
+  );
+
+  const isBookmarked = tweet.bookmarks?.includes(reduxUser.user._id);
+
+  const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const tweetUrl =
+      window.location.origin + `/${tweet.author.username}/status/${tweet._id}`;
+    navigator.clipboard.writeText(tweetUrl);
+    showToast("Copied to clipboard", "success");
+    setShowShareMenu(false);
+  };
+
+  const handleBookmark = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (isAuthenticated) {
+      if (isBookmarked) {
+        removeBookmarkMutation.mutate(tweet._id);
+      } else {
+        addBookmarkMutation.mutate(tweet._id);
+      }
+    }
+    setShowShareMenu(false);
+  };
+
   return (
     <div
       className="group h-5 min-h-max relative"
@@ -30,9 +65,11 @@ const ShareAction = ({ isAuthenticated, tweet }: IProps) => {
       </div>
       {shareMenu && (
         <TweetCardComp.ShareMenu
-          onClose={() => setShowShareMenu(false)}
-          tweet={tweet}
           isAuthenticated={isAuthenticated}
+          isBookmarked={isBookmarked}
+          handleCopy={handleCopy}
+          handleBookmark={handleBookmark}
+          onClose={() => setShowShareMenu(false)}
         />
       )}
     </div>

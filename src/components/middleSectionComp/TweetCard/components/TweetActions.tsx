@@ -69,12 +69,20 @@ const TweetActions = ({
         />
 
         {pageType === "TweetDetails" && (
-          <BookmarkAction />
+          <BookmarkAction
+            isAuthenticated={isAuthenticated}
+            reduxUser={reduxUser}
+            tweet={tweet}
+          />
         )}
 
         {pageType !== "TweetDetails" && <Views tweet={tweet} />}
 
-        <ShareAction isAuthenticated={isAuthenticated} tweet={tweet} />
+        <ShareAction
+          isAuthenticated={isAuthenticated}
+          reduxUser={reduxUser}
+          tweet={tweet}
+        />
       </div>
     </div>
   );

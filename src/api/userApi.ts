@@ -194,9 +194,9 @@ export const unFollowUser = async (userId: string) => {
 };
 
 // Get User Followings
-export const getUserFollowings =async (username:string) => {
+export const getUserFollowings =async (username:string, page: number, limit: number) => {
   try {
-    const response = await axiosInstance.get(`/user/get-user-followings/${username}`);
+    const response = await axiosInstance.get(`/user/get-user-followings/${username}?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -207,9 +207,9 @@ export const getUserFollowings =async (username:string) => {
 };
 
 // Get User Followers
-export const getUserFollowers =async (username:string) => {
+export const getUserFollowers =async (username:string, page: number, limit: number) => {
   try {
-    const response = await axiosInstance.get(`/user/get-user-followers/${username}`);
+    const response = await axiosInstance.get(`/user/get-user-followers/${username}?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -233,11 +233,9 @@ export const getUserFollowingTweets =async (page: number, limit: number) => {
 };
 
 // Get user Tweets
-export const getUserTweets = async (username: string) => {
+export const getUserTweets = async (username: string, page: number, limit: number) => {
   try {
-    const response = await axiosInstance.get(
-      `/user/get-user-tweets/${username}`
-    );
+    const response = await axiosInstance.get(`/user/get-user-tweets/${username}?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -248,11 +246,9 @@ export const getUserTweets = async (username: string) => {
 };
 
 // Get  Media only User Tweets
-export const getMediaOnlyUserTweets = async (username: string) => {
+export const getMediaOnlyUserTweets = async (username: string, page: number, limit: number) => {
   try {
-    const response = await axiosInstance.get(
-      `/user/get-user-media-only-tweets/${username}`
-    );
+    const response = await axiosInstance.get(`/user/get-user-media-only-tweets/${username}?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -263,11 +259,9 @@ export const getMediaOnlyUserTweets = async (username: string) => {
 };
 
 // Get User Replies
-export const getUserReplies = async (username: string) => {
+export const getUserReplies = async (username: string, page: number, limit: number) => {
   try {
-    const response = await axiosInstance.get(
-      `/user/get-user-replies/${username}`
-    );
+    const response = await axiosInstance.get(`/user/get-user-replies/${username}?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -278,11 +272,9 @@ export const getUserReplies = async (username: string) => {
 };
 
 // Get User Likes
-export const getUserLikes = async (username: string) => {
+export const getUserLikes = async (username: string, page: number, limit: number) => {
   try {
-    const response = await axiosInstance.get(
-      `/user/get-user-likes/${username}`
-    );
+    const response = await axiosInstance.get(`/user/get-user-likes/${username}?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

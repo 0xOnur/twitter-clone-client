@@ -22,7 +22,7 @@ const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
     tweet._id
   );
 
-  const isBookmarked = tweet.bookmarks?.includes(reduxUser.user._id);
+  const isBookmarked = tweet.bookmarks?.includes(reduxUser.user?._id);
 
   const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

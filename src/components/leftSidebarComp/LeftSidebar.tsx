@@ -47,7 +47,7 @@ const LeftSideBar = () => {
     },
     {
       name: "Profile",
-      url: `/${reduxUser.user.username}`,
+      url: `/${reduxUser.user?.username}`,
       icon: ProfileIcon,
     },
   ];

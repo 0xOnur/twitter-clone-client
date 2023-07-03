@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import {TweetCard} from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
+import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
 import { getUserReplies } from "api/userApi";
-import { LoadingIcon, RetryIcon } from "@icons/Icon";
-import { useInView } from "react-intersection-observer";
-import TweetCard from "@components/middleSectionComp/TweetCard";
+import React, { useEffect } from "react";
 
 interface IProps {
   username: string;

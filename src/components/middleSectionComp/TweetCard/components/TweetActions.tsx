@@ -8,10 +8,10 @@ import LikeAction from "./ActionComponents/LikeAction";
 import Views from "./ActionComponents/Views";
 import ShareAction from "./ActionComponents/ShareAction";
 import BookmarkAction from "./ActionComponents/BookmarkAction";
+import { useQuery } from "@tanstack/react-query";
+import { getSpecificTweetStats } from "api/tweetApi";
 
-interface Props {
-  pageType: "home" | "TweetDetails";
-  tweet: ITweet;
+type tweetStats = {
   replyStats: {
     _id: string;
     author: string;
@@ -20,21 +20,33 @@ interface Props {
     _id: string;
     author: string;
   }[];
-  quoteStats?: {
+  likeStats: {
     _id: string;
     author: string;
   }[];
+  quoteStats: {
+    _id: string;
+    author: string;
+  }[];
+}
+
+interface Props {
   isAuthenticated: boolean;
+  tweet: ITweet;
+  pageType: "home" | "TweetDetails";
 }
 
 const TweetActions = ({
-  tweet,
-  replyStats,
-  retweetStats,
-  pageType,
   isAuthenticated,
+  tweet,
+  pageType,
 }: Props) => {
   const reduxUser = useSelector((state: RootState) => state.user);
+
+  const tweetStats = useQuery<tweetStats>({
+    queryKey: ["tweetStats", tweet._id],
+    queryFn: () => getSpecificTweetStats(tweet._id),
+  });
 
   const actionClasses = classNames({
     "flex flex-row justify-between gap-2 mt-3 max-w-md w-full":
@@ -50,7 +62,7 @@ const TweetActions = ({
           isAuthenticated={isAuthenticated}
           tweet={tweet}
           pageType={pageType}
-          replyStats={replyStats}
+          replyStats={tweetStats.data?.replyStats!}
         />
 
         <RetweetAction
@@ -58,7 +70,7 @@ const TweetActions = ({
           tweet={tweet}
           pageType={pageType}
           reduxUser={reduxUser}
-          retweetStats={retweetStats}
+          retweetStats={tweetStats.data?.retweetStats!}
         />
 
         <LikeAction
@@ -66,6 +78,7 @@ const TweetActions = ({
           tweet={tweet}
           pageType={pageType}
           reduxUser={reduxUser}
+          likeStats={tweetStats.data?.likeStats!}
         />
 
         {pageType === "TweetDetails" && (

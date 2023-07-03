@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
-import { CancelIcon } from "@icons/Icon";
-import { ITweet } from "@customTypes/TweetTypes";
 import { TweetComposer } from "@components/middleSectionComp/ComposerComp";
 import { TweetCardComp } from "@components/middleSectionComp";
+import { ITweet } from "@customTypes/TweetTypes";
+import React, { useEffect } from "react";
+import { CancelIcon } from "@icons/Icon";
+
 
 interface IProps {
   isOpen: boolean;
@@ -49,14 +50,14 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
               <div className="flex flex-col px-4">
                 <div className="flex flex-row">
                   <div className="flex flex-col grow-0 min-w-fit basis-12 mr-3 items-center">
-                    <TweetCardComp.Avatar
+                    <TweetCardComp.Components.Avatar
                       avatar={tweet.author.avatar!}
                       username={tweet.author.username}
                     />
                     <div className="w-0.5 -ml-3 bg-gray-200 mt-1 h-full"/>
                   </div>
                   <div className="flex flex-col grow">
-                    <TweetCardComp.AuthorInfo
+                    <TweetCardComp.Components.AuthorInfo
                       pageType="home"
                       displayName={tweet.author.displayName}
                       username={tweet.author.username}
@@ -66,7 +67,7 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                     <div className="flex flex-col pb-3">
                       <span>{tweet.content}</span>
                       <div>
-                        <TweetCardComp.TweetMedia tweet={tweet} />
+                        <TweetCardComp.Components.TweetMedia tweet={tweet} />
                       </div>
                     </div>
                     <div>

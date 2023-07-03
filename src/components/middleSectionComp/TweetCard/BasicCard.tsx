@@ -2,6 +2,7 @@ import { ITweet } from "@customTypes/TweetTypes";
 import Tweet from "./TweetType/Tweet";
 import Retweet from "./TweetType/Retweet";
 import Quote from "./TweetType/Quote";
+import Like from "./TweetType/Like";
 
 
 
@@ -41,6 +42,13 @@ const BasicCard = ({
         <Retweet
           tweet={tweet}
           isAuthenticated={isAuthenticated}
+        />
+      );
+    case "like":
+      return (
+        <Like
+          isAuthenticated={isAuthenticated}
+          tweet={tweet}
         />
       );
     case "quote":

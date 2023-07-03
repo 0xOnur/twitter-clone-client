@@ -1,30 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { getSpecificTweetStats } from "api/tweetApi";
-import { ComposerComp } from "@components/middleSectionComp";
-import { ITweet } from "@customTypes/TweetTypes";
 import {
   AuthorInfo,
   Avatar,
 } from "@components/middleSectionComp/TweetCard/components";
-import TweetContent from "./components/TweetContent";
 import { TweetStats } from "@components/middleSectionComp/TweetDetailsPage";
+import { ComposerComp } from "@components/middleSectionComp";
+import { ITweet } from "@customTypes/TweetTypes";
+import TweetContent from "./components/TweetContent";
 import TweetActions from "./components/TweetActions";
-import TweetCard from ".";
-
-type tweetStats = {
-  replyStats: {
-    "_id": string,
-    "author": string,
-  }[];
-  retweetStats: {
-    "_id": string,
-    "author": string,
-  }[];
-  quoteStats: {
-    "_id": string,
-    "author": string,
-  }[];
-};
+import TweetCard from "./TweetCard";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -32,11 +15,6 @@ interface IProps {
 }
 
 const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
-  const tweetStats = useQuery<tweetStats>({
-    queryKey: ["tweetStats", tweet._id],
-    queryFn: () => getSpecificTweetStats(tweet._id),
-  });
-  
   return (
     <div>
       {tweet.originalTweet && tweet.tweetType === "reply" && (
@@ -80,20 +58,11 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                   </div>
                 )}
 
-                {tweetStats && (
-                  <TweetStats
-                    tweet={tweet}
-                    retweetCount={tweetStats.data?.replyStats.length}
-                    quoteCount={tweetStats.data?.quoteStats.length}
-                  />
-                )}
+                <TweetStats tweet={tweet} />
 
                 <TweetActions
                   pageType="TweetDetails"
                   tweet={tweet}
-                  replyStats={tweetStats.data?.replyStats!}
-                  retweetStats={tweetStats.data?.retweetStats!}
-                  quoteStats={tweetStats.data?.quoteStats!}
                   isAuthenticated={isAuthenticated}
                 />
 

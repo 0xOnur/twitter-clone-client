@@ -1,12 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "redux/config/store";
-import { LoadingIcon, RetryIcon, VerifiedIcon } from "@icons/Icon";
+import { UserPreviewCard } from "@components/middleSectionComp/UserProfile";
+import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { useQuery } from "@tanstack/react-query";
-import { whoToFollow } from "api/userApi";
-import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { IUser } from "@customTypes/UserTypes";
-import { FollowsButton } from "@components/middleSectionComp/UserProfile";
+import { RootState } from "redux/config/store";
+import { useSelector } from "react-redux";
+import { whoToFollow } from "api/userApi";
 
 type WhoToFollowResponse = {
   page: number;
@@ -17,8 +15,6 @@ type WhoToFollowResponse = {
 };
 
 const WhoToFollow = () => {
-  const navigate = useNavigate();
-
   const reduxUser = useSelector((state: RootState) => state.user);
 
   const whoToFollowQuery = useQuery<WhoToFollowResponse>({
@@ -67,38 +63,13 @@ const WhoToFollow = () => {
         </div>
 
         <div>
-          {whoToFollowQuery.data.data.map((user: any) => (
-            <div key={user._id} className="flex flex-col w-full">
-              <div
-                onClick={() => navigate(`/${user.username}`)}
-                className="cursor-pointer py-3 px-3 hover:bg-gray-trendsHover duration-200"
-              >
-                <div className="flex flex-row w-full">
-                  <Avatar avatar={user?.avatar!} username={user?.username!} />
-                  <div className="flex flex-col w-full overflow-hidden">
-                    <div className="flex flex-row justify-between items-center">
-                      <div className="flex flex-col w-full min-w-0 pr-2">
-                        <div className="flex flex-row items-center gap-1">
-                          <span className="truncate font-bold ">
-                            {user.displayName}
-                          </span>
-                          <span>
-                            {user.isVerified && (
-                              <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
-                            )}
-                          </span>
-                        </div>
-
-                        <p className="truncate">@{user.username}</p>
-                      </div>
-                      <div>
-                        <FollowsButton user={user} reduxUser={reduxUser} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {whoToFollowQuery.data.data.map((user: IUser) => (
+            <UserPreviewCard
+              key={user._id}
+              user={user}
+              reduxUser={reduxUser}
+              showBio={false}
+            />
           ))}
         </div>
         <a

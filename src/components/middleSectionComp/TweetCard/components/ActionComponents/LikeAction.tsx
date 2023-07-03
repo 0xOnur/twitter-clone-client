@@ -12,6 +12,10 @@ interface IProps {
   reduxUser: UserState & PersistPartial;
   tweet: ITweet;
   pageType: "home" | "TweetDetails";
+  likeStats: {
+    _id: string;
+    author: string;
+  }[];
 }
 
 const LikeAction = ({
@@ -19,11 +23,14 @@ const LikeAction = ({
   reduxUser,
   tweet,
   pageType,
+  likeStats,
 }: IProps) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
-  const isLiked = tweet.likes?.includes(reduxUser.user?._id);
+  const isLiked =
+    likeStats?.length! > 0 &&
+    likeStats?.some((like) => like.author === reduxUser.user?._id);
 
   const likeMutation = useMutation({
     mutationKey: ["likeTweet", tweet._id],
@@ -34,6 +41,7 @@ const LikeAction = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
+      queryClient.invalidateQueries(["tweetStats", tweet._id]);
     },
   });
 
@@ -46,6 +54,7 @@ const LikeAction = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["tweet", tweet._id]);
+      queryClient.invalidateQueries(["tweetStats", tweet._id]);
     },
   });
 
@@ -69,7 +78,7 @@ const LikeAction = ({
       <div className="flex flex-row">
         <div className="inline-flex relative text-gray-dark group-hover:text-red-base duration-150">
           <div className="absolute -m-2 group-hover:bg-red-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
-          {tweet.likes?.includes(reduxUser.user?._id) ? (
+          {isLiked ? (
             <LikedIcon className={"w-5 h-5 fill-red-removeText"} />
           ) : (
             <LikeIcon className={"w-5 h-5"} />
@@ -77,9 +86,9 @@ const LikeAction = ({
         </div>
         <div className="inline-flex  group-hover:text-red-base">
           <span className="px-3 text-sm">
-            {tweet?.likes!.length! > 0 &&
+            {likeStats?.length > 0 &&
               pageType === "home" &&
-              formatNumber(tweet.likes!.length)}
+              formatNumber(likeStats?.length)}
           </span>
         </div>
       </div>

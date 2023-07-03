@@ -1,11 +1,10 @@
-import React from 'react'
-import { useSelector } from "react-redux";
-import { RootState } from "@redux/config/store";
-import { TweetDetailsComp, RightSidebar, LeftSideBar  } from '@components/index'
+import { TweetDetailsComp, RightSidebar, LeftSideBar } from "@components/index";
 
-const TweetDetailsLayout = () => {
-  const isAuthenticated = useSelector((state: RootState) => state.user.isAuthenticated);
+interface IProps {
+  isAuthenticated: boolean;
+}
 
+const TweetDetailsLayout = ({ isAuthenticated }: IProps) => {
   return (
     <div className="flex min-h-screen max-w-7xl mx-auto sticky">
       <LeftSideBar />
@@ -14,7 +13,7 @@ const TweetDetailsLayout = () => {
         <RightSidebar isAuthenticated={isAuthenticated} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TweetDetailsLayout
+export default TweetDetailsLayout;

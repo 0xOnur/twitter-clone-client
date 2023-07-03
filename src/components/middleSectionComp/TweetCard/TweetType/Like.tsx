@@ -1,4 +1,4 @@
-import { ReTweetedBy } from "@components/middleSectionComp/TweetCard/components";
+import { LikedBy } from "@components/middleSectionComp/TweetCard/components";
 import { ITweet } from "@customTypes/TweetTypes";
 import TweetCard from "../TweetCard";
 
@@ -7,12 +7,12 @@ interface IProps {
   isAuthenticated: boolean;
 }
 
-const Retweet = ({ tweet, isAuthenticated }: IProps) => {
+const Like = ({ tweet, isAuthenticated }: IProps) => {
   return (
     <article className="cursor-pointer hover:bg-gray-tweetHover duration-200">
       <div className="min-w-fit">
         <div className="flex flex-col pt-2">
-          <ReTweetedBy reTweeterUser={tweet.author} />
+          <LikedBy likedUser={tweet.author} />
 
           <TweetCard
             isAuthenticated={isAuthenticated}
@@ -25,4 +25,4 @@ const Retweet = ({ tweet, isAuthenticated }: IProps) => {
   );
 };
 
-export default Retweet;
+export default Like;

@@ -3,19 +3,21 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
-import { getTweetReplies } from "api/tweetApi";
-import { useEffect } from "react";
+import { RootState } from "@redux/config/store";
+import { getTweetQuotes } from "api/tweetApi";
+import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
 
 interface IProps {
-  isAuthenticated: boolean;
   tweetId: string;
 }
 
-const Replies = ({ isAuthenticated, tweetId }: IProps) => {
+const QuoteTweets = ({ tweetId }: IProps) => {
+  const reduxUser = useSelector((state: RootState) => state.user);
   const { ref, inView } = useInView();
 
-  const fetchTweetReplies = ({ pageParam = 0 }) => {
-    return getTweetReplies(tweetId, pageParam, 1);
+  const fetchQuoteTweets = ({ pageParam = 0 }) => {
+    return getTweetQuotes(tweetId, pageParam, 20);
   };
 
   const {
@@ -25,7 +27,7 @@ const Replies = ({ isAuthenticated, tweetId }: IProps) => {
     hasNextPage,
     isFetchingNextPage,
     refetch,
-  } = useInfiniteQuery(["quoteTweets", tweetId], fetchTweetReplies, {
+  } = useInfiniteQuery(["quoteTweets", tweetId], fetchQuoteTweets, {
     getNextPageParam: (lastPage) => {
       if (lastPage.page < lastPage.totalPages) {
         return lastPage.page + 1;
@@ -43,7 +45,7 @@ const Replies = ({ isAuthenticated, tweetId }: IProps) => {
 
   if (status === "loading") {
     return (
-      <div className="flex justify-center items-center h-56">
+      <div className="flex w-full mt-20 items-center justify-center">
         <LoadingIcon />
       </div>
     );
@@ -76,7 +78,7 @@ const Replies = ({ isAuthenticated, tweetId }: IProps) => {
                 <TweetCard
                   pageType="home"
                   tweetId={tweet._id}
-                  isAuthenticated={isAuthenticated}
+                  isAuthenticated={reduxUser.isAuthenticated}
                 />
               </div>
             ))}
@@ -95,4 +97,4 @@ const Replies = ({ isAuthenticated, tweetId }: IProps) => {
   return null;
 };
 
-export default Replies;
+export default QuoteTweets;

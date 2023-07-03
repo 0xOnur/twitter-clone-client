@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "redux/config/store";
+import {TweetCard} from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import { getUserBookmarks } from "api/userApi";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
-import TweetCard from "../TweetCard";
+import { RootState } from "redux/config/store";
+import { getUserBookmarks } from "api/userApi";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const BookmarkTweets = () => {
   const reduxUser = useSelector((state: RootState) => state.user);

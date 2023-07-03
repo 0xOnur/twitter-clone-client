@@ -1,12 +1,12 @@
-import { useEffect } from "react";
+import {TweetCard} from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import { useSelector } from "react-redux";
-import { RootState } from "redux/config/store";
-import { getPopularTweets } from "api/tweetApi";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
-import TweetCard from "../TweetCard";
+import { getPopularTweets } from "api/tweetApi";
+import { RootState } from "redux/config/store";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const ForYouFeed = () => {
   const reduxUser = useSelector((state: RootState) => state.user);

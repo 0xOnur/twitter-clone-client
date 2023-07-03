@@ -1,14 +1,13 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import { HeaderComp } from "@components/middleSectionComp";
+import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { useQuery } from "@tanstack/react-query";
 import { getSpecificTweet } from "api/tweetApi";
 import { RootState } from "@redux/config/store";
-import { HeaderComp } from "@components/middleSectionComp";
-import TweetCard from "@components/middleSectionComp/TweetCard/";
+import { useParams } from "react-router-dom";
 import { ITweet } from "@customTypes/index";
+import { useSelector } from "react-redux";
 import Replies from "./Replies";
-import { LoadingIcon, RetryIcon } from "@icons/Icon";
 
 const TweetDetails = () => {
   const { tweetId } = useParams<{ tweetId: string }>();
@@ -23,7 +22,7 @@ const TweetDetails = () => {
     retry: false,
     refetchOnWindowFocus: false,
   });
-  
+
   return (
     <div className="container max-w-600px border-x">
       <HeaderComp.Header pageType="TweetDetails" headerTitle="Tweet" />
@@ -55,7 +54,7 @@ const TweetDetails = () => {
             pageType="TweetDetails"
             isAuthenticated={isAuthenticated}
           />
-          <Replies tweetId={tweetId!} />
+          <Replies isAuthenticated={isAuthenticated} tweetId={tweetId!} />
         </div>
       )}
     </div>

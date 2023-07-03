@@ -1,14 +1,13 @@
-import { ReTweetIcon } from "@icons/Icon";
-import { useState } from "react";
-import { ITweet } from "@customTypes/TweetTypes";
-import { DigalogModals } from "@components/middleSectionComp";
-import { formatNumber } from "@utils/formatNumber";
+import { TweetCardComp, DigalogModals } from "@components/middleSectionComp";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { PersistPartial } from "redux-persist/es/persistReducer";
 import { retweetTweet, undoRetweet } from "api/tweetApi";
 import { UserState } from "@redux/slices/userSlice";
-import { PersistPartial } from "redux-persist/es/persistReducer";
-import ReTweetMenu from "../ReTweetMenu";
+import { formatNumber } from "@utils/formatNumber";
+import { ITweet } from "@customTypes/TweetTypes";
+import { ReTweetIcon } from "@icons/Icon";
 import useToast from "@hooks/useToast";
+import { useState } from "react";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -108,14 +107,14 @@ const RetweetAction = ({
           </div>
           <div className="inline-flex group-hover:text-green-base">
             <span className="px-3 text-sm">
-              {retweetStats?.length! > 0 &&
+              {retweetStats?.length > 0 &&
                 pageType === "home" &&
-                formatNumber(retweetStats?.length!)}
+                formatNumber(retweetStats?.length)}
             </span>
           </div>
         </div>
         {reTweetMenu && isAuthenticated && (
-          <ReTweetMenu
+          <TweetCardComp.Components.ReTweetMenu
             onClose={() => setShowRetweetMenu(false)}
             setShowQuotModal={setShowQuotModal}
             handleRetweet={handleRetweet}

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { PersistPartial } from "redux-persist/es/persistReducer";
 import { useBookmarkMutation } from "@hooks/useBookmarkMutation";
 import { TweetCardComp } from "@components/middleSectionComp";
-import { PersistPartial } from "redux-persist/es/persistReducer";
 import { UserState } from "@redux/slices/userSlice";
 import { ITweet } from "@customTypes/TweetTypes";
-
+import React, { useState } from "react";
 import { ShareIcon } from "@icons/Icon";
 import useToast from "@hooks/useToast";
 
@@ -64,7 +63,7 @@ const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
         </div>
       </div>
       {shareMenu && (
-        <TweetCardComp.ShareMenu
+        <TweetCardComp.Components.ShareMenu
           isAuthenticated={isAuthenticated}
           isBookmarked={isBookmarked}
           handleCopy={handleCopy}

@@ -1,19 +1,16 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useInView } from 'react-intersection-observer'
+import { useInView } from "react-intersection-observer";
 import { whoToFollow } from "api/userApi";
-import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { IUser } from "@customTypes/UserTypes";
-import { FollowsButton } from "@components/middleSectionComp/UserProfile";
-import { LoadingIcon, RetryIcon, VerifiedIcon } from "@icons/Icon";
+import { LoadingIcon, RetryIcon } from "@icons/Icon";
+import { UserPreviewCard } from "../UserProfile";
 
 const Peoples = () => {
-  const navigate = useNavigate();
   const reduxUser = useSelector((state: RootState) => state.user);
-  const { ref, inView } = useInView()
+  const { ref, inView } = useInView();
 
   const fetchConnectPeople = ({ pageParam = 0 }) => {
     return whoToFollow(pageParam, 20);
@@ -36,17 +33,17 @@ const Peoples = () => {
     refetchOnWindowFocus: false,
   });
 
-  useEffect(()=> {
-    if(inView && hasNextPage) {
+  useEffect(() => {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, isFetchingNextPage])
+  }, [inView, isFetchingNextPage]);
 
   if (status === "loading") {
     return (
       <div className="flex w-full mt-20 items-center justify-center">
-      <LoadingIcon />
-    </div>
+        <LoadingIcon />
+      </div>
     );
   }
 
@@ -71,41 +68,14 @@ const Peoples = () => {
     return (
       <div>
         <div className="p-3">
-          <span className="text-xl leading-6 font-extrabold">Suggested for you</span>
+          <span className="text-xl leading-6 font-extrabold">
+            Suggested for you
+          </span>
         </div>
         {data.pages.map((page, index) => (
           <div key={index}>
             {page.data.map((user: IUser) => (
-                <div
-                  key={user._id}
-                  onClick={() => navigate(`/${user.username}`)}
-                  className="cursor-pointer py-3 px-4 hover:bg-gray-tweetHover duration-200"
-                >
-                  <div className="flex flex-row ">
-                    <Avatar avatar={user.avatar!} username={user.username} />
-
-                    <div className="flex flex-col w-full">
-                      <div className="flex flex-row w-full justify-between items-center">
-                        <div className="flex flex-col text-left">
-                          <span className="flex items-center gap-1 font-bold">
-                            {user.displayName}
-                            {user.isVerified && (
-                              <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
-                            )}
-                          </span>
-                          <span className="">@{user.username}</span>
-                        </div>
-                        <div>
-                          <FollowsButton user={user} reduxUser={reduxUser} />
-                        </div>
-                      </div>
-
-                      <div className="text-left pt-1">
-                        <span className="whitespace-pre-line">{user.bio}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <UserPreviewCard user={user} reduxUser={reduxUser} showBio={true} />
             ))}
           </div>
         ))}

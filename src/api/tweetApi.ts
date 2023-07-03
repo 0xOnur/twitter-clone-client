@@ -4,7 +4,7 @@ import axiosInstance from "./axiosInstance";
 // Get specific Tweet
 export const getSpecificTweet = async (tweetId:string) => {
     try {
-        const response = await axiosInstance.get(`/tweet/get-tweet/${tweetId}`);
+        const response = await axiosInstance.get(`/tweet/get-tweet/${tweetId}`)
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -17,7 +17,7 @@ export const getSpecificTweet = async (tweetId:string) => {
 // Get popular Tweets
 export const getPopularTweets = async function name(page: number, limit: number) {
     try {
-        const response = await axiosInstance.get(`/tweet/get-popular-tweets?page=${page}&limit=${limit}`);
+        const response = await axiosInstance.get(`/tweet/get-popular-tweets?page=${page}&limit=${limit}`)
         return response.data;
     } catch (error: unknown) {
         return Promise.reject(error);
@@ -27,7 +27,7 @@ export const getPopularTweets = async function name(page: number, limit: number)
 // Get specific Tweet Stats
 export const getSpecificTweetStats = async (tweetId:string) => {
     try {
-        const response = await axiosInstance.get(`/tweet/get-tweet-stats/${tweetId}`);
+        const response = await axiosInstance.get(`/tweet/get-tweet-stats/${tweetId}`)
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -40,7 +40,7 @@ export const getSpecificTweetStats = async (tweetId:string) => {
 // Get specific Tweet Author
 export const getSpecificTweetAuthor = async (tweetId:string) => {
     try {
-        const response = await axiosInstance.get(`/tweet/get-tweet-author/${tweetId}`);
+        const response = await axiosInstance.get(`/tweet/get-tweet-author/${tweetId}`)
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -52,35 +52,9 @@ export const getSpecificTweetAuthor = async (tweetId:string) => {
 
 
 // Get Tweet Replies
-export const getTweetReplies =async (tweetId:string) => {
+export const getTweetReplies =async (tweetId:string, page: number, limit: number) => {
     try {
-        const response = await axiosInstance.get(`/tweet/get-tweet-replies/${tweetId}`);
-        return response.data;
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            return Promise.reject(error.response?.data);
-        }
-        return Promise.reject(error);
-    }
-};
-
-// Get Tweet retweets
-export const getTweetRetweets =async (tweetId:string) => {
-    try {
-        const response = await axiosInstance.get(`/tweet/get-tweet-retweets/${tweetId}`);
-        return response.data;
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            return Promise.reject(error.response?.data);
-        }
-        return Promise.reject(error);
-    }
-};
-
-// Get Tweet quotes
-export const getTweetQuotes =async (tweetId:string) => {
-    try {
-        const response = await axiosInstance.get(`/tweet/get-tweet-quotes/${tweetId}`);
+        const response = await axiosInstance.get(`/tweet/get-tweet-replies/${tweetId}?page=${page}&limit=${limit}`)
         return response.data;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -167,3 +141,42 @@ export const removeBookmark =async (tweetId:string) => {
         return Promise.reject(error);
     }
 };
+
+// Get users who retweeted the tweet
+export const getRetweeters =async (tweetId:string, page: number, limit: number) => {
+    try {
+        const response = await axiosInstance.get(`/tweet/get-tweet-retweeters/${tweetId}?page=${page}&limit=${limit}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+}
+
+// Get users who liked the tweet
+export const getLikers =async (tweetId:string, page: number, limit: number) => {
+    try {
+        const response = await axiosInstance.get(`/tweet/get-tweet-likers/${tweetId}?page=${page}&limit=${limit}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+}
+
+// Get Tweet Quotes
+export const getTweetQuotes = async (tweetId: string, page: number, limit: number) => {
+    try {
+        const response = await axiosInstance.get(`/tweet/get-tweet-quotes/${tweetId}?page=${page}&limit=${limit}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+}

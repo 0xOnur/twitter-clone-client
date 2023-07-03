@@ -47,9 +47,9 @@ const ReplyAction = ({
           </div>
           <div className="inline-flex  group-hover:text-primary-base">
             <span className="px-3 text-sm">
-              {replyStats?.length! > 0 &&
+              {replyStats?.length > 0 &&
                 pageType === "home" &&
-                formatNumber(replyStats?.length!)}
+                formatNumber(replyStats?.length)}
             </span>
           </div>
         </div>

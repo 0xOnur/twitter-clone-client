@@ -1,10 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getSpecificTweetAuthor,
-  getSpecificTweetStats,
-} from "api/tweetApi";
+import { getSpecificTweetAuthor } from "api/tweetApi";
 import { ITweet } from "@customTypes/TweetTypes";
 import {
   AuthorInfo,
@@ -12,18 +9,7 @@ import {
   TweetContent,
   TweetActions,
 } from "@components/middleSectionComp/TweetCard/components";
-import TweetCard from "..";
-
-type tweetStats = {
-  replyStats: {
-    _id: string;
-    author: string;
-  }[];
-  retweetStats: {
-    _id: string;
-    author: string;
-  }[];
-};
+import TweetCard from "../TweetCard";
 
 interface IProps {
   tweet: ITweet;
@@ -39,11 +25,6 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
     e.stopPropagation();
     navigate(`/${tweet.author.username}/status/${tweet._id}`);
   };
-
-  const tweetStats = useQuery<tweetStats>({
-    queryKey: ["tweetStats", tweet._id],
-    queryFn: () => getSpecificTweetStats(tweet._id),
-  });
 
   const originalTweetAuthor = useQuery({
     queryKey: ["originalTweetAuthor", tweet?.originalTweet],
@@ -70,7 +51,7 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
       )}
       <article
         onClick={navigateTweetDetails}
-        className="cursor-pointer hover:bg-gray-tweetHover duration-200 max-w-full"
+        className="cursor-pointer max-w-full hover:bg-gray-tweetHover duration-200"
       >
         <div className="px-4 min-w-fit">
           <div className="flex flex-col pt-2">
@@ -124,8 +105,6 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                   <TweetActions
                     pageType={"home"}
                     tweet={tweet}
-                    replyStats={tweetStats.data?.replyStats!}
-                    retweetStats={tweetStats.data?.retweetStats!}
                     isAuthenticated={isAuthenticated}
                   />
                 )}

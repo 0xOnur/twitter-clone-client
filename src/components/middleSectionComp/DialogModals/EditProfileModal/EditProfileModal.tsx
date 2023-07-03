@@ -121,7 +121,6 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
       ) : (
         <div className="z-10 border-2 shadow-2xl text-black bg-white w-full max-w-600px min-h-400px rounded-xl overflow-hidden">
           <div className="overflow-y-auto max-h-90vh">
-            <div className="">
               <div className="sticky top-0 z-20">
                 <div className="flex flex-row h-[53px] justify-between items-center p-3 bg-white/75  backdrop-blur-md border-gray-200">
                   <button
@@ -201,7 +200,6 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
                   }
                 />
               </div>
-            </div>
           </div>
         </div>
       )}

@@ -5,11 +5,15 @@ import RepliesTab from "./RepliesTab";
 import MediaTab from "./MediaTab";
 import LikesTab from "./LikesTab";
 
+interface IProps {
+  isAuthenticated:boolean;
+}
+
 type Params = {
   tab: "replies" | "media" | "likes";
 };
 
-const UserFeed = () => {
+const UserFeed = ({isAuthenticated}: IProps) => {
   const { username } = useParams();
   const { tab = "tweets" } = useParams<Params>();
 
@@ -18,28 +22,28 @@ const UserFeed = () => {
       return (
         <>
           <NavigationHeader username={username!} tab={tab!} />
-          <TweetsTab username={username!} />
+          <TweetsTab isAuthenticated={isAuthenticated} username={username!} />
         </>
       );
     case "replies":
       return (
         <>
           <NavigationHeader username={username!} tab={tab!} />
-          <RepliesTab username={username!} />
+          <RepliesTab isAuthenticated={isAuthenticated} username={username!} />
         </>
       );
       case "media":
         return (
           <>
             <NavigationHeader username={username!} tab={tab!} />
-            <MediaTab username={username!} />
+            <MediaTab isAuthenticated={isAuthenticated} username={username!} />
           </>
         )
         case "likes":
           return (
             <>
               <NavigationHeader username={username!} tab={tab!} />
-              <LikesTab username={username!} />
+              <LikesTab isAuthenticated={isAuthenticated} username={username!} />
             </>
           )
     default:

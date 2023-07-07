@@ -1,4 +1,4 @@
-import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
@@ -7,10 +7,11 @@ import { getUserLikes } from "api/userApi";
 import React, { useEffect } from "react";
 
 interface IProps {
+  isAuthenticated: boolean;
   username: string;
 }
 
-const LikesTab = ({ username }: IProps) => {
+const LikesTab = ({ isAuthenticated, username }: IProps) => {
   const { ref, inView } = useInView();
 
   const fetchUserLikes = ({ pageParam = 0 }) => {
@@ -70,14 +71,16 @@ const LikesTab = ({ username }: IProps) => {
       <div className="flex flex-col">
         {data.pages.map((page, index) =>
           page.data.length > 0 ? (
-            <div key={index} className="border-b">
+            <div key={index}>
               {page.data.map((tweet: ITweet) => (
-                <TweetCard
-                  key={tweet._id}
-                  isAuthenticated={true}
-                  pageType="home"
-                  tweetId={tweet._id}
-                />
+                <div key={tweet._id} className="border-b">
+                  <TweetCard
+                    key={tweet._id}
+                    isAuthenticated={isAuthenticated}
+                    pageType="home"
+                    tweetId={tweet._id}
+                  />
+                </div>
               ))}
             </div>
           ) : (
@@ -96,7 +99,7 @@ const LikesTab = ({ username }: IProps) => {
             <LoadingIcon />
           </div>
         )}
-        <div ref={ref}></div>
+        <div ref={ref} className="h-56" />
       </div>
     );
   }

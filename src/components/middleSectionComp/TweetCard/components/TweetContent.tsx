@@ -1,6 +1,4 @@
-import React from "react";
 import { ITweet } from "@customTypes/TweetTypes";
-import TweetMedia from "./TweetMedia";
 import classNames from "classnames";
 
 type Props = {
@@ -13,14 +11,14 @@ const TweetContent = ({ tweet, pageType }: Props) => {
     "mt-3": pageType === "TweetDetails",
   });
 
-  const contentTextClasses = classNames("whitespace-pre-line",{
+  const contentTextClasses = classNames("whitespace-pre-line", {
     "text-[23px] leading-7": pageType === "TweetDetails",
   });
 
   return (
     <div className={contentAreaClasses}>
       <div>
-        {tweet?.content!.length > 280 && pageType === "home" ? (
+        {tweet.content && tweet.content.length > 280 && pageType === "home" ? (
           <>
             <span className={contentTextClasses}>
               {tweet?.content!.slice(0, 280)}...
@@ -30,13 +28,8 @@ const TweetContent = ({ tweet, pageType }: Props) => {
             </span>
           </>
         ) : (
-          <span className={contentTextClasses}>
-            {tweet?.content}
-          </span>
+          <span className={contentTextClasses}>{tweet?.content}</span>
         )}
-      </div>
-      <div>
-        {tweet?.media?.length! > 0 && <TweetMedia tweet={tweet} />}
       </div>
     </div>
   );

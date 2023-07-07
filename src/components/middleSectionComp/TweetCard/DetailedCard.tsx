@@ -1,9 +1,10 @@
+import { TweetStats } from "@components/middleSectionComp/TweetDetailsPage";
+import { ComposerComp } from "@components/middleSectionComp";
 import {
   AuthorInfo,
   Avatar,
+  TweetMedia,
 } from "@components/middleSectionComp/TweetCard/components";
-import { TweetStats } from "@components/middleSectionComp/TweetDetailsPage";
-import { ComposerComp } from "@components/middleSectionComp";
 import { ITweet } from "@customTypes/TweetTypes";
 import TweetContent from "./components/TweetContent";
 import TweetActions from "./components/TweetActions";
@@ -46,6 +47,8 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                 </div>
 
                 <TweetContent tweet={tweet} pageType="TweetDetails" />
+
+                <TweetMedia tweet={tweet} />
 
                 {tweet.originalTweet && tweet.tweetType === "quote" && (
                   <div className="border-2 shadow-md rounded-3xl overflow-hidden">

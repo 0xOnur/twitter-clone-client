@@ -11,7 +11,7 @@ const TweetMedia = ({ tweet }: Props) => {
   const [showMediaModal, setShowMediaModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const mediaGridClasses = classNames("grid gap-0.5 ", {
+  const mediaGridClasses = classNames("grid gap-0.5 mt-3 mb-2 z-10", {
     "grid-cols-1": tweet?.media!.length <= 1,
     "grid-cols-2": tweet?.media!.length > 1,
   });
@@ -42,12 +42,12 @@ const TweetMedia = ({ tweet }: Props) => {
     });
 
   return (
-    <div className="mt-3 mb-2 z-10">
-      <div className={mediaGridClasses}>
-        {tweet.media &&
-          tweet.media.map((media, index) => (
+    <div>
+      {tweet.media && tweet.media.length > 0 && (
+        <div className={mediaGridClasses}>
+      {tweet.media.map((media, index) => (
             <div key={index} className={gridItemClasses(index)}>
-              {media.type === "image" || media.type === "gif" ? (
+              {media.type !== "video/mp4" ? (
                 <div key={index} className={"h-full"}>
                   <img
                     onClick={(e) => {
@@ -71,7 +71,10 @@ const TweetMedia = ({ tweet }: Props) => {
               )}
             </div>
           ))}
+          
       </div>
+      )}
+      
       {showMediaModal && (
         <MediaModal
           isOpen={showMediaModal}

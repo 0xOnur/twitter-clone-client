@@ -3,7 +3,11 @@ import {IUser} from "./UserTypes"
 export interface Media {
   url: string;
   alt: string;
-  type: "image" | "gif" | "video";
+  type: "image/jpeg" |  
+  "image/png" |
+  "image/jpg" |
+  "image/gif" |
+  "video/mp4";
 }
 
 export interface ITweet {

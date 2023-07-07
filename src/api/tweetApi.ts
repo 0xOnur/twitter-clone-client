@@ -153,7 +153,7 @@ export const getRetweeters =async (tweetId:string, page: number, limit: number) 
         }
         return Promise.reject(error);
     }
-}
+};
 
 // Get users who liked the tweet
 export const getLikers =async (tweetId:string, page: number, limit: number) => {
@@ -166,7 +166,7 @@ export const getLikers =async (tweetId:string, page: number, limit: number) => {
         }
         return Promise.reject(error);
     }
-}
+};
 
 // Get Tweet Quotes
 export const getTweetQuotes = async (tweetId: string, page: number, limit: number) => {
@@ -179,4 +179,21 @@ export const getTweetQuotes = async (tweetId: string, page: number, limit: numbe
         }
         return Promise.reject(error);
     }
-}
+};
+
+// Create Tweet
+export const createTweet =async (formData: FormData) => {
+    try {
+        const response = await axiosInstance.post(`/tweet/create-tweet`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};

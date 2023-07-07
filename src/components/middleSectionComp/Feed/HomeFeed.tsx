@@ -30,9 +30,9 @@ const HomeFeed = ({isAuthenticated}: IProps) => {
         </div>
       )}
 
-      {isForYou && <ForYouFeed />}
+      {isForYou && <ForYouFeed isAuthenticated={isAuthenticated} />}
 
-      {!isForYou && isAuthenticated && <FollowingFeed />}
+      {!isForYou && isAuthenticated && <FollowingFeed isAuthenticated={isAuthenticated} />}
 
     </div>
   );

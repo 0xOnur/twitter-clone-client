@@ -1,4 +1,7 @@
+import {IComposer, IPoll} from "@customTypes/ComposerTypes"
+import { ComposerComp } from "@components/index";
 import React, { useRef, useState } from "react";
+import { TenorImage } from "gif-picker-react";
 import {
   ImageIcon,
   PollIcon,
@@ -6,10 +9,7 @@ import {
   AddThreadIcon,
   GIFIcon,
 } from "@icons/Icon";
-import { ComposerComp } from "@components/index";
-import { TenorImage } from "gif-picker-react";
 import classNames from "classnames";
-import {IComposer, IPoll} from "@customTypes/ComposerTypes"
 
 type Props = {
   composerMode: string | undefined;
@@ -60,7 +60,7 @@ const Toolbar = ({
         const prevVideos = prevSettings.mediaFiles.filter((media) => media.type === "video");
   
         // Separate the new images and videos
-        const newImages = mediaFiles.filter((media) => media.type === "image");
+        const newImages = mediaFiles.filter((media) => media.type === "image")
         const newVideos = mediaFiles.filter((media) => media.type === "video");
   
         // Check if the new files violate the rules
@@ -83,9 +83,9 @@ const Toolbar = ({
     }
   };
 
-  const hiddenFileInput = useRef<any>(null);
+  const hiddenFileInput = useRef<HTMLInputElement>(null);
 
-  const handleClickFileInput = (event: any) => {
+  const handleClickFileInput = () => {
     hiddenFileInput.current?.click();
   };
 
@@ -185,9 +185,9 @@ const Toolbar = ({
           <button
             type="button"
             disabled={true}
-            className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer"
+            className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-not-allowed"
           >
-            <label className="cursor-pointer w-8 h-8">
+            <label className="cursor-not-allowed w-8 h-8">
               <ScheduleIcon
                 className={"w-5 h-5 text-primary-base fill-current"}
               />

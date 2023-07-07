@@ -1,15 +1,16 @@
-import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
 import { getPopularTweets } from "api/tweetApi";
-import { RootState } from "redux/config/store";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
-const ForYouFeed = () => {
-  const reduxUser = useSelector((state: RootState) => state.user);
+interface IProps {
+  isAuthenticated: boolean;
+}
+
+const ForYouFeed = ({ isAuthenticated }: IProps) => {
   const { ref, inView } = useInView();
 
   const fetchForYou = ({ pageParam = 0 }) => {
@@ -72,9 +73,10 @@ const ForYouFeed = () => {
             {page.data.map((tweet: ITweet) => (
               <div key={tweet._id} className="border-b">
                 <TweetCard
-                  pageType="home"
+                  isAuthenticated={isAuthenticated}
                   tweetId={tweet._id}
-                  isAuthenticated={reduxUser.isAuthenticated}
+                  key={tweet._id}
+                  pageType="home"
                 />
               </div>
             ))}
@@ -85,7 +87,7 @@ const ForYouFeed = () => {
             <LoadingIcon />
           </div>
         )}
-        <div ref={ref}></div>
+        <div ref={ref} className="h-56" />
       </div>
     );
   }

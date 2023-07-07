@@ -1,21 +1,22 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getSpecificTweetAuthor } from "api/tweetApi";
-import { ITweet } from "@customTypes/TweetTypes";
+import {TweetCard} from "@components/middleSectionComp/TweetCard";
 import {
   AuthorInfo,
   Avatar,
   TweetContent,
   TweetActions,
+  TweetMedia,
 } from "@components/middleSectionComp/TweetCard/components";
-import TweetCard from "../TweetCard";
+import { getSpecificTweetAuthor } from "api/tweetApi";
+import { useQuery } from "@tanstack/react-query";
+import { ITweet } from "@customTypes/TweetTypes";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 
 interface IProps {
+  isAuthenticated: boolean;
   tweet: ITweet;
   hideActions?: boolean;
   isReply?: boolean;
-  isAuthenticated: boolean;
 }
 
 const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
@@ -97,9 +98,9 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                   </div>
                 )}
 
-                {tweet?.content && (
-                  <TweetContent tweet={tweet} pageType="home" />
-                )}
+                <TweetContent tweet={tweet} pageType="home" />
+
+                <TweetMedia tweet={tweet} />
 
                 {!hideActions && (
                   <TweetActions

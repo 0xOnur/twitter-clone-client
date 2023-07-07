@@ -1,19 +1,17 @@
-import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
-import { RootState } from "@redux/config/store";
 import { getTweetQuotes } from "api/tweetApi";
-import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
 
 interface IProps {
+  isAuthenticated:boolean;
   tweetId: string;
 }
 
-const QuoteTweets = ({ tweetId }: IProps) => {
-  const reduxUser = useSelector((state: RootState) => state.user);
+const QuoteTweets = ({ isAuthenticated, tweetId }: IProps) => {
   const { ref, inView } = useInView();
 
   const fetchQuoteTweets = ({ pageParam = 0 }) => {
@@ -76,9 +74,10 @@ const QuoteTweets = ({ tweetId }: IProps) => {
             {page.data.map((tweet: ITweet) => (
               <div key={tweet._id} className="border-b">
                 <TweetCard
-                  pageType="home"
+                  isAuthenticated={isAuthenticated}
                   tweetId={tweet._id}
-                  isAuthenticated={reduxUser.isAuthenticated}
+                  key={tweet._id}
+                  pageType="home"
                 />
               </div>
             ))}
@@ -89,7 +88,7 @@ const QuoteTweets = ({ tweetId }: IProps) => {
             <LoadingIcon />
           </div>
         )}
-        <div ref={ref}></div>
+        <div ref={ref} className="h-56" />
       </div>
     );
   }

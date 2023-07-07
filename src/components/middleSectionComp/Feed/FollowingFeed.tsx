@@ -1,16 +1,16 @@
-import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { getUserFollowingTweets } from "api/userApi";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { ITweet } from "@customTypes/TweetTypes";
-import { RootState } from "redux/config/store";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
+interface IProps {
+  isAuthenticated: boolean
+}
 
-const FollowingFeed = () => {
-  const reduxUser = useSelector((state: RootState) => state.user);
+const FollowingFeed = ({isAuthenticated}: IProps) => {
   const { ref, inView } = useInView();
 
   const fetchFollowing = ({ pageParam = 0 }) => {
@@ -73,9 +73,10 @@ const FollowingFeed = () => {
             {page.data.map((tweet: ITweet) => (
               <div key={tweet._id} className="border-b">
                 <TweetCard
-                  pageType="home"
+                  isAuthenticated={isAuthenticated}
                   tweetId={tweet._id}
-                  isAuthenticated={reduxUser.isAuthenticated}
+                  key={tweet._id}
+                  pageType="home"
                 />
               </div>
             ))}
@@ -86,7 +87,7 @@ const FollowingFeed = () => {
             <LoadingIcon />
           </div>
         )}
-        <div ref={ref}></div>
+        <div ref={ref} className="h-56" />
       </div>
     );
   }

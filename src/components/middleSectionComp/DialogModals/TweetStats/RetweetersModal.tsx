@@ -137,7 +137,7 @@ const RetweetersModal = ({ tweetId, reduxUser, isOpen, onClose }: IProps) => {
             </div>
           )}
 
-          <div ref={ref}></div>
+          <div ref={ref} className="h-56" />
         </div>
       </div>
     </div>

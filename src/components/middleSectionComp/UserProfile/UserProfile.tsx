@@ -7,7 +7,11 @@ import { getUser } from "api/userApi";
 import UserCard from "./UserCard/Card";
 import UserFeed from "./UserFeed";
 
-const UserProfile = () => {
+interface IProps {
+  isAuthenticated:boolean;
+}
+
+const UserProfile = ({isAuthenticated}: IProps) => {
   const username = useParams().username;
 
   const userQuery = useQuery<IUser>({
@@ -29,7 +33,7 @@ const UserProfile = () => {
         username={username!}
         error={userQuery.error}
       />
-      {userQuery.data && <UserFeed />}
+      {userQuery.data && <UserFeed isAuthenticated={isAuthenticated} />}
     </div>
   );
 };

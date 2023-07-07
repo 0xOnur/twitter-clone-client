@@ -9,14 +9,15 @@ export interface IComposer {
 }
 
 export interface IPoll {
-    pollTimer: {
-        days: number;
-        hours: number;
-        minutes: number;
-    };
     choices: {
-        id: number;
-        text: string;
+      id: number;
+      text: string;
     }[];
+    duration: {
+      days: number;
+      hours: number;
+      minutes: number;
+    };
     showPoll: boolean;
-}
+  }
+  

@@ -7,10 +7,11 @@ import { getUserReplies } from "api/userApi";
 import React, { useEffect } from "react";
 
 interface IProps {
+  isAuthenticated: boolean;
   username: string;
 }
 
-const RepliesTab = ({ username }: IProps) => {
+const RepliesTab = ({ isAuthenticated, username }: IProps) => {
   const { ref, inView } = useInView();
 
   const fetchUserReplies = ({ pageParam = 0 }) => {
@@ -70,14 +71,16 @@ const RepliesTab = ({ username }: IProps) => {
       <div className="flex flex-col">
         {data.pages.map((page, index) =>
           page.data.length > 0 ? (
-            <div key={index} className="border-b">
+            <div key={index}>
               {page.data.map((tweet: ITweet) => (
-                <TweetCard
-                  key={tweet._id}
-                  isAuthenticated={true}
-                  pageType="home"
-                  tweetId={tweet._id}
-                />
+                <div key={tweet._id} className="border-b">
+                  <TweetCard
+                    isAuthenticated={isAuthenticated}
+                    tweetId={tweet._id}
+                    key={tweet._id}
+                    pageType="home"
+                  />
+                </div>
               ))}
             </div>
           ) : (
@@ -96,7 +99,7 @@ const RepliesTab = ({ username }: IProps) => {
             <LoadingIcon />
           </div>
         )}
-        <div ref={ref}></div>
+        <div ref={ref} className="h-56" />
       </div>
     );
   }

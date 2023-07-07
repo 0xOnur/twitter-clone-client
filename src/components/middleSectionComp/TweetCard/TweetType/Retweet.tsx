@@ -1,6 +1,6 @@
 import { ReTweetedBy } from "@components/middleSectionComp/TweetCard/components";
+import {TweetCard} from "@components/middleSectionComp/TweetCard";
 import { ITweet } from "@customTypes/TweetTypes";
-import TweetCard from "../TweetCard";
 
 interface IProps {
   tweet: ITweet;

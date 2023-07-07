@@ -137,7 +137,7 @@ const Followers = () => {
             <LoadingIcon />
           </div>
         )}
-        <div ref={ref}></div>
+        <div ref={ref} className="h-56" />
       </div>
     );
   }

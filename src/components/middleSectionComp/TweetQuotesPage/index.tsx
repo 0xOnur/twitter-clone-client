@@ -2,12 +2,16 @@ import { useParams } from "react-router-dom";
 import { HeaderComp } from "..";
 import QuoteTweets from "./QuoteTweets";
 
-const TweetQuotes = () => {
+interface IProps {
+  isAuthenticated:boolean;
+}
+
+const TweetQuotes = ({isAuthenticated}: IProps) => {
   const { tweetId } = useParams<{ tweetId: string }>();
   return (
     <div className="container max-w-600px w-full border-x">
       <HeaderComp.Header pageType="Profile" headerTitle="Quote Tweets" />
-      <QuoteTweets tweetId={tweetId!} />
+      <QuoteTweets isAuthenticated={isAuthenticated} tweetId={tweetId!} />
     </div>
   );
 };

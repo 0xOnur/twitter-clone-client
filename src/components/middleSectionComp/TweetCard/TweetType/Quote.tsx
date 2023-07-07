@@ -1,20 +1,20 @@
-import {
+import {TweetCard} from "@components/middleSectionComp/TweetCard";import {
   AuthorInfo,
   Avatar,
   TweetContent,
   TweetActions,
+  TweetMedia,
 } from "@components/middleSectionComp/TweetCard/components";
 import { ITweet } from "@customTypes/TweetTypes";
 import { useNavigate } from "react-router-dom";
 
-import TweetCard from "../TweetCard";
-
 interface IProps {
-  tweet: ITweet;
   isAuthenticated: boolean;
+  tweet: ITweet;
+  isReply?: boolean;
 }
 
-const Quote = ({ tweet, isAuthenticated }: IProps) => {
+const Quote = ({ tweet, isAuthenticated, isReply }: IProps) => {
   const navigate = useNavigate();
 
   const navigateTweetDetails = (e: React.MouseEvent<HTMLElement>) => {
@@ -25,15 +25,25 @@ const Quote = ({ tweet, isAuthenticated }: IProps) => {
   return (
     <article
       onClick={navigateTweetDetails}
-      className="cursor-pointer  hover:bg-gray-tweetHover duration-200"
+      className="cursor-pointer hover:bg-gray-tweetHover duration-200"
     >
       <div className="px-4 min-w-fit">
         <div className="flex flex-col pt-2">
           <div className="flex flex-row">
-            <Avatar
-              avatar={tweet.author.avatar!}
-              username={tweet.author.username}
-            />
+              {isReply ? (
+                <div className="flex flex-col justify-center items-center">
+                  <Avatar
+                    avatar={tweet.author.avatar!}
+                    username={tweet.author.username}
+                  />
+                  <div className="w-px -ml-3 bg-gray-200 mt-1 h-full" />
+                </div>
+              ) : (
+                <Avatar
+                  avatar={tweet.author.avatar!}
+                  username={tweet.author.username}
+                />
+              )}
 
             <div className="flex flex-col flex-grow pb-3">
               <AuthorInfo
@@ -43,7 +53,8 @@ const Quote = ({ tweet, isAuthenticated }: IProps) => {
                 isVerified={tweet.author.isVerified}
                 createdAt={tweet.createdAt}
               />
-              {tweet.content && <TweetContent tweet={tweet} pageType="home" />}
+              <TweetContent tweet={tweet} pageType="home" />
+              <TweetMedia tweet={tweet} />
 
               <div className="border-2 shadow-md rounded-2xl overflow-hidden">
                 <TweetCard
@@ -55,9 +66,9 @@ const Quote = ({ tweet, isAuthenticated }: IProps) => {
               </div>
 
               <TweetActions
+                isAuthenticated={isAuthenticated}
                 pageType={"home"}
                 tweet={tweet}
-                isAuthenticated={isAuthenticated}
               />
             </div>
           </div>

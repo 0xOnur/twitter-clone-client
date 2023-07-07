@@ -4,8 +4,6 @@ import Retweet from "./TweetType/Retweet";
 import Quote from "./TweetType/Quote";
 import Like from "./TweetType/Like";
 
-
-
 interface IProps {
   isAuthenticated: boolean;
   tweet: ITweet;
@@ -34,6 +32,7 @@ const BasicCard = ({
         <Tweet
           tweet={tweet}
           isReply={isReply}
+          hideActions={hideActions}
           isAuthenticated={isAuthenticated}
         />
       );
@@ -55,6 +54,7 @@ const BasicCard = ({
       return (
         <Quote
           tweet={tweet}
+          isReply={isReply}
           isAuthenticated={isAuthenticated}
         />
       );

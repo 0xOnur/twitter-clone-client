@@ -85,6 +85,7 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                 <TweetComposer
                   composerMode={composerMode}
                   originalTweet={tweet}
+                  onClose={onClose}
                 />
               </div>
             </div>

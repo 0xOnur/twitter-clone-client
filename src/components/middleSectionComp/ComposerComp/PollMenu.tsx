@@ -1,28 +1,27 @@
 import React from "react";
 import { AddThreadIcon, DropDownMenuArrowIcon } from "@icons/Icon";
-import {IPoll} from "@customTypes/ComposerTypes"
+import { IPoll } from "@customTypes/ComposerTypes";
 
 interface IProps {
   pollSettings: IPoll;
   setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
 }
+type DurationType = "days" | "hours" | "minutes";
 
+const durationOptions: Record<DurationType, number> = {
+  days: 8,
+  hours: 24,
+  minutes: 60,
+};
 
-const PollCreation = ({pollSettings, setPollSettings}:IProps) => {
-
-  const days = 8;
-  const hours = 24;
-  const minutes = 60;
-
+const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
   const handleChoiceChange = (id: number, text: string) => {
-    setPollSettings(
-      (prev) => ({
-        ...prev,
-        choices: prev.choices.map((choice) =>
-          choice.id === id ? { ...choice, text } : choice
-        ),
-      })
-    )
+    setPollSettings((prev) => ({
+      ...prev,
+      choices: prev.choices.map((choice) =>
+        choice.id === id ? { ...choice, text } : choice
+      ),
+    }));
   };
 
   const handleRemovePoll = () => {
@@ -51,12 +50,41 @@ const PollCreation = ({pollSettings, setPollSettings}:IProps) => {
   ) => {
     setPollSettings((prev) => ({
       ...prev,
-      pollTimer: {
-        ...prev.pollTimer,
+      duration: {
+        ...prev.duration,
         [type]: parseInt(e.target.value),
       },
     }));
   };
+
+  const TimeSelect = ({ type }: { type: DurationType }) => (
+    <div className="flex flex-col relative mr-5 grow border rounded-md">
+      <label
+        htmlFor={`selector-${type}`}
+        className="absolute px-2 pt-2 leading-4 text-sm"
+      >
+        <span>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+      </label>
+      <select
+        id={`selector-${type}`}
+        name={`selector-${type}`}
+        value={pollSettings.duration[type]}
+        onChange={(e) => changePollTimer(e, type)}
+        className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
+      >
+        {[...Array(durationOptions[type])].map((_, i) => (
+          <option key={i} value={i}>
+            {i}
+          </option>
+        ))}
+      </select>
+      <div className="absolute -z-10 top-0 right-3 h-full flex items-center">
+        <div className="pointer-events-none">
+          <DropDownMenuArrowIcon />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="my-1 border rounded-2xl z-10">
@@ -65,7 +93,6 @@ const PollCreation = ({pollSettings, setPollSettings}:IProps) => {
           <div className="px-3 flex flex-row">
             <div className="w-full flex flex-col">
               {pollSettings.choices.map((choice) => (
-                
                 <div key={choice.id} className="pb-3">
                   <div className="relative border-2 rounded-md focus-within:border-primary-base">
                     <input
@@ -120,107 +147,26 @@ const PollCreation = ({pollSettings, setPollSettings}:IProps) => {
             </div>
 
             <div className="flex flex-row justify-center">
-              <div className="flex flex-col relative mr-5 grow border rounded-md">
-                <label
-                  htmlFor="selector1"
-                  className="absolute px-2 pt-2 leading-4 text-sm"
-                >
-                  <span>Days</span>
-                </label>
-                <select
-                  name="selector1"
-                  value={pollSettings.pollTimer.days}
-                  onChange={(e) => changePollTimer(e, "days")}
-                  className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
-                >
-                  {
-                    [...Array(days)].map((_, i) => (
-                      <option key={i} value={i}>
-                        {i}
-                      </option>
-                    ))
-                  }
-                </select>
-                <div className="absolute -z-10 top-0 right-3 h-full flex items-center">
-                  <div className="pointer-events-none">
-                    <DropDownMenuArrowIcon />
-                  </div>
-                </div>
-              </div>
-
-              
-              <div className="flex flex-col relative mr-5 grow border rounded-md">
-                <label
-                  htmlFor="selector1"
-                  className="absolute px-2 pt-2 leading-4 text-sm"
-                >
-                  <span>Hours</span>
-                </label>
-                <select
-                  name="selector1"
-                  value={pollSettings.pollTimer.hours}
-                  onChange={(e) => changePollTimer(e, "hours")}
-                  className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
-                >
-                  {
-                    [...Array(hours)].map((_, i) => (
-                      <option key={i} value={i}>
-                        {i}
-                      </option>
-                    ))
-                  }
-                </select>
-                <div className="absolute -z-10 top-0 right-3 h-full flex items-center">
-                  <div className="pointer-events-none">
-                    <DropDownMenuArrowIcon />
-                  </div>
-                </div>
-              </div>
-              
-              
-              <div className="flex flex-col relative grow border rounded-md">
-                <label
-                  htmlFor="selector1"
-                  className="absolute px-2 pt-2 leading-4 text-sm"
-                >
-                  <span>Minutes</span>
-                </label>
-                <select
-                  name="selector1"
-                  value={pollSettings.pollTimer.minutes}
-                  onChange={(e) => changePollTimer(e, "minutes")}
-                  className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
-                >
-                  {
-                    [...Array(minutes)].map((_, i) => (
-                      <option key={i} value={i}>
-                        {i}
-                      </option>
-                    ))
-                  }
-                </select>
-                <div className="absolute -z-10 top-0 right-3 h-full flex items-center">
-                  <div className="pointer-events-none">
-                    <DropDownMenuArrowIcon />
-                  </div>
-                </div>
-              </div>
-
+              <TimeSelect type="days" />
+              <TimeSelect type="hours" />
+              <TimeSelect type="minutes" />
             </div>
           </div>
 
           <hr />
 
           <div className="rounded-b-2xl h-14 hover:bg-red-remove duration-200">
-            <button className="w-full h-full overflow-hidden text-red-removeText" onClick={handleRemovePoll}>
+            <button
+              className="w-full h-full overflow-hidden text-red-removeText"
+              onClick={handleRemovePoll}
+            >
               Remove Poll
             </button>
           </div>
-
         </div>
       </div>
     </div>
   );
 };
 
-export default PollCreation;
+export default PollEditor;

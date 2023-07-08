@@ -1,4 +1,4 @@
-import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import {
   AuthorInfo,
   Avatar,
@@ -74,11 +74,9 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
 
               <div className="flex flex-col flex-grow pb-3">
                 <AuthorInfo
+                  isAuthenticated={isAuthenticated}
+                  tweet={tweet}
                   pageType="home"
-                  username={tweet.author.username}
-                  displayName={tweet.author.displayName}
-                  isVerified={tweet.author.isVerified}
-                  createdAt={tweet.createdAt}
                 />
 
                 {tweet.tweetType === "reply" && (

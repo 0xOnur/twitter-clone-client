@@ -86,7 +86,7 @@ const MoreButton = () => {
               </button>
               <button className="w-full">
                 <div className="flex hover:bg-gray-dropdown  px-4 py-3">
-                  <ListsIcon />
+                  <ListsIcon className="w-7 h-7" />
                   <span className="pl-6">Lists</span>
                 </div>
               </button>

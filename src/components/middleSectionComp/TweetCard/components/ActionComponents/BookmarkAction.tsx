@@ -1,6 +1,6 @@
 import { ITweet } from "@customTypes/TweetTypes";
 import { BookmarksIcon } from "@icons/Icon";
-import { useBookmarkMutation } from "@hooks/useBookmarkMutation";
+import { useBookmarkMutation } from "@hooks/mutations/useBookmarkMutation";
 import { PersistPartial } from "redux-persist/es/persistReducer";
 import { UserState } from "@redux/slices/userSlice";
 

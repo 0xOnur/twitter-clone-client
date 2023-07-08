@@ -58,11 +58,8 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                   </div>
                   <div className="flex flex-col grow">
                     <TweetCardComp.Components.AuthorInfo
+                      tweet={tweet}
                       pageType="home"
-                      displayName={tweet.author.displayName}
-                      username={tweet.author.username}
-                      isVerified={tweet.author.isVerified}
-                      createdAt={tweet.createdAt}
                     />
                     <div className="flex flex-col pb-3">
                       <span>{tweet.content}</span>

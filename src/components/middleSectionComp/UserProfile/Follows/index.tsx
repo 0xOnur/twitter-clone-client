@@ -24,9 +24,9 @@ const Follows = ({ isAuthenticated, followsTab }: IProps) => {
   const renderFollowsUsers = () => {
     switch (followsTab) {
       case "followers":
-        return <Followers />;
+        return <Followers isAuthenticated={isAuthenticated} />;
       case "following":
-        return <Following />;
+        return <Following isAuthenticated={isAuthenticated} />;
       default:
         break;
     }

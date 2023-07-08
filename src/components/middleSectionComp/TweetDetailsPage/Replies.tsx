@@ -72,7 +72,7 @@ const Replies = ({ isAuthenticated, tweetId }: IProps) => {
         {data.pages.map((page, index) => (
           <div key={index}>
             {page.data.map((tweet: ITweet) => (
-              <div key={tweet._id}>
+              <div key={tweet._id} className="border-b">
                 <TweetCard
                   isAuthenticated={isAuthenticated}
                   tweetId={tweet._id}

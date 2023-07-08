@@ -47,11 +47,9 @@ const Quote = ({ tweet, isAuthenticated, isReply }: IProps) => {
 
             <div className="flex flex-col flex-grow pb-3">
               <AuthorInfo
+                isAuthenticated ={isAuthenticated}
+                tweet={tweet}
                 pageType="home"
-                username={tweet.author.username}
-                displayName={tweet.author.displayName}
-                isVerified={tweet.author.isVerified}
-                createdAt={tweet.createdAt}
               />
               <TweetContent tweet={tweet} pageType="home" />
               <TweetMedia tweet={tweet} />

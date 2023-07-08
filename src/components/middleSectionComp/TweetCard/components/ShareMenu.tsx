@@ -10,7 +10,7 @@ interface IProps {
   isAuthenticated: boolean;
   isBookmarked?: boolean;
   onClose: () => void;
-  handleCopy: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleCopy: () => void;
   handleBookmark: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -46,7 +46,11 @@ const ShareMenu = ({
     >
       <div className="flex flex-col">
         <button
-          onClick={handleCopy}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCopy();
+            onClose();
+          }}
           className="flex flex-row  hover:bg-gray-lightest rounded-t-2xl font-bold"
         >
           <div className="flex flex-row py-3 px-4 items-center">
@@ -93,7 +97,11 @@ const ShareMenu = ({
                 <BookmarkPlusIcon className={"w-5 h-5"} />
               </div>
               <div>
-                {isBookmarked ? <span>Remove Tweet from Bookmarks</span> : <span>Bookmark</span>}
+                {isBookmarked ? (
+                  <span>Remove Tweet from Bookmarks</span>
+                ) : (
+                  <span>Bookmark</span>
+                )}
               </div>
             </div>
           </button>

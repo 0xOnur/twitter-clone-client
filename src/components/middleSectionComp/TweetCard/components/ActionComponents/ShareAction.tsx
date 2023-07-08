@@ -1,11 +1,11 @@
 import { PersistPartial } from "redux-persist/es/persistReducer";
-import { useBookmarkMutation } from "@hooks/useBookmarkMutation";
+import { useBookmarkMutation } from "@hooks/mutations/useBookmarkMutation";
 import { TweetCardComp } from "@components/middleSectionComp";
+import { useCopyTweet } from "@hooks/tweet/useCopyTweetURL";
 import { UserState } from "@redux/slices/userSlice";
 import { ITweet } from "@customTypes/TweetTypes";
 import React, { useState } from "react";
 import { ShareIcon } from "@icons/Icon";
-import useToast from "@hooks/useToast";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -14,7 +14,8 @@ interface IProps {
 }
 
 const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
-  const { showToast } = useToast();
+  const { copyTweet } = useCopyTweet(tweet);
+
   const [shareMenu, setShowShareMenu] = useState(false);
 
   const { addBookmarkMutation, removeBookmarkMutation } = useBookmarkMutation(
@@ -22,15 +23,6 @@ const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
   );
 
   const isBookmarked = tweet.bookmarks?.includes(reduxUser.user?._id);
-
-  const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    const tweetUrl =
-      window.location.origin + `/${tweet.author.username}/status/${tweet._id}`;
-    navigator.clipboard.writeText(tweetUrl);
-    showToast("Copied to clipboard", "success");
-    setShowShareMenu(false);
-  };
 
   const handleBookmark = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -66,7 +58,7 @@ const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
         <TweetCardComp.Components.ShareMenu
           isAuthenticated={isAuthenticated}
           isBookmarked={isBookmarked}
-          handleCopy={handleCopy}
+          handleCopy={copyTweet}
           handleBookmark={handleBookmark}
           onClose={() => setShowShareMenu(false)}
         />

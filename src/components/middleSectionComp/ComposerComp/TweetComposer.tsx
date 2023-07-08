@@ -1,5 +1,6 @@
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {useComposerClean} from "@hooks/composer/useComposerClean";
 import { IComposer, IPoll } from "@customTypes/index";
 import { ITweet } from "@customTypes/TweetTypes";
 import { ComposerComp } from "@components/index";
@@ -12,7 +13,6 @@ import React, { useState } from "react";
 import Toolbar from "./Toolbar";
 import useToast from "@hooks/useToast";
 import { LoadingIcon } from "@icons/Icon";
-import { useComposerClean } from "@hooks/useComposerClean";
 import classNames from "classnames";
 
 type IProps = {

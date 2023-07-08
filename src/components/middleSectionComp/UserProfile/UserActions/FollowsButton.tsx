@@ -1,11 +1,8 @@
 import classNames from "classnames";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "redux/config/store";
-import { updateRedux, followUser, unFollowUser } from "api/userApi";
 import { IUser } from "@customTypes/UserTypes";
 import { UserState } from "@redux/slices/userSlice";
+import useFollowsMutation from "@hooks/mutations/useFollowsMutation";
 
 interface IProps {
   user: IUser;
@@ -13,34 +10,19 @@ interface IProps {
 }
 
 const FollowUnfollow = ({ user, reduxUser }: IProps) => {
-  const queryClient = useQueryClient();
-  const dispatch: AppDispatch = useDispatch();
   const [followButtonText, setButtonText] = useState<"Following" | "Unfollow">(
     "Following" || "Unfollow"
   );
 
-  const followUserQuery = useMutation(followUser, {
-    onSuccess: () => {
-      setButtonText("Following");
-      dispatch(updateRedux(reduxUser.user.username));
-      queryClient.invalidateQueries(["user", user.username]);
-    },
-  });
-
-  const unFollowUserQuery = useMutation(unFollowUser, {
-    onSuccess: () => {
-      setButtonText("Unfollow");
-      dispatch(updateRedux(reduxUser.user.username));
-      queryClient.invalidateQueries(["user", user.username]);
-    },
-  });
+  const {followUserMutation, unFollowUserMutation} = useFollowsMutation({reduxUser, username: user.username, setButtonText})
+ 
 
   const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (reduxUser.user.following?.includes(user._id)) {
-      unFollowUserQuery.mutate(user._id);
+      unFollowUserMutation.mutate(user._id);
     } else {
-      followUserQuery.mutate(user._id);
+      followUserMutation.mutate(user._id);
     }
   };
 

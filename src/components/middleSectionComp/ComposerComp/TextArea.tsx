@@ -1,5 +1,5 @@
+import useAutosizeTextArea from "@hooks/composer/useAutosizeTextArea";
 import React, {useRef, useCallback} from 'react'
-import useAutosizeTextArea from "@hooks/useAutosizeTextArea";
 
 type Props = {
     tweetText: string;

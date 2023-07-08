@@ -10,7 +10,11 @@ import { LoadingIcon, RetryIcon, VerifiedIcon } from "@icons/Icon";
 import { FollowsButton } from "@components/middleSectionComp/UserProfile";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 
-const Followers = () => {
+interface IProps {
+  isAuthenticated: boolean;
+}
+
+const Followers = ({ isAuthenticated }: IProps) => {
   const username = useParams().username;
   const navigate = useNavigate();
   const { ref, inView } = useInView();
@@ -95,12 +99,14 @@ const Followers = () => {
                               </span>
                               <span className="">@{user.username}</span>
                             </div>
-                            <div>
-                              <FollowsButton
-                                user={user}
-                                reduxUser={reduxUser}
-                              />
-                            </div>
+                            {isAuthenticated && (
+                              <div>
+                                <FollowsButton
+                                  user={user}
+                                  reduxUser={reduxUser}
+                                />
+                              </div>
+                            )}
                           </div>
                           <div className="text-left pt-1">
                             <span className="whitespace-pre-line">

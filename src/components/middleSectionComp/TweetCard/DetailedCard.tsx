@@ -38,11 +38,9 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                     username={tweet.author.username!}
                   />
                   <AuthorInfo
+                    isAuthenticated={isAuthenticated}
                     pageType="TweetDetails"
-                    username={tweet.author.username}
-                    displayName={tweet.author.displayName}
-                    isVerified={tweet.author.isVerified}
-                    createdAt={tweet.createdAt}
+                    tweet={tweet}
                   />
                 </div>
 

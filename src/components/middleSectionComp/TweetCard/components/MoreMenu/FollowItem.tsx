@@ -30,7 +30,7 @@ const FollowItem = ({ user, reduxUser, onClose }: IProps) => {
   return (
     <button
       onClick={handleFollowClick}
-      className="flex flex-row  hover:bg-gray-lightest rounded-t-2xl font-bold"
+      className="flex flex-row hover:bg-gray-lightest font-bold"
     >
       <div className="flex flex-row py-3 px-4 items-center">
         <div className="mr-2">

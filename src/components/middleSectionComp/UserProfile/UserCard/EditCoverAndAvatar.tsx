@@ -1,15 +1,15 @@
 import { CancelIcon, UploadImageIcon } from "@icons/Icon";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 interface IProps {
   cover: {
-    coverFile: File | undefined;
-    coverURL: string | null;
+    coverFile: File | null;
+    coverURL: string | undefined;
   };
   setCover: React.Dispatch<
     React.SetStateAction<{
-      coverFile: File | undefined;
-      coverURL: string | null;
+      coverFile: File | null;
+      coverURL: string | undefined;
     }>
   >;
   avatar: {
@@ -28,16 +28,22 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
   const coverInputRef = useRef<HTMLInputElement>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
+  const [imagesAvailable, setAvailable] = useState({
+    cover: true,
+    avatar: true,
+  })
+
   const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
     if (file && file.type.includes("image")) {
+      setAvailable((prev) => ({ ...prev, cover: true }))
       const url = URL.createObjectURL(file);
       setCover!({ coverFile: file, coverURL: url });
     }
   };
 
   const removeCover = () => {
-    setCover!({ coverFile: undefined, coverURL: null });
+    setCover!({ coverFile: null, coverURL: undefined });
     if (coverInputRef.current) {
       coverInputRef.current.value = "";
     }
@@ -46,6 +52,7 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
     if (file && file.type.includes("image")) {
+      setAvailable((prev) => ({ ...prev, avatar: true }))
       const url = URL.createObjectURL(file);
       setAvatar!({ avatar: file, avatarURL: url });
     }
@@ -71,12 +78,15 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
         ref={avatarInputRef}
         hidden
       />
-      {cover.coverURL ? (
+      {cover.coverURL && imagesAvailable.cover ? (
         <div className="relative">
           <img
             className="max-h-[200px] w-full brightness-75 object-cover"
             src={cover.coverURL!}
             alt="cover"
+            onError={() => {
+              setAvailable((prev) => ({ ...prev, cover: false }))
+            }}
           />
 
           <label htmlFor="cover">
@@ -105,13 +115,16 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
           </label>
         </div>
       )}
-      {avatar ? (
+      {avatar && imagesAvailable.avatar ? (
         <div>
           <div className="absolute -bottom-1/3 left-4 w-[145px] h-[145px] overflow-hidden border-4 border-white rounded-full">
             <img
               className="z-10 brightness-75 w-full h-full object-cover"
               src={avatar.avatarURL!}
               alt="Profile"
+              onError={() => {
+                setAvailable((prev) => ({ ...prev, avatar: false }))
+              }}
             />
           </div>
 

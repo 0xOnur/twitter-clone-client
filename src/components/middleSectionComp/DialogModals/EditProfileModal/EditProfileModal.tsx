@@ -16,8 +16,8 @@ interface IProps {
 }
 
 type Cover = {
-  coverFile: File | undefined;
-  coverURL: string | null;
+  coverFile: File | null;
+  coverURL: string | undefined;
 };
 
 type Avatar = {
@@ -32,7 +32,7 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
 
   const { showToast } = useToast();
   const [cover, setCover] = useState<Cover>({
-    coverFile: undefined,
+    coverFile: null,
     coverURL: user?.cover!,
   });
 
@@ -80,13 +80,13 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
       location: userInfo.location === "" ? undefined : userInfo.location,
       website: userInfo.website === "" ? undefined : userInfo.website,
     };
-
+    
     return JSON.stringify(originalState) !== JSON.stringify(currentState);
   };
 
   const handleSave = async () => {
     if (isChanges()) {
-      cover.coverFile && formData.append("cover", cover?.coverFile!);
+      formData.append("cover", cover.coverFile!);
       formData.append("avatar", avatar.avatar!);
       formData.append("displayName", userInfo.displayName);
       formData.append("bio", userInfo?.bio!);

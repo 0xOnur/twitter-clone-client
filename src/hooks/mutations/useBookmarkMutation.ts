@@ -14,8 +14,7 @@ export const useBookmarkMutation = (tweetId: string) => {
       showToast(err?.message || "error", "error");
     },
     onSuccess: (res) => {
-      queryClient.invalidateQueries(["tweet", tweetId]);
-      queryClient.invalidateQueries(["bookmarks"]);
+      queryClient.invalidateQueries();
       showToast(res?.message || "Tweet added to your Bookmarks", "info");
     },
   });

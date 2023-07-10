@@ -12,9 +12,14 @@ const CoverAndAvatar = ({ cover, avatar }: IProps) => {
     avatar: false,
   });
 
+  const [imagesAvailable, setAvailable] = useState({
+    cover: true,
+    avatar: true,
+  })
+
   return (
     <div className="relative w-full h-full">
-      {cover ? (
+      {cover && imagesAvailable.cover ? (
         <div>
           <img
             onClick={() =>
@@ -23,6 +28,9 @@ const CoverAndAvatar = ({ cover, avatar }: IProps) => {
             className="max-h-[200px] w-full object-cover cursor-pointer"
             src={cover}
             alt="Profile cover"
+            onError={() => {
+              setAvailable((prev) => ({ ...prev, cover: false }))
+            }}
           />
           {showMediaModal.cover && (
             <MediaModal
@@ -39,7 +47,7 @@ const CoverAndAvatar = ({ cover, avatar }: IProps) => {
       ) : (
         <div className="h-[200px] bg-gray-defaultCover" />
       )}
-      {avatar ? (
+      {avatar && imagesAvailable.avatar ? (
         <div>
           <img
             onClick={() =>
@@ -48,6 +56,9 @@ const CoverAndAvatar = ({ cover, avatar }: IProps) => {
             className="absolute z-10 -bottom-1/3 left-4 w-[145px] h-[145px] object-cover rounded-full border-4 border-white cursor-pointer"
             src={avatar}
             alt="Profile avatar"
+            onError={() => {
+              setAvailable((prev) => ({ ...prev, avatar: false }))
+            }}
           />
           {showMediaModal.avatar && (
             <MediaModal

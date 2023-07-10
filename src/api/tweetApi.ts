@@ -197,3 +197,16 @@ export const createTweet =async (formData: FormData) => {
         return Promise.reject(error);
     }
 };
+
+// Delete Tweet
+export const deleteTweet = async (tweetId: string) => {
+    try {
+        const response = await axiosInstance.delete(`/tweet/delete-tweet/${tweetId}`);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};

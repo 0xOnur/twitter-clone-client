@@ -10,7 +10,7 @@ interface IProps {
 
 const HomeFeed = ({isAuthenticated}: IProps) => {
   const localIsForYou = localStorage.getItem("isForYou");
-  const [isForYou, setIsForYou] = useState(localIsForYou !== null ? JSON.parse(localIsForYou) : true);
+  const [isForYou, setIsForYou] = useState(localIsForYou !== null && isAuthenticated ? JSON.parse(localIsForYou) : true);
   
   useEffect(() => {
     localStorage.setItem("isForYou", JSON.stringify(isForYou));

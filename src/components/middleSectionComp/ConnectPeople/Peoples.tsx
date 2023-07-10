@@ -75,7 +75,7 @@ const Peoples = () => {
         {data.pages.map((page, index) => (
           <div key={index}>
             {page.data.map((user: IUser) => (
-              <UserPreviewCard user={user} reduxUser={reduxUser} showBio={true} />
+              <UserPreviewCard key={user._id} user={user} reduxUser={reduxUser} showBio={true} />
             ))}
           </div>
         ))}

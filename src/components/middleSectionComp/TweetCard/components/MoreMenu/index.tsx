@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { ListsIcon } from "@icons/Icon";
 import FollowItem from "./FollowItem";
 import CopyItem from "./CopyItem";
+import DeleteItem from "./DeleteItem";
 
 interface IProps {
   isAuthenticated?: boolean;
@@ -34,23 +35,27 @@ const MoreMenu = ({ isAuthenticated, tweet, onClose }: IProps) => {
   return (
     <div
       ref={menuRef}
-      className="absolute z-10 top-0 -right-3 w-max border bg-white rounded-2xl shadow-lg"
+      className="absolute z-10 top-0 -right-3 w-max border bg-white rounded-2xl shadow-lg overflow-hidden"
     >
       <div className="flex flex-col">
-        {isAuthenticated  && reduxUser.user._id !== tweet.author._id && (
-          <FollowItem 
+        {isAuthenticated && reduxUser.user?._id !== tweet.author._id && (
+          <FollowItem
             user={tweet.author}
             reduxUser={reduxUser}
             onClose={onClose}
-           />
+          />
         )}
 
-        <CopyItem 
+        {reduxUser.user?._id === tweet.author._id && (
+          <DeleteItem tweet={tweet} onClose={onClose} />
+        )}
+
+        <CopyItem
           tweet={tweet}
           onClose={onClose}
         />
 
-        <button className="flex flex-row cursor-not-allowed hover:bg-gray-lightest rounded-b-2xl font-bold">
+        <button className="flex flex-row cursor-not-allowed hover:bg-gray-lightest font-bold">
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
               <ListsIcon className={"w-5 h-5"} />

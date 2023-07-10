@@ -44,9 +44,7 @@ const RetweetAction = ({
       showToast(err?.message || "error", "error");
     },
     onSuccess: (res) => {
-      queryClient.invalidateQueries(["tweetStats", tweet._id]);
-      queryClient.invalidateQueries(["followingFeed"]);
-      queryClient.invalidateQueries(["forYouFeed"]);
+      queryClient.invalidateQueries();
       showToast(res?.message || "Tweet retweeted", "success");
     },
   });
@@ -58,9 +56,7 @@ const RetweetAction = ({
       showToast(err?.message || "error", "error");
     },
     onSuccess: (res) => {
-      queryClient.invalidateQueries(["tweetStats", tweet._id]);
-      queryClient.invalidateQueries(["followingFeed"]);
-      queryClient.invalidateQueries(["forYouFeed"]);
+      queryClient.invalidateQueries();
       showToast(res?.message || "Tweet unretweeted", "success");
     },
   });

@@ -72,10 +72,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
         setPollSettings,
       });
       showToast(res?.message || "Tweet created succesfully", "success");
-      queryClient.invalidateQueries(["forYouFeed"]);
-      queryClient.invalidateQueries(["followingFeed"]);
-      queryClient.invalidateQueries(["tweet", originalTweet]);
-      queryClient.invalidateQueries(["tweetStats", originalTweet]);
+      queryClient.invalidateQueries();
     },
   });
 

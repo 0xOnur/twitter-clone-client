@@ -5,6 +5,7 @@ interface IProps {
   setTweetText: React.Dispatch<React.SetStateAction<string>>;
   setTenorGif: React.Dispatch<React.SetStateAction<TenorImage | undefined>>;
   setComposerSettings: React.Dispatch<React.SetStateAction<IComposer>>;
+  setShowPoll: React.Dispatch<React.SetStateAction<boolean>>;
   setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
 }
 
@@ -13,6 +14,7 @@ export const useComposerClean = () => {
     setTweetText,
     setTenorGif,
     setComposerSettings,
+    setShowPoll,
     setPollSettings,
   }: IProps) => {
     setTweetText("");
@@ -22,23 +24,22 @@ export const useComposerClean = () => {
       whoCanReply: "everyone",
       mediaFiles: [],
     });
+    setShowPoll(false);
     setPollSettings({
+      author: "",
       choices: [
         {
-          id: 1,
+          _id: 1,
           text: "",
+          votes: []
         },
         {
-          id: 2,
+          _id: 2,
           text: "",
+          votes: []
         },
       ],
-      duration: {
-        days: 1,
-        hours: 0,
-        minutes: 0,
-      },
-      showPoll: false,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
   };
   return { cleanComposer };

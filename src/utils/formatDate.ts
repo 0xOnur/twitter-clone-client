@@ -1,8 +1,8 @@
 import moment from "moment";
 
 export const formatDate = (date: string): string => {
-  const now = moment();
-  const tweetMoment = moment(date);
+  const now = moment.utc();
+  const tweetMoment = moment.utc(date);
   
   const diffInMinutes = now.diff(tweetMoment, "minutes");
   const diffInMonths = now.diff(tweetMoment, "months");
@@ -15,3 +15,4 @@ export const formatDate = (date: string): string => {
     return tweetMoment.format("MMM D YYYY");
   }
 };
+

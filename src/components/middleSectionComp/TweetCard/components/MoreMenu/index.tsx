@@ -35,7 +35,7 @@ const MoreMenu = ({ isAuthenticated, tweet, onClose }: IProps) => {
   return (
     <div
       ref={menuRef}
-      className="absolute z-10 top-0 -right-3 w-max border bg-white rounded-2xl shadow-lg overflow-hidden"
+      className="absolute z-20 top-0 -right-3 w-max border bg-white rounded-2xl shadow-lg overflow-hidden"
     >
       <div className="flex flex-col">
         {isAuthenticated && reduxUser.user?._id !== tweet.author._id && (

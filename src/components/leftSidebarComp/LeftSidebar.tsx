@@ -73,7 +73,7 @@ const LeftSideBar = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col w-full mt-0.5 mb-1">
+              <div className="flex flex-col w-full mt-0.5 mb-1 z-10">
                 <nav className="flex flex-col lg:items-start sm:items-center ">
                   {sideLinks.slice(0, 2).map(({ name, url, icon }, index) => (
                     <SideLink key={index} name={name} url={url} Icon={icon} />

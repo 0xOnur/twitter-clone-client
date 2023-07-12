@@ -20,6 +20,9 @@ type Props = {
   pollSettings: IPoll;
   setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
 
+  showPoll: boolean;
+  setShowPoll: React.Dispatch<React.SetStateAction<boolean>>;
+
   tweetText: string;
   setTweetText: React.Dispatch<React.SetStateAction<string>>;
   
@@ -37,6 +40,8 @@ const Toolbar = ({
   setTweetText,
   tenorGif,
   setTenorGif,
+  showPoll,
+  setShowPoll,
   pollSettings,
   setPollSettings,
   handleSubmit,
@@ -90,18 +95,18 @@ const Toolbar = ({
   };
 
   const imageButtonClasses = classNames("w-fit p-2", {
-    "hover:bg-primary-extraLight rounded-full": ComposerSettings.mediaFiles.length < 4 && !tenorGif && !pollSettings.showPoll && !ComposerSettings.mediaFiles.map((media) => media.type).includes("video"),
-    "opacity-50": ComposerSettings.mediaFiles.length >= 4 || tenorGif || pollSettings.showPoll || ComposerSettings.mediaFiles.map((media) => media.type).includes("video")
+    "hover:bg-primary-extraLight rounded-full": ComposerSettings.mediaFiles.length < 4 && !tenorGif && !showPoll && !ComposerSettings.mediaFiles.map((media) => media.type).includes("video"),
+    "opacity-50": ComposerSettings.mediaFiles.length >= 4 || tenorGif || showPoll || ComposerSettings.mediaFiles.map((media) => media.type).includes("video")
   });
 
   const pollButtonClasses = classNames("w-fit p-2", {
-    "hover:bg-primary-extraLight rounded-full cursor-pointer": ComposerSettings.mediaFiles.length===0 && !tenorGif && !pollSettings.showPoll,
-    "opacity-50": ComposerSettings.mediaFiles.length>0 || tenorGif|| pollSettings.showPoll,
+    "hover:bg-primary-extraLight rounded-full cursor-pointer": ComposerSettings.mediaFiles.length===0 && !tenorGif && !showPoll,
+    "opacity-50": ComposerSettings.mediaFiles.length>0 || tenorGif|| showPoll,
   });
 
   const gifButtonClasses = classNames("w-fit p-2", {
-    "hover:bg-primary-extraLight rounded-full": ComposerSettings.mediaFiles.length === 0 && !tenorGif && !pollSettings.showPoll,
-    "opacity-50":  ComposerSettings.mediaFiles.length > 0 || tenorGif || pollSettings.showPoll,
+    "hover:bg-primary-extraLight rounded-full": ComposerSettings.mediaFiles.length === 0 && !tenorGif && !showPoll,
+    "opacity-50":  ComposerSettings.mediaFiles.length > 0 || tenorGif || showPoll,
   });
 
   const tweetButtonClasses = classNames(
@@ -119,7 +124,7 @@ const Toolbar = ({
           <button
             type="button"
             onClick={handleClickFileInput}
-            disabled={ComposerSettings.mediaFiles.length >= 4 || !!tenorGif || pollSettings.showPoll || ComposerSettings.mediaFiles.map((media) => media.type).includes("video")}
+            disabled={ComposerSettings.mediaFiles.length >= 4 || !!tenorGif || showPoll || ComposerSettings.mediaFiles.map((media) => media.type).includes("video")}
             className={imageButtonClasses}
           >
             <span className="w-8 h-8">
@@ -143,7 +148,7 @@ const Toolbar = ({
               setShowGifPicker(true);
             }}
             type="button"
-            disabled={ComposerSettings.mediaFiles.length > 0 || !!tenorGif || pollSettings.showPoll}
+            disabled={ComposerSettings.mediaFiles.length > 0 || !!tenorGif || showPoll}
             className={gifButtonClasses}
           >
             <span className="text-primary-base">
@@ -161,12 +166,9 @@ const Toolbar = ({
 
           <button
             type="button"
-            disabled={ComposerSettings.mediaFiles.length>0 || !!tenorGif || pollSettings.showPoll}
+            disabled={ComposerSettings.mediaFiles.length>0 || !!tenorGif || showPoll}
             onClick={() =>
-              setPollSettings({
-                ...pollSettings,
-                showPoll: true,
-              })
+              setShowPoll(true)
             }
             className={pollButtonClasses}
           >

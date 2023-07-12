@@ -28,6 +28,8 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
   const { showToast } = useToast();
   const { cleanComposer } = useComposerClean();
 
+  const [showPoll, setShowPoll] = useState(false);
+
   const [tweetText, setTweetText] = useState("");
   const [tenorGif, setTenorGif] = useState<TenorImage>();
 
@@ -38,22 +40,20 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
   });
 
   const [pollSettings, setPollSettings] = useState<IPoll>({
+    author: reduxUser.user._id,
     choices: [
       {
-        id: 1,
+        _id: 1,
         text: "",
+        votes: []
       },
       {
-        id: 2,
+        _id: 2,
         text: "",
+        votes: []
       },
     ],
-    duration: {
-      days: 1,
-      hours: 0,
-      minutes: 0,
-    },
-    showPoll: false,
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
   });
 
   const createTweetMutation = useMutation({
@@ -69,6 +69,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
         setTweetText,
         setTenorGif,
         setComposerSettings,
+        setShowPoll,
         setPollSettings,
       });
       showToast(res?.message || "Tweet created succesfully", "success");
@@ -100,7 +101,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
       formData.append("tenorMedia", JSON.stringify(tenorMedia));
     }
 
-    if (pollSettings.showPoll) {
+    if (showPoll) {
       formData.append("poll", JSON.stringify(pollSettings));
     }
 
@@ -138,7 +139,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
             <div className="flex flex-col w-full pt-1">
               {(tweetText.length > 0 ||
                 ComposerSettings.mediaFiles.length > 0 ||
-                pollSettings.showPoll ||
+                showPoll ||
                 tenorGif) &&
                 composerMode !== "reply" && (
                   <ComposerComp.ChooseAudience
@@ -159,8 +160,9 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
                 setTenorGif={setTenorGif}
               />
 
-              {pollSettings.showPoll && (
+              {showPoll && (
                 <ComposerComp.PollMenu
+                  setShowPoll={setShowPoll}
                   pollSettings={pollSettings}
                   setPollSettings={setPollSettings}
                 />
@@ -168,7 +170,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
 
               {(tweetText.length > 0 ||
                 ComposerSettings.mediaFiles.length > 0 ||
-                pollSettings.showPoll ||
+                showPoll ||
                 tenorGif) &&
                 composerMode !== "reply" && (
                   <ComposerComp.ChooseCanReply
@@ -180,6 +182,8 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
                 composerMode={composerMode}
                 ComposerSettings={ComposerSettings}
                 setComposerSettings={setComposerSettings}
+                showPoll={showPoll}
+                setShowPoll={setShowPoll}
                 pollSettings={pollSettings}
                 setPollSettings={setPollSettings}
                 tweetText={tweetText}

@@ -63,16 +63,14 @@ const MoreButton = () => {
 
   return (
     <>
-      {/* <div onClick={openMore} className="w-full group"> */}
-        <button onClick={openMore} className="flex flex-col lg:items-start items-center cursor-pointer grow-1 w-full py-1 group">
-          <div className="flex group-hover:bg-gray-lightest rounded-full pl-3 pr-3 py-3">
-            <div>
-              <MoreIcon />
-            </div>
-            <span className="ml-5 mr-4 text-xl hidden lg:inline-block">More</span>
+      <button onClick={openMore} className="flex flex-col lg:items-start items-center cursor-pointer grow-1 w-full py-1 group">
+        <div className="flex group-hover:bg-gray-lightest rounded-full pl-3 pr-3 py-3">
+          <div>
+            <MoreIcon />
           </div>
-        </button>
-      {/* </div> */}
+          <span className="ml-5 mr-4 text-xl hidden lg:inline-block">More</span>
+        </div>
+      </button>
 
       {menuOpen && (
         <div className=" z-50" ref={dropdownRef}>

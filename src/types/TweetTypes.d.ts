@@ -18,6 +18,7 @@ export interface ITweet {
   whoCanReply: "everyone" | "following" | "mentioned";
   content?: string;
   media?: Media[];
+  pollId?: string;
   bookmarks?: string[];
   originalTweet?: string;
   tweetType: "tweet" | "reply" | "retweet" | "like" | "quote";

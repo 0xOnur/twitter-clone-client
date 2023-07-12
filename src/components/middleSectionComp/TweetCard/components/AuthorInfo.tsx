@@ -39,15 +39,23 @@ const AuthorInfo = ({ isAuthenticated, tweet, pageType }: IProps) => {
           </div>
           {pageType === "home" ? (
             <div className="min-w-fit">
-              <span className="text-gray-dark cursor-pointer truncate">
+              <a
+                href={`/${tweet.author.username}`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-gray-dark cursor-pointer truncate"
+              >
                 @{tweet.author.username} -{" "}
-              </span>
+              </a>
               <span>{formatDate(tweet.createdAt)}</span>
             </div>
           ) : (
-            <span className="text-gray-dark cursor-pointer truncate">
+            <a
+              href={`/${tweet.author.username}`}
+              onClick={(e) => e.stopPropagation()}
+              className="text-gray-dark cursor-pointer truncate"
+            >
               @{tweet.author.username}
-            </span>
+            </a>
           )}
         </div>
         <button

@@ -1,4 +1,5 @@
 import { TweetStats } from "@components/middleSectionComp/TweetDetailsPage";
+import Poll from "@components/middleSectionComp/TweetCard/components/Poll";
 import { ComposerComp } from "@components/middleSectionComp";
 import {
   AuthorInfo,
@@ -47,6 +48,10 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                 <TweetContent tweet={tweet} pageType="TweetDetails" />
 
                 <TweetMedia tweet={tweet} />
+
+                {tweet?.pollId && (
+                  <Poll isAuthenticated={isAuthenticated} pollId={tweet.pollId} />
+                )}
 
                 {tweet.originalTweet && tweet.tweetType === "quote" && (
                   <div className="border-2 shadow-md rounded-3xl overflow-hidden">

@@ -210,3 +210,29 @@ export const deleteTweet = async (tweetId: string) => {
         return Promise.reject(error);
     }
 };
+
+// Get Poll
+export const getPoll =async (pollId: string) => {
+    try {
+        const response = await axiosInstance.get(`/poll/get-poll/${pollId}`);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};
+
+// Vote Poll
+export const votePoll =async (pollId: string, choiceId: string) => {
+    try {
+        const response = await axiosInstance.put(`/poll/vote-poll/${pollId}?choiceId=${choiceId}`);
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+};

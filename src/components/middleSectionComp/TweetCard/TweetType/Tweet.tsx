@@ -1,3 +1,4 @@
+import Poll from "@components/middleSectionComp/TweetCard/components/Poll";
 import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import {
   AuthorInfo,
@@ -99,6 +100,10 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
                 <TweetContent tweet={tweet} pageType="home" />
 
                 <TweetMedia tweet={tweet} />
+
+                {tweet?.pollId && (
+                  <Poll isAuthenticated={isAuthenticated} pollId={tweet.pollId} />
+                )}
 
                 {!hideActions && (
                   <TweetActions

@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import { AddThreadIcon, DropDownMenuArrowIcon } from "@icons/Icon";
 import { IPoll } from "@customTypes/ComposerTypes";
 
 interface IProps {
+  setShowPoll: React.Dispatch<React.SetStateAction<boolean>>;
   pollSettings: IPoll;
   setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
 }
@@ -14,20 +15,15 @@ const durationOptions: Record<DurationType, number> = {
   minutes: 60,
 };
 
-const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
-  const handleChoiceChange = (id: number, text: string) => {
+const PollEditor = ({ setShowPoll, pollSettings, setPollSettings }: IProps) => {
+  const [pollDuration, setPollDuration] = useState({ days: 1, hours: 0, minutes: 0 });
+
+  const handleChoiceChange = (id: number | string, text: string) => {
     setPollSettings((prev) => ({
       ...prev,
       choices: prev.choices.map((choice) =>
-        choice.id === id ? { ...choice, text } : choice
+        choice._id === id ? { ...choice, text } : choice
       ),
-    }));
-  };
-
-  const handleRemovePoll = () => {
-    setPollSettings((prev) => ({
-      ...prev,
-      showPoll: false,
     }));
   };
 
@@ -37,8 +33,9 @@ const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
       choices: [
         ...prev.choices,
         {
-          id: prev.choices.length + 1,
+          _id: prev.choices.length + 1,
           text: "",
+          votes: [],
         },
       ],
     }));
@@ -46,14 +43,22 @@ const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
 
   const changePollTimer = (
     e: React.ChangeEvent<HTMLSelectElement>,
-    type: string
+    type: DurationType
   ) => {
+    const newDuration = { ...pollDuration, [type]: parseInt(e.target.value) };
+    setPollDuration(newDuration);
+    
+    // Calculate expiresAt date
+    const expiresAt = new Date(
+      Date.now() +
+      newDuration.days * 24 * 60 * 60 * 1000 +
+      newDuration.hours * 60 * 60 * 1000 +
+      newDuration.minutes * 60 * 1000
+    );
+    
     setPollSettings((prev) => ({
       ...prev,
-      duration: {
-        ...prev.duration,
-        [type]: parseInt(e.target.value),
-      },
+      expiresAt,
     }));
   };
 
@@ -68,7 +73,7 @@ const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
       <select
         id={`selector-${type}`}
         name={`selector-${type}`}
-        value={pollSettings.duration[type]}
+        value={pollDuration[type]}
         onChange={(e) => changePollTimer(e, type)}
         className="bg-transparent w-full mt-4 pt-3 pb-2 px-2 leading-5 appearance-none outline-none cursor-pointer"
       >
@@ -93,7 +98,7 @@ const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
           <div className="px-3 flex flex-row">
             <div className="w-full flex flex-col">
               {pollSettings.choices.map((choice) => (
-                <div key={choice.id} className="pb-3">
+                <div key={choice._id} className="pb-3">
                   <div className="relative border-2 rounded-md focus-within:border-primary-base">
                     <input
                       type="text"
@@ -103,14 +108,14 @@ const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
                       className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
                       value={choice.text}
                       onChange={(e) =>
-                        handleChoiceChange(choice.id, e.target.value)
+                        handleChoiceChange(choice._id, e.target.value)
                       }
                     />
                     <label
                       htmlFor="Choice1"
                       className="absolute top-0 text-lg p-4 -z-10 duration-300 origin-0"
                     >
-                      Choice {choice.id} {choice.id > 2 && "(optional)"}
+                      Choice {choice._id} {Number(choice._id) > 2 && "(optional)"}
                     </label>
                     <label
                       htmlFor="Choice1"
@@ -158,7 +163,7 @@ const PollEditor = ({ pollSettings, setPollSettings }: IProps) => {
           <div className="rounded-b-2xl h-14 hover:bg-red-remove duration-200">
             <button
               className="w-full h-full overflow-hidden text-red-removeText"
-              onClick={handleRemovePoll}
+              onClick={() => setShowPoll(false)}
             >
               Remove Poll
             </button>

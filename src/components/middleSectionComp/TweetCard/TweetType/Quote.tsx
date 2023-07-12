@@ -1,4 +1,6 @@
-import {TweetCard} from "@components/middleSectionComp/TweetCard";import {
+import Poll from "@components/middleSectionComp/TweetCard/components/Poll";
+import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import {
   AuthorInfo,
   Avatar,
   TweetContent,
@@ -51,8 +53,13 @@ const Quote = ({ tweet, isAuthenticated, isReply }: IProps) => {
                 tweet={tweet}
                 pageType="home"
               />
+              
               <TweetContent tweet={tweet} pageType="home" />
               <TweetMedia tweet={tweet} />
+
+              {tweet?.pollId && (
+                  <Poll isAuthenticated={isAuthenticated} pollId={tweet.pollId} />
+                )}
 
               <div className="border-2 shadow-md rounded-2xl overflow-hidden">
                 <TweetCard

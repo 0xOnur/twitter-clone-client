@@ -42,7 +42,7 @@ const ShareMenu = ({
   return (
     <div
       ref={menuRef}
-      className="absolute z-10 -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg"
+      className="absolute z-10 -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg overflow-hidden"
     >
       <div className="flex flex-col">
         <button
@@ -51,7 +51,7 @@ const ShareMenu = ({
             handleCopy();
             onClose();
           }}
-          className="flex flex-row  hover:bg-gray-lightest rounded-t-2xl font-bold"
+          className="flex flex-row  hover:bg-gray-lightest font-bold"
         >
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
@@ -90,7 +90,7 @@ const ShareMenu = ({
         {isAuthenticated && (
           <button
             onClick={handleBookmark}
-            className="flex flex-row hover:bg-gray-lightest rounded-b-2xl font-bold"
+            className="flex flex-row hover:bg-gray-lightest font-bold"
           >
             <div className="flex flex-row py-3 px-4 items-center">
               <div className="mr-2">

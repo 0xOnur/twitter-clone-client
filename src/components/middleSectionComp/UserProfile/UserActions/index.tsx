@@ -1,10 +1,9 @@
-import { IUser } from "@customTypes/UserTypes";
-import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
 import FollowUnfollow from "./FollowsButton";
+import { useSelector } from "react-redux";
 import EditProfile from "./EditProfile";
-import More from "./More";
 import Message from "./Message";
+import More from "./More";
 
 interface IProps {
   user: IUser;

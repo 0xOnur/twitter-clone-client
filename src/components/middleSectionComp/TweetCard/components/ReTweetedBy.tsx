@@ -1,4 +1,3 @@
-import { IUser } from "@customTypes/UserTypes";
 import { ReTweetIcon } from "@icons/Icon";
 
 interface IProps {

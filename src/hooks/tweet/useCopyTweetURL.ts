@@ -1,4 +1,3 @@
-import { ITweet } from "@customTypes/TweetTypes";
 import useToast from "@hooks/useToast";
 
 export const useCopyTweet = (tweet: ITweet) => {

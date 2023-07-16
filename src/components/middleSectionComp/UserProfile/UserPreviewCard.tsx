@@ -1,7 +1,6 @@
 import { PersistPartial } from "redux-persist/es/persistReducer";
 import { UserState } from "@redux/slices/userSlice";
 import { Avatar } from "../TweetCard/components";
-import { IUser } from "@customTypes/UserTypes";
 import { useNavigate } from "react-router-dom";
 import { VerifiedIcon } from "@icons/Icon";
 import { FollowsButton } from ".";
@@ -26,9 +25,13 @@ const UserPreviewCard = ({ user, reduxUser, showBio }: IProps) => {
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col w-full min-w-0 pr-2">
                 <div className="flex flex-row items-center gap-1">
-                  <span className="truncate font-bold hover:underline decoration-1">
+                  <a
+                    href={`/${user.username}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="truncate font-bold hover:underline decoration-1"
+                  >
                     {user.displayName}
-                  </span>
+                  </a>
                   <span>
                     {user.isVerified && (
                       <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />

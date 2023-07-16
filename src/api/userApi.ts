@@ -296,3 +296,43 @@ export const getUserBookmarks = async (page: number, limit: number) => {
     return Promise.reject(error)
   }
 };
+
+// Get User Notifications
+export const getUserNotifications = async (page: number, limit: number) => {
+  try {
+    const response = await axiosInstance.get(`/notification/get-notifications?page=${page}&limit=${limit}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+}
+
+// Get Unread Notifications Count
+export const getUnreadNotificationsCount = async () => {
+  try {
+    const response = await axiosInstance.get(`/notification/get-unread-notifications`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+}
+
+
+// Mark Notification as Read
+export const markNotificationAsRead = async (notificationId: string) => {
+  try {
+    const response = await axiosInstance.put(`/notification/mark-notification-as-read/${notificationId}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+}

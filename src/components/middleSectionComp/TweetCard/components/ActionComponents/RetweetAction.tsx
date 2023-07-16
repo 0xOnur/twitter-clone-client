@@ -4,7 +4,6 @@ import { PersistPartial } from "redux-persist/es/persistReducer";
 import { retweetTweet, undoRetweet } from "api/tweetApi";
 import { UserState } from "@redux/slices/userSlice";
 import { formatNumber } from "@utils/formatNumber";
-import { ITweet } from "@customTypes/TweetTypes";
 import { ReTweetIcon } from "@icons/Icon";
 import useToast from "@hooks/useToast";
 import { useState } from "react";

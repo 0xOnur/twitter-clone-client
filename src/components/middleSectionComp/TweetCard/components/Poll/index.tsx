@@ -1,11 +1,10 @@
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getPoll, votePoll } from "api/tweetApi";
 import {
   formatTimeRemaining,
   getTimeRemaining,
 } from "@utils/formatTimeRemaining";
-import { IPoll } from "@customTypes/ComposerTypes";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { RootState } from "@redux/config/store";
-import { getPoll, votePoll } from "api/tweetApi";
 import { LoadingIcon } from "@icons/Icon";
 import { useSelector } from "react-redux";
 import Choice from "./Choice";
@@ -63,8 +62,6 @@ const Poll = ({ isAuthenticated, pollId }: IProps) => {
     .map((choice) => choice.votes)
     .flat()
     .includes(reduxUser.user?._id);
-    console.log("🚀 ~ file: index.tsx:66 ~ Poll ~ isVoted:", isVoted)
-    
 
   if (poll.data) {
     return (

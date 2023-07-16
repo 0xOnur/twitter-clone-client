@@ -1,4 +1,3 @@
-import { IComposer, IPoll } from "@customTypes/ComposerTypes";
 import { TenorImage } from "gif-picker-react";
 
 interface IProps {

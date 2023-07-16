@@ -1,4 +1,3 @@
-import { IUser } from "@customTypes/UserTypes";
 import { LikeIcon } from "@icons/Icon";
 
 interface IProps {

@@ -8,3 +8,4 @@ export * as TweetDetailsComp from "./TweetDetailsPage";
 export {default as ConnectPeople} from "./ConnectPeople"
 export {default as Bookmarks} from "./Bookmarks"
 export {default as TweetQuotes} from "./TweetQuotesPage"
+export {default as Notifications} from "./Notifications"

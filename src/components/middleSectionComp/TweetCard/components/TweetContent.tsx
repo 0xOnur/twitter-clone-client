@@ -1,4 +1,3 @@
-import { ITweet } from "@customTypes/TweetTypes";
 import classNames from "classnames";
 
 type Props = {

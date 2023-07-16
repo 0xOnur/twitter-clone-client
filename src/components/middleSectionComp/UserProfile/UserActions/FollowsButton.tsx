@@ -1,8 +1,7 @@
+import useFollowsMutation from "@hooks/mutations/useFollowsMutation";
+import { UserState } from "@redux/slices/userSlice";
 import classNames from "classnames";
 import { useState } from "react";
-import { IUser } from "@customTypes/UserTypes";
-import { UserState } from "@redux/slices/userSlice";
-import useFollowsMutation from "@hooks/mutations/useFollowsMutation";
 
 interface IProps {
   user: IUser;
@@ -19,7 +18,7 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
 
   const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    if (reduxUser.user.following?.includes(user._id)) {
+    if (reduxUser.user?.following?.includes(user._id)) {
       unFollowUserMutation.mutate(user._id);
     } else {
       followUserMutation.mutate(user._id);
@@ -50,7 +49,7 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
     "min-h-[36px] h-full px-4 bg-black text-white font-bold border rounded-full hover:bg-slate-700 duration-200"
   );
 
-  if(reduxUser.user._id === user._id) {
+  if(reduxUser.user?._id === user._id || !reduxUser.isAuthenticated) {
     return null;
   }
 

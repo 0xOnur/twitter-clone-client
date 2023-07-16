@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { IUser } from "@customTypes/UserTypes";
 import { EditProfileModal } from "@components/middleSectionComp/DialogModals";
+import { useState } from "react";
 
 interface IProps {
   user: IUser;

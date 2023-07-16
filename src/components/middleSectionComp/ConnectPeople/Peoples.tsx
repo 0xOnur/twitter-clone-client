@@ -1,12 +1,11 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "redux/config/store";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import { whoToFollow } from "api/userApi";
-import { IUser } from "@customTypes/UserTypes";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { UserPreviewCard } from "../UserProfile";
+import { RootState } from "redux/config/store";
+import { useSelector } from "react-redux";
+import { whoToFollow } from "api/userApi";
+import { useEffect } from "react";
 
 const Peoples = () => {
   const reduxUser = useSelector((state: RootState) => state.user);

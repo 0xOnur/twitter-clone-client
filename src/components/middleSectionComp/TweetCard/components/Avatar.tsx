@@ -1,28 +1,32 @@
+import classNames from "classnames";
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   avatar: string;
   username: string;
+  avatarSize?: string;
 };
 
-const Avatar = ({ avatar, username }: Props) => {
-  const navigate = useNavigate();
+const Avatar = ({ avatar, username, avatarSize }: Props) => {
+  const sizeClass = avatarSize ? avatarSize : "w-11 h-11"
 
-  const navigateUser = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    navigate(`/${username}`);
-  };
+  const avatarClassName = classNames(
+    "cursor-pointer object-cover hover:brightness-90 rounded-full",
+    sizeClass
+  )
 
   return (
     <div className="mr-3 items-center min-w-max">
-      <div onClick={navigateUser}>
+      <a 
+        onClick={(e) => e.stopPropagation()}
+        href={`/${username}`}
+      >
         <img
           src={avatar}
           alt="profile"
-          className="w-11 h-11 cursor-pointer object-cover hover:brightness-90 rounded-full"
+          className={avatarClassName}
         />
-      </div>
+      </a>
       
     </div>
   );

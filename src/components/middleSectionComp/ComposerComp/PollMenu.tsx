@@ -1,6 +1,5 @@
-import React, {useState} from "react";
 import { AddThreadIcon, DropDownMenuArrowIcon } from "@icons/Icon";
-import { IPoll } from "@customTypes/ComposerTypes";
+import React, {useState} from "react";
 
 interface IProps {
   setShowPoll: React.Dispatch<React.SetStateAction<boolean>>;

@@ -2,7 +2,6 @@ import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
-import { ITweet } from "@customTypes/TweetTypes";
 import { getPopularTweets } from "api/tweetApi";
 import { useEffect } from "react";
 

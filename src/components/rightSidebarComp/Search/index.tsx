@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { debounce } from "lodash";
-import { searchUser } from "api/userApi";
-import { useQuery } from "@tanstack/react-query";
-import { IUser } from "@customTypes/UserTypes";
 import { CancelIcon, SearchIcon, LoadingIcon } from "@icons/Icon";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { searchUser } from "api/userApi";
+import { debounce } from "lodash";
 import UserList from "./UserList";
 
 const Search = () => {

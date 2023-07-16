@@ -5,31 +5,28 @@ import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
 
 interface IProps {
-  name: string;
   url: string;
-  Icon: ({
-    isActive,
-    className,
-  }: {
-    isActive: any;
-    className: any;
-  }) => JSX.Element;
+  name: string;
+  notifCount?: number;
+  Icon: React.ComponentType<{ isActive: boolean; className: string }>;
 }
 
-const SideLink: React.FC<IProps> = ({ name, url, Icon }) => {
-  const reduxUser = useSelector((state: RootState) => state.user);
-  const username = reduxUser.user?.username!;
+const SideLink: React.FC<IProps> = ({ url, name, Icon, notifCount }) => {
+  const username = useSelector(
+    (state: RootState) => state.user?.user?.username
+  );
 
   const currentPath = useLocation().pathname;
-  const isActive = currentPath.includes(name.toLowerCase());
 
-  const navTextClasses = classNames(
-    "ml-5 mr-4 text-xl hidden lg:inline-block",
-    {
-      "font-bold":
-        isActive || (name === "Profile" && currentPath.includes(username)),
-    }
-  );
+  const location = useLocation();
+  const isActive =
+    location.pathname.includes(url) ||
+    (name === "Profile" && location.pathname.includes(username));
+
+  const nameClasses = classNames("ml-5 mr-4 text-xl hidden lg:inline-block", {
+    "font-bold":
+      isActive || (name === "Profile" && currentPath.includes(username)),
+  });
 
   return (
     <a
@@ -37,14 +34,21 @@ const SideLink: React.FC<IProps> = ({ name, url, Icon }) => {
       href={url}
     >
       <div className="flex flex-row justify-center items-center max-w-full p-3 group-hover:bg-gray-extraLight duration-200 rounded-full">
-        <Icon
-          className={"w-7 h-7 align-text-bottom"}
-          isActive={
-            isActive || (name === "Profile" && currentPath.includes(username))
-          }
-        />
-
-        <div className={navTextClasses}>
+        {name === "Notifications" ? (
+          <div className="relative">
+            <Icon className={"w-7 h-7 align-text-bottom"} isActive={isActive} />
+            {notifCount! > 0 && (
+              <div className="flex absolute -top-[6px] -right-1 min-w-[16px] h-4 box-content justify-center border border-white bg-primary-base rounded-full">
+                <span className="text-[11px] leading-[14px] text-white">
+                  {notifCount}
+                </span>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Icon className={"w-7 h-7 align-text-bottom"} isActive={isActive} />
+        )}
+        <div className={nameClasses}>
           <span>{name}</span>
         </div>
       </div>

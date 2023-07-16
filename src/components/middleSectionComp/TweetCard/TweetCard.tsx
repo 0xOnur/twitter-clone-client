@@ -1,10 +1,9 @@
-import { ITweet } from "@customTypes/TweetTypes";
 import { useQuery } from "@tanstack/react-query";
 import { getSpecificTweet } from "api/tweetApi";
-import BasicCard from "./BasicCard";
+import NotFoundTweet from "./NotFoundTweet";
 import DetailedCard from "./DetailedCard";
 import { LoadingIcon } from "@icons/Icon";
-import NotFoundTweet from "./NotFoundTweet";
+import BasicCard from "./BasicCard";
 
 interface IProps {
   pageType: "home" | "TweetDetails";

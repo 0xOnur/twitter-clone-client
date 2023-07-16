@@ -5,7 +5,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { useCallback, useEffect, useRef } from "react";
 import { UserState } from "@redux/slices/userSlice";
-import { IUser } from "@customTypes/UserTypes";
 import { getLikers } from "api/tweetApi";
 
 interface IProps {
@@ -20,9 +19,9 @@ const LikersModal = ({ tweetId, reduxUser, isOpen, onClose }: IProps) => {
 
   const { ref, inView } = useInView();
 
-  const fetchLikers = ({pageParam = 0}) => {
+  const fetchLikers = ({ pageParam = 0 }) => {
     return getLikers(tweetId, pageParam, 20);
-  }
+  };
 
   const {
     data,
@@ -46,7 +45,7 @@ const LikersModal = ({ tweetId, reduxUser, isOpen, onClose }: IProps) => {
       fetchNextPage();
     }
   }, [inView, isFetchingNextPage]);
-  
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -90,9 +89,7 @@ const LikersModal = ({ tweetId, reduxUser, isOpen, onClose }: IProps) => {
                 <CancelIcon className={"w-5 h-5"} />
               </button>
               <div>
-                <span className="text-xl leading-6 font-bold">
-                  Liked by
-                </span>
+                <span className="text-xl leading-6 font-bold">Liked by</span>
               </div>
             </div>
           </div>
@@ -119,18 +116,36 @@ const LikersModal = ({ tweetId, reduxUser, isOpen, onClose }: IProps) => {
           )}
 
           {data &&
-            data.pages.map((page, index) => (
-              <div key={index}>
-                {page.data.map((user: IUser) => (
-                  <UserPreviewCard
-                    key={user._id}
-                    user={user}
-                    reduxUser={reduxUser}
-                    showBio={true}
-                  />
-                ))}
-              </div>
-            ))}
+            data.pages.map((page, index) =>
+              page.data.length > 0 ? (
+                <div key={index}>
+                  {page.data.map((user: IUser) => (
+                    <UserPreviewCard
+                      key={user._id}
+                      user={user}
+                      reduxUser={reduxUser}
+                      showBio={true}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div key={index} className="flex p-8 justify-center">
+                  <div className="flex flex-col max-w-sm">
+                    <img
+                      src="https://twitter-clone.fra1.cdn.digitaloceanspaces.com/not-found-images/hearts-800x400.v1.453aab19.png"
+                      alt=""
+                    />
+                    <span className="text-3xl font-bold mb-2">
+                      No Tweet Likes yet
+                    </span>
+                    <span>
+                      When someone (even you) taps the heart to Like this Tweet,
+                      it’ll show up here.
+                    </span>
+                  </div>
+                </div>
+              )
+            )}
           {isFetchingNextPage && (
             <div className="flex w-full mt-20 items-center justify-center">
               <LoadingIcon />

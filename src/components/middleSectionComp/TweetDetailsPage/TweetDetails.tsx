@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getSpecificTweet } from "api/tweetApi";
 import { RootState } from "@redux/config/store";
 import { useParams } from "react-router-dom";
-import { ITweet } from "@customTypes/index";
 import { useSelector } from "react-redux";
 import Replies from "./Replies";
 

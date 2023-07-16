@@ -7,7 +7,6 @@ import {
   TweetActions,
   TweetMedia,
 } from "@components/middleSectionComp/TweetCard/components";
-import { ITweet } from "@customTypes/TweetTypes";
 import { useNavigate } from "react-router-dom";
 
 interface IProps {

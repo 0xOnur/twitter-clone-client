@@ -1,5 +1,4 @@
 import { LikedBy } from "@components/middleSectionComp/TweetCard/components";
-import { ITweet } from "@customTypes/TweetTypes";
 import { RootState } from "@redux/config/store";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";

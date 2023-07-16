@@ -1,16 +1,4 @@
-import {IUser} from "./UserTypes"
-
-export interface Media {
-  url: string;
-  alt: string;
-  type: "image/jpeg" |  
-  "image/png" |
-  "image/jpg" |
-  "image/gif" |
-  "video/mp4";
-}
-
-export interface ITweet {
+interface ITweet {
   _id: string;
   author: IUser;
   audience: "everyone" | "followers" | "specificUsers";

@@ -2,12 +2,11 @@ import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
-import { ITweet } from "@customTypes/TweetTypes";
 import { getTweetQuotes } from "api/tweetApi";
 import React, { useEffect } from "react";
 
 interface IProps {
-  isAuthenticated:boolean;
+  isAuthenticated: boolean;
   tweetId: string;
 }
 
@@ -69,20 +68,38 @@ const QuoteTweets = ({ isAuthenticated, tweetId }: IProps) => {
   if (data) {
     return (
       <div>
-        {data.pages.map((page, index) => (
-          <div key={index}>
-            {page.data.map((tweet: ITweet) => (
-              <div key={tweet._id} className="border-b">
-                <TweetCard
-                  isAuthenticated={isAuthenticated}
-                  tweetId={tweet._id}
-                  key={tweet._id}
-                  pageType="home"
+        {data.pages.map((page, index) =>
+          page.data.length > 0 ? (
+            <div key={index}>
+              {page.data.map((tweet: ITweet) => (
+                <div key={tweet._id} className="border-b">
+                  <TweetCard
+                    isAuthenticated={isAuthenticated}
+                    tweetId={tweet._id}
+                    key={tweet._id}
+                    pageType="home"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div key={index} className="flex p-8 justify-center">
+              <div className="flex flex-col max-w-sm">
+                <img
+                  src="https://twitter-clone.fra1.cdn.digitaloceanspaces.com/not-found-images/parrot-400x200.v1.e607e619.png"
+                  alt=""
                 />
+                <span className="text-3xl font-bold mb-2">
+                  No Quote Tweets yet
+                </span>
+                <span>
+                  Add your take when sharing someone else’s Tweet and it’ll show
+                  up here.
+                </span>
               </div>
-            ))}
-          </div>
-        ))}
+            </div>
+          )
+        )}
         {isFetchingNextPage && (
           <div className="flex w-full mt-20 items-center justify-center">
             <LoadingIcon />

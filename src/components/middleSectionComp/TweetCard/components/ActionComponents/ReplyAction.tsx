@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import { DigalogModals } from "@components/middleSectionComp";
-import { ITweet } from "@customTypes/TweetTypes";
-import { ReplyIcon } from "@icons/Icon";
 import { formatNumber } from "@utils/formatNumber";
+import React, { useState } from "react";
+import { ReplyIcon } from "@icons/Icon";
 
 interface IProps {
   isAuthenticated: boolean;

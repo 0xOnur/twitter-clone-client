@@ -14,10 +14,13 @@ import {
 import SideLink from "./SideLink";
 import UserBox from "./UserBox";
 import MoreButton from "./MoreButton";
+import { useUnreadNotifications } from "@hooks/notifications/useUnreadNotifications ";
 
 const LeftSideBar = () => {
   const reduxUser = useSelector((state: RootState) => state.user);
   const isAuthenticated = reduxUser.isAuthenticated;
+
+  const {notifCount} = useUnreadNotifications(isAuthenticated)
 
   const sideLinks = [
     {
@@ -80,7 +83,7 @@ const LeftSideBar = () => {
                   ))}
                   {isAuthenticated &&
                     authenticatedSideLinks.map(({ name, url, icon }, index) => (
-                      <SideLink key={index} name={name} url={url} Icon={icon} />
+                      <SideLink key={index} name={name} url={url} Icon={icon} notifCount={notifCount} />
                     ))}
                   {isAuthenticated && (
                     <div className="w-full">

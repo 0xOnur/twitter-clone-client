@@ -1,4 +1,3 @@
-import {IComposer, IPoll} from "@customTypes/ComposerTypes"
 import { ComposerComp } from "@components/index";
 import React, { useRef, useState } from "react";
 import { TenorImage } from "gif-picker-react";

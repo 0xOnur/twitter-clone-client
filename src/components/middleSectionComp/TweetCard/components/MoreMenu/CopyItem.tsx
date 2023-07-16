@@ -1,5 +1,4 @@
 import { useCopyTweet } from "@hooks/tweet/useCopyTweetURL";
-import { ITweet } from "@customTypes/TweetTypes";
 import { WebsiteIcon } from "@icons/Icon";
 
 interface IProps {

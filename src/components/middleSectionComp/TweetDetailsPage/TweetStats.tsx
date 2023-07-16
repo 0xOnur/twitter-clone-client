@@ -2,7 +2,6 @@ import { formatDetailedDate } from "@utils/formatDetailedDate";
 import { getSpecificTweetStats } from "api/tweetApi";
 import { formatNumber } from "@utils/formatNumber";
 import { TweetStatsModal } from "../DialogModals";
-import { ITweet } from "@customTypes/TweetTypes";
 import { useQuery } from "@tanstack/react-query";
 import { RootState } from "redux/config/store";
 import { useSelector } from "react-redux";

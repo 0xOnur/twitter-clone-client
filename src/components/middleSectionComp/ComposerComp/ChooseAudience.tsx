@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { DropDownMenuArrowIcon } from "@icons/Icon";
 import AudienceMenu from "./AudienceMenu";
-import {IComposer} from "@customTypes/ComposerTypes"
 import classNames from "classnames";
 
 interface IProps {

@@ -3,7 +3,6 @@ import { useBookmarkMutation } from "@hooks/mutations/useBookmarkMutation";
 import { TweetCardComp } from "@components/middleSectionComp";
 import { useCopyTweet } from "@hooks/tweet/useCopyTweetURL";
 import { UserState } from "@redux/slices/userSlice";
-import { ITweet } from "@customTypes/TweetTypes";
 import React, { useState } from "react";
 import { ShareIcon } from "@icons/Icon";
 

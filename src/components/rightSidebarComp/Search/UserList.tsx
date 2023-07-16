@@ -1,7 +1,6 @@
+import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { useNavigate } from "react-router-dom";
 import { VerifiedIcon } from "@icons/Icon";
-import { IUser } from "@customTypes/UserTypes";
-import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 
 interface IProps {
   user: IUser;

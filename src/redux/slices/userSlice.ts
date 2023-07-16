@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as userApi from "../../api/userApi";
-import {IUser} from "@customTypes/UserTypes"
 
 type errorPayload = {
     message: string;

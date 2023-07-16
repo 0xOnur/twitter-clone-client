@@ -1,15 +1,14 @@
-import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { RootState } from "@redux/config/store";
-import { ITweet } from "@customTypes/TweetTypes";
-import ReplyAction from "./ActionComponents/ReplyAction";
-import RetweetAction from "./ActionComponents/RetweetAction";
-import LikeAction from "./ActionComponents/LikeAction";
-import Views from "./ActionComponents/Views";
-import ShareAction from "./ActionComponents/ShareAction";
 import BookmarkAction from "./ActionComponents/BookmarkAction";
-import { useQuery } from "@tanstack/react-query";
+import RetweetAction from "./ActionComponents/RetweetAction";
+import ReplyAction from "./ActionComponents/ReplyAction";
+import ShareAction from "./ActionComponents/ShareAction";
+import LikeAction from "./ActionComponents/LikeAction";
 import { getSpecificTweetStats } from "api/tweetApi";
+import { useQuery } from "@tanstack/react-query";
+import { RootState } from "@redux/config/store";
+import Views from "./ActionComponents/Views";
+import { useSelector } from "react-redux";
+import classNames from "classnames";
 
 type tweetStats = {
   replyStats: {

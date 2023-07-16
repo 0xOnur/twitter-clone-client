@@ -1,6 +1,5 @@
-import { ITweet } from "@customTypes/TweetTypes";
-import Tweet from "./TweetType/Tweet";
 import Retweet from "./TweetType/Retweet";
+import Tweet from "./TweetType/Tweet";
 import Quote from "./TweetType/Quote";
 import Like from "./TweetType/Like";
 

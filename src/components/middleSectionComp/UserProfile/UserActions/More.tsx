@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { TreeDotIcon, WebsiteIcon } from "@icons/Icon";
-import { IUser } from "@customTypes/UserTypes";
 import useToast from "@hooks/useToast";
 
 interface IProps {

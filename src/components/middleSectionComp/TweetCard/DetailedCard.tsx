@@ -6,7 +6,6 @@ import {
   Avatar,
   TweetMedia,
 } from "@components/middleSectionComp/TweetCard/components";
-import { ITweet } from "@customTypes/TweetTypes";
 import TweetContent from "./components/TweetContent";
 import TweetActions from "./components/TweetActions";
 import TweetCard from "./TweetCard";

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { IUser } from "@customTypes/UserTypes";
 import { RootState } from "redux/config/store";
 import { getUserFollowings } from "api/userApi";
 import { useInView } from "react-intersection-observer";

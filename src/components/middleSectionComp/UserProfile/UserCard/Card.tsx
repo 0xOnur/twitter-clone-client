@@ -1,6 +1,5 @@
-import { LoadingIcon } from "@icons/Icon";
-import { IUser } from "@customTypes/UserTypes";
 import CoverAndAvatar from "./CoverAndAvatar";
+import { LoadingIcon } from "@icons/Icon";
 import UserActions from "../UserActions";
 import UserInfo from "./UserInfo";
 import NotFound from "./NotFound";

@@ -25,7 +25,7 @@ export const getTimeRemaining = (expiryDate: string | Date): TimeRemaining =>{
 export function formatTimeRemaining(timeRemaining: TimeRemaining): string {
   const { total, days, hours, minutes, seconds } = timeRemaining;
   
-  if (total <= 0) return "Poll expired.";
+  if (total <= 0) return "Final results";
   if (days > 0) return `${days} days left`;
   if (hours > 0) return `${hours} hours left`;
   if (minutes > 0) return `${minutes} minutes left`;

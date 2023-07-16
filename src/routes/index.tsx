@@ -6,13 +6,14 @@ import { AuthModal } from "@components/auth";
 import Logout from "@components/auth/Logout";
 import {
   HomeLayout,
-  TweetDetailsLayout,
-  UserProfileLayout,
   FollowsLayout,
   BookmarksLayout,
+  TweetQuotesLayout,
+  UserProfileLayout,
+  TweetDetailsLayout,
+  NotificationsLayout,
+  ConnectPeopleLayout,
 } from "@layout/index";
-import ConnectPeopleLayout from "@layout/ConnectPeopleLayout";
-import TweetQuotesLayout from "@layout/TweetQuotesLayout";
 
 interface IAppRoutes {
   isAuthenticated: boolean;
@@ -51,7 +52,7 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
         path="notifications"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <HomeLayout isAuthenticated={isAuthenticated} />
+            <NotificationsLayout isAuthenticated={isAuthenticated} />
           </PrivateRoute>
         }
       />
@@ -93,7 +94,7 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
         path="/:username/status/:tweetId"
         element={<TweetDetailsLayout isAuthenticated={isAuthenticated} />}
       />
-      
+
       <Route
         path="/:username/status/:tweetId/retweets/with_comments"
         element={<TweetQuotesLayout isAuthenticated={isAuthenticated} />}

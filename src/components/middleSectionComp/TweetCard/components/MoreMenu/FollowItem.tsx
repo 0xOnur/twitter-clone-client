@@ -1,7 +1,6 @@
 import useFollowsMutation from "@hooks/mutations/useFollowsMutation";
 import { UserState } from "@redux/slices/userSlice";
 import { FollowIcon } from "@icons/Icon";
-import { IUser } from "@customTypes/UserTypes";
 
 interface IProps {
   user: IUser;

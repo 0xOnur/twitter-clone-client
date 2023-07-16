@@ -3,7 +3,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { getUserFollowingTweets } from "api/userApi";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
-import { ITweet } from "@customTypes/TweetTypes";
 import { useEffect } from "react";
 
 interface IProps {

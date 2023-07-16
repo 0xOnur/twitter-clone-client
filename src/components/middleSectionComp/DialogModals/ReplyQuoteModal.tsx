@@ -1,6 +1,5 @@
 import { TweetComposer } from "@components/middleSectionComp/ComposerComp";
 import { TweetCardComp } from "@components/middleSectionComp";
-import { ITweet } from "@customTypes/TweetTypes";
 import React, { useEffect } from "react";
 import { CancelIcon } from "@icons/Icon";
 

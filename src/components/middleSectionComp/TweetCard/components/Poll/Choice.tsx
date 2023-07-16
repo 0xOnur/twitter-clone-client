@@ -19,24 +19,18 @@ const Choice = ({ choice, isPollOwner, isExpired, isVoted, reduxUserId, handleVo
 
   const votedChoice = choice.votes.includes(reduxUserId!)
 
-  const percentageWidthClass =
-    choice.percentage
-      ? `w-[${Math.floor(choice.percentage)}%]`
-      : "w-[1.4%]";
+  const percentage = Math.floor(choice?.percentage!);
 
-  const percentageClass = classNames(
-    "absolute bg-gray-defaultCover h-full rounded-md",
-    percentageWidthClass
-  );
+  const percentageStyle = choice.percentage ? `${percentage}%` : "1.4%";
 
   if (isPollOwner || isExpired || isVoted) {
     return (
       <div className="flex flex-row relative py-1 items-center justify-between">
-        <div className={percentageClass} />
+        <div className="absolute bg-gray-defaultCover h-full rounded-md" style={{width: percentageStyle}} />
         <div className="z-10">
           <span className="flex items-center gap-1 ml-3">{choice.text} {votedChoice && <VotedIcon className="w-5 h-5" />}</span>
         </div>
-        <span className="z-10 mr-3">{Math.floor(choice?.percentage!) || 0}%</span>
+        <span className="z-10 mr-3">{percentage || 0}%</span>
       </div>
     );
   }

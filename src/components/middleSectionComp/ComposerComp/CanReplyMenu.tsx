@@ -5,7 +5,6 @@ import {
   SelectedIcon,
   MentionIcon,
 } from "@icons/Icon";
-import { IComposer } from "@customTypes/ComposerTypes";
 
 interface IProps {
   ComposerSettings: IComposer;

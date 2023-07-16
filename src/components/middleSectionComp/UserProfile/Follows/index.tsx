@@ -1,7 +1,6 @@
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { IUser } from "@customTypes/UserTypes";
 import { HeaderComp } from "@components/middleSectionComp";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 import { getUser } from "api/userApi";
 import Followers from "./Followers";
 import Following from "./Following";

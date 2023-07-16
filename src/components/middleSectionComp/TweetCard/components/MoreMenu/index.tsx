@@ -1,11 +1,10 @@
 import React, { useRef, useEffect, useCallback } from "react";
-import { ITweet } from "@customTypes/TweetTypes";
 import { RootState } from "@redux/config/store";
 import { useSelector } from "react-redux";
 import { ListsIcon } from "@icons/Icon";
+import DeleteItem from "./DeleteItem";
 import FollowItem from "./FollowItem";
 import CopyItem from "./CopyItem";
-import DeleteItem from "./DeleteItem";
 
 interface IProps {
   isAuthenticated?: boolean;

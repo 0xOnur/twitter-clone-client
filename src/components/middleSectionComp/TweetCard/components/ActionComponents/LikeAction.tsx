@@ -1,10 +1,9 @@
-import { ITweet } from "@customTypes/TweetTypes";
-import { LikeIcon, LikedIcon } from "@icons/Icon";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { PersistPartial } from "redux-persist/es/persistReducer";
+import { likeTweet, unlikeTweet } from "api/tweetApi";
 import { UserState } from "@redux/slices/userSlice";
 import { formatNumber } from "@utils/formatNumber";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { likeTweet, unlikeTweet } from "api/tweetApi";
-import { PersistPartial } from "redux-persist/es/persistReducer";
+import { LikeIcon, LikedIcon } from "@icons/Icon";
 import useToast from "@hooks/useToast";
 
 interface IProps {

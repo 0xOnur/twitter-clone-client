@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { UserCardComp } from "@components/middleSectionComp/UserProfile";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CancelIcon, LoadingIcon } from "@icons/Icon";
-import { IUser } from "@customTypes/UserTypes";
-import useToast from "@hooks/useToast";
-import { UserCardComp } from "@components/middleSectionComp/UserProfile";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "redux/config/store";
 import { updateUser, updateRedux } from "api/userApi";
+import { AppDispatch } from "redux/config/store";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import useToast from "@hooks/useToast";
 import InputField from "./InputField";
 
 interface IProps {

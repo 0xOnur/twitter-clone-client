@@ -1,5 +1,4 @@
 import React from "react";
-import { IUser } from "@customTypes/UserTypes";
 import { VerifiedIcon } from "@icons/Icon";
 
 interface IProps {

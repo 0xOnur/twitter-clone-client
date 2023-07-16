@@ -2,7 +2,6 @@ import React from "react";
 import classNames from "classnames";
 import { TenorImage } from "gif-picker-react";
 import { RemoveItemIcon } from "@icons/Icon";
-import { IComposer } from "@customTypes/ComposerTypes";
 
 type Props = {
   ComposerSettings: IComposer;

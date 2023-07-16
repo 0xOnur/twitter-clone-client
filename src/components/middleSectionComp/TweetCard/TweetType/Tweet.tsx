@@ -9,7 +9,6 @@ import {
 } from "@components/middleSectionComp/TweetCard/components";
 import { getSpecificTweetAuthor } from "api/tweetApi";
 import { useQuery } from "@tanstack/react-query";
-import { ITweet } from "@customTypes/TweetTypes";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 

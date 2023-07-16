@@ -1,6 +1,5 @@
 import { LocationIcon, BirthIcon, WebsiteIcon, CalendarIcon } from "@icons/Icon";
 import { formatDate, getMonthNameFromNumber } from "utils";
-import { IUser } from "@customTypes/UserTypes";
 
 interface IProps {
   user: IUser;

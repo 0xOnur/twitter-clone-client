@@ -1,7 +1,6 @@
 import { UserPreviewCard } from "@components/middleSectionComp/UserProfile";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { useQuery } from "@tanstack/react-query";
-import { IUser } from "@customTypes/UserTypes";
 import { RootState } from "redux/config/store";
 import { useSelector } from "react-redux";
 import { whoToFollow } from "api/userApi";

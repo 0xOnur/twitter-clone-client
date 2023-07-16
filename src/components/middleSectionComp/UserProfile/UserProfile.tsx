@@ -1,10 +1,8 @@
-import React from "react";
+import { HeaderComp } from "@components/middleSectionComp";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { IUser } from "@customTypes/UserTypes";
-import { HeaderComp } from "@components/middleSectionComp";
-import { getUser } from "api/userApi";
 import UserCard from "./UserCard/Card";
+import { getUser } from "api/userApi";
 import UserFeed from "./UserFeed";
 
 interface IProps {

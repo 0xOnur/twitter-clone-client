@@ -1,6 +1,5 @@
 import MoreMenu from "@components/middleSectionComp/TweetCard/components/MoreMenu";
 import { TreeDotIcon, VerifiedIcon } from "@icons/Icon";
-import { ITweet } from "@customTypes/TweetTypes";
 import { formatDate } from "@utils/index";
 import React, { useState } from "react";
 import classNames from "classnames";

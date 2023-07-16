@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { ITweet } from '@customTypes/TweetTypes';
 import { DeleteTweetIcon } from '@icons/Icon'
 import { deleteTweet } from 'api/tweetApi';
 import useToast from '@hooks/useToast';

@@ -1,6 +1,5 @@
-import { ITweet } from "@customTypes/TweetTypes";
-import { AnalyticsIcon } from "@icons/Icon";
 import { formatNumber } from "@utils/formatNumber";
+import { AnalyticsIcon } from "@icons/Icon";
 
 interface IProps {
   tweet: ITweet;

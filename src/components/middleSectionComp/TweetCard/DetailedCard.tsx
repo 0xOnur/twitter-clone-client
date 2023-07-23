@@ -35,7 +35,7 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                 <div className="flex flex-row items-center">
                   <Avatar
                     avatar={tweet.author.avatar!}
-                    username={tweet.author.username!}
+                    href={`/${tweet.author.username!}`}
                   />
                   <AuthorInfo
                     isAuthenticated={isAuthenticated}

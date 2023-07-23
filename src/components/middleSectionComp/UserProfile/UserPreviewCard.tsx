@@ -20,7 +20,7 @@ const UserPreviewCard = ({ user, reduxUser, showBio }: IProps) => {
         className="cursor-pointer py-3 px-3 hover:bg-gray-trendsHover duration-200"
       >
         <div className="flex flex-row w-full">
-          <Avatar avatar={user?.avatar!} username={user?.username!} />
+          <Avatar avatar={user?.avatar!} href={`/${user?.username!}`} />
           <div className="flex flex-col w-full overflow-hidden">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col w-full min-w-0 pr-2">

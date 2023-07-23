@@ -1,4 +1,4 @@
-import { useMarkNotification } from "@hooks/notifications/useMarkNotification";
+import { useMarkNotification } from "@hooks/mutations/Notifications/useMarkNotification";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { ProfileIcon } from "@icons/Icon";
 import { useEffect } from "react";
@@ -33,7 +33,7 @@ const FollowNotif = ({ notifId, isRead, username, avatar }: IProps) => {
         </div>
         <div className="flex flex-col">
           <div className="mb-3 pr-5 w-fit">
-            <Avatar avatar={avatar} username={username} avatarSize="w-8 h-8" />
+            <Avatar avatar={avatar} href={`/${username}`} avatarSize="w-8 h-8" />
           </div>
           <div className="flex flex-row gap-1">
             <span className="font-bold hover:underline">{username}</span>

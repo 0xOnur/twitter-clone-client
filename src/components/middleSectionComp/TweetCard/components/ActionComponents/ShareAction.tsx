@@ -1,5 +1,5 @@
 import { PersistPartial } from "redux-persist/es/persistReducer";
-import { useBookmarkMutation } from "@hooks/mutations/useBookmarkMutation";
+import { useBookmarkMutation } from "@hooks/mutations/Bookmarks/useBookmarkMutation";
 import { TweetCardComp } from "@components/middleSectionComp";
 import { useCopyTweet } from "@hooks/tweet/useCopyTweetURL";
 import { UserState } from "@redux/slices/userSlice";

@@ -44,6 +44,7 @@ module.exports = {
       maxWidth: {
         "350px": "350px",
         "600px": "600px",
+        "900px": "900px",
       },
       transformOrigin: {
         "0": "0%",

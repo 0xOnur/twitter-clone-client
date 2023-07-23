@@ -1,4 +1,4 @@
-import useFollowsMutation from "@hooks/mutations/useFollowsMutation";
+import useFollowsMutation from "@hooks/mutations/Follows/useFollowsMutation";
 import { UserState } from "@redux/slices/userSlice";
 import classNames from "classnames";
 import { useState } from "react";

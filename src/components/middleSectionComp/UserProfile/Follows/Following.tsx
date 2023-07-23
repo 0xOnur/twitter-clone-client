@@ -86,7 +86,7 @@ const Following = ({isAuthenticated}: IProps) => {
                       className="cursor-pointer py-3 px-4 hover:bg-gray-tweetHover duration-200"
                     >
                       <div className="flex flex-row ">
-                        <Avatar avatar={user.avatar!} username={username!} />
+                        <Avatar avatar={user.avatar!} href={`/${username!}`} />
                         <div className="flex flex-col w-full">
                           <div className="flex flex-row w-full justify-between items-center">
                             <div className="flex flex-col text-left">

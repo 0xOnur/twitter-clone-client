@@ -51,7 +51,7 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                   <div className="flex flex-col grow-0 min-w-fit basis-12 mr-3 items-center">
                     <TweetCardComp.Components.Avatar
                       avatar={tweet.author.avatar!}
-                      username={tweet.author.username}
+                      href={`/${tweet.author.username}`}
                     />
                     <div className="w-0.5 -ml-3 bg-gray-200 mt-1 h-full"/>
                   </div>

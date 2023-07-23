@@ -35,14 +35,14 @@ const Quote = ({ tweet, isAuthenticated, isReply }: IProps) => {
                 <div className="flex flex-col justify-center items-center">
                   <Avatar
                     avatar={tweet.author.avatar!}
-                    username={tweet.author.username}
+                    href={`/${tweet.author.username}`}
                   />
                   <div className="w-px -ml-3 bg-gray-200 mt-1 h-full" />
                 </div>
               ) : (
                 <Avatar
                   avatar={tweet.author.avatar!}
-                  username={tweet.author.username}
+                  href={`/${tweet.author.username}`}
                 />
               )}
 

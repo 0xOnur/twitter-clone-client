@@ -1,4 +1,4 @@
-import { useBookmarkMutation } from "@hooks/mutations/useBookmarkMutation";
+import { useBookmarkMutation } from "@hooks/mutations/Bookmarks/useBookmarkMutation";
 import { PersistPartial } from "redux-persist/es/persistReducer";
 import { UserState } from "@redux/slices/userSlice";
 import { BookmarksIcon } from "@icons/Icon";

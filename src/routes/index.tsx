@@ -13,6 +13,7 @@ import {
   TweetDetailsLayout,
   NotificationsLayout,
   ConnectPeopleLayout,
+  MessagesLayout,
 } from "@layout/index";
 
 interface IAppRoutes {
@@ -60,7 +61,7 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
         path="messages"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <HomeLayout isAuthenticated={isAuthenticated} />
+            <MessagesLayout isAuthenticated={isAuthenticated} />
           </PrivateRoute>
         }
       />

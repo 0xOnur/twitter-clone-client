@@ -1,4 +1,4 @@
-import { useMarkNotification } from "@hooks/notifications/useMarkNotification";
+import { useMarkNotification } from "@hooks/mutations/Notifications/useMarkNotification";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { ReTweetIcon } from "@icons/Icon";
 import { useEffect } from "react";
@@ -39,7 +39,7 @@ const RetweetNotif = ({
           <div className="mb-3 pr-5 w-fit">
             <Avatar
               avatar={sender.avatar!}
-              username={sender.username}
+              href={`/${sender.username}`}
               avatarSize="w-8 h-8"
             />
           </div>

@@ -1,4 +1,4 @@
-import { useMarkNotification } from "@hooks/notifications/useMarkNotification";
+import { useMarkNotification } from "@hooks/mutations/Notifications/useMarkNotification";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { LikedIcon } from "@icons/Icon";
 import { useEffect } from "react";
@@ -33,7 +33,7 @@ const LikeNotif = ({ notifId, isRead, tweetId, sender, receiver }: IProps) => {
           <div className="mb-3 pr-5 w-fit">
             <Avatar
               avatar={sender.avatar!}
-              username={sender.username}
+              href={`/${sender.username}`}
               avatarSize="w-8 h-8"
             />
           </div>

@@ -15,7 +15,7 @@ const UserList = ({ user }: IProps) => {
       key={user._id}
       className="flex items-center px-4 py-3 hover:bg-gray-100 cursor-pointer"
     >
-      <Avatar avatar={user?.avatar!} username={user.username} />
+      <Avatar avatar={user?.avatar!} href={`/${user.username}`} />
       <div key={user._id} className="flex flex-col w-full min-w-0 ml-3">
         <div className="flex flex-row items-center gap-1">
           <span className="truncate font-bold ">{user.displayName}</span>

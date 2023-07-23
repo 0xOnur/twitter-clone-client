@@ -4,6 +4,7 @@
   "private": true,
   "cracoConfig": "craco.config.js",
   "dependencies": {
+    "@atlaskit/avatar-group": "^9.3.6",
     "@craco/craco": "^7.1.0",
     "@emoji-mart/data": "^1.1.2",
     "@emoji-mart/react": "^1.1.1",

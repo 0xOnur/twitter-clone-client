@@ -175,7 +175,7 @@ const MoreButton = () => {
               {settingsIsOpen && (
                 <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
                   <span className="">
-                    <SettingsIcon />
+                    <SettingsIcon className="w-4 h-4" />
                   </span>
                   <span className="font-normal pl-3">Settings and privacy</span>
                 </button>

@@ -130,7 +130,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
             <div className="w-14 h-14 pt-1">
               <Avatar
                 avatar={reduxUser.user.avatar!}
-                username={reduxUser.user.username!}
+                href={`/${reduxUser.user.username!}`}
               />
             </div>
 

@@ -7,7 +7,7 @@ import ChatPreview from "./ChatPreview";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/config/store";
 
-const Chats = () => {
+const Conversations = () => {
   const reduxUser = useSelector((state: RootState) => state.user);
 
   const chats = useQuery<IChat[]>({
@@ -48,10 +48,21 @@ const Chats = () => {
   }
 
   if (chats.data && chats.data.length > 0) {
-    const pinnedChatsExist = chats.data.some((chat) => chat.isPinned);
+    const pinnedChatsExist = chats.data.some((chat) => chat.participants.find(
+      (participant) => participant.user._id === reduxUser.user._id
+    )?.isPinned);
 
-    const pinnedChats = chats.data.filter((chat) => chat.isPinned);
-    const normalChats = chats.data.filter((chat) => !chat.isPinned);
+    const pinnedChats = chats.data.filter((chat) => 
+      chat.participants.find((participant) => 
+        participant.user._id === reduxUser.user._id && participant.isPinned
+      )
+    )
+
+    const normalChats = chats.data.filter((chat) => 
+    !chat.participants.find((participant) => 
+      participant.user._id === reduxUser.user._id && participant.isPinned
+    )
+  )
 
     return (
       <div className="flex flex-col border-x h-full w-full overflow-y">
@@ -102,4 +113,4 @@ const Chats = () => {
   );
 };
 
-export default Chats;
+export default Conversations;

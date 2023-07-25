@@ -13,13 +13,14 @@ const ChatPreview = ({ chat, reduxUser }: IProps) => {
     <div key={chat._id}>
       {chat.isGroupChat ? (
         <GroupChat
+          reduxUser={reduxUser}
           key={chat._id}
           chat={chat}
         />
       ) : (
         <NormalChat
-          key={chat._id}
           reduxUser={reduxUser}
+          key={chat._id}
           chat={chat}
           />
       )}

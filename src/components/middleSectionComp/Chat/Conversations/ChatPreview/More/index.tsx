@@ -1,6 +1,7 @@
 import { TrashIcon, PinIcon, UnpinIcon } from "@icons/Icon";
 import { useCallback, useEffect, useRef } from "react";
 import usePinMutation from "@hooks/mutations/Chat/usePinMutation";
+import useDeleteConversations from "@hooks/mutations/Chat/useDeleteConversations";
 
 interface IProps {
   chatId: string;
@@ -10,6 +11,9 @@ interface IProps {
 
 const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const {setPin, unsetPin} = usePinMutation({chatId: chatId})
+  const {deleteConversationMutation} = useDeleteConversations({chatId: chatId})
 
   const handleClose = useCallback(
     (event: MouseEvent) => {
@@ -27,7 +31,6 @@ const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
     };
   }, [handleClose]);
 
-  const {setPin, unsetPin} = usePinMutation({chatId: chatId})
 
   const handlePin = () => {
     if(isPinned) {
@@ -56,7 +59,10 @@ const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
             </>
           )}
         </button>
-        <button className="flex flex-row gap-2 py-3 px-4 items-center hover:bg-gray-dropdown">
+        <button
+          onClick={() => deleteConversationMutation.mutate(chatId)}
+          className="flex flex-row gap-2 py-3 px-4 items-center hover:bg-gray-dropdown"
+        >
             <TrashIcon className="w-5 h-5 fill-red-removeText" />
             <span className="font-bold text-red-removeText">Delete conversation</span>
         </button>

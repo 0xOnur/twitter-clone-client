@@ -43,3 +43,18 @@ export const unpinConversation = async (chatId: string) => {
     return Promise.reject(error);
   }
 };
+
+// Delete conversation (Leave chat)
+export const deleteConversation = async (chatId: string) => {
+  try {
+    const response = await axiosInstance.delete(
+      `/chat/delete-conversation/${chatId}`
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
+  }
+};

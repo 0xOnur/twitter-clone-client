@@ -4,23 +4,36 @@ import { formatDate } from "@utils/formatDate";
 import { TreeDotIcon } from "@icons/Icon";
 import { useState } from "react";
 import MoreMenu from "./More";
+import { UserState } from "@redux/slices/userSlice";
 
 interface IProps {
   chat: IChat;
+  reduxUser: UserState;
 }
 
-const GroupChat = ({ chat }: IProps) => {
-  const participantsAvatars = chat.participants.slice(0, 4).map((user) => ({
-    src: user.avatar || "",
-    name: user.displayName,
-    href: `/${user.username}`,
-  }));
-
-  const participantsDisplayNames = chat.participants.slice(0, 2).map((user) => {
-    return user.displayName;
-  });
-
+const GroupChat = ({ chat, reduxUser }: IProps) => {
   const [isOpenMore, setOpenMore] = useState(false);
+
+  const participantsAvatars = chat.participants
+    .filter((participant) => !participant.hasLeft)
+    .slice(0, 4)
+    .map((participant) => ({
+      src: participant.user.avatar || "",
+      name: participant.user.displayName,
+      href: `/${participant.user.username}`,
+    }));
+
+  const participantsDisplayNames = chat.participants
+    .filter((participant) => !participant.hasLeft)
+    .slice(0, 2)
+    .map((participant) => {
+      return participant.user.displayName;
+    });
+  
+  const isPinned = chat.participants.find(
+    (participant) => participant.user._id === reduxUser.user._id
+  )?.isPinned;
+
 
   return (
     <div className="relative">
@@ -88,7 +101,13 @@ const GroupChat = ({ chat }: IProps) => {
           </div>
         </div>
       </a>
-      {isOpenMore && <MoreMenu chatId={chat._id} isPinned={chat.isPinned} setOpenMore={setOpenMore} />}
+      {isOpenMore && (
+        <MoreMenu
+          chatId={chat._id}
+          isPinned={isPinned ||false}
+          setOpenMore={setOpenMore}
+        />
+      )}
     </div>
   );
 };

@@ -11,11 +11,17 @@ interface IProps {
 }
 
 const NormalChat = ({ chat, reduxUser }: IProps) => {
+  const [isOpenMore, setOpenMore] = useState(false);
+
   const ChatParticipants = chat.participants.find(
-    (user) => user._id !== reduxUser.user._id
+    (participants) => participants.user._id !== reduxUser.user._id
   );
 
-  const [isOpenMore, setOpenMore] = useState(false);
+  //check isPinned in chat participant
+  const isPinned = chat.participants.find(
+    (participant) => participant.user._id === reduxUser.user._id
+  )?.isPinned;
+
 
   return (
     <div className="relative">
@@ -26,8 +32,8 @@ const NormalChat = ({ chat, reduxUser }: IProps) => {
       >
         <div className="flex flex-row w-full">
           <Avatar
-            avatar={ChatParticipants?.avatar!}
-            href={`/${ChatParticipants?.username}`}
+            avatar={ChatParticipants?.user.avatar!}
+            href={`/${ChatParticipants?.user.username}`}
           />
           <div className="flex-flex-row w-full ">
             <div className="flex flex-col">
@@ -36,10 +42,10 @@ const NormalChat = ({ chat, reduxUser }: IProps) => {
                   <div className="md:max-w-[120px] overflow-hidden">
                     <div className="flex flex-row">
                       <p className="font-bold truncate max-w-[200px]">
-                        {ChatParticipants?.displayName}
+                        {ChatParticipants?.user.displayName}
                       </p>
                       <p>
-                        {ChatParticipants?.isVerified && (
+                        {ChatParticipants?.user.isVerified && (
                           <VerifiedIcon className="w-5 h-5 fill-primary-base" />
                         )}
                       </p>
@@ -67,7 +73,13 @@ const NormalChat = ({ chat, reduxUser }: IProps) => {
           </div>
         </div>
       </a>
-      {isOpenMore && <MoreMenu chatId={chat._id} isPinned={chat.isPinned} setOpenMore={setOpenMore} />}
+      {isOpenMore && (
+        <MoreMenu
+          chatId={chat._id}
+          isPinned={isPinned || false}
+          setOpenMore={setOpenMore}
+        />
+      )}
     </div>
   );
 };

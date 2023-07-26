@@ -45,7 +45,7 @@ const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
       <div className="flex flex-col bg-white border rounded-xl overflow-hidden shadow">
         <button
           onClick={handlePin}
-          className="flex flex-row gap-2 py-3 px-4 items-center hover:bg-gray-dropdown"
+          className="flex flex-row gap-2 py-3 px-4 items-center border-b hover:bg-gray-dropdown"
         >
           {isPinned ? (
             <>

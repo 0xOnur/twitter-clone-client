@@ -15,6 +15,7 @@ import {
   ConnectPeopleLayout,
   MessagesLayout,
 } from "@layout/index";
+import { ChatComposeModal } from "@components/middleSectionComp/DialogModals";
 
 interface IAppRoutes {
   isAuthenticated: boolean;
@@ -55,8 +56,9 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <NotificationsLayout isAuthenticated={isAuthenticated} />
           </PrivateRoute>
-        }
+        } 
       />
+      
       <Route
         path="messages"
         element={
@@ -64,7 +66,10 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
             <MessagesLayout isAuthenticated={isAuthenticated} />
           </PrivateRoute>
         }
-      />
+      >
+        <Route path="compose" element={<ChatComposeModal />} />
+      </Route>
+
       <Route
         path="/i/bookmarks"
         element={

@@ -1,6 +1,11 @@
 import { SearchIcon } from "@icons/Icon";
 
-const Search = () => {
+interface IProps {
+    searchText: string
+    setSearchText: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Search = ({searchText, setSearchText}: IProps) => {
   return (
     <div className="bg-white border-b">
       <label className="flex flex-row w-full items-center group/search">
@@ -9,9 +14,12 @@ const Search = () => {
         </div>
         <div className="w-full leading-5 ">
           <input
-            className="p-3 w-full outline-none text-black"
             type="text"
             placeholder="Search people"
+            className="p-3 w-full outline-none text-black"
+            onChange={(e) => {
+                setSearchText(e.target.value);
+            }}
           />
         </div>
       </label>

@@ -4,16 +4,33 @@ import { VerifiedIcon } from "@icons/Icon";
 
 interface IProps {
   user: IUser;
+  selectedUsers?: IUser[] | undefined
+  setSelectUsers?: React.Dispatch<React.SetStateAction<IUser[]>>
 }
 
-const UserList = ({ user }: IProps) => {
+const UserList = ({ user, setSelectUsers, selectedUsers }: IProps) => {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (setSelectUsers) {
+      const newSelectedUsers = [...(selectedUsers || [])];
+  
+      if(!newSelectedUsers.some(selectedUser => selectedUser._id === user._id)){
+        newSelectedUsers.push(user)
+        setSelectUsers(newSelectedUsers);
+      } 
+    } else {
+      navigate(`/${user.username}`);
+    }
+  }
+  
+
   return (
     <button
       type="button"
-      onClick={() => navigate(`/${user.username}`)}
+      onClick={handleClick}
       key={user._id}
-      className="flex items-center px-4 py-3 hover:bg-gray-100 cursor-pointer"
+      className="flex w-full items-center px-4 py-3 hover:bg-gray-100 cursor-pointer"
     >
       <Avatar avatar={user?.avatar!} href={`/${user.username}`} />
       <div key={user._id} className="flex flex-col w-full min-w-0 ml-3">

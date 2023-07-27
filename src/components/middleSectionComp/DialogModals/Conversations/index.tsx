@@ -1,15 +1,42 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { searchUser } from "api/userApi";
 import Search from "./Search";
 import CreateGroup from "./CreateGroup";
 import Header from "./Header";
+import { useQuery } from "@tanstack/react-query";
+import { debounce } from "lodash";
+import UserList from "@components/rightSidebarComp/Search/UserList";
+import SelectedUsers from "./SelectedUsers";
 
 const ChatComposeModal = () => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const { ref, inView } = useInView();
-
   const navigate = useNavigate();
+
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const [searchText, setSearchText] = useState("");
+  const [selectedUsers, setSelectUsers] = useState<IUser[]>([]);
+
+  const { data, refetch, isLoading } = useQuery<IUser[]>({
+    queryKey: ["searchUser", searchText],
+    queryFn: () => searchUser(searchText),
+    retry: false,
+    refetchOnWindowFocus: false,
+    enabled: false,
+  });
+
+  const debouncedSearch = useCallback(
+    debounce((searchText) => {
+      if (searchText.length > 0) {
+        refetch();
+      }
+    }, 500),
+    []
+  );
+
+  useEffect(() => {
+    debouncedSearch(searchText);
+  }, [searchText]);
 
   const handleClose = useCallback(
     (event: MouseEvent) => {
@@ -35,12 +62,30 @@ const ChatComposeModal = () => {
           <div className="sticky top-0 z-20">
             <Header />
 
-            <div className="flex flex-col">
-              <Search />
-              <CreateGroup />
+            <div className="flex flex-col relative">
+              <Search searchText={searchText} setSearchText={setSearchText} />
+              {isLoading && searchText && <div className="loader w-full" />}
+              {searchText.length === 0 && selectedUsers.length === 0 && (
+                <CreateGroup />
+              )}
+              {selectedUsers?.length > 0 && (
+                <SelectedUsers
+                  selectedUsers={selectedUsers}
+                  setSelectUsers={setSelectUsers}
+                />
+              )}
             </div>
           </div>
-          <div ref={ref} className="h-56" />
+          <div>
+            {data?.map((user) => (
+              <UserList
+                key={user._id}
+                user={user}
+                selectedUsers={selectedUsers}
+                setSelectUsers={setSelectUsers}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
+import { useNavigate } from "react-router-dom";
 import AvatarGroup from "@atlaskit/avatar-group";
 import { formatDate } from "@utils/formatDate";
 import { TreeDotIcon } from "@icons/Icon";
@@ -9,9 +10,17 @@ import { UserState } from "@redux/slices/userSlice";
 interface IProps {
   chat: IChat;
   reduxUser: UserState;
+  isComposeMode?: boolean;
+  selectedUsers?: IUser[];
 }
 
-const GroupChat = ({ chat, reduxUser }: IProps) => {
+const GroupChat = ({
+  chat,
+  reduxUser,
+  isComposeMode,
+  selectedUsers,
+}: IProps) => {
+  const navigate = useNavigate();
   const [isOpenMore, setOpenMore] = useState(false);
 
   const participantsAvatars = chat.participants
@@ -29,82 +38,80 @@ const GroupChat = ({ chat, reduxUser }: IProps) => {
     .map((participant) => {
       return participant.user.displayName;
     });
-  
+
   const isPinned = chat.participants.find(
     (participant) => participant.user._id === reduxUser.user._id
   )?.isPinned;
 
-
   return (
     <div className="relative">
-      <a
-        href={`/messages/${chat._id}`}
+      <button
+        onClick={() => {
+          navigate(`/messages/${chat._id}`);
+        }}
+        disabled={selectedUsers?.length! > 0 || false}
         key={chat._id}
-        className="flex w-full group p-4 hover:bg-gray-extraLight duration-200"
+        className="grid grid-cols-chat w-full items-start p-4 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-gray-extraLight duration-200 group"
       >
-        <div className="flex flex-row w-full">
-          <div onClick={(e) => e.preventDefault()}>
-            {chat.chatImage ? (
-              <Avatar avatar={chat.chatImage} />
+        <div onClick={(e) => e.stopPropagation()}>
+          {chat.chatImage ? (
+            <Avatar avatar={chat.chatImage} />
+          ) : (
+            <div className="mr-3">
+              <AvatarGroup
+                appearance="stack"
+                maxCount={1}
+                size="large"
+                data={participantsAvatars}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col">
+          <div className="grid grid-cols-content items-center gap-2">
+            {chat.chatName ? (
+              <h2 className="font-bold truncate text-left">{chat.chatName}</h2>
             ) : (
-              <div className="mr-3">
-                <AvatarGroup
-                  appearance="stack"
-                  maxCount={1}
-                  size="large"
-                  data={participantsAvatars}
-                />
+              <div className="flex gap-2 truncate">
+                {participantsDisplayNames.map((name, index) => (
+                  <span
+                    key={index}
+                    className="font-bold truncate text-left"
+                  >
+                    {name}
+                  </span>
+                ))}
               </div>
             )}
-          </div>
-          <div className="flex-flex-row w-full">
-            <div className="flex flex-col">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-2 w-fit">
-                  <div className="flex flex-row md:max-w-[120px]  overflow-hidden">
-                    {chat.chatName ? (
-                      <div>
-                        <p className="font-bold truncate max-w-[200px]">
-                          {chat.chatName}
-                        </p>
-                      </div>
-                    ) : (
-                      <>
-                        <p className="font-bold truncate max-w-[200px]">
-                          {participantsDisplayNames.join(", ")}
-                        </p>
-                        <p className="line-clamp-1 whitespace-nowrap hidden lg:hidden md:hidden sm:block">
-                          and more
-                        </p>
-                      </>
-                    )}
-                  </div>
-                  <div>
-                    <p>- {formatDate(chat.lastMessage?.updatedAt!)}</p>
-                  </div>
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenMore(!isOpenMore);
-                  }}
-                  title="More"
-                  className="relative h-fit group/item invisible group-hover:visible mr-1"
-                >
-                  <TreeDotIcon className="w-5 h-5 z-10" />
-                  <div className="absolute -z-10 -m-2 group-hover/item:bg-primary-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
-                </button>
-              </div>
-
-              <span className="line-clamp-1">{chat.lastMessage?.content}</span>
+            <div className="flex flex-row items-center">
+              <p className="line-clamp-1 whitespace-nowrap">
+                - {formatDate(chat.lastMessage?.updatedAt!)}
+              </p>
             </div>
           </div>
+          <p className="line-clamp-1 text-left">{chat.lastMessage?.content}</p>
         </div>
-      </a>
+
+        {!isComposeMode && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenMore(!isOpenMore);
+            }}
+            title="More"
+            className="relative h-fit group/item invisible group-hover:visible mr-1 ml-2"
+          >
+            <TreeDotIcon className="w-5 h-5 z-10" />
+            <div className="absolute -z-10 -m-2 group-hover/item:bg-primary-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
+          </button>
+        )}
+      </button>
+
       {isOpenMore && (
         <MoreMenu
           chatId={chat._id}
-          isPinned={isPinned ||false}
+          isPinned={isPinned || false}
           setOpenMore={setOpenMore}
         />
       )}

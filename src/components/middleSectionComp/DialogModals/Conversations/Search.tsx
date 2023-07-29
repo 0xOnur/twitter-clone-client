@@ -1,11 +1,11 @@
 import { SearchIcon } from "@icons/Icon";
 
 interface IProps {
-    searchText: string
-    setSearchText: React.Dispatch<React.SetStateAction<string>>
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Search = ({searchText, setSearchText}: IProps) => {
+const Search = ({ searchText, setSearchText }: IProps) => {
   return (
     <div className="bg-white border-b">
       <label className="flex flex-row w-full items-center group/search">
@@ -14,11 +14,13 @@ const Search = ({searchText, setSearchText}: IProps) => {
         </div>
         <div className="w-full leading-5 ">
           <input
+            autoFocus
             type="text"
             placeholder="Search people"
+            value={searchText}
             className="p-3 w-full outline-none text-black"
             onChange={(e) => {
-                setSearchText(e.target.value);
+              setSearchText(e.target.value);
             }}
           />
         </div>

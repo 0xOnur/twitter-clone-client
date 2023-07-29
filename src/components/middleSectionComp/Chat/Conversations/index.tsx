@@ -1,20 +1,15 @@
 import ChatWelcomeMessage from "./ChatWelcomeMessage";
-import { useQuery } from "@tanstack/react-query";
 import ChatHeader from "./ChatHeader";
-import { getAllChats } from "api/chatApi";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import ChatPreview from "./ChatPreview";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/config/store";
+import useGetConversations from "@hooks/Queries/Chat/useGetConversations";
 
 const Conversations = () => {
   const reduxUser = useSelector((state: RootState) => state.user);
 
-  const chats = useQuery<IChat[]>({
-    queryKey: ["chats"],
-    queryFn: getAllChats,
-    refetchOnWindowFocus: false,
-  });
+  const chats = useGetConversations();
 
   if (chats.isLoading) {
     return (
@@ -48,21 +43,27 @@ const Conversations = () => {
   }
 
   if (chats.data && chats.data.length > 0) {
-    const pinnedChatsExist = chats.data.some((chat) => chat.participants.find(
-      (participant) => participant.user._id === reduxUser.user._id
-    )?.isPinned);
+    const pinnedChatsExist = chats.data.some(
+      (chat) =>
+        chat.participants.find(
+          (participant) => participant.user._id === reduxUser.user._id
+        )?.isPinned
+    );
 
-    const pinnedChats = chats.data.filter((chat) => 
-      chat.participants.find((participant) => 
-        participant.user._id === reduxUser.user._id && participant.isPinned
+    const pinnedChats = chats.data.filter((chat) =>
+      chat.participants.find(
+        (participant) =>
+          participant.user._id === reduxUser.user._id && participant.isPinned
       )
-    )
+    );
 
-    const normalChats = chats.data.filter((chat) => 
-    !chat.participants.find((participant) => 
-      participant.user._id === reduxUser.user._id && participant.isPinned
-    )
-  )
+    const normalChats = chats.data.filter(
+      (chat) =>
+        !chat.participants.find(
+          (participant) =>
+            participant.user._id === reduxUser.user._id && participant.isPinned
+        )
+    );
 
     return (
       <div className="flex flex-col border-x h-full w-full overflow-y">

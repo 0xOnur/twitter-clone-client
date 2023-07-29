@@ -67,7 +67,7 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
           </PrivateRoute>
         }
       >
-        <Route path="compose" element={<ChatComposeModal />} />
+        <Route path="compose" element={<ChatComposeModal isGroupMode={false} />} />
       </Route>
 
       <Route

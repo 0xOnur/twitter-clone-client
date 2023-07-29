@@ -1,38 +1,32 @@
+import ChatPreview from "@components/middleSectionComp/Chat/Conversations/ChatPreview";
+import { useDebouncedSearchUser } from "@hooks/Queries/User/useSearchUser";
+import useGetConversations from "@hooks/Queries/Chat/useGetConversations";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { searchUser } from "api/userApi";
-import Search from "./Search";
-import CreateGroup from "./CreateGroup";
-import Header from "./Header";
-import { useQuery } from "@tanstack/react-query";
-import { debounce } from "lodash";
 import UserList from "@components/rightSidebarComp/Search/UserList";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "@redux/config/store";
+import { useSelector } from "react-redux";
+import CreateGroup from "./CreateGroup";
 import SelectedUsers from "./SelectedUsers";
+import Search from "./Search";
+import Header from "./Header";
 
-const ChatComposeModal = () => {
+interface IProps {
+  isGroupMode: boolean;
+}
+
+const ChatComposeModal = ({ isGroupMode }: IProps) => {
+  const reduxUser = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
-
   const modalRef = useRef<HTMLDivElement>(null);
 
   const [searchText, setSearchText] = useState("");
   const [selectedUsers, setSelectUsers] = useState<IUser[]>([]);
 
-  const { data, refetch, isLoading } = useQuery<IUser[]>({
-    queryKey: ["searchUser", searchText],
-    queryFn: () => searchUser(searchText),
-    retry: false,
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
+  const { data, isLoading, debouncedSearch } =
+    useDebouncedSearchUser(searchText);
 
-  const debouncedSearch = useCallback(
-    debounce((searchText) => {
-      if (searchText.length > 0) {
-        refetch();
-      }
-    }, 500),
-    []
-  );
+  const previousChats = useGetConversations();
 
   useEffect(() => {
     debouncedSearch(searchText);
@@ -77,10 +71,27 @@ const ChatComposeModal = () => {
             </div>
           </div>
           <div>
+            {searchText.length === 0 &&
+              previousChats.data &&
+              previousChats.data.length > 0 && (
+                <div>
+                  {previousChats.data.map((chat) => (
+                    <ChatPreview
+                      key={chat._id}
+                      chat={chat}
+                      reduxUser={reduxUser}
+                      isComposeMode={true}
+                      selectedUsers={selectedUsers}
+                      setSelectUsers={setSelectUsers}
+                    />
+                  ))}
+                </div>
+              )}
             {data?.map((user) => (
               <UserList
                 key={user._id}
                 user={user}
+                setSearchText={setSearchText}
                 selectedUsers={selectedUsers}
                 setSelectUsers={setSelectUsers}
               />

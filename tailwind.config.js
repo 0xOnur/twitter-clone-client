@@ -15,6 +15,10 @@ module.exports = {
       "90vh": "90vh",
     },
     extend: {
+      gridTemplateColumns: {
+        'chat': 'auto 1fr auto',
+        'content': 'auto 1fr 1fr'
+      },
       margin: {
         "2px": "2px",
         "10px": "10px",

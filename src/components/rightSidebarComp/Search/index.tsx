@@ -1,8 +1,6 @@
+import { useDebouncedSearchUser } from "@hooks/Queries/User/useSearchUser";
 import { CancelIcon, SearchIcon, LoadingIcon } from "@icons/Icon";
-import { useState, useEffect, useRef, useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { searchUser } from "api/userApi";
-import { debounce } from "lodash";
+import { useState, useEffect, useRef} from "react";
 import UserList from "./UserList";
 
 const Search = () => {
@@ -12,25 +10,13 @@ const Search = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchResultsRef = useRef<HTMLDivElement>(null);
 
-  const { data, refetch, isLoading } = useQuery<IUser[]>({
-    queryKey: ["searchUser", searchText],
-    queryFn: () => searchUser(searchText),
-    retry: false,
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
-
-  const debouncedSearch = useCallback(debounce((searchText) => {
-    if (searchText.length > 0) {
-      refetch();
-    }
-  }, 500), []);
-
+  const { data, isLoading, debouncedSearch } = useDebouncedSearchUser(searchText);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
     debouncedSearch(e.target.value);
   };
+  
 
 
   useEffect(() => {

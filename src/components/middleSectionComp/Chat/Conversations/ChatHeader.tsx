@@ -1,6 +1,8 @@
 import { MessagesIcon, SettingsIcon } from '@icons/Icon'
+import { useNavigate } from 'react-router-dom'
 
 const ChatHeader = () => {
+  const navigate = useNavigate()
   return (
     <div className="sticky h-[53px] z-[2]">
         <div className="flex flex-row w-full h-full items-center justify-between backdrop-blur-md px-4">
@@ -16,13 +18,15 @@ const ChatHeader = () => {
               >
                 <SettingsIcon className="w-5 h-5" />
               </button>
-              <a
-                href="/messages/compose"
+              <button
+              onClick={() => {
+                navigate('/messages/compose')
+              }}
                 title="New message"
                 className="p-3 hover:bg-gray-extraLight rounded-full"
               >
                 <MessagesIcon className="w-5 h-5" />
-              </a>
+              </button>
             </div>
           </div>
         </div>

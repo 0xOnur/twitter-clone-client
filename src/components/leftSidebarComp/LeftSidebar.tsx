@@ -14,7 +14,7 @@ import {
 import SideLink from "./SideLink";
 import UserBox from "./UserBox";
 import MoreButton from "./MoreButton";
-import { useUnreadNotifications } from "@hooks/mutations/Notifications/useUnreadNotifications ";
+import { useUnreadNotifications } from "@hooks/Queries/Notification/useUnreadNotifications ";
 
 const LeftSideBar = () => {
   const reduxUser = useSelector((state: RootState) => state.user);

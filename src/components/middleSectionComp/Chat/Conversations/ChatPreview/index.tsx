@@ -6,6 +6,7 @@ interface IProps {
   chat: IChat;
   reduxUser: UserState;
   isComposeMode?: boolean;
+  isGroupMode?: boolean;
   selectedUsers?: IUser[];
   setSelectUsers?: React.Dispatch<React.SetStateAction<IUser[]>>;
 }
@@ -14,6 +15,7 @@ const ChatPreview = ({
   chat,
   reduxUser,
   isComposeMode,
+  isGroupMode,
   selectedUsers,
   setSelectUsers,
 }: IProps) => {
@@ -22,6 +24,7 @@ const ChatPreview = ({
       {chat.isGroupChat ? (
         <GroupChat
           isComposeMode={isComposeMode}
+          isGroupMode={isGroupMode}
           selectedUsers={selectedUsers}
           reduxUser={reduxUser}
           key={chat._id}

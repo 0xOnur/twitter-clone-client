@@ -4,11 +4,9 @@ import { RootState } from "@redux/config/store";
 import { LoginBar} from "@components/index";
 import { ToastProvider } from "contexts/ToastContext";
 import AppRoutes from "routes";
-import { useAuth } from "@hooks/useAuth";
 
 function App() {
   const reduxUser = useSelector((state: RootState) => state.user);
-  useAuth();
 
   const [isAuthenticated, setAuthenticated] = useState(
     reduxUser.isAuthenticated

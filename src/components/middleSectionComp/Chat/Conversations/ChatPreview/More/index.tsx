@@ -1,7 +1,7 @@
 import { TrashIcon, PinIcon, UnpinIcon } from "@icons/Icon";
 import { useCallback, useEffect, useRef } from "react";
 import usePinMutation from "@hooks/mutations/Chat/usePinMutation";
-import useDeleteConversations from "@hooks/mutations/Chat/useDeleteConversations";
+import useDeleteConversation from "@hooks/mutations/Chat/useDeleteConversation";
 
 interface IProps {
   chatId: string;
@@ -13,7 +13,7 @@ const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const {setPin, unsetPin} = usePinMutation({chatId: chatId})
-  const {deleteConversationMutation} = useDeleteConversations({chatId: chatId})
+  const {deleteConversationMutation} = useDeleteConversation({chatId: chatId})
 
   const handleClose = useCallback(
     (event: MouseEvent) => {

@@ -58,3 +58,15 @@ export const deleteConversation = async (chatId: string) => {
     return Promise.reject(error);
   }
 };
+
+export const createConversation =async (users: IUser[]) => {
+  try {
+    const response = await axiosInstance.post("/chat/create-conversation", {users});
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
+  }
+}

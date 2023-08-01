@@ -66,7 +66,8 @@ const NormalChat = ({
             <h2 className="font-bold truncate text-left">
               {otherParticipant?.user.displayName}
             </h2>
-            <div className="flex flex-row items-center">
+            {chat.lastMessage && !isComposeMode && (
+              <div className="flex flex-row items-center">
               {otherParticipant?.user.isVerified && (
                 <VerifiedIcon className="w-5 h-5 fill-primary-base" />
               )}
@@ -74,6 +75,8 @@ const NormalChat = ({
                 - {formatDate(chat.lastMessage?.updatedAt!)}
               </p>
             </div>
+            )}
+            
           </div>
           <p className="line-clamp-1 text-left">{chat.lastMessage?.content}</p>
         </div>

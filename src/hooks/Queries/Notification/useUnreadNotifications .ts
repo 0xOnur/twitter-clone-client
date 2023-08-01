@@ -6,7 +6,7 @@ export const useUnreadNotifications = (isAuthenticated: boolean) => {
   const notifCount = useQuery(["unreadNotifCount"], getUnreadNotificationsCount, {
     refetchOnWindowFocus: true,
     enabled: isAuthenticated,
-    refetchInterval: 6000,
+    refetchInterval: 10000,
   });
 
   return {notifCount: notifCount.data};

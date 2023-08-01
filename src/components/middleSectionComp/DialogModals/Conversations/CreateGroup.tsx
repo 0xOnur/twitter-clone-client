@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { PeoplesIcon } from "@icons/Icon";
 
 const CreateGroup = () => {
+  const navigate = useNavigate();
   return (
     <div
-      onClick={() => {}}
+      onClick={() => {
+        navigate("/messages/compose/group");
+      }}
       className="border-b bg-white cursor-pointer hover:bg-gray-rightbar duration-200"
     >
       <div className="flex flex-row py-3 px-4 items-center">

@@ -1,6 +1,7 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom"
 
 const SelectChatMessage = () => {
+  const navigate = useNavigate()
   return (
     <div className="flex w-full h-full items-center justify-center mx-auto">
       <div className="self-center max-w-[400px] mx-auto px-8 my-8">
@@ -12,12 +13,12 @@ const SelectChatMessage = () => {
             Choose from your existing conversations, start a new one, or just
             keep swimming.
           </span>
-          <a
-            href="/messages/compose"
+          <button
+            onClick={() => navigate("/messages/compose")}
             className="flex items-center w-fit px-8 min-w-52px min-h-52px bg-primary-base rounded-full hover:bg-primary-dark duration-200"
           >
             <span className="text-white font-bold">New message</span>
-          </a>
+          </button>
         </div>
       </div>
     </div>

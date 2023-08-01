@@ -54,14 +54,18 @@ const ChatComposeModal = ({ isGroupMode }: IProps) => {
       <div className="z-10 border-2 shadow-2xl text-black bg-white w-full max-w-600px min-h-400px rounded-xl overflow-hidden">
         <div className="overflow-y-auto max-h-90vh">
           <div className="sticky top-0 z-20">
-            <Header />
+            <Header selectedUsers={selectedUsers} isGroupMode={isGroupMode} />
 
             <div className="flex flex-col relative">
               <Search searchText={searchText} setSearchText={setSearchText} />
+
               {isLoading && searchText && <div className="loader w-full" />}
-              {searchText.length === 0 && selectedUsers.length === 0 && (
-                <CreateGroup />
-              )}
+
+              { searchText.length === 0 &&
+                selectedUsers.length === 0 &&
+                !isGroupMode && <CreateGroup />
+              }
+                
               {selectedUsers?.length > 0 && (
                 <SelectedUsers
                   selectedUsers={selectedUsers}
@@ -71,7 +75,7 @@ const ChatComposeModal = ({ isGroupMode }: IProps) => {
             </div>
           </div>
           <div>
-            {searchText.length === 0 &&
+            { searchText.length === 0 &&
               previousChats.data &&
               previousChats.data.length > 0 && (
                 <div>
@@ -81,6 +85,7 @@ const ChatComposeModal = ({ isGroupMode }: IProps) => {
                       chat={chat}
                       reduxUser={reduxUser}
                       isComposeMode={true}
+                      isGroupMode={isGroupMode}
                       selectedUsers={selectedUsers}
                       setSelectUsers={setSelectUsers}
                     />

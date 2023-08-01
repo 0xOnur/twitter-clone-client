@@ -68,10 +68,11 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
         }
       >
         <Route path="compose" element={<ChatComposeModal isGroupMode={false} />} />
+        <Route path="compose/group" element={<ChatComposeModal isGroupMode={true} />} />
       </Route>
 
       <Route
-        path="/i/bookmarks"
+        path="i/bookmarks"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <BookmarksLayout isAuthenticated={isAuthenticated} />
@@ -126,7 +127,7 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
       />
 
       <Route
-        path="/i/connect_people"
+        path="i/connect_people"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <ConnectPeopleLayout isAuthenticated={isAuthenticated} />

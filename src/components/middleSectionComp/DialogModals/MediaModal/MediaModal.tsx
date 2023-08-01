@@ -20,8 +20,6 @@ const MediaModal = ({
   const totalImages = images.length;
   const currentImage = images[currentImageIndex];
 
-  console.log(images);
-  
 
   const handlePrev = () => {
     const newIndex = currentImageIndex - 1;

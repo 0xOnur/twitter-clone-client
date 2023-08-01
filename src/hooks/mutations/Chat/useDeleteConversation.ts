@@ -5,7 +5,7 @@ interface IProps {
     chatId: string;
 }
 
-const useDeleteConversations = ({chatId}: IProps) => {
+const useDeleteConversation = ({chatId}: IProps) => {
     const queryClient = useQueryClient()
 
     const deleteConversationMutation = useMutation({
@@ -19,4 +19,4 @@ const useDeleteConversations = ({chatId}: IProps) => {
     return {deleteConversationMutation}
 }
 
-export default useDeleteConversations
+export default useDeleteConversation

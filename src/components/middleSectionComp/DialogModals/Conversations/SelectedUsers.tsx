@@ -15,7 +15,7 @@ const SelectedUsers = ({ selectedUsers, setSelectUsers }: IProps) => {
         }
     }
   return (
-    <div className="flex flex-row flex-wrap p-1 border-b">
+    <div className="flex flex-row flex-wrap p-1 border-b bg-white">
       {selectedUsers.map((user) => (
         <button
             key={user._id}

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllChats } from "api/chatApi";
+import { getAllConversations } from "api/chatApi";
 
 const useGetConversations = () => {
   const chats = useQuery<IChat[]>({
     queryKey: ["chats"],
-    queryFn: getAllChats,
+    queryFn: getAllConversations,
     refetchOnWindowFocus: false,
   });
 

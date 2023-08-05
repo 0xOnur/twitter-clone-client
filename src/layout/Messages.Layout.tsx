@@ -2,11 +2,7 @@ import React from "react";
 import { LeftSideBar } from "@components/leftSidebarComp";
 import { Messages } from "@components/middleSectionComp";
 
-interface IProps {
-  isAuthenticated: boolean;
-}
-
-const MessagesLayout = ({ isAuthenticated }: IProps) => {
+const MessagesLayout = () => {
   return (
     <div>
       <div className="flex min-h-screen max-w-7xl mx-auto sticky">

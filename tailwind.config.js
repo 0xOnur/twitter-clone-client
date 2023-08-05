@@ -66,6 +66,7 @@ module.exports = {
           dark: "#657786",
           light: "#AAB8C2",
           extraLight: "rgba(15, 20, 25, 0.1)",
+          message: "rgb(239, 243, 244)",
           lightest: "#e7e7e8",
           rightbar: '#f7f9f9',
           dropdown: '#f7f9f9',

@@ -63,12 +63,13 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
         path="messages"
         element={
           <PrivateRoute isAuthenticated={isAuthenticated}>
-            <MessagesLayout isAuthenticated={isAuthenticated} />
+            <MessagesLayout />
           </PrivateRoute>
         }
       >
         <Route path="compose" element={<ChatComposeModal isGroupMode={false} />} />
         <Route path="compose/group" element={<ChatComposeModal isGroupMode={true} />} />
+        <Route path=":conversationId"/>
       </Route>
 
       <Route
@@ -88,27 +89,27 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
         }
       />
       <Route
-        path="/:username"
+        path=":username"
         element={<UserProfileLayout isAuthenticated={isAuthenticated} />}
       />
 
       <Route
-        path="/:username/:tab"
+        path=":username/:tab"
         element={<UserProfileLayout isAuthenticated={isAuthenticated} />}
       />
 
       <Route
-        path="/:username/status/:tweetId"
+        path=":username/status/:tweetId"
         element={<TweetDetailsLayout isAuthenticated={isAuthenticated} />}
       />
 
       <Route
-        path="/:username/status/:tweetId/retweets/with_comments"
+        path=":username/status/:tweetId/retweets/with_comments"
         element={<TweetQuotesLayout isAuthenticated={isAuthenticated} />}
       />
 
       <Route
-        path="/:username/followers"
+        path=":username/followers"
         element={
           <FollowsLayout
             isAuthenticated={isAuthenticated}

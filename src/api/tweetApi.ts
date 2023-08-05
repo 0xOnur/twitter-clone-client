@@ -20,6 +20,9 @@ export const getPopularTweets = async function name(page: number, limit: number)
         const response = await axiosInstance.get(`/tweet/get-popular-tweets?page=${page}&limit=${limit}`)
         return response.data;
     } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
         return Promise.reject(error);
     }
 };

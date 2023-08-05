@@ -76,7 +76,6 @@ const NormalChat = ({
               </p>
             </div>
             )}
-            
           </div>
           <p className="line-clamp-1 text-left">{chat.lastMessage?.content}</p>
         </div>

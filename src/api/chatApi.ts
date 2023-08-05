@@ -2,9 +2,41 @@ import axios from "axios";
 import axiosInstance from "./axiosInstance";
 
 // Get All Chats
-export const getAllChats = async () => {
+export const getAllConversations = async () => {
   try {
     const response = await axiosInstance.get("/chat/get-chats");
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
+  }
+};
+
+// Get Chat
+export const getConversation = async (chatId: string) => {
+  try {
+    const response = await axiosInstance.get(`/chat/get-chat/${chatId}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
+  }
+};
+
+// Get Chat Messages
+export const getConversationMessages = async (
+  chatId: string,
+  page: number,
+  limit: number
+) => {
+  try {
+    const response = await axiosInstance.get(
+      `/chat/get-chat-messages/${chatId}?page=${page}&limit=${limit}`
+    );
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -59,9 +91,11 @@ export const deleteConversation = async (chatId: string) => {
   }
 };
 
-export const createConversation =async (users: IUser[]) => {
+export const createConversation = async (users: IUser[]) => {
   try {
-    const response = await axiosInstance.post("/chat/create-conversation", {users});
+    const response = await axiosInstance.post("/chat/create-conversation", {
+      users,
+    });
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -69,4 +103,4 @@ export const createConversation =async (users: IUser[]) => {
     }
     return Promise.reject(error);
   }
-}
+};

@@ -2,14 +2,17 @@ import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { formatDetailedDate } from "@utils/formatDetailedDate";
 import { LikePlusIcon, TreeDotIcon } from "@icons/Icon";
 import classNames from "classnames";
+import { UserState } from "@redux/slices/userSlice";
+import GroupMessageSeen from "./GroupMessageSeen";
 
 interface IProps {
-  message: IMessage;
-  isGroupChat: boolean;
+  conversation: IChat;
   isMine: boolean;
+  message: IMessage;
+  reduxUser: UserState;
 }
 
-const Message = ({ isGroupChat, isMine, message }: IProps) => {
+const Message = ({ conversation, reduxUser, isMine, message }: IProps) => {
   const messageStart = classNames("flex", {
     "items-end justify-end": isMine,
     "items-start justify-start": !isMine,
@@ -36,9 +39,13 @@ const Message = ({ isGroupChat, isMine, message }: IProps) => {
     }
   );
 
-  const messageDate = classNames("flex mt-[6px] w-[87%] overflow-hidden", {
+  const messageDate = classNames("flex mt-[6px] max-w-[87%]", {
     "self-end justify-end": isMine,
   });
+
+  const otherParticipants = conversation.participants.find(
+    (participant) => participant.user._id !== reduxUser.user._id
+  );
 
   return (
     <div className="w-full">
@@ -70,7 +77,7 @@ const Message = ({ isGroupChat, isMine, message }: IProps) => {
                 </div>
               </div>
             </div>
-            {isGroupChat && !isMine && (
+            {conversation.isGroupChat && !isMine && (
               <div className="flex flex-row relative items-end">
                 <div className="w-52px"></div>
                 <div className="absolute left-0">
@@ -86,17 +93,34 @@ const Message = ({ isGroupChat, isMine, message }: IProps) => {
         </div>
 
         <div className={messageDate}>
-          <span className="text-gray-dark leading-4 text-[13px] break-words">
-            <time dateTime={message.createdAt}>
-              {formatDetailedDate(message.createdAt)}
-            </time>
-          </span>
+          <div className="flex flex-row gap-1 text-gray-dark text-[13px] leading-4">
+            <span>
+              <time dateTime={message.createdAt}>
+                {formatDetailedDate(message.createdAt)}
+              </time>
+            </span>
+            {otherParticipants && isMine && (
+              <>
+                {conversation.isGroupChat ? (
+                  <GroupMessageSeen message={message} conversation={conversation} reduxUser={reduxUser} />
+                ) : (
+                  <span>
+                    {message.readBy.find(
+                      (user) => user._id === otherParticipants.user._id
+                    ) ? (
+                      <span>Seen</span>
+                    ) : (
+                      <span>Sent</span>
+                    )}
+                  </span>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
-
-  return <div>Message</div>;
 };
 
 export default Message;

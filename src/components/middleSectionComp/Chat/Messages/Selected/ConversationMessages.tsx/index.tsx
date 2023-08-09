@@ -6,18 +6,19 @@ import { useEffect, useRef } from "react";
 import Message from "./Message";
 
 interface IProps {
-  isGroupChat: boolean;
-  conversationId: string;
+  conversation:IChat
   reduxUser: UserState;
+  bottomMessagesRef: (node?: Element | null | undefined) => void
+  inView: boolean
 }
 
 const ConversationMessages = ({
-  conversationId,
-  isGroupChat,
+  conversation,
   reduxUser,
+  bottomMessagesRef,
 }: IProps) => {
   //  Fetch messages ref
-  const { ref, inView } = useInView();
+  const { ref: fetchRef, inView: fetchInView } = useInView();
 
   // Scroll ref
   const myRef = useRef<HTMLDivElement>(null);
@@ -29,13 +30,13 @@ const ConversationMessages = ({
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-  } = useGetMessages({ conversationId: conversationId });
+  } = useGetMessages({ conversationId: conversation._id });
 
   useEffect(() => {
-    if (inView && hasNextPage) {
+    if (fetchInView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, isFetchingNextPage]);
+  }, [fetchInView, isFetchingNextPage]);
 
   useEffect(() => {
     if (myRef.current) {
@@ -73,15 +74,17 @@ const ConversationMessages = ({
 
   if (data) {
     return (
-      <div className="flex flex-col-reverse" ref={myRef}>
+      <div className="flex flex-col-reverse pb-1" ref={myRef}>
+        <div ref={bottomMessagesRef} />
         {data.pages.map((page, index) => (
           <div key={index} className="flex flex-col-reverse">
             {page.data.map((message: IMessage) => (
               <Message
                 key={message._id}
                 message={message}
+                reduxUser={reduxUser}
+                conversation={conversation}
                 isMine={message.sender._id === reduxUser.user._id}
-                isGroupChat={isGroupChat}
               />
             ))}
           </div>
@@ -92,7 +95,7 @@ const ConversationMessages = ({
             <LoadingIcon />
           </div>
         )}
-        <div ref={ref} className="h-1" />
+        <div ref={fetchRef} className="h-1" />
       </div>
     );
   }

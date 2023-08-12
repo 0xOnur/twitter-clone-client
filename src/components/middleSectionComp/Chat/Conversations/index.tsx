@@ -1,14 +1,17 @@
-import ChatWelcomeMessage from "./ChatWelcomeMessage";
-import ChatHeader from "./ChatHeader";
-import { LoadingIcon, RetryIcon } from "@icons/Icon";
-import ChatPreview from "./ChatPreview";
-import { useSelector } from "react-redux";
-import { RootState } from "@redux/config/store";
 import useGetConversations from "@hooks/Queries/Chat/useGetConversations";
+import ChatWelcomeMessage from "./ChatWelcomeMessage";
+import { LoadingIcon, RetryIcon } from "@icons/Icon";
+import { RootState } from "@redux/config/store";
+import { useSelector } from "react-redux";
+import ChatPreview from "./ChatPreview";
+import ChatHeader from "./ChatHeader";
 
-const Conversations = () => {
+interface IProps {
+  selectedChat?: string;
+}
+
+const Conversations = ({ selectedChat }: IProps) => {
   const reduxUser = useSelector((state: RootState) => state.user);
-
   const chats = useGetConversations();
 
   if (chats.isLoading) {
@@ -76,7 +79,12 @@ const Conversations = () => {
               </span>
             </div>
             {pinnedChats.map((chat) => (
-              <ChatPreview key={chat._id} chat={chat} reduxUser={reduxUser} />
+              <ChatPreview
+                key={chat._id}
+                chat={chat}
+                reduxUser={reduxUser}
+                isSelected={chat._id === selectedChat}
+              />
             ))}
             {normalChats.length > 0 && (
               <>
@@ -90,6 +98,7 @@ const Conversations = () => {
                     key={chat._id}
                     chat={chat}
                     reduxUser={reduxUser}
+                    isSelected={chat._id === selectedChat}
                   />
                 ))}
               </>
@@ -98,7 +107,12 @@ const Conversations = () => {
         ) : (
           <div className="flex flex-col">
             {chats.data.map((chat) => (
-              <ChatPreview key={chat._id} chat={chat} reduxUser={reduxUser} />
+              <ChatPreview
+                key={chat._id}
+                chat={chat}
+                reduxUser={reduxUser}
+                isSelected={chat._id === selectedChat}
+              />
             ))}
           </div>
         )}

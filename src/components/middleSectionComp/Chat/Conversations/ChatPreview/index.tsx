@@ -5,17 +5,19 @@ import { UserState } from "@redux/slices/userSlice";
 interface IProps {
   chat: IChat;
   reduxUser: UserState;
-  isComposeMode?: boolean;
+  isSelected?: boolean;
   isGroupMode?: boolean;
   selectedUsers?: IUser[];
+  isComposeMode?: boolean;
   setSelectUsers?: React.Dispatch<React.SetStateAction<IUser[]>>;
 }
 
 const ChatPreview = ({
   chat,
   reduxUser,
-  isComposeMode,
+  isSelected,
   isGroupMode,
+  isComposeMode,
   selectedUsers,
   setSelectUsers,
 }: IProps) => {
@@ -24,17 +26,19 @@ const ChatPreview = ({
       {chat.isGroupChat ? (
         <GroupChat
           isComposeMode={isComposeMode}
-          isGroupMode={isGroupMode}
           selectedUsers={selectedUsers}
+          isGroupMode={isGroupMode}
+          isSelected={isSelected}
           reduxUser={reduxUser}
           key={chat._id}
           chat={chat}
         />
       ) : (
         <NormalChat
+          setSelectUsers={setSelectUsers}
           isComposeMode={isComposeMode}
           selectedUsers={selectedUsers}
-          setSelectUsers={setSelectUsers}
+          isSelected={isSelected}
           reduxUser={reduxUser}
           key={chat._id}
           chat={chat}

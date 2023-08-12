@@ -9,7 +9,7 @@ const MessagesPage = () => {
     return (
       <div className="flex flex-row max-w-[990px] w-full">
         <div className="w-full max-w-600px min-w-[320px] md:w-[390px] xl:w-[390px] hidden lg:inline-block">
-          <Conversations />
+          <Conversations selectedChat={conversationId} />
         </div>
         <div className="border-x w-full max-w-600px">
           <Messages conversationId={conversationId} />

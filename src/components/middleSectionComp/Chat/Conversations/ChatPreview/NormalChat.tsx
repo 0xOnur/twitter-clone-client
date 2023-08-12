@@ -5,9 +5,11 @@ import { formatDate } from "@utils/formatDate";
 import React, { useState } from "react";
 import MoreMenu from "./More";
 import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
 
 interface IProps {
   chat: IChat;
+  isSelected?: boolean;
   reduxUser: UserState;
   isComposeMode?: boolean;
   selectedUsers?: IUser[];
@@ -17,6 +19,7 @@ interface IProps {
 const NormalChat = ({
   chat,
   reduxUser,
+  isSelected,
   isComposeMode,
   selectedUsers,
   setSelectUsers,
@@ -49,13 +52,17 @@ const NormalChat = ({
     }
   };
 
+  const chatClassNames = classNames(
+    "grid grid-cols-chat w-full items-start p-4 duration-200 group",
+    {
+      "hover:bg-gray-extraLight": !isSelected,
+      "bg-gray-message hover:bg-gray-extraLight": isSelected,
+    }
+  );
+
   return (
     <div className="relative">
-      <button
-        onClick={handleSelect}
-        key={chat._id}
-        className="grid grid-cols-chat w-full items-start p-4 hover:bg-gray-extraLight duration-200 group"
-      >
+      <button onClick={handleSelect} key={chat._id} className={chatClassNames}>
         <Avatar
           avatar={otherParticipant?.user.avatar!}
           href={`/${otherParticipant?.user.username}`}
@@ -68,13 +75,13 @@ const NormalChat = ({
             </h2>
             {chat.lastMessage && !isComposeMode && (
               <div className="flex flex-row items-center">
-              {otherParticipant?.user.isVerified && (
-                <VerifiedIcon className="w-5 h-5 fill-primary-base" />
-              )}
-              <p className="line-clamp-1 whitespace-nowrap">
-                - {formatDate(chat.lastMessage?.updatedAt!)}
-              </p>
-            </div>
+                {otherParticipant?.user.isVerified && (
+                  <VerifiedIcon className="w-5 h-5 fill-primary-base" />
+                )}
+                <p className="line-clamp-1 whitespace-nowrap">
+                  - {formatDate(chat.lastMessage?.updatedAt!)}
+                </p>
+              </div>
             )}
           </div>
           <p className="line-clamp-1 text-left">{chat.lastMessage?.content}</p>
@@ -110,6 +117,10 @@ const NormalChat = ({
           isPinned={isPinned || false}
           setOpenMore={setOpenMore}
         />
+      )}
+
+      {isSelected && (
+        <div className="absolute top-0 right-0 bottom-0 w-0.5 bg-primary-base" />
       )}
     </div>
   );

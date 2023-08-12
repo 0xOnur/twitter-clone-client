@@ -6,31 +6,33 @@ import { TreeDotIcon } from "@icons/Icon";
 import { useState } from "react";
 import MoreMenu from "./More";
 import { UserState } from "@redux/slices/userSlice";
+import classNames from "classnames";
 
 interface IProps {
   chat: IChat;
+  isSelected?: boolean;
   reduxUser: UserState;
-  isComposeMode?: boolean;
   isGroupMode?: boolean;
+  isComposeMode?: boolean;
   selectedUsers?: IUser[];
 }
 
 const GroupChat = ({
   chat,
   reduxUser,
-  isComposeMode,
+  isSelected,
   isGroupMode,
+  isComposeMode,
   selectedUsers,
 }: IProps) => {
   const navigate = useNavigate();
   const [isOpenMore, setOpenMore] = useState(false);
 
-  const participantsAvatars = chat.participants
-    .map((participant) => ({
-      src: participant.user.avatar || "",
-      name: participant.user.displayName,
-      href: `/${participant.user.username}`,
-    }));
+  const participantsAvatars = chat.participants.map((participant) => ({
+    src: participant.user.avatar || "",
+    name: participant.user.displayName,
+    href: `/${participant.user.username}`,
+  }));
 
   const participantsDisplayNames = chat.participants
     .slice(0, 2)
@@ -44,6 +46,14 @@ const GroupChat = ({
     (participant) => participant.user._id === reduxUser.user._id
   )?.isPinned;
 
+  const chatClassNames = classNames(
+    "grid grid-cols-chat w-full items-start p-4 duration-200 group",
+    {
+      "hover:bg-gray-extraLight": !isSelected,
+      "bg-gray-message hover:bg-gray-extraLight": isSelected,
+    }
+  );
+
   return (
     <div className="relative">
       <button
@@ -52,7 +62,7 @@ const GroupChat = ({
         }}
         disabled={selectedUsers?.length! > 0 || isGroupMode}
         key={chat._id}
-        className="grid grid-cols-chat w-full items-start p-4 disabled:cursor-not-allowed disabled:opacity-50 hover:bg-gray-extraLight duration-200 group"
+        className={chatClassNames}
       >
         <div onClick={(e) => e.stopPropagation()}>
           {chat.chatImage ? (
@@ -129,6 +139,10 @@ const GroupChat = ({
           isPinned={isPinned || false}
           setOpenMore={setOpenMore}
         />
+      )}
+
+      {isSelected && (
+        <div className="absolute top-0 right-0 bottom-0 w-0.5 bg-primary-base" />
       )}
     </div>
   );

@@ -5,6 +5,7 @@ import NormalChatTopInfo from "./NormalChatTopInfo";
 import DownScrollButton from "./DownScrollButton";
 import { RootState } from "@redux/config/store";
 import { useSelector } from "react-redux";
+import ChatComposer from "./ChatComposer";
 import { useRef } from "react";
 import Header from "./Header";
 
@@ -42,9 +43,7 @@ const SelectedConversation = ({ conversationId }: IProps) => {
           </div>
           <DownScrollButton inView={inView} myRef={myRef} />
         </div>
-        <div className="sticky bottom-0 bg-red-100 min-h-16">
-          composer section
-        </div>
+        <ChatComposer conversationId={conversationId} />
       </div>
     );
   }

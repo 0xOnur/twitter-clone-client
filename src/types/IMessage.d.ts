@@ -6,4 +6,5 @@ interface IMessage {
     readBy: IUser[];
     createdAt: string;
     updatedAt: string;
+    type: "message" | "reply" | "tweet";
 }

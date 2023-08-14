@@ -12,7 +12,7 @@ const DownScrollButton = ({ inView, myRef }: IProps) => {
     "flex min-w-[36px] min-h-[36px] bg-white px-4 border shadow-lg rounded-full transition-opacity",
     {
       "opacity-0": inView,
-      "opacity-100": !inView,
+      "opacity-100 hover:bg-gray-message duration-200": !inView,
     }
   );
   const downScrollArea = classNames(

@@ -9,9 +9,9 @@ import classNames from "classnames";
 
 interface IProps {
   chat: IChat;
-  isSelected?: boolean;
   reduxUser: UserState;
   isComposeMode?: boolean;
+  isSelectedChat?: boolean;
   selectedUsers?: IUser[];
   setSelectUsers?: React.Dispatch<React.SetStateAction<IUser[]>>;
 }
@@ -19,7 +19,7 @@ interface IProps {
 const NormalChat = ({
   chat,
   reduxUser,
-  isSelected,
+  isSelectedChat,
   isComposeMode,
   selectedUsers,
   setSelectUsers,
@@ -55,8 +55,8 @@ const NormalChat = ({
   const chatClassNames = classNames(
     "grid grid-cols-chat w-full items-start p-4 duration-200 group",
     {
-      "hover:bg-gray-extraLight": !isSelected,
-      "bg-gray-message hover:bg-gray-extraLight": isSelected,
+      "hover:bg-gray-extraLight": !isSelectedChat,
+      "bg-gray-message hover:bg-gray-extraLight": isSelectedChat,
     }
   );
 
@@ -119,7 +119,7 @@ const NormalChat = ({
         />
       )}
 
-      {isSelected && (
+      {isSelectedChat && (
         <div className="absolute top-0 right-0 bottom-0 w-0.5 bg-primary-base" />
       )}
     </div>

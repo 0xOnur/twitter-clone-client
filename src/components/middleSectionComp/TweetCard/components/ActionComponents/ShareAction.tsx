@@ -1,7 +1,7 @@
 import { PersistPartial } from "redux-persist/es/persistReducer";
 import { useBookmarkMutation } from "@hooks/mutations/Bookmarks/useBookmarkMutation";
 import { TweetCardComp } from "@components/middleSectionComp";
-import { useCopyTweet } from "@hooks/tweet/useCopyTweetURL";
+import { useCopyText } from "@hooks/useCopyText";
 import { UserState } from "@redux/slices/userSlice";
 import React, { useState } from "react";
 import { ShareIcon } from "@icons/Icon";
@@ -13,7 +13,8 @@ interface IProps {
 }
 
 const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
-  const { copyTweet } = useCopyTweet(tweet);
+  const tweetURL = window.location.origin + `/${tweet.author.username}/status/${tweet._id}`;
+  const { copyText } = useCopyText({text: tweetURL, toastMessage: "Copied to clipboard"});
 
   const [shareMenu, setShowShareMenu] = useState(false);
 
@@ -57,7 +58,7 @@ const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
         <TweetCardComp.Components.ShareMenu
           isAuthenticated={isAuthenticated}
           isBookmarked={isBookmarked}
-          handleCopy={copyTweet}
+          handleCopy={copyText}
           handleBookmark={handleBookmark}
           onClose={() => setShowShareMenu(false)}
         />

@@ -74,7 +74,7 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
                     avatarSize="w-10 h-10"
                   />
 
-                  <div className="flex flex-row gap-5 justify-between items-center">
+                  <div className="flex flex-row gap-5 justify-between items-center w-full">
                     <div className="flex flex-col  max-w-full text-base">
                       <div className="flex shrink">
                         <a

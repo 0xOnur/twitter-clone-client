@@ -10,17 +10,17 @@ import classNames from "classnames";
 
 interface IProps {
   chat: IChat;
-  isSelected?: boolean;
   reduxUser: UserState;
   isGroupMode?: boolean;
   isComposeMode?: boolean;
+  isSelectedChat?: boolean;
   selectedUsers?: IUser[];
 }
 
 const GroupChat = ({
   chat,
   reduxUser,
-  isSelected,
+  isSelectedChat,
   isGroupMode,
   isComposeMode,
   selectedUsers,
@@ -49,20 +49,22 @@ const GroupChat = ({
   const chatClassNames = classNames(
     "grid grid-cols-chat w-full items-start p-4 duration-200 group",
     {
-      "hover:bg-gray-extraLight": !isSelected,
-      "bg-gray-message hover:bg-gray-extraLight": isSelected,
+      "hover:bg-gray-extraLight": !isSelectedChat,
+      "bg-gray-message hover:bg-gray-extraLight": isSelectedChat,
+      "cursor-not-allowed opacity-50": selectedUsers?.length! > 0 || isGroupMode,
     }
   );
 
   return (
     <div className="relative">
       <button
+        key={chat._id}
+        disabled={selectedUsers?.length! > 0 || isGroupMode}
+        className={chatClassNames}
         onClick={() => {
           navigate(`/messages/${chat._id}`);
         }}
-        disabled={selectedUsers?.length! > 0 || isGroupMode}
-        key={chat._id}
-        className={chatClassNames}
+        
       >
         <div onClick={(e) => e.stopPropagation()}>
           {chat.chatImage ? (
@@ -141,7 +143,7 @@ const GroupChat = ({
         />
       )}
 
-      {isSelected && (
+      {isSelectedChat && (
         <div className="absolute top-0 right-0 bottom-0 w-0.5 bg-primary-base" />
       )}
     </div>

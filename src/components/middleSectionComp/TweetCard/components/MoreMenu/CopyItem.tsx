@@ -1,4 +1,4 @@
-import { useCopyTweet } from "@hooks/tweet/useCopyTweetURL";
+import { useCopyText } from "@hooks/useCopyText";
 import { WebsiteIcon } from "@icons/Icon";
 
 interface IProps {
@@ -7,12 +7,13 @@ interface IProps {
 }
 
 const CopyItem = ({ tweet, onClose }: IProps) => {
-  const { copyTweet } = useCopyTweet(tweet);
+  const tweetURL = window.location.origin + `/${tweet.author.username}/status/${tweet._id}`;
+  const { copyText } = useCopyText({text: tweetURL, toastMessage: "Copied to clipboard"});
   return (
     <button
       onClick={(e) => {
         e.stopPropagation();
-        copyTweet();
+        copyText();
         onClose();
       }}
       type="button"

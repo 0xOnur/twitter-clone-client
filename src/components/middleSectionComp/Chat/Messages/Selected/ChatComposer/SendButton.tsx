@@ -7,17 +7,25 @@ interface IProps {
 }
 
 const SendButton = ({ messageText, conversationId }: IProps) => {
+  const isMessageReady = messageText.trim().length > 0;
 
-    const isMessageReady = messageText.trim().length > 0;
-
-    const buttonClass = classNames("flex ml-1 items-center min-h-[36px] min-w-[36px] rounded-full hover:bg-primary-hover duration-200",{
-        "opacity-50": !isMessageReady,
-    })
+  const buttonClass = classNames(
+    "flex ml-1 items-center min-h-[36px] min-w-[36px] rounded-full duration-200",
+    {
+      "opacity-50": !isMessageReady,
+      "hover:bg-primary-hover": isMessageReady,
+    }
+  );
 
   return (
-    <button type="submit" className={buttonClass} onClick={() => {
-        console.log("send message")
-    }}>
+    <button
+      type="submit"
+      disabled={!isMessageReady}
+      className={buttonClass}
+      onClick={() => {
+        console.log("send message");
+      }}
+    >
       <div className="flex flex-grow justify-center items-center font-bold">
         <SendIcon className="w-5 h-5 fill-primary-base" />
       </div>

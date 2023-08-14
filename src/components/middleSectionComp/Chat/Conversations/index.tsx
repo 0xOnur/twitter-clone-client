@@ -83,7 +83,7 @@ const Conversations = ({ selectedChat }: IProps) => {
                 key={chat._id}
                 chat={chat}
                 reduxUser={reduxUser}
-                isSelected={chat._id === selectedChat}
+                isSelectedChat={chat._id === selectedChat}
               />
             ))}
             {normalChats.length > 0 && (
@@ -98,7 +98,7 @@ const Conversations = ({ selectedChat }: IProps) => {
                     key={chat._id}
                     chat={chat}
                     reduxUser={reduxUser}
-                    isSelected={chat._id === selectedChat}
+                    isSelectedChat={chat._id === selectedChat}
                   />
                 ))}
               </>
@@ -111,7 +111,7 @@ const Conversations = ({ selectedChat }: IProps) => {
                 key={chat._id}
                 chat={chat}
                 reduxUser={reduxUser}
-                isSelected={chat._id === selectedChat}
+                isSelectedChat={chat._id === selectedChat}
               />
             ))}
           </div>

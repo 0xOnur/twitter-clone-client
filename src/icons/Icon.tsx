@@ -726,3 +726,32 @@ export const SendIcon = ({className} : PathProps) => {
   )
 }
 
+export const MessageReplyIcon = ({className} : PathProps) => {
+  return (
+    <Svg className={className}>
+      <g>
+        <path d="M12 6.229C5.269 7.328 1.995 12.498 2 22.001h2c0-1.914.705-3.537 2.095-4.825 1.5-1.391 3.739-2.259 5.905-2.331v5.507L23.259 10.5 12 .648v5.581zm2 1.773V5.056l6.222 5.443L14 15.942v-3.004l-.924-.07c-.265-.021-.531-.03-.798-.03-2.765 0-5.594 1.064-7.542 2.87l-.129.122c1.13-4.802 3.874-7.242 8.499-7.733l.895-.095z"></path>
+      </g>
+    </Svg>
+  )
+}
+
+export const ReportIcon = ({className} : PathProps) => {
+  return (
+    <Svg className={className}>
+      <g>
+        <path d="M3 2h18.61l-3.5 7 3.5 7H5v6H3V2zm2 12h13.38l-2.5-5 2.5-5H5v10z"></path>
+      </g>
+    </Svg>
+  )
+}
+
+export const CopyMessageIcon = ({className} : PathProps) => {
+  return (
+    <Svg className={className}>
+      <g>
+        <path d="M15 6v3h3v2h-3v3h-2v-3h-3V9h3V6h2zm4.5-4C20.88 2 22 3.12 22 4.5v11c0 1.38-1.12 2.5-2.5 2.5h-11C7.12 18 6 16.88 6 15.5v-11C6 3.12 7.12 2 8.5 2h11zM8 15.5c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5v-11c0-.28-.22-.5-.5-.5h-11c-.28 0-.5.22-.5.5v11zm-4 4V8h-.5C2.67 8 2 8.67 2 9.5v10C2 20.88 3.12 22 4.5 22h10c.83 0 1.5-.67 1.5-1.5V20H4.5c-.28 0-.5-.22-.5-.5z"></path>
+      </g>
+    </Svg>
+  )
+}

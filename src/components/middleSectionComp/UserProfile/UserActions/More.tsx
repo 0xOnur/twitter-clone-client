@@ -1,22 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { TreeDotIcon, WebsiteIcon } from "@icons/Icon";
-import useToast from "@hooks/useToast";
+import { useCopyText } from "@hooks/useCopyText";
 
 interface IProps {
   user: IUser;
 }
 
 const More = ({ user }: IProps) => {
-  const { showToast } = useToast();
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const copyProfileLink = () => {
     const profileURL = window.location.origin + `/${user.username}`;
-    navigator.clipboard.writeText(profileURL);
-    setShowMenu(false);
-    showToast("Copied to clipboard", "success");
-  };
+
+  const { copyText } = useCopyText({
+    text: profileURL,
+    toastMessage: "Copied to clipboard",
+  });
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
@@ -48,7 +47,10 @@ const More = ({ user }: IProps) => {
           className="flex flex-col absolute z-10 top-0 right-0 w-fit bg-white border rounded-xl shadow-lg"
         >
           <button
-            onClick={copyProfileLink}
+            onClick={() => {
+              copyText();
+              setShowMenu(false);
+            }}
             className="flex gap-2 w-full items-center py-3 px-4 rounded-xl hover:bg-gray-extraLight"
           >
             <WebsiteIcon className="w-5 h-5" />

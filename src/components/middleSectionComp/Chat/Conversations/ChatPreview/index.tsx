@@ -5,7 +5,7 @@ import { UserState } from "@redux/slices/userSlice";
 interface IProps {
   chat: IChat;
   reduxUser: UserState;
-  isSelected?: boolean;
+  isSelectedChat?: boolean;
   isGroupMode?: boolean;
   selectedUsers?: IUser[];
   isComposeMode?: boolean;
@@ -15,7 +15,7 @@ interface IProps {
 const ChatPreview = ({
   chat,
   reduxUser,
-  isSelected,
+  isSelectedChat,
   isGroupMode,
   isComposeMode,
   selectedUsers,
@@ -25,20 +25,20 @@ const ChatPreview = ({
     <div key={chat._id}>
       {chat.isGroupChat ? (
         <GroupChat
+          isSelectedChat={isSelectedChat}
           isComposeMode={isComposeMode}
           selectedUsers={selectedUsers}
           isGroupMode={isGroupMode}
-          isSelected={isSelected}
           reduxUser={reduxUser}
           key={chat._id}
           chat={chat}
         />
       ) : (
         <NormalChat
+          isSelectedChat={isSelectedChat}
           setSelectUsers={setSelectUsers}
           isComposeMode={isComposeMode}
           selectedUsers={selectedUsers}
-          isSelected={isSelected}
           reduxUser={reduxUser}
           key={chat._id}
           chat={chat}

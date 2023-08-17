@@ -1,3 +1,4 @@
+import ChatComposer from "@components/middleSectionComp/Chat/ChatComposer"
 import useGetConversation from "@hooks/Queries/Chat/useGetConversation";
 import ConversationMessages from "./ConversationMessages.tsx";
 import { useInView } from "react-intersection-observer";
@@ -5,7 +6,6 @@ import NormalChatTopInfo from "./NormalChatTopInfo";
 import DownScrollButton from "./DownScrollButton";
 import { RootState } from "@redux/config/store";
 import { useSelector } from "react-redux";
-import ChatComposer from "./ChatComposer";
 import { useRef } from "react";
 import Header from "./Header";
 

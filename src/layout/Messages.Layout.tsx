@@ -1,14 +1,13 @@
-import React from "react";
+import MessagesPage from "@components/middleSectionComp/Chat/MessagesPage";
 import { LeftSideBar } from "@components/leftSidebarComp";
-import { Messages } from "@components/middleSectionComp";
 
 const MessagesLayout = () => {
   return (
     <div>
-      <div className="flex min-h-screen max-w-7xl mx-auto sticky">
+      <div className="flex min-h-screen max-w-7xl mx-auto sticky overflow-x-hidden">
         <LeftSideBar />
         <div className="flex flex-row gap-5 min-h-full w-full">
-          <Messages/>
+          <MessagesPage />
         </div>
       </div>
     </div>

@@ -7,4 +7,5 @@ interface IMessage {
     createdAt: string;
     updatedAt: string;
     type: "message" | "reply" | "tweet";
+    replyTo?: IMessage;
 }

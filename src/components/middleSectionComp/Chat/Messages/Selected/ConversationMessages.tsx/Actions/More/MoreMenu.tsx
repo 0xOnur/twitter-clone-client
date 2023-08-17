@@ -2,6 +2,7 @@ import { TrashIcon } from "@icons/Icon";
 import { useRef, useCallback, useEffect } from "react";
 import CopyMessage from "./CopyMessage";
 import ReplyMessage from "./ReplyMessage";
+import classNames from "classnames";
 
 interface IProps {
   isMine: boolean;
@@ -9,7 +10,7 @@ interface IProps {
   setOpenMore: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MoreMenu = ({ message, setOpenMore }: IProps) => {
+const MoreMenu = ({ isMine, message, setOpenMore }: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleClose = useCallback(
@@ -28,8 +29,13 @@ const MoreMenu = ({ message, setOpenMore }: IProps) => {
     };
   }, [handleClose]);
 
+  const menuClassNames = classNames("absolute z-10 top-0 w-max", {
+    "right-0": isMine,
+    "left-0": !isMine,
+  })
+
   return (
-    <div ref={menuRef} className="absolute z-10 top-0 left-0 w-max">
+    <div ref={menuRef} className={menuClassNames}>
       <div className="flex flex-col bg-white border rounded-xl overflow-hidden shadow-xl">
        <ReplyMessage
         message={message}

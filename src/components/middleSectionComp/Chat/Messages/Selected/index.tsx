@@ -1,12 +1,13 @@
 import ChatComposer from "@components/middleSectionComp/Chat/ChatComposer"
-import useGetConversation from "@hooks/Queries/Chat/useGetConversation";
+import useGetConversation from "@hooks/Chat/Queries/useGetConversation";
 import ConversationMessages from "./ConversationMessages.tsx";
+import { useSocketContext } from "contexts/SocketContext";
 import { useInView } from "react-intersection-observer";
 import NormalChatTopInfo from "./NormalChatTopInfo";
 import DownScrollButton from "./DownScrollButton";
 import { RootState } from "@redux/config/store";
 import { useSelector } from "react-redux";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Header from "./Header";
 
 interface IProps {
@@ -14,6 +15,16 @@ interface IProps {
 }
 
 const SelectedConversation = ({ conversationId }: IProps) => {
+  const { socket } = useSocketContext();
+
+  useEffect(() => {
+    socket?.emit("joinConversation", conversationId);
+    return () => {
+      socket?.emit("leaveConversation", conversationId);
+    };
+  }, [conversationId])
+  
+
   const reduxUser = useSelector((state: RootState) => state.user);
   const chat = useGetConversation({ chatId: conversationId });
 

@@ -91,6 +91,7 @@ export const deleteConversation = async (chatId: string) => {
   }
 };
 
+// Create conversation
 export const createConversation = async (users: IUser[]) => {
   try {
     const response = await axiosInstance.post("/chat/create-conversation", {
@@ -104,3 +105,33 @@ export const createConversation = async (users: IUser[]) => {
     return Promise.reject(error);
   }
 };
+
+// Send message
+export const sendMessage = async (message: FormData) => {
+  try {
+    const response = await axiosInstance.post("/chat/send-message", message, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
+  }
+}
+
+// Read message
+export const readMessage =async (messageId:string) => {
+  try {
+    const response = await axiosInstance.put(`/chat/read-message/${messageId}`)
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
+  }
+}

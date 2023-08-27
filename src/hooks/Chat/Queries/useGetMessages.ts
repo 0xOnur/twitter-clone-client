@@ -18,7 +18,7 @@ const useGetMessages = ({ conversationId }: IProps) => {
     isFetchingNextPage,
     refetch,
   } = useInfiniteQuery(
-    ["conversationMessages", conversationId],
+    ["chatMessages", conversationId],
     fetchMessages,
     {
       getNextPageParam: (lastPage) => {

@@ -1,4 +1,4 @@
-import useGetMessages from "@hooks/Queries/Chat/useGetMessages";
+import useGetMessages from "@hooks/Chat/Queries/useGetMessages";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { UserState } from "@redux/slices/userSlice";
@@ -84,7 +84,7 @@ const ConversationMessages = ({
                 message={message}
                 reduxUser={reduxUser}
                 conversation={conversation}
-                isMine={message.sender._id === reduxUser.user._id}
+                isMine={message.sender?._id === reduxUser.user?._id}
               />
             ))}
           </div>

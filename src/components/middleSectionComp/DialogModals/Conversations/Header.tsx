@@ -1,4 +1,4 @@
-import useCreateConversation from "@hooks/mutations/Chat/useCreateConversation";
+import useCreateConversation from "@hooks/Chat/Mutations/useCreateConversation";
 import { BackIcon, CancelIcon } from "@icons/Icon";
 import { useNavigate } from "react-router-dom";
 

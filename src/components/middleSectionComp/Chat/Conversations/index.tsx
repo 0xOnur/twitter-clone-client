@@ -1,4 +1,4 @@
-import useGetConversations from "@hooks/Queries/Chat/useGetConversations";
+import useGetConversations from "@hooks/Chat/Queries/useGetConversations";
 import ChatWelcomeMessage from "./ChatWelcomeMessage";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { RootState } from "@redux/config/store";

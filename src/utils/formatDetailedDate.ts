@@ -4,14 +4,12 @@ export const formatDetailedDate = (date: string): string => {
   const timeOptions: Intl.DateTimeFormatOptions = {
     hour: "numeric",
     minute: "numeric",
-    hour12: true,
-    timeZone: "UTC",
+    hour12: false,
   };
   const dateOptions: Intl.DateTimeFormatOptions = {
     month: "short",
     day: "numeric",
     year: "numeric",
-    timeZone: "UTC",
   };
 
   const time = new Intl.DateTimeFormat("en-US", timeOptions).format(newDate);

@@ -3,10 +3,10 @@ import { EmojiIcon } from "@icons/Icon";
 import { useRef, useState, useCallback, useEffect } from "react";
 
 interface IProps {
-  setMessageText: React.Dispatch<React.SetStateAction<string>>;
+  setMessageContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Emoji = ({ setMessageText }: IProps) => {
+const Emoji = ({ setMessageContent }: IProps) => {
   const [showEmoji, setShowEmoji] = useState(false);
   const emojiRef = useRef<HTMLDivElement>(null);
   const emojiButtonRef = useRef<HTMLButtonElement>(null);
@@ -33,8 +33,8 @@ const Emoji = ({ setMessageText }: IProps) => {
   }, [handleClose]);
 
   function handleEmojiSelect(emoji: any) {
-    setMessageText((prevTweet: string) =>
-      prevTweet ? prevTweet + emoji.native : emoji.native
+    setMessageContent((prevText: string) =>
+      prevText ? prevText + emoji.native : emoji.native
     );
   }
 
@@ -50,16 +50,16 @@ const Emoji = ({ setMessageText }: IProps) => {
           <EmojiIcon className="w-5 h-5 fill-primary-base" />
         </div>
       </button>
-  
+
       {showEmoji && (
         <div
           ref={emojiRef}
           className="absolute bottom-12 z-50 left-1/2 transform -translate-x-1/2 shadow-md"
         >
-         <Picker
-          onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
-          theme={"light"}
-        />
+          <Picker
+            onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
+            theme={"light"}
+          />
         </div>
       )}
     </div>

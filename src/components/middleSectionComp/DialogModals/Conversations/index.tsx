@@ -1,6 +1,6 @@
 import ChatPreview from "@components/middleSectionComp/Chat/Conversations/ChatPreview";
 import { useDebouncedSearchUser } from "@hooks/Queries/User/useSearchUser";
-import useGetConversations from "@hooks/Queries/Chat/useGetConversations";
+import useGetConversations from "@hooks/Chat/Queries/useGetConversations";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import UserList from "@components/rightSidebarComp/Search/UserList";
 import { useNavigate } from "react-router-dom";

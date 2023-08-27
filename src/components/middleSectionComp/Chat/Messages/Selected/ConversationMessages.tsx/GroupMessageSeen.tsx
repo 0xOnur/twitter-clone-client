@@ -14,7 +14,9 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
   const [showReadList, setShowReadList] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  message.readBy = message.readBy.filter((user) => user._id !== reduxUser.user._id)
+  const messageReadIDs = message.readBy?.filter(
+    (user) => user._id !== reduxUser.user._id
+  );
 
   let seenText = "Sent";
 
@@ -23,7 +25,7 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
     .map((p) => p.user._id);
 
   const seenCount = participantsExceptCurrentUser.filter((participantId) =>
-    message.readBy.some((user) => user._id === participantId)
+    messageReadIDs?.some((user) => user._id === participantId)
   ).length;
 
   if (seenCount === participantsExceptCurrentUser.length) {
@@ -59,13 +61,13 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
         {seenText}
       </button>
 
-      {showReadList && message.readBy.length > 0 && (
+      {showReadList && messageReadIDs && messageReadIDs.length > 0 && (
         <div
           ref={menuRef}
           className="absolute right-0 mt-1 border shadow-md min-w-[260px] min-h-[30px] max-w-[360px] max-h-[480px] rounded-2xl overflow-auto"
         >
           <div className="flex flex-col bg-white">
-            {message.readBy.map((user) => (
+            {messageReadIDs.map((user) => (
               <div className="py-3 px-4 hover:bg-gray-50 duration-200">
                 <div className="flex flex-row items-center">
                   <Avatar

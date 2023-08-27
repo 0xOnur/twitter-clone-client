@@ -1,7 +1,7 @@
+import useDeleteConversation from "@hooks/Chat/Mutations/useDeleteConversation";
+import usePinMutation from "@hooks/Chat/Mutations/usePinMutation";
 import { TrashIcon, PinIcon, UnpinIcon } from "@icons/Icon";
 import { useCallback, useEffect, useRef } from "react";
-import usePinMutation from "@hooks/mutations/Chat/usePinMutation";
-import useDeleteConversation from "@hooks/mutations/Chat/useDeleteConversation";
 
 interface IProps {
   chatId: string;

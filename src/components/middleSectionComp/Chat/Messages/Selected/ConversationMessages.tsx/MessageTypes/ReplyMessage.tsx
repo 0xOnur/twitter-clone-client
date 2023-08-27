@@ -1,10 +1,9 @@
-import React from "react";
+import { Avatar } from "@components/middleSectionComp/TweetCard/components";
+import { UserState } from "@redux/slices/userSlice";
+import { MessageReplyIcon } from "@icons/Icon";
 import MessageActions from "../Actions";
 import MessageDate from "../MessageDate";
-import { UserState } from "@redux/slices/userSlice";
 import classNames from "classnames";
-import { Avatar } from "@components/middleSectionComp/TweetCard/components";
-import { MessageReplyIcon, ReplyIcon } from "@icons/Icon";
 
 interface IProps {
   isMine: boolean;
@@ -14,7 +13,7 @@ interface IProps {
 }
 
 const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
-  const messageStart = classNames("flex", {
+  const messageStart = classNames("flex flex-col", {
     "items-end justify-end": isMine,
     "items-start justify-start": !isMine,
   });
@@ -25,7 +24,7 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
   });
 
   const messageBox = classNames(
-    "flex items-start border rounded-3xl box-border max-w-full py-3 px-4",
+    "flex border rounded-3xl box-border max-w-full py-3 px-4",
     {
       "bg-primary-base text-white rounded-br-[4px]": isMine,
       "bg-gray-message rounded-bl-[4px]": !isMine,
@@ -43,7 +42,7 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
           <div className={messageFlexReverse}>
             <MessageActions isMine={isMine} message={message} />
 
-            <div className="flex flex-col items-start shrink">
+            <div className={messageStart}>
               <div className={replyStart}>
                 <div className="flex flex-row gap-1 pb-2 items-baseline">
                   <MessageReplyIcon className="w-[10px] h-[10px]" />
@@ -52,9 +51,9 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
                   </span>
                 </div>
                 <div className="flex">
-                  <div className="flex flex-row gap-3 mt-0.5 pb-8 pt-3 px-4 rounded-3xl items-end box-border  bg-gray-message">
+                  <div className="flex flex-row gap-3 mt-0.5 pb-8 pt-3 px-4 rounded-3xl items-end box-border bg-gray-message/40">
                     <span className="text-[13px] text-right break-words leading-4">
-                      {message.replyTo?.content}
+                      {typeof(message.replyTo) !== "string" && message.replyTo?.content}
                     </span>
                   </div>
                 </div>
@@ -73,8 +72,8 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
                 <div className="w-52px"></div>
                 <div className="absolute left-0">
                   <Avatar
-                    avatar={message.sender.avatar!}
-                    href={`/${message.sender.username}`}
+                    avatar={message.sender?.avatar!}
+                    href={`/${message.sender?.username}`}
                     avatarSize="w-10 h-10"
                   />
                 </div>

@@ -9,6 +9,7 @@ import store from "./redux/config/store";
 import { persistor } from "./redux/config/store";
 import "./index.css";
 import App from "./App";
+import SocketProvider from "contexts/SocketContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,8 +22,10 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
-          <ReactQueryDevtools />
+          <SocketProvider>
+            <App />
+            <ReactQueryDevtools />
+          </SocketProvider>
         </PersistGate>
       </Provider>
     </BrowserRouter>

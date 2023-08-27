@@ -1,23 +1,26 @@
 import useAutosizeTextArea from "@hooks/composer/useAutosizeTextArea";
 import React, { useCallback, useRef } from "react";
 
-type Props = {
-  messageText: string;
-  setMessageText: React.Dispatch<React.SetStateAction<string>>;
-};
+interface IProps {
+  messageContent: string;
+  setMessageContent: React.Dispatch<React.SetStateAction<string>>;
+}
 
 const MessageTextInput = ({
-  messageText,
-  setMessageText,
-}: Props) => {
+  messageContent,
+  setMessageContent,
+}: IProps) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  useAutosizeTextArea(textAreaRef, messageText);
+  useAutosizeTextArea(textAreaRef, messageContent);
 
   const handleMessageChange = useCallback(
     (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setMessageText(evt.target.value);
+      setMessageContent((prevContent) => {
+        return evt.target.value;
+      })
+
     },
-    [setMessageText]
+    [setMessageContent]
   );
 
 
@@ -29,9 +32,10 @@ const MessageTextInput = ({
             className="focus:outline-none resize-none block w-full bg-transparent text-black"
             placeholder={"Start a new message"}
             onChange={handleMessageChange}
-            value={messageText}
+            value={messageContent}
             ref={textAreaRef}
             maxLength={280}
+            autoFocus
           />
         </div>
       </div>

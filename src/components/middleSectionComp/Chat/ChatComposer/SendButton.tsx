@@ -2,12 +2,12 @@ import { SendIcon } from "@icons/Icon";
 import classNames from "classnames";
 
 interface IProps {
-  messageText: string;
-  conversationId: string;
+  messageContent: string;
+  handleSentMessage: () => void
 }
 
-const SendButton = ({ messageText, conversationId }: IProps) => {
-  const isMessageReady = messageText.trim().length > 0;
+const SendButton = ({ messageContent, handleSentMessage }: IProps) => {
+  const isMessageReady = messageContent.trim().length > 0;
 
   const buttonClass = classNames(
     "flex ml-1 items-center min-h-[36px] min-w-[36px] rounded-full duration-200",
@@ -22,9 +22,7 @@ const SendButton = ({ messageText, conversationId }: IProps) => {
       type="submit"
       disabled={!isMessageReady}
       className={buttonClass}
-      onClick={() => {
-        console.log("send message");
-      }}
+      onClick={handleSentMessage}
     >
       <div className="flex flex-grow justify-center items-center font-bold">
         <SendIcon className="w-5 h-5 fill-primary-base" />

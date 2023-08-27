@@ -2,10 +2,10 @@ import { GIFIcon, ImageIcon } from "@icons/Icon";
 import Emoji from "./Emoji";
 
 interface IProps {
-  setMessageText:  React.Dispatch<React.SetStateAction<string>>
+  setMessageContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ChatToolbar = ({setMessageText}: IProps) => {
+const ChatToolbar = ({ setMessageContent }: IProps) => {
   return (
     <div className="flex flex-row mr-1">
       <button
@@ -28,7 +28,7 @@ const ChatToolbar = ({setMessageText}: IProps) => {
         </div>
       </button>
 
-      <Emoji setMessageText={setMessageText} />
+      <Emoji setMessageContent={setMessageContent} />
     </div>
   );
 };

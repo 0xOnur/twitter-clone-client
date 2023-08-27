@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const MessageDate = ({ isMine, message, reduxUser, conversation }: IProps) => {
-  const messageDate = classNames("flex mt-[6px] max-w-[87%]", {
+  const messageDateClassName = classNames("flex mt-[6px] max-w-[87%]", {
     "self-end justify-end": isMine,
   });
 
@@ -20,14 +20,15 @@ const MessageDate = ({ isMine, message, reduxUser, conversation }: IProps) => {
   );
 
   return (
-    <div className={messageDate}>
+    <div className={messageDateClassName}>
       <div className="flex flex-row gap-1 text-gray-dark text-[13px] leading-4">
         <span>
           <time dateTime={message.createdAt}>
-            {formatDetailedDate(message.createdAt)}
+            {formatDetailedDate(message.createdAt!)}
           </time>
         </span>
-        {otherParticipants && isMine && (
+
+        {isMine && (
           <>
             {conversation.isGroupChat ? (
               <GroupMessageSeen
@@ -37,8 +38,8 @@ const MessageDate = ({ isMine, message, reduxUser, conversation }: IProps) => {
               />
             ) : (
               <span>
-                {message.readBy.find(
-                  (user) => user._id === otherParticipants.user._id
+                {message.readBy?.find(
+                  (user) => user._id === otherParticipants?.user._id
                 ) ? (
                   <span>Seen</span>
                 ) : (

@@ -56,8 +56,8 @@ const NormalMessage = ({
                 <div className="w-52px"></div>
                 <div className="absolute left-0">
                   <Avatar
-                    avatar={message.sender.avatar!}
-                    href={`/${message.sender.username}`}
+                    avatar={message.sender?.avatar!}
+                    href={`/${message.sender?.username}`}
                     avatarSize="w-10 h-10"
                   />
                 </div>

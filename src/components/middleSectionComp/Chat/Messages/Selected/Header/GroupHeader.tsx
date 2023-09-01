@@ -2,6 +2,7 @@ import { UserState } from "@redux/slices/userSlice";
 import AvatarGroup from "@atlaskit/avatar-group";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { InfoIcon } from "@icons/Icon";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   chat: IChat;
@@ -9,6 +10,8 @@ interface IProps {
 }
 
 const GroupHeader = ({ chat, reduxUser }: IProps) => {
+  const navigate = useNavigate();
+
   const participantsAvatars = chat.participants.map((participant) => ({
     src: participant.user.avatar || "",
     name: participant.user.displayName,
@@ -70,12 +73,15 @@ const GroupHeader = ({ chat, reduxUser }: IProps) => {
             </div>
           </div>
           <div className="flex relative min-w-[56px] min-h-[32px] items-center justify-end">
-            <a
-              href={`/messages/${chat._id}/info`}
+            <button
+              title="Info"
+              onClick={() => {
+                navigate(`/messages/${chat._id}/info`);
+              }}
               className="flex justify-center items-center min-w-[36px] min-h-[36px] hover:bg-gray-extraLight rounded-full duration-200"
             >
               <InfoIcon className="w-5 h-5 antialiased " />
-            </a>
+            </button>
           </div>
         </div>
       </div>

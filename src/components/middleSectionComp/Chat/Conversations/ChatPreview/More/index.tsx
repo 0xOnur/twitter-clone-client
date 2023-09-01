@@ -13,7 +13,7 @@ const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const {setPin, unsetPin} = usePinMutation({chatId: chatId})
-  const {deleteConversationMutation} = useDeleteConversation({chatId: chatId})
+  const {mutate} = useDeleteConversation()
 
   const handleClose = useCallback(
     (event: MouseEvent) => {
@@ -60,7 +60,7 @@ const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
           )}
         </button>
         <button
-          onClick={() => deleteConversationMutation.mutate(chatId)}
+          onClick={() => mutate(chatId)}
           className="flex flex-row gap-2 py-3 px-4 items-center hover:bg-gray-dropdown"
         >
             <TrashIcon className="w-5 h-5 fill-red-removeText" />

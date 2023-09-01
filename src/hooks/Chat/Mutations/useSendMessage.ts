@@ -3,26 +3,22 @@ import { useSocketContext } from "contexts/SocketContext";
 import { sendMessage } from "api/chatApi";
 import { useState } from "react";
 
-interface IProps {
-  message: IMessage;
-}
-
-const useSendMessage = ({ message }: IProps) => {
+const useSendMessage = () => {
   const queryClient = useQueryClient();
   const { socket } = useSocketContext();
 
   const [isLoading, setLoading] = useState(false);
 
-  const { mutate, isSuccess } = useMutation({
-    mutationKey: ["sendMessage", message],
+  const { mutate } = useMutation({
+    mutationKey: ["sendMessage"],
     mutationFn: sendMessage,
     onMutate: () => {
       setLoading(true);
     },
-    onSuccess: () => {
+    onSuccess: (data: IMessage) => {
       const payload = {
-        conversationId: message.chat,
-        message: message,
+        conversationId: data.chat,
+        message: data,
       };
       socket?.emit("sendMessage", payload);
       queryClient.invalidateQueries();
@@ -33,7 +29,7 @@ const useSendMessage = ({ message }: IProps) => {
     },
   });
 
-  return { mutate, isLoading, isSuccess };
+  return { mutate, isLoading };
 };
 
 export default useSendMessage;

@@ -68,7 +68,7 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
         >
           <div className="flex flex-col bg-white">
             {messageReadIDs.map((user) => (
-              <div className="py-3 px-4 hover:bg-gray-50 duration-200">
+              <div key={user._id} className="py-3 px-4 hover:bg-gray-50 duration-200">
                 <div className="flex flex-row items-center">
                   <Avatar
                     avatar={user.avatar!}

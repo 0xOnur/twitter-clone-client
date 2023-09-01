@@ -2,7 +2,7 @@ import useGetMessages from "@hooks/Chat/Queries/useGetMessages";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon, RetryIcon } from "@icons/Icon";
 import { UserState } from "@redux/slices/userSlice";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import Message from "./Message";
 
 interface IProps {
@@ -28,7 +28,9 @@ const ConversationMessages = ({
     status,
     refetch,
     hasNextPage,
+    isRefetching,
     fetchNextPage,
+    isInitialLoading,
     isFetchingNextPage,
   } = useGetMessages({ conversationId: conversation._id });
 
@@ -38,14 +40,15 @@ const ConversationMessages = ({
     }
   }, [fetchInView, isFetchingNextPage]);
 
-  useEffect(() => {
+  
+  useLayoutEffect(() => {
     if (myRef.current) {
       myRef.current.scrollIntoView({
         block: "end",
         inline: "nearest",
       });
     }
-  }, [data]);
+  }, [isInitialLoading, isRefetching]);
 
   if (status === "loading") {
     return (
@@ -71,6 +74,7 @@ const ConversationMessages = ({
       </div>
     );
   }
+  
 
   if (data) {
     return (
@@ -99,6 +103,7 @@ const ConversationMessages = ({
       </div>
     );
   }
+  
 
   return null;
 };

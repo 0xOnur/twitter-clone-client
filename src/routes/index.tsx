@@ -70,6 +70,7 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
         <Route path="compose" element={<ChatComposeModal isGroupMode={false} />} />
         <Route path="compose/group" element={<ChatComposeModal isGroupMode={true} />} />
         <Route path=":conversationId"/>
+        <Route path=":conversationId/info"/>
       </Route>
 
       <Route

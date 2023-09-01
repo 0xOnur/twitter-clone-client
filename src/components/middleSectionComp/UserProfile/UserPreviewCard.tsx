@@ -1,4 +1,3 @@
-import { PersistPartial } from "redux-persist/es/persistReducer";
 import { UserState } from "@redux/slices/userSlice";
 import { Avatar } from "../TweetCard/components";
 import { useNavigate } from "react-router-dom";
@@ -6,21 +5,26 @@ import { VerifiedIcon } from "@icons/Icon";
 import { FollowsButton } from ".";
 
 interface IProps {
-  reduxUser: UserState & PersistPartial;
-  user: IUser;
+  reduxUser: UserState;
+  avatarSize?: string;
   showBio?: boolean;
+  user: IUser;
 }
 
-const UserPreviewCard = ({ user, reduxUser, showBio }: IProps) => {
+const UserPreviewCard = ({ user, reduxUser, avatarSize, showBio }: IProps) => {
   const navigate = useNavigate();
   return (
-    <div key={user._id} className="flex flex-col w-full">
+    <div key={user._id} className="flex flex-col w-full text-[15px] leading-5">
       <div
         onClick={() => navigate(`/${user.username}`)}
         className="cursor-pointer py-3 px-3 hover:bg-gray-trendsHover duration-200"
       >
         <div className="flex flex-row w-full">
-          <Avatar avatar={user?.avatar!} href={`/${user?.username!}`} />
+          <Avatar
+            avatar={user?.avatar!}
+            href={`/${user?.username!}`}
+            avatarSize={avatarSize}
+          />
           <div className="flex flex-col w-full overflow-hidden">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col w-full min-w-0 pr-2">
@@ -28,7 +32,7 @@ const UserPreviewCard = ({ user, reduxUser, showBio }: IProps) => {
                   <a
                     href={`/${user.username}`}
                     onClick={(e) => e.stopPropagation()}
-                    className="truncate font-bold hover:underline decoration-1"
+                    className="truncate font-bold hover:underline"
                   >
                     {user.displayName}
                   </a>

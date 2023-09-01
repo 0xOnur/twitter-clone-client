@@ -1,22 +1,18 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query"
 import { deleteConversation } from "api/chatApi"
 
-interface IProps {
-    chatId: string;
-}
-
-const useDeleteConversation = ({chatId}: IProps) => {
+const useDeleteConversation = () => {
     const queryClient = useQueryClient()
 
-    const deleteConversationMutation = useMutation({
-        mutationKey: ["deleteConversation", chatId],
+    const {mutate} = useMutation({
+        mutationKey: ["deleteConversation"],
         mutationFn: deleteConversation,
         onSuccess: () => {
             queryClient.invalidateQueries(["chats"])
         }
     })
 
-    return {deleteConversationMutation}
+    return {mutate}
 }
 
 export default useDeleteConversation

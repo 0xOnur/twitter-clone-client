@@ -13,10 +13,12 @@ const useGetMessages = ({ conversationId }: IProps) => {
   const {
     data,
     status,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
     refetch,
+    hasNextPage,
+    isRefetching,
+    fetchNextPage,
+    isInitialLoading,
+    isFetchingNextPage,
   } = useInfiniteQuery(
     ["chatMessages", conversationId],
     fetchMessages,
@@ -33,10 +35,12 @@ const useGetMessages = ({ conversationId }: IProps) => {
   return {
     data,
     status,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
     refetch,
+    hasNextPage,
+    isRefetching,
+    fetchNextPage,
+    isInitialLoading,
+    isFetchingNextPage,
   };
 };
 

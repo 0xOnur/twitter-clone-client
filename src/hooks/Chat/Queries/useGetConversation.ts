@@ -6,15 +6,13 @@ interface IProps {
 }
 
 const useGetConversation = ({chatId}: IProps) => {
-  const chat = useQuery<IChat>({
+  const {data, status, refetch} = useQuery<IChat>({
     queryKey: ["chat", chatId],
     queryFn: () => getConversation(chatId),
     refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5,
-    retry: true,
   });
 
-  return chat;
+  return {data, status, refetch};
 };
 
 export default useGetConversation;

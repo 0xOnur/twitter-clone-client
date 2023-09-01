@@ -1,4 +1,5 @@
 import { RootState } from "@redux/config/store";
+import { useQueryClient } from "@tanstack/react-query";
 import React, {
   createContext,
   useContext,
@@ -19,9 +20,8 @@ export const SocketContext = createContext<SocketContextProps>(
 );
 
 const SocketProvider = ({ children }: PropsWithChildren) => {
-  const { user, isAuthenticated } = useSelector(
-    (state: RootState) => state.user
-  );
+  const queryClient = useQueryClient();
+  const { user, isAuthenticated } = useSelector((state: RootState) => state.user);
   const baseURL = process.env.REACT_APP_API_BASE_URL;
 
   const [socket, setSocket] = useState<Socket | undefined>();
@@ -43,11 +43,16 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
   }, [isAuthenticated]);
 
 
+
   useEffect(() => {
-    if (socket) {
-      socket.on("getMessage", (message) => {
-        console.log("🚀 ~ file: SocketContext.tsx:97 ~ socket.on ~ socket", message)
-      })
+    if(socket) {
+      socket.on("getMessage", () => {
+        queryClient.invalidateQueries();
+      });
+      
+      socket.on("readMessage", () => {
+        queryClient.invalidateQueries();
+      });
     }
   }, [socket])
 
@@ -55,6 +60,7 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
     () => ({ socket }),
     [socket, isAuthenticated]
   );
+
 
   return (
     <SocketContext.Provider value={SocketContextValues}>

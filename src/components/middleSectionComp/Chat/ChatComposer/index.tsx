@@ -14,15 +14,9 @@ interface IProps {
 const ChatComposer = ({ conversationId }: IProps) => {
   const dispatch = useDispatch();
   const replyMessage = useSelector(selectReplyMessage);
-
   const [messageContent, setMessageContent] = useState("");
 
-  const { mutate, isLoading } = useSendMessage({
-    message: {
-      chat: conversationId,
-      content: messageContent,
-    },
-  });
+  const { mutate, isLoading } = useSendMessage();
 
   const handleSentMessage = () => {
     const formData = new FormData();

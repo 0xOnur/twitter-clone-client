@@ -135,3 +135,16 @@ export const readMessage =async (messageId:string) => {
     return Promise.reject(error);
   }
 }
+
+// Delete message
+export const deleteMessage = async (messageId:string) => {
+  try {
+    const response = await axiosInstance.delete(`/chat/delete-message/${messageId}`)
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+}

@@ -1,7 +1,7 @@
-import { TrashIcon } from "@icons/Icon";
 import { useRef, useCallback, useEffect } from "react";
-import CopyMessage from "./CopyMessage";
+import DeleteMessage from "./DeleteMessage";
 import ReplyMessage from "./ReplyMessage";
+import CopyMessage from "./CopyMessage";
 import classNames from "classnames";
 
 interface IProps {
@@ -44,14 +44,7 @@ const MoreMenu = ({ isMine, message, setOpenMore }: IProps) => {
 
         <CopyMessage message={message} setOpenMore={setOpenMore} />
 
-        <button className="flex flex-row items-center w-full py-3 px-4 hover:bg-gray-dropdown duration-200">
-          <div className="flex pr-3 justify-center">
-            <TrashIcon className="w-5 h-5" />
-          </div>
-          <div className="flex shrink grow w-full">
-            <span className="font-bold">Delete for you</span>
-          </div>
-        </button>
+        <DeleteMessage messageId={message?._id!} setOpenMore={setOpenMore} />
       </div>
     </div>
   );

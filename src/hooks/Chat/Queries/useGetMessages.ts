@@ -23,6 +23,7 @@ const useGetMessages = ({ conversationId }: IProps) => {
     ["chatMessages", conversationId],
     fetchMessages,
     {
+      refetchOnWindowFocus: false,
       getNextPageParam: (lastPage) => {
         if (lastPage.page < lastPage.totalPages) {
           return lastPage.page + 1;

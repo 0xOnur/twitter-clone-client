@@ -29,7 +29,7 @@ const NormalMessage = ({
   });
 
   const messageBox = classNames(
-    "flex items-start border rounded-3xl box-border max-w-full py-3 px-4",
+    "grid items-start border rounded-3xl box-border max-w-full py-3 px-4",
     {
       "bg-primary-base text-white rounded-br-[4px]": isMine,
       "bg-gray-message rounded-bl-[4px]": !isMine,
@@ -44,7 +44,7 @@ const NormalMessage = ({
 
             <div className="flex items-start shrink">
               <div className={messageBox}>
-                <div className="text-left break-words min-w-0 overflow-hidden">
+                <div className="break-words min-w-0 overflow-hidden">
                   <span className="whitespace-pre-line antialiased">
                     {message.content}
                   </span>
@@ -53,14 +53,11 @@ const NormalMessage = ({
             </div>
             {conversation.isGroupChat && !isMine && (
               <div className="flex flex-row relative items-end">
-                <div className="w-52px"></div>
-                <div className="absolute left-0">
-                  <Avatar
-                    avatar={message.sender?.avatar!}
-                    href={`/${message.sender?.username}`}
-                    avatarSize="w-10 h-10"
-                  />
-                </div>
+                <Avatar
+                  avatar={message.sender?.avatar!}
+                  href={`/${message.sender?.username}`}
+                  avatarSize="w-10 h-10"
+                />
               </div>
             )}
           </div>

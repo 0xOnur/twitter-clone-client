@@ -2,11 +2,15 @@ import useAutosizeTextArea from "@hooks/composer/useAutosizeTextArea";
 import React, { useCallback, useRef } from "react";
 
 interface IProps {
+  isDisabled?: boolean;
+  placeholder: string;
   messageContent: string;
   setMessageContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MessageTextInput = ({
+  isDisabled,
+  placeholder,
   messageContent,
   setMessageContent,
 }: IProps) => {
@@ -30,10 +34,11 @@ const MessageTextInput = ({
         <div className="w-full py-1 p-3">
           <textarea
             className="focus:outline-none resize-none block w-full bg-transparent text-black"
-            placeholder={"Start a new message"}
             onChange={handleMessageChange}
+            placeholder={placeholder}
             value={messageContent}
             ref={textAreaRef}
+            disabled={isDisabled}
             maxLength={280}
             autoFocus
           />

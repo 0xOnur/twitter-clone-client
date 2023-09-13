@@ -10,14 +10,7 @@ const Search = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchResultsRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading, debouncedSearch } = useDebouncedSearchUser(searchText);
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-    debouncedSearch(e.target.value);
-  };
-  
-
+  const { data, isLoading } = useDebouncedSearchUser(searchText);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -53,7 +46,9 @@ const Search = () => {
             ref={searchInputRef}
             onFocus={onFocus}
             value={searchText}
-            onChange={handleSearchChange}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
             placeholder="Search Twitter"
             className="placeholder-black bg-transparent focus:outline-none w-full "
           />

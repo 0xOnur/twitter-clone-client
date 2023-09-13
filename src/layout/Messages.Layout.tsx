@@ -5,8 +5,10 @@ const MessagesLayout = () => {
   return (
     <div>
       <div className="flex min-h-screen max-w-7xl mx-auto sticky overflow-x-hidden">
-        <LeftSideBar />
-        <div className="flex flex-row gap-5 min-h-full w-full">
+        <div className="-z-10">
+          <LeftSideBar />
+        </div>
+        <div className="flex flex-row gap-5 min-h-full w-full z-10">
           <MessagesPage />
         </div>
       </div>

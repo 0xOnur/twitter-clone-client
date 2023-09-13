@@ -1,23 +1,23 @@
-import { useNavigate } from "react-router-dom";
 import { PeoplesIcon } from "@icons/Icon";
 
-const CreateGroup = () => {
-  const navigate = useNavigate();
+interface IProps {
+  setGroupMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CreateGroup = ({ setGroupMode }: IProps) => {
   return (
     <div
       onClick={() => {
-        navigate("/messages/compose/group");
+        setGroupMode(true);
       }}
       className="border-b bg-white cursor-pointer hover:bg-gray-rightbar duration-200"
     >
       <div className="flex flex-row py-3 px-4 items-center">
-
-        <div 
-            title="Create a group"
-            className="mr-3 min-h-[32px] min-w-[32px] p-0.5 border rounded-full hover:bg-primary-extraLight">
-          <div
-            className="flex items-center justify-center p-2"
-          >
+        <div
+          title="Create a group"
+          className="mr-3 min-h-[32px] min-w-[32px] p-0.5 border rounded-full hover:bg-primary-extraLight"
+        >
+          <div className="flex items-center justify-center p-2">
             <PeoplesIcon className="w-[18px] h-[18px] fill-primary-base" />
           </div>
         </div>

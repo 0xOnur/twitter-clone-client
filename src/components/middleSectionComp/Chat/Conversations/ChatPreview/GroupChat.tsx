@@ -1,30 +1,20 @@
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
-import { useNavigate } from "react-router-dom";
-import AvatarGroup from "@atlaskit/avatar-group";
 import { formatDate } from "@utils/formatDate";
 import { TreeDotIcon } from "@icons/Icon";
-import { useState } from "react";
-import MoreMenu from "./More";
+import { useNavigate } from "react-router-dom";
 import { UserState } from "@redux/slices/userSlice";
+import { useState } from "react";
+import AvatarGroup from "@atlaskit/avatar-group";
 import classNames from "classnames";
+import MoreMenu from "./More";
 
 interface IProps {
   chat: IChat;
   reduxUser: UserState;
-  isGroupMode?: boolean;
-  isComposeMode?: boolean;
   isSelectedChat?: boolean;
-  selectedUsers?: IUser[];
 }
 
-const GroupChat = ({
-  chat,
-  reduxUser,
-  isSelectedChat,
-  isGroupMode,
-  isComposeMode,
-  selectedUsers,
-}: IProps) => {
+const GroupChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
   const navigate = useNavigate();
   const [isOpenMore, setOpenMore] = useState(false);
 
@@ -51,7 +41,6 @@ const GroupChat = ({
     {
       "hover:bg-gray-extraLight": !isSelectedChat,
       "bg-gray-message hover:bg-gray-extraLight": isSelectedChat,
-      "cursor-not-allowed opacity-50": selectedUsers?.length! > 0 || isGroupMode,
     }
   );
 
@@ -59,12 +48,10 @@ const GroupChat = ({
     <div className="relative">
       <button
         key={chat._id}
-        disabled={selectedUsers?.length! > 0 || isGroupMode}
         className={chatClassNames}
         onClick={() => {
           navigate(`/messages/${chat._id}`);
         }}
-        
       >
         <div onClick={(e) => e.stopPropagation()}>
           {chat.chatImage ? (
@@ -81,18 +68,15 @@ const GroupChat = ({
           )}
         </div>
 
-        <div className="flex flex-col">
+        <div className="grid">
           <div className="grid grid-cols-content items-center gap-2">
             {chat.chatName ? (
               <h2 className="font-bold truncate text-left">{chat.chatName}</h2>
             ) : (
               <div className="flex gap-2 truncate">
-                {participantsDisplayNames.map((name, index) => (
-                  <span key={index} className="font-bold truncate text-left">
-                    {name}
-                    {participantsDisplayNames.length !== index + 1 && ","}
-                  </span>
-                ))}
+                <span className="font-bold truncate text-left">
+                  {participantsDisplayNames.join(", ")}
+                </span>
                 {chat.participants.length > 2 && (
                   <span className="font-bold text-left">
                     and {chat.participants.length - 2} more
@@ -100,7 +84,7 @@ const GroupChat = ({
                 )}
               </div>
             )}
-            {chat.lastMessage && !isComposeMode && (
+            {chat.lastMessage && (
               <div className="flex flex-row items-center">
                 <p className="line-clamp-1 whitespace-nowrap">
                   - {formatDate(chat.lastMessage?.updatedAt!)}
@@ -108,31 +92,26 @@ const GroupChat = ({
               </div>
             )}
           </div>
-          {chat.lastMessage?.content && !isComposeMode && (
-            <p className="line-clamp-1 text-left">
-              {chat.lastMessage?.content}
-            </p>
-          )}
-          {isComposeMode && (
-            <p className="line-clamp-1 text-left">
-              {chat.participants.length} people
-            </p>
+          {chat.lastMessage?.content && (
+            <div className="truncate">
+              <p className="truncate text-left">
+                {chat.lastMessage.content}
+              </p>
+            </div>
           )}
         </div>
 
-        {!isComposeMode && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpenMore(!isOpenMore);
-            }}
-            title="More"
-            className="relative h-fit group/item invisible group-hover:visible mr-1 ml-2"
-          >
-            <TreeDotIcon className="w-5 h-5 z-10" />
-            <div className="absolute -z-10 -m-2 group-hover/item:bg-primary-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
-          </button>
-        )}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpenMore(!isOpenMore);
+          }}
+          title="More"
+          className="relative h-fit group/item invisible group-hover:visible mr-1 ml-2"
+        >
+          <TreeDotIcon className="w-5 h-5 z-10" />
+          <div className="absolute -z-10 -m-2 group-hover/item:bg-primary-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
+        </button>
       </button>
 
       {isOpenMore && (

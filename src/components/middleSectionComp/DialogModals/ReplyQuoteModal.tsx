@@ -31,7 +31,7 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
     >
       <div className="fixed inset-0 bg-black opacity-60" />
 
-      <div className="z-10 text-black bg-white w-full max-w-600px min-h-400px rounded-xl overflow-hidden">
+      <div className="z-10 text-black bg-white w-full max-w-600px rounded-xl overflow-hidden">
         <div className="overflow-y-auto max-h-90vh">
           <div className="sticky top-0 z-10">
             <div className="flex flex-row justify-start items-center p-3 bg-white/80  backdrop-blur-md border-gray-200">

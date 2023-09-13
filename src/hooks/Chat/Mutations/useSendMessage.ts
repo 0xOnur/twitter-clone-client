@@ -1,12 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSocketContext } from "contexts/SocketContext";
+import useToast from "@hooks/useToast";
+import { useMutation } from "@tanstack/react-query";
 import { sendMessage } from "api/chatApi";
 import { useState } from "react";
 
 const useSendMessage = () => {
-  const queryClient = useQueryClient();
-  const { socket } = useSocketContext();
-
+  const { showToast } = useToast();
   const [isLoading, setLoading] = useState(false);
 
   const { mutate } = useMutation({
@@ -15,17 +13,12 @@ const useSendMessage = () => {
     onMutate: () => {
       setLoading(true);
     },
-    onSuccess: (data: IMessage) => {
-      const payload = {
-        conversationId: data.chat,
-        message: data,
-      };
-      socket?.emit("sendMessage", payload);
-      queryClient.invalidateQueries();
+    onSuccess: () => {
       setLoading(false);
     },
-    onError: () => {
+    onError: (err: any) => {
       setLoading(false);
+      showToast(err?.message || "error", "error");
     },
   });
 

@@ -43,6 +43,7 @@ const ChatComposer = ({ conversationId }: IProps) => {
       <div className="flex flex-row items-center mx-3 my-1 p-1 rounded-2xl bg-gray-message">
         <ChatToolbar setMessageContent={setMessageContent} />
         <MessageTextInput
+        placeholder="Start a new message"
           messageContent={messageContent}
           setMessageContent={setMessageContent}
         />

@@ -1,7 +1,6 @@
 import { DeleteMessageModal } from "@components/middleSectionComp/DialogModals";
 import { TrashIcon } from "@icons/Icon";
 import { useModal } from "contexts/ModalContext";
-import { useState } from "react";
 
 interface IProps {
   messageId: string;
@@ -11,7 +10,7 @@ interface IProps {
 const DeleteMessage = ({ messageId, setOpenMore }: IProps) => {
   const { openModal, closeModal } = useModal();
 
-  const handleDelete = (e: React.MouseEvent) => {
+  const handleDelete = () => {
     setOpenMore(false);
     openModal(
       <DeleteMessageModal messageId={messageId} closeModal={closeModal} />

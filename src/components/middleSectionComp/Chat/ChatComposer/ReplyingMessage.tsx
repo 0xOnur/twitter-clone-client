@@ -14,8 +14,8 @@ const ReplyingMessage = () => {
         <span className="text-sm text-gray-700 font-medium leading-4">
           {replyMessage?.sender?.displayName}
         </span>
-        <div className="flex flex-row gap-1">
-          <span className="text-[13px] font-normal leading-4 line-clamp-3">
+        <div className="grid">
+          <span className="truncate text-[13px] font-normal leading-4">
             {replyMessage?.content}
           </span>
         </div>

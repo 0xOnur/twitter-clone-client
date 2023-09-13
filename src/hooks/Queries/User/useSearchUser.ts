@@ -25,5 +25,5 @@ export function useDebouncedSearchUser(searchTerm: string) {
     debouncedSearch(searchTerm);
   }, [searchTerm]);
 
-  return { data, isLoading, debouncedSearch };
+  return { data, isLoading };
 }

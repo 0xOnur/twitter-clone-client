@@ -121,7 +121,25 @@ export const sendMessage = async (message: FormData) => {
     }
     return Promise.reject(error);
   }
-}
+};
+
+// Send Tweet via Message
+export const sendTweet = async (message: {
+  tweetId: string,
+  messageContent?: string,
+  selectedUsers?: IUser[],
+  selectedConversations?: IChat[],
+}) => {
+  try {
+    const response = await axiosInstance.post("/chat/send-tweet", message)
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
+  }
+};
 
 // Read message
 export const readMessage =async (messageId:string) => {
@@ -134,7 +152,7 @@ export const readMessage =async (messageId:string) => {
     }
     return Promise.reject(error);
   }
-}
+};
 
 // Delete message
 export const deleteMessage = async (messageId:string) => {
@@ -147,4 +165,4 @@ export const deleteMessage = async (messageId:string) => {
     }
     return Promise.reject(error)
   }
-}
+};

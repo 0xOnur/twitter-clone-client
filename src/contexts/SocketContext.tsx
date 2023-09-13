@@ -43,15 +43,16 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
   }, [isAuthenticated]);
 
 
-
   useEffect(() => {
     if(socket) {
-      socket.on("getMessage", () => {
-        queryClient.invalidateQueries();
+      socket.on("getMessage", (data: IMessage) => {
+        queryClient.invalidateQueries(["chats"]);
+        queryClient.invalidateQueries(["chat", data.chat]);
+        queryClient.invalidateQueries(["chatMessages", data.chat]);
       });
       
-      socket.on("readMessage", () => {
-        queryClient.invalidateQueries();
+      socket.on("readMessage", (data: IMessage) => {
+        queryClient.invalidateQueries(["chatMessages", data.chat]);
       });
     }
   }, [socket])

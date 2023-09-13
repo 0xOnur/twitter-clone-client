@@ -14,6 +14,7 @@ const Search = ({ searchText, setSearchText }: IProps) => {
         </div>
         <div className="w-full leading-5 ">
           <input
+            tabIndex={0}
             autoFocus
             type="text"
             placeholder="Search people"

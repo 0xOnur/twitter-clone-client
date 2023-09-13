@@ -5,7 +5,7 @@ const useGetConversations = () => {
   const chats = useQuery<IChat[]>({
     queryKey: ["chats"],
     queryFn: getAllConversations,
-    refetchOnWindowFocus: false,
+    refetchInterval: 10000,
   });
 
   return chats;

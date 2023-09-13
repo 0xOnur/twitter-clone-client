@@ -6,4 +6,3 @@ export {default as TweetMedia} from "./TweetMedia";
 export {default as ReTweetedBy} from "./ReTweetedBy";
 export {default as LikedBy} from "./LikedBy";
 export {default as ReTweetMenu} from "./ReTweetMenu";
-export {default as ShareMenu} from "./ShareMenu";

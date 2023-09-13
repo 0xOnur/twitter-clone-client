@@ -1,40 +1,34 @@
-import { PersistPartial } from "redux-persist/es/persistReducer";
-import { useBookmarkMutation } from "@hooks/mutations/Bookmarks/useBookmarkMutation";
-import { TweetCardComp } from "@components/middleSectionComp";
-import { useCopyText } from "@hooks/useCopyText";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { UserState } from "@redux/slices/userSlice";
-import React, { useState } from "react";
 import { ShareIcon } from "@icons/Icon";
+import TweetShareMenu from "./ShareMenu";
 
 interface IProps {
   isAuthenticated: boolean;
-  reduxUser: UserState & PersistPartial;
+  reduxUser: UserState;
   tweet: ITweet;
 }
 
 const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
-  const tweetURL = window.location.origin + `/${tweet.author.username}/status/${tweet._id}`;
-  const { copyText } = useCopyText({text: tweetURL, toastMessage: "Copied to clipboard"});
-
   const [shareMenu, setShowShareMenu] = useState(false);
 
-  const { addBookmarkMutation, removeBookmarkMutation } = useBookmarkMutation(
-    tweet._id
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const handleClose = useCallback(
+    (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowShareMenu(false);
+      }
+    },
+    [menuRef]
   );
 
-  const isBookmarked = tweet.bookmarks?.includes(reduxUser.user?._id);
-
-  const handleBookmark = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    if (isAuthenticated) {
-      if (isBookmarked) {
-        removeBookmarkMutation.mutate(tweet._id);
-      } else {
-        addBookmarkMutation.mutate(tweet._id);
-      }
-    }
-    setShowShareMenu(false);
-  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClose);
+    return () => {
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, [handleClose]);
 
   return (
     <div
@@ -55,13 +49,13 @@ const ShareAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
         </div>
       </div>
       {shareMenu && (
-        <TweetCardComp.Components.ShareMenu
-          isAuthenticated={isAuthenticated}
-          isBookmarked={isBookmarked}
-          handleCopy={copyText}
-          handleBookmark={handleBookmark}
-          onClose={() => setShowShareMenu(false)}
-        />
+        <div ref={menuRef}>
+          <TweetShareMenu
+            isAuthenticated={isAuthenticated}
+            reduxUser={reduxUser}
+            tweet={tweet}
+          />
+        </div>
       )}
     </div>
   );

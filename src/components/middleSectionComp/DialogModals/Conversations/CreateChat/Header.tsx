@@ -1,33 +1,49 @@
 import useCreateConversation from "@hooks/Chat/Mutations/useCreateConversation";
 import { BackIcon, CancelIcon } from "@icons/Icon";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 
 interface IProps {
   isGroupMode: boolean;
   selectedUsers: IUser[];
+  closeModal: () => void;
+  setGroupMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Header = ({ selectedUsers, isGroupMode }: IProps) => {
-  const navigate = useNavigate();
+const Header = ({
+  selectedUsers,
+  isGroupMode,
+  closeModal,
+  setGroupMode,
+}: IProps) => {
   const isNextActive = selectedUsers.length > 0;
 
-  const { createConversationMutation } = useCreateConversation({
-    users: selectedUsers,
-  });
+  const { mutate, isSuccess } = useCreateConversation();
 
   const handleNext = () => {
-    createConversationMutation.mutate(selectedUsers);
+    mutate(selectedUsers);
   };
+
+  const handleBackOrCancel = () => {
+    if (isGroupMode) {
+      setGroupMode(false);
+    } else {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      closeModal();
+    }
+  }, [isSuccess, closeModal]);
 
   return (
     <div className="flex flex-row h-[53px] justify-between py-3 px-1 pr-3 bg-white border-gray-200">
       <div className="flex flex-row items-center gap-3">
         <button
-          title="Close"
+          title={isGroupMode ? "Back": "Close"}
           type="button"
-          onClick={() => {
-            navigate(-1);
-          }}
+          onClick={handleBackOrCancel}
           className="p-3 hover:bg-gray-extraLight rounded-full"
         >
           {isGroupMode ? (
@@ -45,7 +61,7 @@ const Header = ({ selectedUsers, isGroupMode }: IProps) => {
                   Add people
                 </span>
               </div>
-            ): (
+            ) : (
               <h2>New message</h2>
             )}
           </span>

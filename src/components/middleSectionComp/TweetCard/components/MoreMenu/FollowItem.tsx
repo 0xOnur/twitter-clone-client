@@ -1,4 +1,4 @@
-import useFollowsMutation from "@hooks/mutations/Follows/useFollowsMutation";
+import useFollowsMutation from "@hooks/Follows/useFollowsMutation";
 import { UserState } from "@redux/slices/userSlice";
 import { FollowIcon } from "@icons/Icon";
 

@@ -1,4 +1,4 @@
-import { useDebouncedSearchUser } from "@hooks/Queries/User/useSearchUser";
+import { useDebouncedSearchUser } from "@hooks/useSearchUser";
 import useGetConversations from "@hooks/Chat/Queries/useGetConversations";
 import UserList from "@components/rightSidebarComp/Search/UserList";
 import PreviousChatPreview from "../CreateChat/previousChat";

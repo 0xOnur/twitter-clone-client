@@ -13,9 +13,10 @@ interface IProps {
   isAuthenticated: boolean;
   tweet: ITweet;
   isReply?: boolean;
+  hideActions?: boolean;
 }
 
-const Quote = ({ tweet, isAuthenticated, isReply }: IProps) => {
+const Quote = ({ tweet, isAuthenticated, isReply, hideActions }: IProps) => {
   const navigate = useNavigate();
 
   const navigateTweetDetails = (e: React.MouseEvent<HTMLElement>) => {
@@ -68,12 +69,14 @@ const Quote = ({ tweet, isAuthenticated, isReply }: IProps) => {
                   isAuthenticated={isAuthenticated}
                 />
               </div>
-
-              <TweetActions
-                isAuthenticated={isAuthenticated}
-                pageType={"home"}
-                tweet={tweet}
-              />
+              
+              {!hideActions && (
+                <TweetActions
+                  isAuthenticated={isAuthenticated}
+                  pageType={"home"}
+                  tweet={tweet}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -36,6 +36,10 @@ const GroupChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
     (participant) => participant.user._id === reduxUser.user._id
   )?.isPinned;
 
+  const isReadByMe =
+    chat.lastMessage?.readBy?.includes(reduxUser.user._id) ||
+    chat.lastMessage?.sender?._id === reduxUser.user._id;
+
   const chatClassNames = classNames(
     "grid grid-cols-chat w-full items-start p-4 duration-200 group",
     {
@@ -44,10 +48,13 @@ const GroupChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
     }
   );
 
+  const lastMessageClassNames = classNames("truncate text-left", {
+    "font-bold": !isReadByMe,
+  });
+
   return (
     <div className="relative">
       <button
-        key={chat._id}
         className={chatClassNames}
         onClick={() => {
           navigate(`/messages/${chat._id}`);
@@ -92,26 +99,42 @@ const GroupChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
               </div>
             )}
           </div>
-          {chat.lastMessage?.content && (
+          {chat.lastMessage?.type === "tweet" ? (
             <div className="truncate">
-              <p className="truncate text-left">
-                {chat.lastMessage.content}
+              {chat.lastMessage.sender === reduxUser.user._id ? (
+                <p className={lastMessageClassNames}>You shared a post</p>
+              ) : (
+                <p className={lastMessageClassNames}>
+                  {chat.lastMessage.sender?.displayName} Shared a post
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="truncate">
+              <p className={lastMessageClassNames}>
+                {chat.lastMessage?.content}
               </p>
             </div>
           )}
         </div>
 
-        <button
+        {!isReadByMe && (
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-[10px] h-[10px] m-2 bg-primary-base rounded-full" />
+          </div>
+        )}
+
+        <div
           onClick={(e) => {
             e.stopPropagation();
             setOpenMore(!isOpenMore);
           }}
           title="More"
-          className="relative h-fit group/item invisible group-hover:visible mr-1 ml-2"
+          className="relative h-fit mr-1 ml-2 group/item hidden group-hover:block"
         >
           <TreeDotIcon className="w-5 h-5 z-10" />
           <div className="absolute -z-10 -m-2 group-hover/item:bg-primary-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
-        </button>
+        </div>
       </button>
 
       {isOpenMore && (

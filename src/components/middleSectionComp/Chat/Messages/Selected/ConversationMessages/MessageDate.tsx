@@ -41,9 +41,9 @@ const MessageDate = ({ isMine, message, reduxUser, conversation }: IProps) => {
                 {message.readBy?.find(
                   (user) => user._id === otherParticipants?.user._id
                 ) ? (
-                  <span>Seen</span>
+                  <span>· Seen</span>
                 ) : (
-                  <span>Sent</span>
+                  <span>· Sent</span>
                 )}
               </span>
             )}

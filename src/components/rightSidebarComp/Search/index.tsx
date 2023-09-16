@@ -1,4 +1,4 @@
-import { useDebouncedSearchUser } from "@hooks/Queries/User/useSearchUser";
+import { useDebouncedSearchUser } from "@hooks/useSearchUser";
 import { CancelIcon, SearchIcon, LoadingIcon } from "@icons/Icon";
 import { useState, useEffect, useRef} from "react";
 import UserList from "./UserList";

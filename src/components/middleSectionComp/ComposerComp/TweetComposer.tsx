@@ -1,6 +1,6 @@
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {useComposerClean} from "@hooks/composer/useComposerClean";
+import {useComposerClean} from "@hooks/Composer/useComposerClean";
 import { ComposerComp } from "@components/index";
 import { RootState } from "@redux/config/store";
 import { TenorImage } from "gif-picker-react";

@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { getSpecificTweet } from "api/tweetApi";
 import NotFoundTweet from "./NotFoundTweet";
 import DetailedCard from "./DetailedCard";
 import { LoadingIcon } from "@icons/Icon";
 import BasicCard from "./BasicCard";
+import useGetTweet from "@hooks/Tweet/Queries/useGetTweet";
 
 interface IProps {
   pageType: "home" | "TweetDetails";
@@ -20,13 +19,10 @@ const TweetCard = ({
   isReply,
   hideActions,
 }: IProps) => {
-  const tweet = useQuery<ITweet>({
-    queryKey: ["tweet", tweetId],
-    queryFn: () => getSpecificTweet(tweetId),
-    refetchOnWindowFocus: false,
-  });
 
-  if (tweet.isLoading) {
+  const {tweet, status} = useGetTweet({tweetId: tweetId});
+
+  if (status === "loading") {
     return (
       <div className="flex flex-col items-center rounded-2xl p-5 m-3">
         <LoadingIcon />
@@ -34,13 +30,13 @@ const TweetCard = ({
     );
   }
 
-  if (tweet.data) {
+  if(tweet) {
     switch (pageType) {
       case "home":
         return (
           <BasicCard
             isAuthenticated={isAuthenticated}
-            tweet={tweet?.data!}
+            tweet={tweet}
             isReply={isReply}
             hideActions={hideActions}
           />
@@ -49,13 +45,15 @@ const TweetCard = ({
         return (
           <DetailedCard
             isAuthenticated={isAuthenticated}
-            tweet={tweet?.data!}
+            tweet={tweet}
           />
         );
       default:
         return null;
     }
-  } else {
+  }
+
+  if(status === "error") {
     return (
       <NotFoundTweet />
     );

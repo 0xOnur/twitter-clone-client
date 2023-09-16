@@ -54,6 +54,7 @@ const BasicCard = ({
         <Quote
           tweet={tweet}
           isReply={isReply}
+          hideActions={hideActions}
           isAuthenticated={isAuthenticated}
         />
       );

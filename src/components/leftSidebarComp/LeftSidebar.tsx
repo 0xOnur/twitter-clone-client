@@ -1,4 +1,4 @@
-import React from "react";
+import { useUnreadNotifications } from "@hooks/Notifications/useUnreadNotifications ";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
 import {
@@ -14,7 +14,6 @@ import {
 import SideLink from "./SideLink";
 import UserBox from "./UserBox";
 import MoreButton from "./MoreButton";
-import { useUnreadNotifications } from "@hooks/Queries/Notification/useUnreadNotifications ";
 
 const LeftSideBar = () => {
   const reduxUser = useSelector((state: RootState) => state.user);

@@ -52,6 +52,7 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
       });
       
       socket.on("readMessage", (data: IMessage) => {
+        queryClient.invalidateQueries(["chats"]);
         queryClient.invalidateQueries(["chatMessages", data.chat]);
       });
     }

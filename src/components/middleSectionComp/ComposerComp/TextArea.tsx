@@ -1,4 +1,4 @@
-import useAutosizeTextArea from "@hooks/composer/useAutosizeTextArea";
+import useAutosizeTextArea from "@hooks/Composer/useAutosizeTextArea";
 import React, {useRef, useCallback} from 'react'
 
 type Props = {

@@ -1,4 +1,4 @@
-import { useMarkNotification } from "@hooks/mutations/Notifications/useMarkNotification";
+import { useMarkNotification } from "@hooks/Notifications/useMarkNotification";
 import { useEffect } from "react";
 import { TweetCard } from "@components/middleSectionComp/TweetCard";
 

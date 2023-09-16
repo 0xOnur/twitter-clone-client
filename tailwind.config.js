@@ -16,7 +16,7 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        'chat': 'auto 1fr auto',
+        'chat': 'auto 1fr auto auto',
         'content': 'auto 1fr 1fr'
       },
       margin: {

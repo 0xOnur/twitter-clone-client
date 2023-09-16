@@ -1,4 +1,4 @@
-import { useBookmarkMutation } from "@hooks/mutations/Bookmarks/useBookmarkMutation";
+import { useBookmarkMutation } from "@hooks/Bookmarks/useBookmarkMutation";
 import { BookmarkPlusIcon } from "@icons/Icon";
 import { UserState } from "@redux/slices/userSlice";
 

@@ -4,6 +4,7 @@ import NormalMessage from "./MessageTypes/NormalMessage";
 import ReplyMessage from "./MessageTypes/ReplyMessage";
 import {useEffect} from "react"
 import { useInView } from "react-intersection-observer";
+import TweetMessage from "./MessageTypes/TweetMessage";
 
 interface IProps {
   conversation: IChat;
@@ -52,6 +53,18 @@ const Message = ({ conversation, reduxUser, isMine, message }: IProps) => {
         </div>
         
       );
+
+      case "tweet": 
+      return (
+        <div ref={ref}>
+          <TweetMessage
+            conversation={conversation}
+            reduxUser={reduxUser}
+            message={message}
+            isMine={isMine}
+          />
+        </div>
+      )
   }
 
   return null;

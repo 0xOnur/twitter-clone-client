@@ -1,11 +1,10 @@
-import { TweetCardComp, DigalogModals } from "@components/middleSectionComp";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useUndoRetweetMutation from "@hooks/Tweet/Mutations/useUndoRetweetMutation";
+import useRetweetMutation from "@hooks/Tweet/Mutations/useRetweetMutation";
+import { TweetCardComp } from "@components/middleSectionComp";
 import { PersistPartial } from "redux-persist/es/persistReducer";
-import { retweetTweet, undoRetweet } from "api/tweetApi";
 import { UserState } from "@redux/slices/userSlice";
 import { formatNumber } from "@utils/formatNumber";
 import { ReTweetIcon } from "@icons/Icon";
-import useToast from "@hooks/useToast";
 import { useState } from "react";
 
 interface IProps {
@@ -26,68 +25,34 @@ const RetweetAction = ({
   pageType,
   retweetStats,
 }: IProps) => {
-  const queryClient = useQueryClient();
-  const { showToast } = useToast();
+  const { retweetMutate } = useRetweetMutation();
+  const { undoRetweetMutate } = useUndoRetweetMutation();
 
   const [reTweetMenu, setShowRetweetMenu] = useState(false);
-  const [showQuoteModal, setShowQuotModal] = useState(false);
 
   const isReteeted =
     retweetStats?.length! > 0 &&
     retweetStats?.some((retweet) => retweet.author === reduxUser.user?._id);
-
-  const retweetMutation = useMutation({
-    mutationKey: ["retweet", tweet._id],
-    mutationFn: retweetTweet,
-    onError: (err: any) => {
-      showToast(err?.message || "error", "error");
-    },
-    onSuccess: (res) => {
-      queryClient.invalidateQueries();
-      showToast(res?.message || "Tweet retweeted", "success");
-    },
-  });
-
-  const undoRetweetMutation = useMutation({
-    mutationKey: ["undoRetweet", tweet._id],
-    mutationFn: undoRetweet,
-    onError: (err: any) => {
-      showToast(err?.message || "error", "error");
-    },
-    onSuccess: (res) => {
-      queryClient.invalidateQueries();
-      showToast(res?.message || "Tweet unretweeted", "success");
-    },
-  });
 
   const handleRetweet = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setShowRetweetMenu(false);
     if (isAuthenticated) {
       if (isReteeted) {
-        undoRetweetMutation.mutate(tweet._id);
+        undoRetweetMutate(tweet._id)
       } else {
-        retweetMutation.mutate(tweet._id);
+        retweetMutate(tweet._id);
       }
     }
   };
 
   return (
     <div>
-      {showQuoteModal && isAuthenticated && (
-        <DigalogModals.ReplyQuoteModal
-          composerMode={"quote"}
-          tweet={tweet}
-          isOpen={showQuoteModal}
-          onClose={() => setShowQuotModal(false)}
-        />
-      )}
-
       <div
         title={isReteeted ? "Undo Retweet" : "Retweet"}
         onClick={(e) => {
-          setShowRetweetMenu(!reTweetMenu);
           e.stopPropagation();
+          setShowRetweetMenu(!reTweetMenu);
         }}
         className="group h-5 min-h-max relative cursor-pointer"
       >
@@ -110,8 +75,8 @@ const RetweetAction = ({
         </div>
         {reTweetMenu && isAuthenticated && (
           <TweetCardComp.Components.ReTweetMenu
+            tweet={tweet}
             onClose={() => setShowRetweetMenu(false)}
-            setShowQuotModal={setShowQuotModal}
             handleRetweet={handleRetweet}
             isReteeted={isReteeted}
           />

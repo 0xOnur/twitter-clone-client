@@ -1,7 +1,12 @@
-import { useNavigate } from "react-router-dom"
+import { ChatComposeModal } from "@components/middleSectionComp/DialogModals"
+import { useModal } from "contexts/ModalContext"
 
 const SelectChatMessage = () => {
-  const navigate = useNavigate()
+  const { openModal, closeModal } = useModal()
+
+  const handleCompose = () => {
+    openModal(<ChatComposeModal closeModal={closeModal} />)
+  }
   return (
     <div className="flex w-full h-full items-center justify-center mx-auto">
       <div className="self-center max-w-[400px] mx-auto px-8 my-8">
@@ -14,7 +19,7 @@ const SelectChatMessage = () => {
             keep swimming.
           </span>
           <button
-            onClick={() => navigate("/messages/compose")}
+            onClick={handleCompose}
             className="flex items-center w-fit px-8 min-w-52px min-h-52px bg-primary-base rounded-full hover:bg-primary-dark duration-200"
           >
             <span className="text-white font-bold">New message</span>

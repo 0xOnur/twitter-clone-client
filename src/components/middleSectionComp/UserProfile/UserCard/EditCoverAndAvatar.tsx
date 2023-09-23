@@ -4,21 +4,21 @@ import { useRef, useState } from "react";
 interface IProps {
   cover: {
     coverFile: File | null;
-    coverURL: string | undefined;
+    coverURL: string | null;
   };
   setCover: React.Dispatch<
     React.SetStateAction<{
       coverFile: File | null;
-      coverURL: string | undefined;
+      coverURL: string | null;
     }>
   >;
   avatar: {
-    avatar: File | null;
+    avatarFile: File | null;
     avatarURL: string | null;
   };
   setAvatar: React.Dispatch<
     React.SetStateAction<{
-      avatar: File | null;
+      avatarFile: File | null;
       avatarURL: string | null;
     }>
   >;
@@ -43,7 +43,7 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
   };
 
   const removeCover = () => {
-    setCover!({ coverFile: null, coverURL: undefined });
+    setCover!({ coverFile: null, coverURL: null });
     if (coverInputRef.current) {
       coverInputRef.current.value = "";
     }
@@ -54,7 +54,7 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
     if (file && file.type.includes("image")) {
       setAvailable((prev) => ({ ...prev, avatar: true }))
       const url = URL.createObjectURL(file);
-      setAvatar!({ avatar: file, avatarURL: url });
+      setAvatar!({ avatarFile: file, avatarURL: url });
     }
   };
 

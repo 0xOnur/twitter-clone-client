@@ -83,9 +83,11 @@ const TweetMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
                             <span className="truncate text-[15px] leading-5 font-bold">
                               {tweet?.author.displayName}
                             </span>
-                            <span>
-                              <VerifiedIcon className="w-5 h-5 mt-1 ml-1 fill-primary-base" />
-                            </span>
+                            {tweet?.author.isVerified && (
+                              <span>
+                                <VerifiedIcon className="w-5 h-5 mt-1 ml-1 fill-primary-base" />
+                              </span>
+                            )}
                           </div>
 
                           <div className="grid grid-cols-chat gap-1 ml-1">

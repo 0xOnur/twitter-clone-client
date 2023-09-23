@@ -1,25 +1,28 @@
 import React, { useRef, useEffect, useCallback } from "react";
+import { DigalogModals } from "@components/middleSectionComp";
+import { useModal } from "contexts/ModalContext";
 import { ReTweetIcon } from "@icons/Icon";
 
 interface IProps {
-  setShowQuotModal: React.Dispatch<React.SetStateAction<boolean>>;
+  tweet: ITweet;
   onClose: () => void;
   handleRetweet: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isReteeted: boolean;
 }
 
-const ReTweetMenu = ({
-  onClose,
-  setShowQuotModal,
-  handleRetweet,
-  isReteeted,
-}: IProps) => {
+const ReTweetMenu = ({ tweet, onClose, handleRetweet, isReteeted }: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
+  const { openModal, closeModal } = useModal();
 
   const handleQuote = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
     onClose();
-    setShowQuotModal(true);
+    openModal(
+      <DigalogModals.ReplyQuoteModal
+        composerMode={"quote"}
+        tweet={tweet}
+        closeModal={closeModal}
+      />
+    );
   };
 
   const handleClose = useCallback(

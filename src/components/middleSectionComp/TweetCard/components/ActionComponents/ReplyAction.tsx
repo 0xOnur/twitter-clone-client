@@ -1,7 +1,8 @@
 import { DigalogModals } from "@components/middleSectionComp";
 import { formatNumber } from "@utils/formatNumber";
-import React, { useState } from "react";
+import { useModal } from "contexts/ModalContext";
 import { ReplyIcon } from "@icons/Icon";
+import React from "react";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -19,24 +20,26 @@ const ReplyAction = ({
   pageType,
   replyStats,
 }: IProps) => {
-  const [showReplyModal, setReplyModal] = useState(false);
+  const { openModal, closeModal } = useModal();
 
-  return (
-    <div>
-      {showReplyModal && isAuthenticated && (
+  const handleReply = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (isAuthenticated) {
+      openModal(
         <DigalogModals.ReplyQuoteModal
           composerMode={"reply"}
           tweet={tweet}
-          isOpen={showReplyModal}
-          onClose={() => setReplyModal(false)}
+          closeModal={closeModal}
         />
-      )}
+      );
+    }
+  };
+
+  return (
+    <div>
       <button
         title="Reply"
-        onClick={(e) => {
-          e.stopPropagation();
-          setReplyModal(true);
-        }}
+        onClick={handleReply}
         className="group h-5 min-h-max"
       >
         <div className="flex flex-row">

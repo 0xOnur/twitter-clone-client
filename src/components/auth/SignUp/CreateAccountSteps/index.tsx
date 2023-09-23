@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "redux/config/store";
+import store, { AppDispatch, RootState } from "redux/config/store";
 import { createUser } from "api/userApi";
 import AuthHeader from "@components/auth/Modal/AuthHeader";
 import Step1 from "./Step1";
@@ -10,6 +10,7 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 import Step6 from "./Step6";
 import { LoadingIcon } from "@icons/Icon";
+import useToast from "@hooks/useToast";
 
 interface IProps {
   isRoute?: boolean;
@@ -19,6 +20,7 @@ interface IProps {
 const CreateAccountSteps = ({ isRoute, setOpen }: IProps) => {
   const dispatch: AppDispatch = useDispatch();
   const redux = useSelector((state: RootState) => state.user);
+  const { showToast } = useToast();
 
   const [currentStep, setCurrentStep] = useState(1);
   const [user, setUser] = useState({
@@ -71,7 +73,12 @@ const CreateAccountSteps = ({ isRoute, setOpen }: IProps) => {
       formData.append("avatar", user.avatar);
     }
 
-    dispatch(createUser(formData));
+    dispatch(createUser(formData)).then((res) => {
+      if (res.meta.requestStatus === "rejected") {
+        const error = store.getState().user.error.message;
+        showToast(error || "An error occured", "error");
+      }
+    })
   };
 
   if (redux.isPending) {

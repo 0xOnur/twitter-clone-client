@@ -26,7 +26,7 @@ const ChatHeader = () => {
                 <SettingsIcon className="w-5 h-5" />
               </button>
               <button
-              onClick={handleCompose}
+                onClick={handleCompose}
                 title="New message"
                 className="p-3 hover:bg-gray-extraLight rounded-full"
               >

@@ -16,11 +16,11 @@ interface IProps {
 
 type Cover = {
   coverFile: File | null;
-  coverURL: string | undefined;
+  coverURL: string | null;
 };
 
 type Avatar = {
-  avatar: File | null;
+  avatarFile: File | null;
   avatarURL: string | null;
 };
 
@@ -36,7 +36,7 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
   });
 
   const [avatar, setAvatar] = useState<Avatar>({
-    avatar: new File([], ""),
+    avatarFile: new File([], ""),
     avatarURL: user?.avatar!,
   });
 
@@ -52,7 +52,7 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
     mutationFn: updateUser,
     onSuccess: (data) => {
       dispatch(updateRedux(user.username));
-      queryClient.invalidateQueries(["user", user.username]);
+      queryClient.invalidateQueries();
       showToast(data.message, "success");
       onClose();
     },
@@ -85,8 +85,9 @@ const EditProfileModal = ({ user, isOpen, onClose }: IProps) => {
 
   const handleSave = async () => {
     if (isChanges()) {
-      formData.append("cover", cover.coverFile!);
-      formData.append("avatar", avatar.avatar!);
+      formData.append("coverURL", cover.coverURL!);
+      formData.append("coverFile", cover.coverFile!);
+      formData.append("avatar", avatar.avatarFile!);
       formData.append("displayName", userInfo.displayName);
       formData.append("bio", userInfo?.bio!);
       formData.append("location", userInfo?.location!);

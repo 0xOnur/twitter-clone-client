@@ -1,43 +1,24 @@
 import { TweetComposer } from "@components/middleSectionComp/ComposerComp";
 import { TweetCardComp } from "@components/middleSectionComp";
-import React, { useEffect } from "react";
 import { CancelIcon } from "@icons/Icon";
 
 
 interface IProps {
-  isOpen: boolean;
   tweet: ITweet;
   composerMode: "reply" | "quote";
-  onClose: () => void;
+  closeModal: () => void;
 }
 
-const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
+const ReplyQuoteModal = ({ closeModal, tweet, composerMode }: IProps) => {
 
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className="fixed cursor-default inset-0 z-50 flex items-center justify-center"
-    >
-      <div className="fixed inset-0 bg-black opacity-60" />
-
-      <div className="z-10 text-black bg-white w-full max-w-600px rounded-xl overflow-hidden">
-        <div className="overflow-y-auto max-h-90vh">
+    <div className="z-10 text-black bg-white w-full max-w-600px rounded-xl overflow-hidden">
+    <div className="overflow-y-auto max-h-90vh">
           <div className="sticky top-0 z-10">
             <div className="flex flex-row justify-start items-center p-3 bg-white/80  backdrop-blur-md border-gray-200">
               <button
                 type="button"
-                onClick={onClose}
+                onClick={closeModal}
                 className="p-3 hover:bg-gray-extraLight rounded-full"
               >
                 <CancelIcon className={"w-5 h-5"} />
@@ -81,13 +62,12 @@ const ReplyQuoteModal = ({ isOpen, onClose, tweet, composerMode }: IProps) => {
                 <TweetComposer
                   composerMode={composerMode}
                   originalTweet={tweet}
-                  onClose={onClose}
+                  onClose={closeModal}
                 />
               </div>
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

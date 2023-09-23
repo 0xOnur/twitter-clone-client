@@ -166,3 +166,20 @@ export const deleteMessage = async (messageId:string) => {
     return Promise.reject(error)
   }
 };
+
+// Edit group
+export const editGroup =async (formData: FormData) => {
+  try {
+    const response = await axiosInstance.put("/chat/edit-group", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    return response.data
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data)
+    }
+    return Promise.reject(error)
+  }
+}

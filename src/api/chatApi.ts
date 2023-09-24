@@ -175,11 +175,24 @@ export const editGroup =async (formData: FormData) => {
         "Content-Type": "multipart/form-data",
       },
     })
-    return response.data
+    return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       return Promise.reject(error.response?.data)
     }
     return Promise.reject(error)
+  }
+}
+
+// Add users to group
+export const addUsersToGroup = async ({ chatId, users }: { chatId: string, users: IUser[] }) => {
+  try {
+    const response = await axiosInstance.put(`/chat/add-user-to-group/${chatId}`, { users });
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return Promise.reject(error.response?.data);
+    }
+    return Promise.reject(error);
   }
 }

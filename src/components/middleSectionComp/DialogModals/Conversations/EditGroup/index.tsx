@@ -20,7 +20,10 @@ const EditGroupModal = ({ chat, closeModal }: IProps) => {
 
 
   const isChanges = () => {
-    return chatName !== chat.chatName || chatImage.avatarURL !== chat.chatImage
+    return Boolean(
+      (chat.chatName ? chat.chatName !== chatName : chatName !== "") ||
+      chatImage.avatarURL !== chat.chatImage
+    );
   }
 
   const handleSave = () => {

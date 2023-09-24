@@ -1,7 +1,7 @@
+import { Avatar } from "@components/middleSectionComp/TweetCard/components";
+import { UserState } from "@redux/slices/userSlice";
 import AvatarGroup from "@atlaskit/avatar-group/";
 import { CancelIcon } from "@icons/Icon";
-import { UserState } from "@redux/slices/userSlice";
-import React from "react";
 
 interface IProps {
   chat: IChat;
@@ -14,7 +14,6 @@ const GroupConversation = ({ chat, reduxUser }: IProps) => {
     .map((participant) => ({
       src: participant.user.avatar || "",
       name: participant.user.displayName,
-      href: `/${participant.user.username}`,
     }));
 
   const participantsDisplayNames = chat.participants.filter((participant) => participant.user._id !== reduxUser.user._id).map((participant) => [
@@ -23,9 +22,13 @@ const GroupConversation = ({ chat, reduxUser }: IProps) => {
 
   return (
     <div className="flex flex-row h-full pl-1 pr-3 items-center hover:bg-primary-light duration-200">
-      <AvatarGroup appearance="stack" size="small" data={userAvatarsPayload} />
+      {chat.chatImage ? (
+        <Avatar avatar={chat.chatImage} avatarSize="w-6 h-6" />
+      ) : (
+        <AvatarGroup appearance="stack" size="small" data={userAvatarsPayload} />
+      )}
       <span className="font-bold truncate text-left">
-        {participantsDisplayNames.join(", ")}
+        {chat.chatName ? (chat.chatName) :  (participantsDisplayNames.join(", "))}
       </span>
       <div className="pl-3">
         <CancelIcon className="w-5 h-5 fill-primary-base" />

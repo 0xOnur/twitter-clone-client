@@ -6,4 +6,5 @@ export {default as ShareTweetModal} from "./Conversations/ShareTweet";
 export {default as DeleteMessageModal} from "./Conversations/DeleteMessage";
 export {default as EditGroupModal} from "./Conversations/EditGroup";
 export {default as AddPeopleModal} from "./Conversations/AddPeople";
+export {default as LeaveChatModal} from "./Conversations/LeaveChat";
 export * as TweetStatsModal from "./TweetStats";

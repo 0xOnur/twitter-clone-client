@@ -8,6 +8,8 @@ interface IProps {
   reduxUser: UserState;
   isGroupMode?: boolean;
   isMessageShare?: boolean;
+  addPeopleChat?: IChat;
+  isAddPeopleMode?: boolean;
   selectedUsers: IUser[];
   setSelectUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
   selectedConversations?: IChat[];
@@ -18,6 +20,8 @@ const PreviousChatPreview = ({
   chat,
   reduxUser,
   isGroupMode,
+  addPeopleChat,
+  isAddPeopleMode,
   isMessageShare,
   selectedUsers,
   setSelectUsers,
@@ -40,6 +44,8 @@ const PreviousChatPreview = ({
         <NormalPreview
           chat={chat}
           reduxUser={reduxUser}
+          addPeopleChat={addPeopleChat}
+          isAddPeopleMode={isAddPeopleMode}
           selectedUsers={selectedUsers}
           setSelectUsers={setSelectUsers}
         />

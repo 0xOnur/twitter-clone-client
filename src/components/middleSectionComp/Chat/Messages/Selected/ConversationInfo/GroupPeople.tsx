@@ -1,6 +1,7 @@
+import { AddPeopleModal } from "@components/middleSectionComp/DialogModals";
 import { UserPreviewCard } from "@components/middleSectionComp/UserProfile";
 import { UserState } from "@redux/slices/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useModal } from "contexts/ModalContext";
 
 interface IProps {
   chat: IChat;
@@ -13,7 +14,12 @@ interface IProps {
 }
 
 const GroupPeople = ({ chat, reduxUser, otherParticipants }: IProps) => {
-  const navigate = useNavigate();
+  const {openModal, closeModal} = useModal()
+
+  const handleAddPeople = () => {
+    openModal(<AddPeopleModal group={chat} closeModal={closeModal} />)
+  }
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col">
@@ -37,9 +43,7 @@ const GroupPeople = ({ chat, reduxUser, otherParticipants }: IProps) => {
 
       <div className="flex w-full hover:bg-primary-extraLight duration-200">
         <button
-          onClick={() => {
-            navigate(`/messages/${chat._id}/add`);
-          }}
+          onClick={handleAddPeople}
           className="flex w-full min-h-[48px] p-4 justify-center text-primary-base"
         >
           Add people

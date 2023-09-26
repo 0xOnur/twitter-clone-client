@@ -20,7 +20,7 @@ interface IProps {
 
 const TweetMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
   const navigate = useNavigate();
-  const { tweet, status } = useGetTweet({ tweetId: message.tweet });
+  const { tweet, status } = useGetTweet({ tweetId: message.tweet._id });
 
   const messageStart = classNames("flex flex-col", {
     "items-end justify-end": isMine,

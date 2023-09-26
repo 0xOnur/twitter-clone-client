@@ -7,6 +7,6 @@ interface IMessage {
     createdAt?: string;
     updatedAt?: string;
     type?: "message" | "reply" | "tweet";
-    tweet: string;
-    replyTo?: IMessage | string;
+    tweet: ITweet & string;
+    replyTo?: IMessage & string;
 }

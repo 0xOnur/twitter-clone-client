@@ -4,6 +4,7 @@ import { MessageReplyIcon } from "@icons/Icon";
 import MessageActions from "../Actions";
 import MessageDate from "../MessageDate";
 import classNames from "classnames";
+import ReplyTweet from "./ReplyTweet";
 
 interface IProps {
   isMine: boolean;
@@ -34,6 +35,10 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
   const replyStart = classNames("flex flex-col -mb-7 mt-3 w-full", {
     "items-end": isMine,
   });
+  console.log(
+    "🚀 ~ file: ReplyMessage.tsx:59 ~ ReplyMessage ~ replyTo.tweet:",
+    message
+  );
 
   return (
     <div className="w-full">
@@ -50,12 +55,17 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
                     Replying to
                   </span>
                 </div>
+
                 <div className="flex">
-                  <div className="flex flex-row gap-3 mt-0.5 pb-8 pt-3 px-4 rounded-3xl items-end box-border bg-gray-message/40">
-                    <span className="text-[13px] text-right break-words leading-4">
-                      {typeof(message.replyTo) !== "string" && message.replyTo?.content}
-                    </span>
-                  </div>
+                  {message.replyTo?.type === "tweet" ? (
+                    <ReplyTweet tweetId={message.replyTo.tweet} />
+                  ) : (
+                    <div className="flex flex-row gap-3 mt-0.5 pb-8 pt-3 px-4 rounded-3xl items-end box-border bg-gray-message/40">
+                      <span className="text-[13px] text-right break-words leading-4">
+                        {message.replyTo?.content}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 

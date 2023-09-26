@@ -7,6 +7,11 @@ const ReplyingMessage = () => {
   const replyMessage = useSelector(selectReplyMessage);
 
   if (!replyMessage) return null;
+  console.log("🚀 ~ file: ReplyingMessage.tsx:10 ~ ReplyingMessage ~ replyMessage:", replyMessage)
+
+  const tweetURL =
+    window.location.origin +
+    `/${replyMessage?.tweet?.author.username}/status/${replyMessage?.tweet?._id}`;
 
   return (
     <div className="flex flex-row gap-1 items-center justify-between w-full py-2 px-3 bg-gray-message border-l-4 border-x-gray-700">
@@ -16,7 +21,7 @@ const ReplyingMessage = () => {
         </span>
         <div className="grid">
           <span className="truncate text-[13px] font-normal leading-4">
-            {replyMessage?.content}
+            {replyMessage?.content || tweetURL}
           </span>
         </div>
       </div>

@@ -1,77 +1,61 @@
-import { useEffect, useCallback, useRef } from "react";
 import { CancelIcon, LeftArrowIcon, RightArrowIcon } from "@icons/Icon";
+import { useState, useEffect, useCallback } from "react";
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  images: { url: string; alt: string }[];
-  currentImageIndex: number;
-  setCurrentImageIndex: React.Dispatch<React.SetStateAction<number>>;
+  closeModal: () => void;
+  images: { url: string; alt?: string }[];
+  imageIndex?: number;
 }
 
-const MediaModal = ({
-  isOpen,
-  onClose,
-  images,
-  currentImageIndex,
-  setCurrentImageIndex,
-}: ModalProps) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+const MediaModal = ({ closeModal, images, imageIndex }: ModalProps) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(imageIndex || 0);
+
   const totalImages = images.length;
   const currentImage = images[currentImageIndex];
 
-
-  const handlePrev = () => {
-    const newIndex = currentImageIndex - 1;
-    if (newIndex >= 0) {
-      setCurrentImageIndex(newIndex);
-    }
-  };
-
-  const handleNext = () => {
-    const newIndex = currentImageIndex + 1;
-    if (newIndex < totalImages) {
-      setCurrentImageIndex(newIndex);
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
-
-  const handleClose = useCallback(
-    (event: MouseEvent) => {
-      if (modalRef.current && modalRef.current.contains(event.target as Node)) {
-        onClose();
+  const handlePrev = useCallback(() => {
+    if (setCurrentImageIndex) {
+      const newIndex = currentImageIndex - 1;
+      if (newIndex >= 0) {
+        setCurrentImageIndex(newIndex);
       }
-    },
-    [modalRef, onClose]
-  );
+    }
+  }, [currentImageIndex]);
 
+  const handleNext = useCallback(() => {
+    if (setCurrentImageIndex) {
+      const newIndex = currentImageIndex + 1;
+      if (newIndex < totalImages) {
+        setCurrentImageIndex(newIndex);
+      }
+    }
+  }, [currentImageIndex, totalImages]);
+
+  //keyboard support
   useEffect(() => {
-    document.addEventListener("mousedown", handleClose);
-    return () => {
-      document.removeEventListener("mousedown", handleClose);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        handleNext();
+      } else if (e.key === "ArrowLeft") {
+        handlePrev();
+      }
     };
-  }, [handleClose]);
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleNext, handlePrev]);
 
   return (
-    <div onClick={(e) => e.stopPropagation()} className="fixed inset-0 z-50 flex items-center justify-center cursor-default">
-      <div ref={modalRef} className="fixed inset-0 -z-10 bg-black opacity-80" />
+    <div className="flex items-center w-fit h-fit">
       {/* Close Button */}
       <div className="absolute left-0 top-0 z-10">
         <div className="p-3 border-gray-200">
           <button
             type="button"
-            onClick={onClose}
+            onClick={closeModal}
             className="p-3 bg-black hover:bg-opacity-60 rounded-full duration-200"
           >
             <CancelIcon className={"w-5 h-5 text-white"} />

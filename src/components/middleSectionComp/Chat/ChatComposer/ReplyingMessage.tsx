@@ -1,13 +1,16 @@
 import { selectReplyMessage, clearReplyMessage } from "@redux/slices/chatSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { CancelIcon } from "@icons/Icon";
+import { CancelIcon, UploadImageIcon } from "@icons/Icon";
 
 const ReplyingMessage = () => {
   const dispatch = useDispatch();
   const replyMessage = useSelector(selectReplyMessage);
 
   if (!replyMessage) return null;
-  console.log("🚀 ~ file: ReplyingMessage.tsx:10 ~ ReplyingMessage ~ replyMessage:", replyMessage)
+  console.log(
+    "🚀 ~ file: ReplyingMessage.tsx:10 ~ ReplyingMessage ~ replyMessage:",
+    replyMessage
+  );
 
   const tweetURL =
     window.location.origin +
@@ -15,14 +18,29 @@ const ReplyingMessage = () => {
 
   return (
     <div className="flex flex-row gap-1 items-center justify-between w-full py-2 px-3 bg-gray-message border-l-4 border-x-gray-700">
-      <div className="flex flex-col shrink">
-        <span className="text-sm text-gray-700 font-medium leading-4">
+      <div className="flex flex-col gap-1 shrink">
+        <span className="text-sm font-medium leading-4">
           {replyMessage?.sender?.displayName}
         </span>
         <div className="grid">
-          <span className="truncate text-[13px] font-normal leading-4">
-            {replyMessage?.content || tweetURL}
-          </span>
+          {!replyMessage.content && replyMessage.media?.url && (
+            <div className="flex flex-row gap-1 items-center">
+              <UploadImageIcon className="w-5 h-5" />
+              <span className="truncate capitalize text-[13px] font-normal leading-4">
+                {replyMessage.media.type}
+              </span>
+            </div>
+          )}
+          {replyMessage.content && (
+            <span className="truncate text-[13px] font-normal leading-4">
+              {replyMessage.content}
+            </span>
+          )}
+          {replyMessage.tweet && (
+            <span className="truncate text-[13px] font-normal leading-4">
+              {tweetURL}
+            </span>
+          )}
         </div>
       </div>
 

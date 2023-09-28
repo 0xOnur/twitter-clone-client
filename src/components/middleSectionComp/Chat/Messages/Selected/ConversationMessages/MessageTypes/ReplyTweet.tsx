@@ -5,7 +5,6 @@ import {
 import useGetTweet from "@hooks/Tweet/Queries/useGetTweet";
 import { VerifiedIcon } from "@icons/Icon";
 import { formatDate } from "@utils/formatDate";
-import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 
 interface IProps {
@@ -18,7 +17,7 @@ const ReplyTweet = ({ tweetId }: IProps) => {
   const { tweet, status } = useGetTweet({ tweetId: tweetId });
 
   return (
-    <div>
+    <div className="w-full">
       {status === "loading" && (
         <div className="flex flex-row items-center justify-center">
           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-base"></div>
@@ -38,9 +37,9 @@ const ReplyTweet = ({ tweetId }: IProps) => {
           onClick={() => {
             navigate(`/${tweet?.author.username}/status/${tweet?._id}`);
           }}
-          className="flex flex-col text-left border-2 shadow rounded-2xl overflow-hidden hover:bg-gray-tweetHover"
+          className="flex flex-col w-full text-left border-2 pb-7 shadow rounded-2xl overflow-hidden hover:bg-gray-tweetHover"
         >
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full">
             {/* tweet header */}
             <div className="flex flex-col mt-3 mx-3">
               <div className="flex flex-row items-center shrink">
@@ -72,19 +71,18 @@ const ReplyTweet = ({ tweetId }: IProps) => {
                 </div>
               </div>
             </div>
-            
-            <div className="grid h-56">
-                {tweet?.content && tweet.content.length > 0 && (
-                    <div className="mb-3 mx-3">{tweet?.content}</div>
-                )}
 
-                {tweet?.media && tweet.media.length > 0 && (
-                    <div className="-mt-2 -mb-3">
-                        <TweetMedia tweet={tweet} />
-                    </div>
-                )}
+            <div className="grid max-h-[250px]">
+              {tweet?.content && tweet.content.length > 0 && (
+                <div className="mb-3 mx-3">{tweet?.content}</div>
+              )}
+
+              {tweet?.media && tweet.media.length > 0 && (
+                <div className="-mt-2 -mb-3">
+                  <TweetMedia tweet={tweet} />
+                </div>
+              )}
             </div>
-            
           </div>
         </button>
       )}

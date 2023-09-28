@@ -8,7 +8,7 @@ interface IProps {
 
 const CopyMessage = ({ message, setOpenMore }: IProps) => {
   const { copyText } = useCopyText({
-    text: message.content,
+    text: message?.content! || message?.media?.url!,
     toastMessage: "Copied to clipboard",
   });
 

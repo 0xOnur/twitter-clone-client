@@ -51,7 +51,6 @@ const Composer = ({ tweet, closeModal, selectedUsers, selectedConversations }: I
         <SendButton
           isTweetShare={true}
           isReadyForTweetShare={isReadyForTweetShare && !isLoading}
-          messageContent={messageContent}
           handleSentMessage={handleSentMessage}
         />
       </div>

@@ -1,14 +1,13 @@
 import { MediaModal } from "@components/middleSectionComp/DialogModals";
 import classNames from "classnames";
-import { useState } from "react";
+import { useModal } from "contexts/ModalContext";
 
 type Props = {
   tweet: ITweet;
 };
 
 const TweetMedia = ({ tweet }: Props) => {
-  const [showMediaModal, setShowMediaModal] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { openModal, closeModal } = useModal();
 
   const mediaGridClasses = classNames("grid gap-0.5 mt-3 mb-2 z-10", {
     "grid-cols-1": tweet?.media!.length <= 1,
@@ -40,19 +39,30 @@ const TweetMedia = ({ tweet }: Props) => {
       "rounded-bl-xl": tweet?.media!.length === 4 && index === 2,
     });
 
+  const handleOpenImage = (index: number) => {
+    openModal(
+      <MediaModal
+        closeModal={closeModal}
+        images={
+          tweet.media?.map((media) => ({ url: media.url, alt: media?.alt }))!
+        }
+        imageIndex={index}
+      />
+    );
+  };
+
   return (
     <div>
       {tweet.media && tweet.media.length > 0 && (
         <div className={mediaGridClasses}>
-      {tweet.media.map((media, index) => (
+          {tweet.media.map((media, index) => (
             <div key={index} className={gridItemClasses(index)}>
               {media.type !== "video/mp4" ? (
                 <div key={index} className={"h-full"}>
                   <img
                     onClick={(e) => {
                       e.stopPropagation();
-                      setShowMediaModal(true);
-                      setCurrentImageIndex(index);
+                      handleOpenImage(index);
                     }}
                     src={media.url}
                     alt={media.alt}
@@ -70,20 +80,7 @@ const TweetMedia = ({ tweet }: Props) => {
               )}
             </div>
           ))}
-          
-      </div>
-      )}
-      
-      {showMediaModal && (
-        <MediaModal
-          isOpen={showMediaModal}
-          onClose={() => setShowMediaModal(false)}
-          images={
-            tweet.media?.map((media) => ({ url: media.url, alt: media?.alt }))!
-          }
-          currentImageIndex={currentImageIndex}
-          setCurrentImageIndex={setCurrentImageIndex}
-        />
+        </div>
       )}
     </div>
   );

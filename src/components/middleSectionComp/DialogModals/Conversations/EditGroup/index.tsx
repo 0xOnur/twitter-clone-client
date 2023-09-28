@@ -18,7 +18,6 @@ const EditGroupModal = ({ chat, closeModal }: IProps) => {
     avatarURL: chat.chatImage,
   });
 
-
   const isChanges = () => {
     return Boolean(
       (chat.chatName ? chat.chatName !== chatName : chatName !== "") ||

@@ -5,6 +5,7 @@ import MessageActions from "../Actions";
 import MessageDate from "../MessageDate";
 import classNames from "classnames";
 import ReplyTweet from "./ReplyTweet";
+import MessageMedia from "../MessageMedia";
 
 interface IProps {
   isMine: boolean;
@@ -14,12 +15,12 @@ interface IProps {
 }
 
 const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
-  const messageStart = classNames("flex flex-col", {
+  const messageStart = classNames("flex flex-col gap-1 w-full", {
     "items-end justify-end": isMine,
     "items-start justify-start": !isMine,
   });
 
-  const messageFlexReverse = classNames("flex w-[87%] group/message", {
+  const messageFlexReverse = classNames("flex max-w-[87%] group/message", {
     "flex-row justify-end pl-3": isMine,
     "flex-row-reverse justify-end pr-3": !isMine,
   });
@@ -32,13 +33,13 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
     }
   );
 
-  const replyStart = classNames("flex flex-col -mb-7 mt-3 w-full", {
+  const replyStart = classNames("flex flex-col -mb-7 pb- mt-3 w-full", {
     "items-end": isMine,
   });
-  console.log(
-    "🚀 ~ file: ReplyMessage.tsx:59 ~ ReplyMessage ~ replyTo.tweet:",
-    message
-  );
+
+  const replyImagePaddig = classNames({
+    "mb-7": message.replyTo?.media && !message.replyTo?.content,
+  });
 
   return (
     <div className="w-full">
@@ -56,10 +57,23 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
                   </span>
                 </div>
 
-                <div className="flex">
-                  {message.replyTo?.type === "tweet" ? (
+                <div className={messageStart}>
+                  {message.replyTo?.type === "tweet" && (
                     <ReplyTweet tweetId={message.replyTo.tweet} />
-                  ) : (
+                  )}
+
+                  <div className={replyImagePaddig}>
+                    {message.replyTo?.media && message.replyTo?.media.url && (
+                      <MessageMedia
+                        mediaURL={message.replyTo.media.url}
+                        mediaType={message.replyTo.media.type}
+                        imageSize="max-w-[100px]"
+                        videoSize="max-w-[200px]"
+                      />
+                    )}
+                  </div>
+
+                  {message.replyTo?.content && (
                     <div className="flex flex-row gap-3 mt-0.5 pb-8 pt-3 px-4 rounded-3xl items-end box-border bg-gray-message/40">
                       <span className="text-[13px] text-right break-words leading-4">
                         {message.replyTo?.content}
@@ -69,14 +83,25 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
                 </div>
               </div>
 
-              <div className={messageBox}>
-                <div className="text-left break-words min-w-0 overflow-hidden">
-                  <span className="whitespace-pre-line antialiased">
-                    {message.content}
-                  </span>
-                </div>
+              <div className={messageStart}>
+                {message?.media && message.media.url && (
+                  <MessageMedia
+                    mediaURL={message.media.url}
+                    mediaType={message.media.type}
+                  />
+                )}
+                {message.content && message?.content?.length > 0 && (
+                  <div className={messageBox}>
+                    <div className="break-words min-w-0 overflow-hidden">
+                      <span className="whitespace-pre-line antialiased">
+                        {message.content}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+
             {conversation.isGroupChat && !isMine && (
               <div className="flex flex-row relative items-end">
                 <div className="w-52px"></div>

@@ -182,8 +182,6 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
                 setComposerSettings={setComposerSettings}
                 showPoll={showPoll}
                 setShowPoll={setShowPoll}
-                pollSettings={pollSettings}
-                setPollSettings={setPollSettings}
                 tweetText={tweetText}
                 setTweetText={setTweetText}
                 tenorGif={tenorGif}

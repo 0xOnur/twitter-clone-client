@@ -1,5 +1,5 @@
 import { ComposerComp } from "@components/index";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { TenorImage } from "gif-picker-react";
 import {
   ImageIcon,
@@ -9,6 +9,7 @@ import {
   GIFIcon,
 } from "@icons/Icon";
 import classNames from "classnames";
+import { useModal } from "contexts/ModalContext";
 
 type Props = {
   composerMode: string | undefined;
@@ -16,9 +17,6 @@ type Props = {
   ComposerSettings: IComposer
   setComposerSettings: React.Dispatch<React.SetStateAction<IComposer>>
   
-  pollSettings: IPoll;
-  setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
-
   showPoll: boolean;
   setShowPoll: React.Dispatch<React.SetStateAction<boolean>>;
 
@@ -41,11 +39,9 @@ const Toolbar = ({
   setTenorGif,
   showPoll,
   setShowPoll,
-  pollSettings,
-  setPollSettings,
   handleSubmit,
 }: Props) => {
-  const [showGifPicker, setShowGifPicker] = useState(false);
+  const {openModal, closeModal} = useModal()
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
@@ -92,6 +88,16 @@ const Toolbar = ({
   const handleClickFileInput = () => {
     hiddenFileInput.current?.click();
   };
+
+  const handleGif = () => {
+    openModal(
+      <ComposerComp.GIFMenu
+        tenorGif={tenorGif}
+        setTenorGif={setTenorGif}
+        closeModal={closeModal}
+      />
+    )
+  }
 
   const imageButtonClasses = classNames("w-fit p-2", {
     "hover:bg-primary-extraLight rounded-full": ComposerSettings.mediaFiles.length < 4 && !tenorGif && !showPoll && !ComposerSettings.mediaFiles.map((media) => media.type).includes("video"),
@@ -143,9 +149,7 @@ const Toolbar = ({
           />
 
           <button
-            onClick={() => {
-              setShowGifPicker(true);
-            }}
+            onClick={handleGif}
             type="button"
             disabled={ComposerSettings.mediaFiles.length > 0 || !!tenorGif || showPoll}
             className={gifButtonClasses}
@@ -155,13 +159,6 @@ const Toolbar = ({
             </span>
           </button>
 
-          {showGifPicker && (
-            <ComposerComp.GIFMenu
-              tenorGif={tenorGif}
-              setTenorGif={setTenorGif}
-              setShowGifPicker={setShowGifPicker}
-            />
-          )}
 
           <button
             type="button"

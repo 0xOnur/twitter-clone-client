@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import MoreMenu from "./More";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
+import LastMessageInfo from "./LastMessageInfo";
 
 interface IProps {
   chat: IChat;
@@ -25,9 +26,11 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
     (participant) => participant.user._id === reduxUser.user._id
   )?.isPinned;
 
-  const isReadByMe =
-    chat.lastMessage?.readBy?.includes(reduxUser.user._id) ||
+  const isLastMessageByMe =
     chat.lastMessage?.sender?._id === reduxUser.user._id;
+
+  const isReadByMe =
+    chat.lastMessage?.readBy?.includes(reduxUser.user._id) || isLastMessageByMe;
 
   const chatClassNames = classNames(
     "grid grid-cols-chat w-full items-start p-4 duration-200 group",
@@ -36,10 +39,6 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
       "bg-gray-message hover:bg-gray-extraLight": isSelectedChat,
     }
   );
-
-  const lastMessageClassNames = classNames("truncate text-left", {
-    "font-bold": !isReadByMe,
-  });
 
   return (
     <div className="relative">
@@ -65,26 +64,17 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
                   <VerifiedIcon className="w-5 h-5 fill-primary-base" />
                 )}
                 <p className="line-clamp-1 whitespace-nowrap">
-                  - {formatDate(chat.lastMessage?.updatedAt!)}
+                  - {formatDate(chat.lastMessage?.createdAt!)}
                 </p>
               </div>
             )}
           </div>
-          {chat.lastMessage?.type === "tweet" ? (
-            <div className="truncate">
-              {chat.lastMessage.sender === reduxUser.user._id ? (
-                <p className={lastMessageClassNames}>You shared a post</p>
-              ) : (
-                <p className={lastMessageClassNames}>Shared a post</p>
-              )}
-            </div>
-          ) : (
-            <div className="truncate">
-              <p className={lastMessageClassNames}>
-                {chat.lastMessage?.content}
-              </p>
-            </div>
-          )}
+          <LastMessageInfo
+            chat={chat}
+            reduxUser={reduxUser}
+            isReadByMe={isReadByMe}
+            isLastMessageByMe={isLastMessageByMe}
+          />
         </div>
 
         {!isReadByMe && (

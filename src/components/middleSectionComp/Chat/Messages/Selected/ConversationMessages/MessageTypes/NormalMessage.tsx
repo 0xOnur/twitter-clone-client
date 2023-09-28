@@ -4,6 +4,7 @@ import MessageDate from "../MessageDate";
 import classNames from "classnames";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 import { UserState } from "@redux/slices/userSlice";
+import MessageMedia from "../MessageMedia";
 
 interface IProps {
   isMine: boolean;
@@ -18,7 +19,7 @@ const NormalMessage = ({
   reduxUser,
   conversation,
 }: IProps) => {
-  const messageStart = classNames("flex", {
+  const messageStart = classNames("flex flex-col gap-1", {
     "items-end justify-end": isMine,
     "items-start justify-start": !isMine,
   });
@@ -42,15 +43,24 @@ const NormalMessage = ({
           <div className={messageFlexReverse}>
             <MessageActions isMine={isMine} message={message} />
 
-            <div className="flex items-start shrink">
-              <div className={messageBox}>
-                <div className="break-words min-w-0 overflow-hidden">
-                  <span className="whitespace-pre-line antialiased">
-                    {message.content}
-                  </span>
+            <div className={messageStart}>
+              {message?.media && message.media.url && (
+                <MessageMedia
+                  mediaURL={message.media.url}
+                  mediaType={message.media.type}
+                />
+              )}
+              {message.content && message?.content?.length > 0 && (
+                <div className={messageBox}>
+                  <div className="break-words min-w-0 overflow-hidden">
+                    <span className="whitespace-pre-line antialiased">
+                      {message.content}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
+
             {conversation.isGroupChat && !isMine && (
               <div className="flex flex-row relative items-end">
                 <Avatar

@@ -3,13 +3,12 @@ import classNames from "classnames";
 
 interface IProps {
   isTweetShare?: boolean;
-  messageContent: string;
+  isMessageReady?: boolean;
   isReadyForTweetShare?:boolean;
   handleSentMessage: () => void
 }
 
-const SendButton = ({ isTweetShare, messageContent, handleSentMessage, isReadyForTweetShare }: IProps) => {
-  const isMessageReady = messageContent.trim().length > 0;
+const SendButton = ({ isTweetShare, isMessageReady, handleSentMessage, isReadyForTweetShare }: IProps) => {
 
   const buttonClass = classNames(
     "flex ml-1 items-center min-h-[36px] min-w-[36px] rounded-full duration-200",

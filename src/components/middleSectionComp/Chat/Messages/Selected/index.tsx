@@ -70,10 +70,11 @@ const SelectedConversation = ({ conversationId }: IProps) => {
 
   if (data) {
     return (
-      <div className="flex flex-col h-screen">
-        <Header chat={data} reduxUser={reduxUser} />
+      <div className="flex flex-col h-screen overflow-hidden">
         <div className="overflow-y-auto flex-grow relative">
-          <div className="flex h-full w-full overflow-x-hidden">
+          <div className="flex flex-col h-full w-full overflow-x-hidden">
+            <Header chat={data} reduxUser={reduxUser} />
+
             <div className="flex flex-col w-full h-full justify-start mx-auto px-4">
               <div className="flex flex-col gap-4" ref={myRef}>
                 {!data.isGroupChat && (
@@ -89,8 +90,10 @@ const SelectedConversation = ({ conversationId }: IProps) => {
               </div>
             </div>
           </div>
+
           <DownScrollButton inView={inView} myRef={myRef} />
         </div>
+
         <ChatComposer conversationId={conversationId} />
       </div>
     );

@@ -1,19 +1,19 @@
-import { ChatComposeModal } from '@components/middleSectionComp/DialogModals'
-import { MessagesIcon, SettingsIcon } from '@icons/Icon'
-import { useModal } from 'contexts/ModalContext'
-
+import { ChatComposeModal } from "@components/middleSectionComp/DialogModals";
+import { MessagesIcon, SettingsIcon } from "@icons/Icon";
+import { useModal } from "contexts/ModalContext";
 
 const ChatHeader = () => {
-  const { openModal, closeModal } = useModal()
+  const { openModal, closeModal } = useModal();
 
   const handleCompose = () => {
-    openModal(<ChatComposeModal closeModal={closeModal} />)
-  }
+    openModal(<ChatComposeModal closeModal={closeModal} />);
+  };
 
   return (
-    <div className="sticky h-[53px] z-[2]">
-        <div className="flex flex-row w-full h-full items-center justify-between backdrop-blur-md px-4">
-          <div className="">
+    <div className="sticky top-0 h-[56px] z-[2] backdrop-blur-md bg-white/80">
+      <div className="h-full w-full py-4">
+        <div className="flex flex-row w-full h-full items-center justify-between px-4">
+          <div>
             <span className="text-xl leading-6 font-bold">Messages</span>
           </div>
           <div className="min-w-[56px] items-end justify-center">
@@ -36,7 +36,8 @@ const ChatHeader = () => {
           </div>
         </div>
       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default ChatHeader
+export default ChatHeader;

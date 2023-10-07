@@ -69,7 +69,8 @@ const Conversations = ({ selectedChat }: IProps) => {
     );
 
     return (
-      <div className="flex flex-col border-x h-full w-full overflow-y">
+      <div className="flex flex-col border-x h-screen w-full overflow-hidden">
+        <div className="overflow-y-auto flex-grow relative">
         <ChatHeader />
         {pinnedChatsExist ? (
           <div className="flex flex-col">
@@ -116,6 +117,8 @@ const Conversations = ({ selectedChat }: IProps) => {
             ))}
           </div>
         )}
+        </div>
+        
       </div>
     );
   }

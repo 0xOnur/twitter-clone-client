@@ -28,7 +28,7 @@ const GroupHeader = ({ chat, reduxUser }: IProps) => {
 
   return (
     <div className="z-10 top-0 sticky">
-      <div className="h-[53px] bg-white/80  backdrop-blur-md">
+      <div className="h-[53px] bg-white/80 backdrop-blur-md">
         <div className="flex flex-row max-w-600px w-full h-full items-center mx-auto px-5">
           <div className="flex flex-row h-full items-center w-full">
             <div onClick={(e) => e.stopPropagation()}>

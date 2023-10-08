@@ -1,65 +1,44 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
 import { TreeDotIcon, VerifiedIcon } from "@icons/Icon";
+import { usePopper } from "react-popper";
 
 const UserBox = () => {
   const reduxUser = useSelector((state: RootState) => state.user.user);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const menuRef = useRef<HTMLDivElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  let [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>();
+  let [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
 
-  const handleClick = () => {
-    setMenuOpen(!menuOpen);
-  };
+  let { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: "top-start",
+  });
 
-  const handleClose = useCallback(
-    (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        (!menuButtonRef.current ||
-          !menuButtonRef.current.contains(event.target as Node))
-      ) {
+  const handleOutsideClick = useCallback(
+    (e: MouseEvent) => {
+      if (popperElement && !popperElement.contains(e.target as Node) && !referenceElement?.contains(e.target as Node)) {
         setMenuOpen(false);
       }
     },
-    [menuRef]
+    [popperElement, referenceElement]
   );
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClose);
+    document.addEventListener("mousedown", handleOutsideClick);
+
     return () => {
-      document.removeEventListener("mousedown", handleClose);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [handleClose]);
+  }, [handleOutsideClick]);
+
 
   return (
     <div className="flex flex-col w-full">
-      {menuOpen && (
-        <div className="absolute" ref={menuRef}>
-          <div className="absolute text-left text-md font-bold z-10 w-72 mb-2 bottom-full h-32 py-3 rounded-3xl bg-white border border-gray-100  shadow-lg">
-            <hr />
-            <div className="pb-3">
-              <a href="/" className="py-6">
-                <div className="hover:bg-gray-dropdown px-4 py-3 cursor-not-allowed">
-                  Add an existing account
-                </div>
-              </a>
-              <a href="/logout" className="py-6">
-                <div className="hover:bg-gray-dropdown  px-4 py-3">
-                  Log out @{reduxUser.username}
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-
+     
       <button
-        onClick={handleClick}
-        ref={menuButtonRef}
+        onClick={() => { setMenuOpen(!menuOpen)}}
+        ref={setReferenceElement}
         type="button"
         className="flex flex-col lg:items-start sm:items-center cursor-pointer grow-1 w-full my-2 group relative"
       >
@@ -89,6 +68,32 @@ const UserBox = () => {
           </div>
         </div>
       </button>
+
+      {menuOpen && (
+        <div 
+          style={styles.popper}
+          {...attributes.popper}
+          className="z-50" 
+          ref={setPopperElement}
+        >
+          <div className="absolute text-left text-md font-bold z-10 w-72 mb-2 bottom-full h-32 py-3 rounded-3xl bg-white border border-gray-100  shadow-lg">
+            <hr />
+            <div className="pb-3">
+              <a href="/" className="py-6">
+                <div className="hover:bg-gray-dropdown px-4 py-3 cursor-not-allowed">
+                  Add an existing account
+                </div>
+              </a>
+              <a href="/logout" className="py-6">
+                <div className="hover:bg-gray-dropdown  px-4 py-3">
+                  Log out @{reduxUser.username}
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

@@ -1,5 +1,8 @@
 import { TreeDotIcon } from "@icons/Icon";
 import MoreMenu from "./MoreMenu";
+import { Portal } from "contexts/Portal";
+import React, { useState } from "react";
+import { usePopper } from "react-popper";
 
 interface IProps {
   isMine: boolean;
@@ -9,9 +12,17 @@ interface IProps {
 }
 
 const MoreButton = ({ isMine, message, isOpenMore, setOpenMore }: IProps) => {
+  let [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>();
+  let [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
+
+  let { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: isMine ? "top-end" : "top-start",
+  });
+
   return (
     <div className="relative">
       <button
+        ref={setReferenceElement}
         title="More"
         onClick={() => {
           setOpenMore(true);
@@ -25,7 +36,19 @@ const MoreButton = ({ isMine, message, isOpenMore, setOpenMore }: IProps) => {
       </button>
 
       {isOpenMore && (
-        <MoreMenu isMine={isMine} message={message} setOpenMore={setOpenMore} />
+        <Portal>
+          <div
+            ref={setPopperElement}
+            style={styles.popper}
+            {...attributes.popper}
+          >
+            <MoreMenu
+              isMine={isMine}
+              message={message}
+              setOpenMore={setOpenMore}
+            />
+          </div>
+        </Portal>
       )}
     </div>
   );

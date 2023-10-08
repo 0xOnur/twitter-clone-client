@@ -25,14 +25,14 @@ const ConversationSettings = ({ chat, otherParticipants }: IProps) => {
 
       {!chat.isGroupChat && (
         <div className="flex w-full hover:bg-primary-extraLight duration-200">
-          <button className="flex w-full min-h-[48px] p-4 justify-center text-primary-base">
+          <button className="flex w-full min-h-[48px] p-4 justify-center text-primary-base cursor-not-allowed">
             Block @{otherParticipants[0].user.username}
           </button>
         </div>
       )}
 
       <div className="flex w-full hover:bg-primary-extraLight duration-200">
-        <button className="flex w-full min-h-[48px] p-4 justify-center text-primary-base">
+        <button className="flex w-full min-h-[48px] p-4 justify-center text-primary-base cursor-not-allowed">
           {chat.isGroupChat
             ? "Report conversation"
             : `Report @${otherParticipants[0].user.username}`}

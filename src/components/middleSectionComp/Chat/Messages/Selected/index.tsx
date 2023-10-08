@@ -70,7 +70,7 @@ const SelectedConversation = ({ conversationId }: IProps) => {
 
   if (data) {
     return (
-      <div className="flex flex-col h-screen overflow-hidden">
+      <div className="flex flex-col h-screen">
         <div className="overflow-y-auto flex-grow relative">
           <div className="flex flex-col h-full w-full overflow-x-hidden">
             <Header chat={data} reduxUser={reduxUser} />

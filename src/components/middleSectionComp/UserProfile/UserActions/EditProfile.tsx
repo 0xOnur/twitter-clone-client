@@ -1,21 +1,21 @@
 import { EditProfileModal } from "@components/middleSectionComp/DialogModals";
-import { useState } from "react";
+import { useModal } from "contexts/ModalContext";
 
 interface IProps {
   user: IUser;
 }
 
 const EditProfile = ({ user }: IProps) => {
-  const [showModal, setShowModal] = useState(false);
+  const { openModal, closeModal } = useModal();
 
-  if (showModal) {
-    return <EditProfileModal user={user} isOpen={showModal} onClose={() => setShowModal(false)} />;
-  }
+  const handleEditProfile = () => {
+    openModal(<EditProfileModal user={user} closeModal={closeModal} />);
+  };
 
   return (
     <div className="absolute top-0 py-3 px-4 right-0">
       <button
-        onClick={() => setShowModal(true)}
+        onClick={handleEditProfile}
         className="px-4 py-2 text-base leading-5 font-bold border rounded-full hover:bg-gray-lightest duration-200"
       >
         Edit profile

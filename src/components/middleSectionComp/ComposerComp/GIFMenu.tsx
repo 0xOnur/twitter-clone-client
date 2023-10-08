@@ -4,22 +4,22 @@ import GifPicker, { TenorImage } from "gif-picker-react";
 interface IProps {
   tenorGif: TenorImage | undefined;
   setTenorGif: React.Dispatch<React.SetStateAction<TenorImage | undefined>>;
-  closeModal: React.Dispatch<React.SetStateAction<boolean>>
+  closeModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GIFMenu = ({tenorGif, setTenorGif, closeModal}: IProps) => {
+const GIFMenu = ({ tenorGif, setTenorGif, closeModal }: IProps) => {
   const gifPickerApi = process.env.REACT_APP_TENOR_API;
-
 
   const onGifClick = (selectedGif: TenorImage) => {
     closeModal(false);
-    setTenorGif(selectedGif)
+    setTenorGif(selectedGif);
   };
 
-  console.log(tenorGif)
+  console.log(tenorGif);
 
   return (
-      <div className="absolute top-16">
+    <div className="z-10 text-black bg-white  rounded-xl overflow-hidden">
+      <div className=" max-h-90vh">
         <GifPicker
           tenorApiKey={gifPickerApi || ""}
           clientKey="twitter_clone"
@@ -28,6 +28,7 @@ const GIFMenu = ({tenorGif, setTenorGif, closeModal}: IProps) => {
           height={650}
         />
       </div>
+    </div>
   );
 };
 

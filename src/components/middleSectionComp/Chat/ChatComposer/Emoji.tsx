@@ -1,6 +1,8 @@
 import Picker from "@emoji-mart/react";
 import { EmojiIcon } from "@icons/Icon";
-import { useRef, useState, useCallback, useEffect } from "react";
+import { Portal } from "contexts/Portal";
+import { useState, useCallback, useEffect } from "react";
+import { usePopper } from "react-popper";
 
 interface IProps {
   setMessageContent: React.Dispatch<React.SetStateAction<string>>;
@@ -8,29 +10,30 @@ interface IProps {
 
 const Emoji = ({ setMessageContent }: IProps) => {
   const [showEmoji, setShowEmoji] = useState(false);
-  const emojiRef = useRef<HTMLDivElement>(null);
-  const emojiButtonRef = useRef<HTMLButtonElement>(null);
 
-  const handleClose = useCallback(
-    (event: MouseEvent) => {
-      if (
-        emojiRef.current &&
-        !emojiRef.current.contains(event.target as Node) &&
-        (!emojiButtonRef.current ||
-          !emojiButtonRef.current.contains(event.target as Node))
-      ) {
+  let [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>();
+  let [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
+
+  let { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: "top",
+  });
+
+  const handleOutsideClick = useCallback(
+    (e: MouseEvent) => {
+      if (popperElement && !popperElement.contains(e.target as Node) && !referenceElement?.contains(e.target as Node)) {
         setShowEmoji(false);
       }
     },
-    [emojiRef]
+    [popperElement, referenceElement]
   );
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClose);
+    document.addEventListener("mousedown", handleOutsideClick);
+
     return () => {
-      document.removeEventListener("mousedown", handleClose);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [handleClose]);
+  }, [handleOutsideClick]);
 
   function handleEmojiSelect(emoji: any) {
     setMessageContent((prevText: string) =>
@@ -42,7 +45,7 @@ const Emoji = ({ setMessageContent }: IProps) => {
     <div className="relative">
       <button
         title="Emoji"
-        ref={emojiButtonRef}
+        ref={setReferenceElement}
         onClick={() => setShowEmoji(!showEmoji)}
         className="flex items-center min-w-[36px] min-h-[36px] rounded-full hover:bg-primary-hover duration-200 relative"
       >
@@ -52,15 +55,18 @@ const Emoji = ({ setMessageContent }: IProps) => {
       </button>
 
       {showEmoji && (
-        <div
-          ref={emojiRef}
-          className="absolute bottom-12 z-50 left-1/2 transform -translate-x-1/2 shadow-md"
-        >
-          <Picker
-            onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
-            theme={"light"}
-          />
-        </div>
+        <Portal>
+          <div
+            ref={setPopperElement}
+            style={styles.popper}
+            {...attributes.popper}
+          >
+            <Picker
+              onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
+              theme={"light"}
+            />
+          </div>
+        </Portal>
       )}
     </div>
   );

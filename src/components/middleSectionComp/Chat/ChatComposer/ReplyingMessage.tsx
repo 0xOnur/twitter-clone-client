@@ -1,10 +1,13 @@
-import { selectReplyMessage, clearReplyMessage } from "@redux/slices/chatSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { clearReplyMessage } from "@redux/slices/chatSlice";
+import { useDispatch } from "react-redux";
 import { CancelIcon, UploadImageIcon } from "@icons/Icon";
 
-const ReplyingMessage = () => {
+interface IProps {
+  replyMessage?: IMessage;
+}
+
+const ReplyingMessage = ({replyMessage}: IProps) => {
   const dispatch = useDispatch();
-  const replyMessage = useSelector(selectReplyMessage);
 
   if (!replyMessage) return null;
   console.log(

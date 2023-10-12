@@ -47,7 +47,7 @@ const PollEditor = ({ poll }: IProps) => {
       newDuration.minutes * 60 * 1000
     );
 
-    dispatch(setPollExpiresAt(expiresAt));
+    dispatch(setPollExpiresAt(expiresAt.toISOString()));
   };
 
   const TimeSelect = ({ type }: { type: DurationType }) => (

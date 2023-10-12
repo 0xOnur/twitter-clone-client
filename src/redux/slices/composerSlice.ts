@@ -36,7 +36,7 @@ const initialState: ComposerState = {
         votes: [],
       },
     ],
-    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
   },
   showPoll: false,
   settings: {
@@ -87,7 +87,7 @@ export const composerSlice = createSlice({
     ) => {
       state.poll.choices.push(action.payload);
     },
-    setPollExpiresAt: (state, action: PayloadAction<Date>) => {
+    setPollExpiresAt: (state, action: PayloadAction<string>) => {
       state.poll.expiresAt = action.payload;
     },
     setShowPoll: (state, action: PayloadAction<boolean>) => {
@@ -123,7 +123,7 @@ export const composerSlice = createSlice({
             votes: [],
           },
         ],
-        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       };
       state.settings = {
         audience: "everyone",

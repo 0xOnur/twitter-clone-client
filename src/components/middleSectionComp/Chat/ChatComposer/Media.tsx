@@ -1,36 +1,25 @@
-import { RemoveItemIcon } from "@icons/Icon";
+import { clearMessageMedia } from "@redux/slices/chatSlice";
 import { TenorImage } from "gif-picker-react";
-import React from "react";
+import { RemoveItemIcon } from "@icons/Icon";
+import { useDispatch } from "react-redux";
 
 interface IProps {
   tenorGif: TenorImage | undefined;
-  setTenorGif: React.Dispatch<React.SetStateAction<TenorImage | undefined>>;
   messageMedia: {
-    mediaFile: File;
+    mediaFile: File | undefined;
     mediaURL: string;
   };
-  setMessageMedia: React.Dispatch<
-    React.SetStateAction<{
-      mediaFile: File;
-      mediaURL: string;
-    }>
-  >;
 }
 
 const Media = ({
   tenorGif,
-  setTenorGif,
   messageMedia,
-  setMessageMedia,
 }: IProps) => {
-  const mediaType = messageMedia.mediaFile.type.split("/")[0];
+  const dispatch = useDispatch();
+  const mediaType = messageMedia.mediaFile?.type.split("/")[0];
 
   const handleCleanMedia = () => {
-    setMessageMedia({
-      mediaFile: new File([], ""),
-      mediaURL: "",
-    });
-    setTenorGif(undefined);
+    dispatch(clearMessageMedia());
   };
 
   return (

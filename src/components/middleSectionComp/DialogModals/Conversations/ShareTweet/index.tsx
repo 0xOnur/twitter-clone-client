@@ -2,6 +2,7 @@ import { useDebouncedSearchUser } from "@hooks/useSearchUser";
 import useGetConversations from "@hooks/Chat/Queries/useGetConversations";
 import UserList from "@components/rightSidebarComp/Search/UserList";
 import PreviousChatPreview from "../CreateChat/previousChat";
+import { selectChatComposer } from "@redux/slices/chatSlice";
 import SelectedUsers from "../CreateChat/SelectedUsers";
 import { RootState } from "@redux/config/store";
 import SelectedGroups from "./SelectedGroups";
@@ -18,6 +19,7 @@ interface IProps {
 
 const ShareTweetModal = ({ tweet, closeModal }: IProps) => {
   const reduxUser = useSelector((state: RootState) => state.user);
+  const chatComposer = useSelector(selectChatComposer);
 
   const [searchText, setSearchText] = useState("");
   const [selectedConversations, setSelectConversations] = useState<IChat[]>([]);
@@ -87,6 +89,7 @@ const ShareTweetModal = ({ tweet, closeModal }: IProps) => {
           <Composer
             tweet={tweet}
             closeModal={closeModal}
+            chatComposer={chatComposer}
             selectedUsers={selectedUsers}
             selectedConversations={selectedConversations}
           />

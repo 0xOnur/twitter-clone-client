@@ -1,5 +1,4 @@
 import { ListsIcon, TopicsIcon, TwiiterCircleIcon } from "@icons/Icon";
-import React from "react";
 import CreatorStudio from "./CreatorStudio";
 import ProfTools from "./ProfTools";
 import Settings from "./Settings";

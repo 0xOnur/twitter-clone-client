@@ -3,10 +3,13 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import CanReplyMenu from "./CanReplyMenu";
 
 interface IProps {
-  ComposerSettings: IComposer
+  composerSettings: {
+    audience: "everyone" | "specificUsers";
+    whoCanReply: "everyone" | "following" | "mentioned";
+  };
 }
 
-const ChooseCanReply: React.FC<IProps> = ({ComposerSettings}) => {
+const ChooseCanReply: React.FC<IProps> = ({ composerSettings }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const replyRef = useRef<HTMLDivElement>(null);
@@ -18,8 +21,7 @@ const ChooseCanReply: React.FC<IProps> = ({ComposerSettings}) => {
         replyRef.current &&
         !replyRef.current.contains(event.target as Node) &&
         (!replyButtonRef.current ||
-          !replyButtonRef.current.contains(event.target as Node)
-        )
+          !replyButtonRef.current.contains(event.target as Node))
       ) {
         setShowMenu(false);
       }
@@ -44,12 +46,21 @@ const ChooseCanReply: React.FC<IProps> = ({ComposerSettings}) => {
           className="text-primary-base hover:bg-primary-extraLight border border-white rounded-full inline-flex items-center px-3 cursor-pointer"
         >
           <span className="mr-1">
-            {
-              ComposerSettings.whoCanReply === "everyone" ? (<EveryoneIcon className={"w-4 h-4"} />) : ComposerSettings.whoCanReply === "following" ? (<TwiiterCircleIcon className={"w-4 h-4"} />) : (<MentionIcon className={"w-4 h-4"} />)
-            }
+            {composerSettings.whoCanReply === "everyone" ? (
+              <EveryoneIcon className={"w-4 h-4"} />
+            ) : composerSettings.whoCanReply === "following" ? (
+              <TwiiterCircleIcon className={"w-4 h-4"} />
+            ) : (
+              <MentionIcon className={"w-4 h-4"} />
+            )}
           </span>
           <span className="text-sm font-bold py-1">
-            {ComposerSettings.whoCanReply === "everyone" ? "Everyone" : ComposerSettings.whoCanReply=== "following" ? "People you follow" : "Only people you mention"} can reply
+            {composerSettings.whoCanReply === "everyone"
+              ? "Everyone"
+              : composerSettings.whoCanReply === "following"
+              ? "People you follow"
+              : "Only people you mention"}{" "}
+            can reply
           </span>
         </button>
       </div>
@@ -58,7 +69,10 @@ const ChooseCanReply: React.FC<IProps> = ({ComposerSettings}) => {
           ref={replyRef}
           className="absolute w-80 h-fit bg-white border rounded-2xl top-8 z-20 shadow-xl"
         >
-            <CanReplyMenu ComposerSettings={ComposerSettings} onClose={() => setShowMenu(false)} />
+          <CanReplyMenu
+            composerSettings={composerSettings}
+            onClose={() => setShowMenu(false)}
+          />
         </div>
       )}
     </div>

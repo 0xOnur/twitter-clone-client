@@ -5,16 +5,24 @@ import {
   SelectedIcon,
   MentionIcon,
 } from "@icons/Icon";
+import { useDispatch } from "react-redux";
+import { setSettings } from "@redux/slices/composerSlice";
 
 interface IProps {
-  ComposerSettings: IComposer;
+  composerSettings: {
+    audience: "everyone" | "specificUsers";
+    whoCanReply: "everyone" | "following" | "mentioned";
+  };
   onClose: () => void;
 }
 
-const CanReplyMenu: React.FC<IProps> = ({ ComposerSettings, onClose }) => {
+const CanReplyMenu= ({ composerSettings, onClose }: IProps) => {
+  const dispatch = useDispatch();
+
   const handleItemClick = (value: "everyone" | "following" | "mentioned") => {
-    ComposerSettings.whoCanReply = value;
+    // composerSettings.whoCanReply = value;
     onClose();
+    dispatch(setSettings({ ...composerSettings, whoCanReply: value }));
   };
 
   return (
@@ -38,7 +46,7 @@ const CanReplyMenu: React.FC<IProps> = ({ ComposerSettings, onClose }) => {
             </div>
             <span className="font-bold">Everyone</span>
           </div>
-          {ComposerSettings.whoCanReply === "everyone" && (
+          {composerSettings.whoCanReply === "everyone" && (
             <div className="">
               <span className="text-primary-base">
                 {" "}
@@ -61,7 +69,7 @@ const CanReplyMenu: React.FC<IProps> = ({ ComposerSettings, onClose }) => {
             </div>
             <span className="font-bold">People you follow</span>
           </div>
-          {ComposerSettings.whoCanReply === "following" && (
+          {composerSettings.whoCanReply === "following" && (
             <div className="">
               <span className="text-primary-base">
                 {" "}
@@ -84,7 +92,7 @@ const CanReplyMenu: React.FC<IProps> = ({ ComposerSettings, onClose }) => {
             </div>
             <span className="font-bold">Only people you mention</span>
           </div>
-          {ComposerSettings.whoCanReply === "mentioned" && (
+          {composerSettings.whoCanReply === "mentioned" && (
             <div className="">
               <span className="text-primary-base">
                 {" "}

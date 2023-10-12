@@ -1,11 +1,10 @@
 import { VotedIcon } from "@icons/Icon";
-import classNames from "classnames";
 
 interface IProps {
   choice: {
     _id: number | string;
     text: string;
-    votes: string[];
+    votes?: string[];
     percentage?: number;
   };
   isPollOwner: boolean;
@@ -15,9 +14,15 @@ interface IProps {
   handleVote: (choiceId: string) => void;
 }
 
-const Choice = ({ choice, isPollOwner, isExpired, isVoted, reduxUserId, handleVote }: IProps) => {
-
-  const votedChoice = choice.votes.includes(reduxUserId!)
+const Choice = ({
+  choice,
+  isPollOwner,
+  isExpired,
+  isVoted,
+  reduxUserId,
+  handleVote,
+}: IProps) => {
+  const votedChoice = choice.votes && choice.votes.includes(reduxUserId!);
 
   const percentage = Math.floor(choice?.percentage!);
 
@@ -26,9 +31,14 @@ const Choice = ({ choice, isPollOwner, isExpired, isVoted, reduxUserId, handleVo
   if (isPollOwner || isExpired || isVoted) {
     return (
       <div className="flex flex-row relative py-1 items-center justify-between">
-        <div className="absolute bg-gray-defaultCover h-full rounded-md" style={{width: percentageStyle}} />
+        <div
+          className="absolute bg-gray-defaultCover h-full rounded-md"
+          style={{ width: percentageStyle }}
+        />
         <div className="z-10">
-          <span className="flex items-center gap-1 ml-3">{choice.text} {votedChoice && <VotedIcon className="w-5 h-5" />}</span>
+          <span className="flex items-center gap-1 ml-3">
+            {choice.text} {votedChoice && <VotedIcon className="w-5 h-5" />}
+          </span>
         </div>
         <span className="z-10 mr-3">{percentage || 0}%</span>
       </div>

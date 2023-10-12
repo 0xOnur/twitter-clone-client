@@ -1,17 +1,20 @@
 import { EveryoneIcon, TwiiterCircleIcon, SelectedIcon } from "@icons/Icon";
-import React from "react";
+import { setSettings } from "@redux/slices/composerSlice";
+import { useDispatch } from "react-redux";
 
 interface IProps {
-  ComposerSettings: IComposer;
+  composerSettings: {
+    audience: "everyone" | "specificUsers";
+    whoCanReply: "everyone" | "following" | "mentioned";
+  };
   onClose: () => void;
 }
 
-export const AudienceMenu: React.FC<IProps> = ({
-  ComposerSettings,
-  onClose,
-}) => {
-  const handleItemClick = (value: "everyone" | "specificUsers") => {
-    ComposerSettings.audience = value;
+export const AudienceMenu = ({ composerSettings, onClose }: IProps) => {
+  const dispatch = useDispatch();
+
+  const handleSetAudience = (value: "everyone" | "specificUsers") => {
+    dispatch(setSettings({ ...composerSettings, audience: value }));
     onClose();
   };
 
@@ -23,7 +26,7 @@ export const AudienceMenu: React.FC<IProps> = ({
 
       <button
         className="hover:bg-gray-rightbar"
-        onClick={() => handleItemClick("everyone")}
+        onClick={() => handleSetAudience("everyone")}
       >
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
@@ -33,7 +36,7 @@ export const AudienceMenu: React.FC<IProps> = ({
             </div>
             <span className="font-bold">Everyone</span>
           </div>
-          {ComposerSettings.audience === "everyone" && (
+          {composerSettings.audience === "everyone" && (
             <div>
               <span className="text-primary-base">
                 {" "}
@@ -47,7 +50,7 @@ export const AudienceMenu: React.FC<IProps> = ({
       <button
         disabled={true}
         className="hover:bg-gray-rightbar cursor-not-allowed"
-        onClick={() => handleItemClick("specificUsers")}
+        onClick={() => handleSetAudience("specificUsers")}
       >
         <div className="flex items-center justify-between w-full px-4 py-3">
           <div className="inline-flex items-center">
@@ -56,7 +59,7 @@ export const AudienceMenu: React.FC<IProps> = ({
             </div>
             <span className="font-bold">Twitter Circle</span>
           </div>
-          {ComposerSettings.audience === "specificUsers" && (
+          {composerSettings.audience === "specificUsers" && (
             <div>
               <span className="text-primary-base">
                 {" "}

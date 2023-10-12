@@ -1,21 +1,22 @@
 import React from "react";
 import GifPicker, { TenorImage } from "gif-picker-react";
+import { ComposerState } from "@redux/slices/composerSlice";
+import { useDispatch } from "react-redux";
+import { setTenorGif } from "@redux/slices/composerSlice";
 
 interface IProps {
-  tenorGif: TenorImage | undefined;
-  setTenorGif: React.Dispatch<React.SetStateAction<TenorImage | undefined>>;
+  composer: ComposerState;
   closeModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GIFMenu = ({ tenorGif, setTenorGif, closeModal }: IProps) => {
+const GIFMenu = ({ closeModal }: IProps) => {
+  const dispatch = useDispatch();
   const gifPickerApi = process.env.REACT_APP_TENOR_API;
 
   const onGifClick = (selectedGif: TenorImage) => {
     closeModal(false);
-    setTenorGif(selectedGif);
+    dispatch(setTenorGif(selectedGif));
   };
-
-  console.log(tenorGif);
 
   return (
     <div className="z-10 text-black bg-white  rounded-xl overflow-hidden">

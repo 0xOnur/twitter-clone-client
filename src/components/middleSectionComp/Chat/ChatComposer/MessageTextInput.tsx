@@ -1,28 +1,27 @@
 import useAutosizeTextArea from "@hooks/Composer/useAutosizeTextArea";
 import React, { useCallback, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setMessageContent } from "@redux/slices/chatSlice";
 
 interface IProps {
   isDisabled?: boolean;
   placeholder: string;
   messageContent: string;
-  setMessageContent: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MessageTextInput = ({
   isDisabled,
   placeholder,
   messageContent,
-  setMessageContent,
 }: IProps) => {
+  const dispatch = useDispatch();
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   useAutosizeTextArea(textAreaRef, messageContent);
 
   const handleMessageChange = useCallback(
     (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setMessageContent(() => {
-        return evt.target.value;
-      })
-    },[setMessageContent]
+      dispatch(setMessageContent(evt.target.value));
+    },[dispatch]
   );
 
   return (

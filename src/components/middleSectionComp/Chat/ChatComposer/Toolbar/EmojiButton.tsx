@@ -1,14 +1,18 @@
 import Picker from "@emoji-mart/react";
 import { EmojiIcon } from "@icons/Icon";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { Portal } from "contexts/Portal";
 import { useState, useCallback, useEffect } from "react";
 import { usePopper } from "react-popper";
+import { useDispatch } from "react-redux";
 
 interface IProps {
-  setMessageContent: React.Dispatch<React.SetStateAction<string>>;
+  prevText: string;
+  setAction: ActionCreatorWithPayload<string>;
 }
 
-const Emoji = ({ setMessageContent }: IProps) => {
+const EmojiButton = ({ prevText, setAction }: IProps) => {
+  const dispatch = useDispatch();
   const [showEmoji, setShowEmoji] = useState(false);
 
   let [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>();
@@ -36,9 +40,7 @@ const Emoji = ({ setMessageContent }: IProps) => {
   }, [handleOutsideClick]);
 
   function handleEmojiSelect(emoji: any) {
-    setMessageContent((prevText: string) =>
-      prevText ? prevText + emoji.native : emoji.native
-    );
+    dispatch(setAction(prevText + emoji.native));
   }
 
   return (
@@ -72,4 +74,4 @@ const Emoji = ({ setMessageContent }: IProps) => {
   );
 };
 
-export default Emoji;
+export default EmojiButton;

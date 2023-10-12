@@ -6,6 +6,6 @@ interface IPoll {
       votes?: string[];
       percentage?: number;
     }[];
-    expiresAt: Date;
+    expiresAt: string;
     totalVotes?: number;
   }

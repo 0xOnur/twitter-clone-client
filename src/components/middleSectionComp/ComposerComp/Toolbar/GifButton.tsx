@@ -1,9 +1,8 @@
+import { ComposerState, setTenorGif } from "@redux/slices/composerSlice";
 import { ComposerComp } from "@components/middleSectionComp";
-import { GIFIcon } from "@icons/Icon";
-import { ComposerState } from "@redux/slices/composerSlice";
-import classNames from "classnames";
 import { useModal } from "contexts/ModalContext";
-import React from "react";
+import { GIFIcon } from "@icons/Icon";
+import classNames from "classnames";
 
 interface IProps {
   composer: ComposerState;
@@ -15,7 +14,7 @@ const GifButton = ({composer}: IProps) => {
   const handleGif = () => {
     openModal(
       <ComposerComp.GIFMenu
-        composer={composer}
+        setAction={setTenorGif}
         closeModal={closeModal}
       />
     );

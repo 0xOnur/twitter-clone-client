@@ -37,15 +37,15 @@ const ChatToolbar = ({
     setMessageMedia({ mediaFile: file, mediaURL: url });
   };
 
-  const handleGif = () => {
-    openModal(
-      <ComposerComp.GIFMenu
-        tenorGif={tenorGif}
-        setTenorGif={setTenorGif}
-        closeModal={closeModal}
-      />
-    );
-  };
+  // const handleGif = () => {
+  //   openModal(
+  //     <ComposerComp.GIFMenu
+  //       tenorGif={tenorGif}
+  //       setTenorGif={setTenorGif}
+  //       closeModal={closeModal}
+  //     />
+  //   );
+  // };
 
   return (
     <div className="flex flex-row mr-1">
@@ -72,7 +72,7 @@ const ChatToolbar = ({
 
       <button
         title="GIF"
-        onClick={handleGif}
+        // onClick={handleGif}
         disabled={isMediaDisabled}
         className="flex min-w-[36px] min-h-[36px] items-center rounded-full hover:bg-primary-hover duration-200 disabled:cursor-not-allowed"
       >

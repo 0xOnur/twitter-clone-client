@@ -1,10 +1,10 @@
 import { AddThreadIcon, DropDownMenuArrowIcon } from "@icons/Icon";
 import React, {useState} from "react";
+import { useDispatch } from "react-redux";
+import { setShowPoll, setPollChoice, addPollChoice, setPollExpiresAt } from "@redux/slices/composerSlice";
 
 interface IProps {
-  setShowPoll: React.Dispatch<React.SetStateAction<boolean>>;
-  pollSettings: IPoll;
-  setPollSettings: React.Dispatch<React.SetStateAction<IPoll>>;
+  poll: IPoll;
 }
 type DurationType = "days" | "hours" | "minutes";
 
@@ -14,30 +14,22 @@ const durationOptions: Record<DurationType, number> = {
   minutes: 60,
 };
 
-const PollEditor = ({ setShowPoll, pollSettings, setPollSettings }: IProps) => {
+const PollEditor = ({ poll }: IProps) => {
+  const dispatch = useDispatch();
   const [pollDuration, setPollDuration] = useState({ days: 1, hours: 0, minutes: 0 });
 
-  const handleChoiceChange = (id: number | string, text: string) => {
-    setPollSettings((prev) => ({
-      ...prev,
-      choices: prev.choices.map((choice) =>
-        choice._id === id ? { ...choice, text } : choice
-      ),
-    }));
+  const handleChoiceChange = (id: number| string, text: string) => {
+    const index = poll.choices.findIndex((choice) => choice._id === id);
+    dispatch(setPollChoice({index, text}));
   };
 
   const handleAddChoice = () => {
-    setPollSettings((prev) => ({
-      ...prev,
-      choices: [
-        ...prev.choices,
-        {
-          _id: prev.choices.length + 1,
-          text: "",
-          votes: [],
-        },
-      ],
-    }));
+    const newChoice = {
+      _id: poll.choices.length + 1,
+      text: "",
+      votes: [],
+    }
+    dispatch(addPollChoice(newChoice));
   };
 
   const changePollTimer = (
@@ -54,11 +46,8 @@ const PollEditor = ({ setShowPoll, pollSettings, setPollSettings }: IProps) => {
       newDuration.hours * 60 * 60 * 1000 +
       newDuration.minutes * 60 * 1000
     );
-    
-    setPollSettings((prev) => ({
-      ...prev,
-      expiresAt,
-    }));
+
+    dispatch(setPollExpiresAt(expiresAt));
   };
 
   const TimeSelect = ({ type }: { type: DurationType }) => (
@@ -96,7 +85,7 @@ const PollEditor = ({ setShowPoll, pollSettings, setPollSettings }: IProps) => {
         <div className="flex flex-col">
           <div className="px-3 flex flex-row">
             <div className="w-full flex flex-col">
-              {pollSettings.choices.map((choice) => (
+              {poll.choices.map((choice) => (
                 <div key={choice._id} className="pb-3">
                   <div className="relative border-2 rounded-md focus-within:border-primary-base">
                     <input
@@ -126,7 +115,7 @@ const PollEditor = ({ setShowPoll, pollSettings, setPollSettings }: IProps) => {
                 </div>
               ))}
             </div>
-            {pollSettings.choices.length < 4 && (
+            {poll.choices.length < 4 && (
               <div className="flex flex-col-reverse">
                 <div className="mb-6 ml-1">
                   <button
@@ -162,7 +151,7 @@ const PollEditor = ({ setShowPoll, pollSettings, setPollSettings }: IProps) => {
           <div className="rounded-b-2xl h-14 hover:bg-red-remove duration-200">
             <button
               className="w-full h-full overflow-hidden text-red-removeText"
-              onClick={() => setShowPoll(false)}
+              onClick={() => dispatch(setShowPoll(false))}
             >
               Remove Poll
             </button>

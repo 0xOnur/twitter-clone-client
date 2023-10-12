@@ -1,23 +1,25 @@
 import useAutosizeTextArea from "@hooks/Composer/useAutosizeTextArea";
 import React, {useRef, useCallback} from 'react'
+import { useDispatch } from "react-redux";
+import { setTweetText } from "@redux/slices/composerSlice";
 
 type Props = {
     tweetText: string;
     composerMode: string | undefined;
-    setTweetText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const TextArea = ({tweetText, setTweetText, composerMode}:Props) => {
+const TextArea = ({tweetText, composerMode}:Props) => {
+  const dispatch = useDispatch();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   useAutosizeTextArea(textAreaRef, tweetText);
   
-  
   const handleTweetChange = useCallback(
     (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setTweetText(evt.target.value);
-    },[setTweetText]
+      dispatch(setTweetText(evt.target.value));
+    },[dispatch]
   );
+  
   return (
     <div className="relative flex-grow">
         <div className="py-3">

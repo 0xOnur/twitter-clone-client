@@ -1,9 +1,9 @@
 interface IPoll {
-    author: string;
+    author?: string;
     choices: {
       _id: number | string;
       text: string;
-      votes: string[];
+      votes?: string[];
       percentage?: number;
     }[];
     expiresAt: Date;

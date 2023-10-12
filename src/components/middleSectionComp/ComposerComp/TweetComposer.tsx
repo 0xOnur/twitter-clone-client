@@ -1,17 +1,12 @@
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {useComposerClean} from "@hooks/Composer/useComposerClean";
 import { ComposerComp } from "@components/index";
 import { RootState } from "@redux/config/store";
-import { TenorImage } from "gif-picker-react";
-import { createTweet } from "api/tweetApi";
-import { useSelector } from "react-redux";
 import MediaCard from "./ComposerMedia";
-import React, { useState } from "react";
 import Toolbar from "./Toolbar";
-import useToast from "@hooks/useToast";
 import { LoadingIcon } from "@icons/Icon";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { selectComposer } from "@redux/slices/composerSlice";
 
 type IProps = {
   composerMode: "tweet" | "reply" | "quote";
@@ -20,107 +15,17 @@ type IProps = {
 };
 
 const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
-  const queryClient = useQueryClient();
   const reduxUser = useSelector((state: RootState) => state.user);
-
-  const { showToast } = useToast();
-  const { cleanComposer } = useComposerClean();
-
-  const [showPoll, setShowPoll] = useState(false);
-
-  const [tweetText, setTweetText] = useState("");
-  const [tenorGif, setTenorGif] = useState<TenorImage>();
-
-  const [ComposerSettings, setComposerSettings] = useState<IComposer>({
-    audience: "everyone",
-    whoCanReply: "everyone",
-    mediaFiles: [],
-  });
-
-  const [pollSettings, setPollSettings] = useState<IPoll>({
-    author: reduxUser.user._id,
-    choices: [
-      {
-        _id: 1,
-        text: "",
-        votes: []
-      },
-      {
-        _id: 2,
-        text: "",
-        votes: []
-      },
-    ],
-    expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
-  });
-
-  const createTweetMutation = useMutation({
-    mutationKey: ["createTweet"],
-    mutationFn: createTweet,
-    onError: (err: any) => {
-      showToast(err?.message || "error", "error");
-    },
-    onSuccess: (res) => {
-      onClose && onClose();
-      //clear all states
-      cleanComposer({
-        setTweetText,
-        setTenorGif,
-        setComposerSettings,
-        setShowPoll,
-        setPollSettings,
-      });
-      showToast(res?.message || "Tweet created succesfully", "success");
-      queryClient.invalidateQueries();
-    },
-  });
-
-  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
-    const formData = new FormData();
-
-    formData.append("audience", ComposerSettings.audience);
-    formData.append("whoCanReply", ComposerSettings.whoCanReply);
-    formData.append("tweetType", composerMode);
-
-    tweetText.length > 0 && formData.append("content", tweetText);
-
-    if (originalTweet) {
-      formData.append("originalTweet", originalTweet._id);
-    }
-
-    if (tenorGif) {
-      const tenorMedia = [
-        {
-          url: tenorGif.url,
-          type: "gif",
-          alt: tenorGif.description,
-        },
-      ];
-      formData.append("tenorMedia", JSON.stringify(tenorMedia));
-    }
-
-    if (showPoll) {
-      formData.append("poll", JSON.stringify(pollSettings));
-    }
-
-    if (ComposerSettings.mediaFiles.length > 0) {
-      ComposerSettings.mediaFiles.forEach((file) => {
-        formData.append("mediaFiles", file.file);
-        formData.append("mediaType", file.type);
-      });
-    }
-
-    createTweetMutation.mutate(formData);
-  };
+  const composer = useSelector(selectComposer)
 
   const composerClass = classNames("flex flex-col", {
-    "contrast-50" : createTweetMutation.isLoading,
+    "contrast-50" : composer.isLoading,
   });
 
   return (
     <div>
       <div className="pt-1 relative ">
-        {createTweetMutation.isLoading && (
+        {composer.isLoading && (
           <div className="absolute z-10 flex w-full h-full items-center justify-center">
             <LoadingIcon />
           </div>
@@ -135,58 +40,47 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
             </div>
 
             <div className="flex flex-col w-full pt-1">
-              {(tweetText.length > 0 ||
-                ComposerSettings.mediaFiles.length > 0 ||
-                showPoll ||
-                tenorGif) &&
+              {(composer.tweetText.length > 0 ||
+                composer.mediaFiles.length > 0 ||
+                composer.showPoll ||
+                composer.tenorGif) &&
                 composerMode !== "reply" && (
                   <ComposerComp.ChooseAudience
-                    ComposerSettings={ComposerSettings}
+                    composerSettings={composer.settings}
                   />
                 )}
 
               <ComposerComp.TextArea
-                tweetText={tweetText}
-                setTweetText={setTweetText}
+                tweetText={composer.tweetText}
                 composerMode={composerMode}
               />
 
               <MediaCard
-                ComposerSettings={ComposerSettings}
-                setComposerSettings={setComposerSettings}
-                tenorGif={tenorGif}
-                setTenorGif={setTenorGif}
+                tenorGif={composer.tenorGif}
+                mediaFiles={composer.mediaFiles}
               />
 
-              {showPoll && (
+              {composer.showPoll && (
                 <ComposerComp.PollMenu
-                  setShowPoll={setShowPoll}
-                  pollSettings={pollSettings}
-                  setPollSettings={setPollSettings}
+                  poll={composer.poll}
                 />
               )}
 
-              {(tweetText.length > 0 ||
-                ComposerSettings.mediaFiles.length > 0 ||
-                showPoll ||
-                tenorGif) &&
+              {(composer.tweetText.length > 0 ||
+                composer.mediaFiles.length > 0 ||
+                composer.showPoll ||
+                composer.tenorGif) &&
                 composerMode !== "reply" && (
                   <ComposerComp.ChooseCanReply
-                    ComposerSettings={ComposerSettings}
+                    composerSettings={composer.settings}
                   />
                 )}
 
               <Toolbar
+                composer={composer}
                 composerMode={composerMode}
-                ComposerSettings={ComposerSettings}
-                setComposerSettings={setComposerSettings}
-                showPoll={showPoll}
-                setShowPoll={setShowPoll}
-                tweetText={tweetText}
-                setTweetText={setTweetText}
-                tenorGif={tenorGif}
-                setTenorGif={setTenorGif}
-                handleSubmit={handleSubmit}
+                originalTweet={originalTweet}
+                onClose={onClose}
               />
             </div>
           </div>

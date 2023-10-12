@@ -3,7 +3,7 @@ export {default as CanReplyMenu} from "./CanReplyMenu";
 export {default as ChooseAudience} from "./ChooseAudience";
 export {default as ChooseCanReply} from "./ChooseCanReply";
 export {default as CircleProgressBar} from "./CircleProgressBar";
-export {default as Emoji} from "./Emoji";
+export {default as Emoji} from "./Toolbar/Emoji";
 export {default as GIFMenu} from "./GIFMenu";
 export {default as PollMenu} from "./PollMenu";
 export {default as TweetComposer} from "./TweetComposer";

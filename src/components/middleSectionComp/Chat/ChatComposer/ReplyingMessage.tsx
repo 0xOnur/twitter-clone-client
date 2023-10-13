@@ -10,10 +10,6 @@ const ReplyingMessage = ({replyMessage}: IProps) => {
   const dispatch = useDispatch();
 
   if (!replyMessage) return null;
-  console.log(
-    "🚀 ~ file: ReplyingMessage.tsx:10 ~ ReplyingMessage ~ replyMessage:",
-    replyMessage
-  );
 
   const tweetURL =
     window.location.origin +

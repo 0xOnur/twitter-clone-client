@@ -1,5 +1,5 @@
 import { RootState } from "redux/config/store";
-import FollowUnfollow from "./FollowsButton";
+import FollowsButton from "./FollowsButton";
 import { useSelector } from "react-redux";
 import EditProfile from "./EditProfile";
 import Message from "./Message";
@@ -16,14 +16,14 @@ const UserActions = ({ user }: IProps) => {
     return null;
   }
 
-  if (reduxUser.user._id === user._id) {
+  if (reduxUser.user?._id === user._id) {
     return <EditProfile user={user} />;
   } else {
     return(
       <div className="flex flex-row gap-3 absolute right-0 top-0 py-3 px-4">
         <More user={user} />
         <Message />
-        <FollowUnfollow user={user} reduxUser={reduxUser} />
+        <FollowsButton user={user} reduxUser={reduxUser} />
       </div>
     );
   }

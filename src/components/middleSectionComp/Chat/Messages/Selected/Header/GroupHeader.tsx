@@ -21,7 +21,7 @@ const GroupHeader = ({ chat, reduxUser }: IProps) => {
   const participantsDisplayNames = chat.participants
     .slice(0, 2)
     .map((participant) => {
-      return participant.user._id === reduxUser.user._id
+      return participant.user._id === reduxUser.user?._id
         ? "You"
         : participant.user.displayName;
     });

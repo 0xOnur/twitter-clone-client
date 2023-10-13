@@ -49,14 +49,14 @@ const Conversations = ({ selectedChat }: IProps) => {
     const pinnedChatsExist = chats.data.some(
       (chat) =>
         chat.participants.find(
-          (participant) => participant.user._id === reduxUser.user._id
+          (participant) => participant.user._id === reduxUser.user?._id
         )?.isPinned
     );
 
     const pinnedChats = chats.data.filter((chat) =>
       chat.participants.find(
         (participant) =>
-          participant.user._id === reduxUser.user._id && participant.isPinned
+          participant.user._id === reduxUser.user?._id && participant.isPinned
       )
     );
 
@@ -64,7 +64,7 @@ const Conversations = ({ selectedChat }: IProps) => {
       (chat) =>
         !chat.participants.find(
           (participant) =>
-            participant.user._id === reduxUser.user._id && participant.isPinned
+            participant.user._id === reduxUser.user?._id && participant.isPinned
         )
     );
 

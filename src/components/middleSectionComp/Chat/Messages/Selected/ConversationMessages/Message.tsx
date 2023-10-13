@@ -19,7 +19,7 @@ const Message = ({ conversation, reduxUser, isMine, message }: IProps) => {
   const readBy = message.readBy?.map((user) => user._id);
 
   //check if reduxUser is in readBy array
-  const isRead = readBy?.includes(reduxUser.user._id);
+  const isRead = readBy?.includes(reduxUser.user?._id!);
 
   useEffect(() => {
     if (!isMine && !isRead && inView) {

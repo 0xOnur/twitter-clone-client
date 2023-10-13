@@ -1,9 +1,22 @@
+import { useDispatch, useSelector } from "react-redux";
 import Conversations from "./Conversations";
 import Messages from "./Messages";
 import { useParams } from "react-router-dom";
+import { RootState } from "@redux/config/store";
+import React from "react";
+import { clearMessageNotification } from "@redux/slices/userSlice";
 
 const MessagesPage = () => {
+  const dispatch = useDispatch();
+  const reduxUser = useSelector((state: RootState) => state.user);
+
   const { conversationId } = useParams();
+
+  React.useEffect(() => {
+    if (reduxUser?.messageNotifications?.length) {
+      dispatch(clearMessageNotification());
+    }
+  }, [dispatch, reduxUser]);
 
   if (conversationId) {
     return (

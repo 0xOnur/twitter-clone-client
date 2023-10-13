@@ -27,7 +27,7 @@ const SearchUser = ({
   );
 
   const peopleChatMembers = addPeopleChat?.participants
-    .filter((participant) => participant.user._id !== reduxUser.user._id)
+    .filter((participant) => participant.user._id !== reduxUser.user?._id)
     .map((user) => user.user._id);
 
   const isMemberGroup = peopleChatMembers?.includes(user._id);

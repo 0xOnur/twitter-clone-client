@@ -8,7 +8,7 @@ interface IProps {
   reduxUser: UserState;
 }
 
-const FollowUnfollow = ({ user, reduxUser }: IProps) => {
+const FollowsButton = ({ user, reduxUser }: IProps) => {
   const [followButtonText, setButtonText] = useState<"Following" | "Unfollow">(
     "Following" || "Unfollow"
   );
@@ -55,7 +55,7 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
 
   return (
     <div>
-      {reduxUser.user.following.includes(user._id) ? (
+      {reduxUser.user?.following.includes(user._id) ? (
         <button
           type="button"
           onClick={handleFollowClick}
@@ -78,4 +78,4 @@ const FollowUnfollow = ({ user, reduxUser }: IProps) => {
   );
 };
 
-export default FollowUnfollow;
+export default FollowsButton;

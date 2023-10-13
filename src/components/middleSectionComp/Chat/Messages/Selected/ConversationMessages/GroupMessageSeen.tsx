@@ -15,13 +15,13 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   const messageReadIDs = message.readBy?.filter(
-    (user) => user._id !== reduxUser.user._id
+    (user) => user._id !== reduxUser.user?._id
   );
 
   let seenText = "Sent";
 
   const participantsExceptCurrentUser = conversation.participants
-    .filter((p) => p.user._id !== reduxUser.user._id)
+    .filter((p) => p.user._id !== reduxUser.user?._id)
     .map((p) => p.user._id);
 
   const seenCount = participantsExceptCurrentUser.filter((participantId) =>

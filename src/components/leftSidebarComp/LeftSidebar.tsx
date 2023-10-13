@@ -1,60 +1,11 @@
-import { useUnreadNotifications } from "@hooks/Notifications/useUnreadNotifications ";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/config/store";
-import {
-  BookmarksIcon,
-  ExploreIcon,
-  HomeIcon,
-  MessagesIcon,
-  TweetIcon,
-  NotificationsIcon,
-  ProfileIcon,
-  TwitterIcon,
-} from "@icons/Icon";
-import SideLink from "./SideLink";
+import { TweetIcon, TwitterIcon } from "@icons/Icon";
 import UserBox from "./UserBox";
-import MoreButton from "./MoreButton";
+import Tabs from "./Tabs";
 
 const LeftSideBar = () => {
   const reduxUser = useSelector((state: RootState) => state.user);
-  const isAuthenticated = reduxUser.isAuthenticated;
-
-  const {notifCount} = useUnreadNotifications(isAuthenticated)
-
-  const sideLinks = [
-    {
-      name: "Home",
-      url: "/home",
-      icon: HomeIcon,
-    },
-    {
-      name: "Explore",
-      url: "/explore",
-      icon: ExploreIcon,
-    },
-    {
-      name: "Notifications",
-      url: "/notifications",
-      icon: NotificationsIcon,
-    },
-    {
-      name: "Messages",
-      url: "/messages",
-      icon: MessagesIcon,
-    },
-    {
-      name: "Bookmarks",
-      url: "/i/bookmarks",
-      icon: BookmarksIcon,
-    },
-    {
-      name: "Profile",
-      url: `/${reduxUser.user?.username}`,
-      icon: ProfileIcon,
-    },
-  ];
-
-  const authenticatedSideLinks = sideLinks.slice(2);
 
   return (
     <header className="flex flex-col grow-1 items-end z-50">
@@ -75,24 +26,9 @@ const LeftSideBar = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col w-full mt-0.5 mb-1 z-10">
-                <nav className="flex flex-col lg:items-start sm:items-center ">
-                  {sideLinks.slice(0, 2).map(({ name, url, icon }, index) => (
-                    <SideLink key={index} name={name} url={url} Icon={icon} />
-                  ))}
-                  {isAuthenticated &&
-                    authenticatedSideLinks.map(({ name, url, icon }, index) => (
-                      <SideLink key={index} name={name} url={url} Icon={icon} notifCount={notifCount} />
-                    ))}
-                  {isAuthenticated && (
-                    <div className="w-full">
-                      <MoreButton />
-                    </div>
-                  )}
-                </nav>
-              </div>
+              <Tabs reduxUser={reduxUser} />
 
-              {isAuthenticated && (
+              {reduxUser.isAuthenticated && (
                 <>
                   <div className="sm:visible lg:hidden my-4 w-fulll">
                     <button className="min-w-52px min-h-52px px-2 text-white bg-primary-base hover:bg-primary-dark shadow-lg rounded-full ">
@@ -109,7 +45,7 @@ const LeftSideBar = () => {
                 </>
               )}
             </div>
-            {isAuthenticated && <UserBox />}
+            {reduxUser.isAuthenticated && <UserBox />}
           </div>
         </div>
       </div>

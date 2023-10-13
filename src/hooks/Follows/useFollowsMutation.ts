@@ -26,7 +26,7 @@ const useFollowsMutation = ({ reduxUser, username, setButtonText }: IProps) => {
       showToast(err?.message || "error", "error");
     },
     onSuccess: (res) => {
-      dispatch(updateRedux(reduxUser.user.username));
+      dispatch(updateRedux(reduxUser.user?.username!));
       queryClient.invalidateQueries(["user", username]);
       setButtonText && setButtonText("Following");
       showToast(res?.message || "User followed", "info");
@@ -41,7 +41,7 @@ const useFollowsMutation = ({ reduxUser, username, setButtonText }: IProps) => {
       showToast(err?.message || "error", "error");
     },
     onSuccess: (res) => {
-      dispatch(updateRedux(reduxUser.user.username));
+      dispatch(updateRedux(reduxUser.user?.username!));
       queryClient.invalidateQueries(["user", username]);
       setButtonText && setButtonText("Unfollow");
       showToast(res?.message || "User unfollowed", "info");

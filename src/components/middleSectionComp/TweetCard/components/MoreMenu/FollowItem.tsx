@@ -14,7 +14,7 @@ const FollowItem = ({ user, reduxUser, onClose }: IProps) => {
     username: user.username,
   });
 
-  const isFollowing = reduxUser.user.following.includes(user._id);
+  const isFollowing = reduxUser.user?.following.includes(user._id);
 
   const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();

@@ -22,7 +22,7 @@ const NormalPreview = ({
   setSelectUsers,
 }: IProps) => {
   const otherParticipant = chat.participants.find(
-    (participant) => participant.user._id !== reduxUser.user._id
+    (participant) => participant.user._id !== reduxUser.user?._id
   );
 
   const newSelectedUsers = [...(selectedUsers || [])];
@@ -32,7 +32,7 @@ const NormalPreview = ({
   );
 
   const peopleChatMembers = addPeopleChat?.participants
-    .filter((participant) => participant.user._id !== reduxUser.user._id)
+    .filter((participant) => participant.user._id !== reduxUser.user?._id)
     .map((user) => user.user._id);
 
   const isMemberGroup = peopleChatMembers?.includes(

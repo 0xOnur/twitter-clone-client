@@ -1,4 +1,5 @@
 import { RootState } from "@redux/config/store";
+import { setNotification, setMessageNotification } from "@redux/slices/userSlice";
 import { useQueryClient } from "@tanstack/react-query";
 import React, {
   createContext,
@@ -8,7 +9,7 @@ import React, {
   useMemo,
   PropsWithChildren,
 } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { io, Socket } from "socket.io-client";
 
 type SocketContextProps = {
@@ -21,6 +22,7 @@ export const SocketContext = createContext<SocketContextProps>(
 
 const SocketProvider = ({ children }: PropsWithChildren) => {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state: RootState) => state.user);
   const baseURL = process.env.REACT_APP_API_BASE_URL;
 
@@ -30,7 +32,7 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
     if (isAuthenticated) {
       const newSocket = io(baseURL!, {
         transports: ["websocket"],
-        auth: { userId: user._id },
+        auth: { userId: user?._id },
       });
 
       setSocket(newSocket);
@@ -40,12 +42,13 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
         newSocket.disconnect();
       };
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, baseURL, user]);
 
 
   useEffect(() => {
     if(socket) {
       socket.on("getMessage", (data: IMessage) => {
+        dispatch(setMessageNotification(data));
         queryClient.invalidateQueries(["chats"]);
         queryClient.invalidateQueries(["chat", data.chat]);
         queryClient.invalidateQueries(["chatMessages", data.chat]);
@@ -55,12 +58,16 @@ const SocketProvider = ({ children }: PropsWithChildren) => {
         queryClient.invalidateQueries(["chats"]);
         queryClient.invalidateQueries(["chatMessages", data.chat]);
       });
+
+      socket.on("getNotification", (data: INotification) => {
+        dispatch(setNotification(data))
+      })
     }
-  }, [socket])
+  }, [socket, queryClient, dispatch])
 
   const SocketContextValues = useMemo(
     () => ({ socket }),
-    [socket, isAuthenticated]
+    [socket]
   );
 
 

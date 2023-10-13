@@ -16,7 +16,7 @@ const MessageDate = ({ isMine, message, reduxUser, conversation }: IProps) => {
   });
 
   const otherParticipants = conversation.participants.find(
-    (participant) => participant.user._id !== reduxUser.user._id
+    (participant) => participant.user._id !== reduxUser.user?._id
   );
 
   return (

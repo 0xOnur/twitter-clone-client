@@ -10,7 +10,7 @@ interface IProps {
 const BookmarkTweet = ({ reduxUser, tweet }: IProps) => {
   const { addBookmarkMutation, removeBookmarkMutation } = useBookmarkMutation(tweet._id);
 
-  const isBookmarked = tweet.bookmarks?.includes(reduxUser.user?._id);
+  const isBookmarked = tweet.bookmarks?.includes(reduxUser.user?._id!);
 
   const handleBookmark = () => {
     if (isBookmarked) {

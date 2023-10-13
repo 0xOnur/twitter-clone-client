@@ -46,22 +46,22 @@ const UserBox = () => {
           <div className="min-w-max">
             <img
               className="w-11 h-11 rounded-full object-cover"
-              src={reduxUser.avatar}
+              src={reduxUser?.avatar}
               alt="avatar"
             />
           </div>
           <div className="min-w-0 px-2 hidden lg:inline-block">
             <div className="flex flex-row items-center gap-1">
               <span className="truncate font-bold ">
-                {reduxUser.displayName}
+                {reduxUser?.displayName}
               </span>
               <span>
-                {reduxUser.isVerified && (
+                {reduxUser?.isVerified && (
                   <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
                 )}
               </span>
             </div>
-            <span className="flex text-gray-dark">@{reduxUser.username}</span>
+            <span className="flex text-gray-dark">@{reduxUser?.username}</span>
           </div>
           <div className="ml-auto hidden lg:inline-block">
             <TreeDotIcon className={"w-5 h-5"} />
@@ -86,7 +86,7 @@ const UserBox = () => {
               </a>
               <a href="/logout" className="py-6">
                 <div className="hover:bg-gray-dropdown  px-4 py-3">
-                  Log out @{reduxUser.username}
+                  Log out @{reduxUser?.username}
                 </div>
               </a>
             </div>

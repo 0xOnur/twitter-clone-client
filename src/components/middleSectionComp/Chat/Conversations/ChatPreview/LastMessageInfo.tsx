@@ -19,7 +19,7 @@ const LastMessageInfo = ({ chat, reduxUser, isReadByMe, isLastMessageByMe }: IPr
     <div>
       {chat.lastMessage?.type === "tweet" ? (
         <div className="truncate">
-          {chat.lastMessage.sender?._id === reduxUser.user._id ? (
+          {chat.lastMessage.sender?._id === reduxUser.user?._id ? (
             <p className={lastMessageClassNames}>You shared a post</p>
           ) : (
             <p className={lastMessageClassNames}>Shared a post</p>

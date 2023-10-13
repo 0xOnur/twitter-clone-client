@@ -12,7 +12,7 @@ const NormalHeader = ({ chat, reduxUser }: IProps) => {
   const navigate = useNavigate();
 
   const otherParticipant = chat.participants.find(
-    (participant) => participant.user._id !== reduxUser.user._id
+    (participant) => participant.user._id !== reduxUser.user?._id
   );
   return (
     <div className="sticky top-0 z-10">

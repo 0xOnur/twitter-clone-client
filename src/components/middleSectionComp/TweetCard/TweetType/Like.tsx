@@ -15,7 +15,7 @@ const Like = ({ tweet, isAuthenticated }: IProps) => {
   const {tab} = useParams()
 
   // Remove user liked tweets from homepage.
-  if(tweet.author._id === reduxUser.user._id && tab !== "likes") {
+  if(tweet.author._id === reduxUser.user?._id && tab !== "likes") {
     return null;
   }
   return (

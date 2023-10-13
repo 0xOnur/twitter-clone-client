@@ -14,7 +14,7 @@ const ConversationInfo = ({ chat, reduxUser }: IProps) => {
   const otherParticipants =
     chat.participants.length > 1
       ? chat.participants.filter(
-          (participant) => participant.user._id !== reduxUser.user._id
+          (participant) => participant.user._id !== reduxUser.user?._id
         )
       : [];
 

@@ -34,8 +34,8 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
           <div className="flex  flex-row w-full h-fit">
             <div className="w-14 h-14 pt-1">
               <Avatar
-                avatar={reduxUser.user.avatar!}
-                href={`/${reduxUser.user.username!}`}
+                avatar={reduxUser.user?.avatar!}
+                href={`/${reduxUser.user?.username!}`}
               />
             </div>
 

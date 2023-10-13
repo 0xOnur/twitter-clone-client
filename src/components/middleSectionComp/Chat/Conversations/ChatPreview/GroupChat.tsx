@@ -28,20 +28,20 @@ const GroupChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
   const participantsDisplayNames = chat.participants
     .slice(0, 2)
     .map((participant) => {
-      return participant.user._id === reduxUser.user._id
+      return participant.user._id === reduxUser.user?._id!
         ? "You"
         : participant.user.displayName;
     });
 
   const isPinned = chat.participants.find(
-    (participant) => participant.user._id === reduxUser.user._id
+    (participant) => participant.user._id === reduxUser.user?._id!
   )?.isPinned;
 
   const isLastMessageByMe =
-    chat.lastMessage?.sender?._id === reduxUser.user._id;
+    chat.lastMessage?.sender?._id === reduxUser.user?._id!;
 
   const isReadByMe =
-    chat.lastMessage?.readBy?.includes(reduxUser.user._id) || isLastMessageByMe;
+    chat.lastMessage?.readBy?.includes(reduxUser.user?._id!) || isLastMessageByMe;
 
   const chatClassNames = classNames(
     "grid grid-cols-chat w-full items-start p-4 duration-200 group",

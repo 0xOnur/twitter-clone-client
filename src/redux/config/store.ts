@@ -1,10 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import {
-  persistStore,
-  persistReducer,
-} from "redux-persist";
+import { persistStore, persistReducer } from "redux-persist";
 import userReducer from "../slices/userSlice";
 import chatReducer from "../slices/chatSlice";
 import composerReducer from "../slices/composerSlice";
@@ -12,7 +9,14 @@ import composerReducer from "../slices/composerSlice";
 const persistConfig = {
   key: "user",
   storage: storage,
-  whitelist: ["user", "accessToken", "refreshToken", "isAuthenticated"],
+  whitelist: [
+    "user",
+    "accessToken",
+    "refreshToken",
+    "isAuthenticated",
+    "notifications",
+    "messageNotifications",
+  ],
   blacklist: ["error", "isPending"],
 };
 

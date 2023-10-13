@@ -1,8 +1,8 @@
-import { MoreIcon } from "@icons/Icon";
-import { Portal } from "contexts/Portal";
-import React, { useState, useCallback, useEffect } from "react";
-import Menu from "./Menu";
+import { useState, useCallback, useEffect } from "react";
 import { usePopper } from "react-popper";
+import { Portal } from "contexts/Portal";
+import { MoreIcon } from "@icons/Icon";
+import Menu from "./Menu";
 
 const MoreButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);

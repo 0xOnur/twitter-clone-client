@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import UserCard from "./UserCard/Card";
 import { getUser } from "api/userApi";
 import UserFeed from "./UserFeed";
+import Title from "routes/Title";
 
 interface IProps {
   isAuthenticated:boolean;
@@ -21,6 +22,7 @@ const UserProfile = ({isAuthenticated}: IProps) => {
 
   return (
     <div className="container max-w-600px w-full border-x">
+      <Title title={`${userQuery.data?.displayName} (@${userQuery.data?.username}) `} />
       <HeaderComp.Header
         pageType="Profile"
         headerTitle={userQuery.data ? userQuery.data.displayName! : "Profile"}

@@ -15,80 +15,95 @@ import {
   ConnectPeopleLayout,
   MessagesLayout,
 } from "@layout/index";
+import React from "react";
+import Title from "./Title";
 
 interface IAppRoutes {
   isAuthenticated: boolean;
 }
 
+const withTitle = (component: React.ReactNode, title: string) => {
+  return (
+    <>
+      <Title title={title} />
+      {component}
+    </>
+  );
+};
+
 const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="home" />} />
-      
+
       <Route
         path="home"
-        element={<HomeLayout isAuthenticated={isAuthenticated} />}
+        element={withTitle(
+          <HomeLayout isAuthenticated={isAuthenticated} />,
+          "Home / Twitter"
+        )}
       />
 
       <Route
         path="login"
-        element={
+        element={withTitle(
           <PublicRoute isAuthenticated={isAuthenticated}>
             <AuthModal isOpen={false} mode="login" isRoute={true} />
-          </PublicRoute>
-        }
+          </PublicRoute>,
+          "Log in / Twitter"
+        )}
       />
       <Route
         path="signup"
-        element={
+        element={withTitle(
           <PublicRoute isAuthenticated={isAuthenticated}>
             <AuthModal isOpen={false} mode="signup" isRoute={true} />
-          </PublicRoute>
-        }
+          </PublicRoute>,
+          "Sign up / Twitter"
+        )}
       />
-      <Route path="logout" element={<Logout />} />
-    
+      <Route path="logout" element={withTitle(<Logout />, "Log out ")} />
+
       <Route
         path="explore"
-        element={<HomeLayout isAuthenticated={isAuthenticated} />}
+        element={withTitle(
+          <HomeLayout isAuthenticated={isAuthenticated} />,
+          "Explore / Twitter"
+        )}
       />
       <Route
         path="notifications"
-        element={
+        element={withTitle(
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <NotificationsLayout isAuthenticated={isAuthenticated} />
-          </PrivateRoute>
-        } 
+          </PrivateRoute>,
+          "Notifications / Twitter"
+        )}
       />
-      
+
       <Route
         path="messages"
-        element={
+        element={withTitle(
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <MessagesLayout />
-          </PrivateRoute>
-        }
+          </PrivateRoute>,
+          "Messages / Twitter"
+        )}
       >
-        <Route path=":conversationId"/>
-        <Route path=":conversationId/info"/>
+        <Route path=":conversationId" />
+        <Route path=":conversationId/info" />
       </Route>
 
       <Route
         path="i/bookmarks"
-        element={
+        element={withTitle(
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <BookmarksLayout isAuthenticated={isAuthenticated} />
-          </PrivateRoute>
-        }
+          </PrivateRoute>,
+          "Bookmarks / Twitter"
+        )}
       />
-      <Route
-        path="lists"
-        element={
-          <PrivateRoute isAuthenticated={isAuthenticated}>
-            <HomeLayout isAuthenticated={isAuthenticated} />
-          </PrivateRoute>
-        }
-      />
+
       <Route
         path=":username"
         element={<UserProfileLayout isAuthenticated={isAuthenticated} />}
@@ -130,11 +145,12 @@ const AppRoutes = ({ isAuthenticated }: IAppRoutes) => {
 
       <Route
         path="i/connect_people"
-        element={
+        element={withTitle(
           <PrivateRoute isAuthenticated={isAuthenticated}>
             <ConnectPeopleLayout isAuthenticated={isAuthenticated} />
-          </PrivateRoute>
-        }
+          </PrivateRoute>,
+          "Connect / Twitter"
+        )}
       />
     </Routes>
   );

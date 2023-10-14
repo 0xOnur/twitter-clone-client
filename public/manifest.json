@@ -1,9 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Twitter Clone",
+  "short_name": "Twitter",
+  "description": "A Twitter-like social media application for real-time microblogging and networking.",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "twitter.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
@@ -18,7 +19,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/home",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

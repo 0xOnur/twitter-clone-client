@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Replies from "./Replies";
 import useGetTweet from "@hooks/Tweet/Queries/useGetTweet";
+import Title from "routes/Title";
 
 const TweetDetails = () => {
   const { tweetId } = useParams<{ tweetId: string }>();
@@ -18,6 +19,7 @@ const TweetDetails = () => {
 
   return (
     <div className="container max-w-600px border-x">
+      <Title title={`${tweet?.author.displayName} on Twitter`} />
       <HeaderComp.Header pageType="TweetDetails" headerTitle="Tweet" />
       {status === "loading" && (
         <div className="flex justify-center items-center h-56">

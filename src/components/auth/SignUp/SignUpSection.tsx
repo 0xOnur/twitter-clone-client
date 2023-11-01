@@ -24,12 +24,11 @@ const SignUpSection = ({ title, mode, isRoute, setOpen }: IProps) => {
       <div>
         <div className="flex flex-col px-8 pb-12 ml-auto mr-auto max-w-sm">
           <SocialAuthButtons title={title} mode={mode} />
-
           <div className="my-3">
-            <div className="flex flex-row h-2 w-full mx-1 items-center">
-              <div className="h-0.5 w-full mx-1 bg-gray-300"></div>
-              <span className="mx-1 font-semibold">or</span>
-              <div className="h-0.5 w-full mx-1 bg-gray-300"></div>
+            <div className="flex flex-row h-2 w-full items-center">
+              <div className="h-0.5 w-full bg-gray-300"></div>
+              <span className="mx-2 font-semibold">or</span>
+              <div className="h-0.5 w-full bg-gray-300"></div>
             </div>
           </div>
           <div className="flex flex-col">
@@ -44,11 +43,11 @@ const SignUpSection = ({ title, mode, isRoute, setOpen }: IProps) => {
               </button>
             </div>
             <Terms />
-            <span className="mt-10 text-base text-gray-500">
+            <span className="mt-10 text-base">
               Have an account already?{" "}
               <a
                 href="/login"
-                className="text-primary-dark hover:underline underline-offset-auto"
+                className="text-[color:var(--color-primary)] hover:underline"
               >
                 Log in
               </a>

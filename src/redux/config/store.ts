@@ -2,9 +2,12 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
-import userReducer from "../slices/userSlice";
-import chatReducer from "../slices/chatSlice";
-import composerReducer from "../slices/composerSlice";
+import {
+  appearanceReducer,
+  chatComposerReducer,
+  composerReducer,
+  userReducer,
+} from "../slices";
 
 const persistConfig = {
   key: "user",
@@ -21,8 +24,13 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  appearance: persistReducer({
+    key: "appearance",
+    storage: storage,
+    whitelist: ["theme", "color", "fontSize", "boxShadow"],
+  }, appearanceReducer),
   user: persistReducer(persistConfig, userReducer),
-  chatComposer: chatReducer,
+  chatComposer: chatComposerReducer,
   composer: composerReducer,
 });
 

@@ -10,7 +10,12 @@ interface IProps {
   onClose?: () => void;
 }
 
-const SubmiButton = ({ composer, composerMode, originalTweet, onClose }: IProps) => {
+const SubmiButton = ({
+  composer,
+  composerMode,
+  originalTweet,
+  onClose,
+}: IProps) => {
   const { mutate } = useCreateTweetMutation();
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -53,9 +58,9 @@ const SubmiButton = ({ composer, composerMode, originalTweet, onClose }: IProps)
   };
 
   const tweetButtonClasses = classNames(
-    "border h-full px-3 rounded-full bg-primary-base text-white font-bold",
+    "h-full px-3 rounded-full bg-[color:var(--color-primary)] text-white font-bold",
     {
-      "hover:bg-primary-dark":
+      "hover:opacity-[0.85] duration-200":
         composer.mediaFiles.length > 0 || composer.tweetText.length > 0,
       "opacity-50":
         composer.tweetText.length === 0 &&
@@ -71,7 +76,6 @@ const SubmiButton = ({ composer, composerMode, originalTweet, onClose }: IProps)
         composer.tweetText.length === 0 &&
         !composer.tenorGif
       }
-      type="submit"
       className={tweetButtonClasses}
       onClick={handleSubmit}
     >

@@ -2,7 +2,7 @@ import { useDebouncedSearchUser } from "@hooks/useSearchUser";
 import useGetConversations from "@hooks/Chat/Queries/useGetConversations";
 import UserList from "@components/rightSidebarComp/Search/UserList";
 import PreviousChatPreview from "../CreateChat/previousChat";
-import { selectChatComposer } from "@redux/slices/chatSlice";
+import { selectChatComposer } from "@redux/slices/chatComposerSlice";
 import SelectedUsers from "../CreateChat/SelectedUsers";
 import { RootState } from "@redux/config/store";
 import SelectedGroups from "./SelectedGroups";
@@ -26,10 +26,10 @@ const ShareTweetModal = ({ tweet, closeModal }: IProps) => {
   const [selectedUsers, setSelectUsers] = useState<IUser[]>([]);
 
   const { data, isLoading } = useDebouncedSearchUser(searchText);
-  const previousChats = useGetConversations();
+  const { chats: previousChats } = useGetConversations();
 
   return (
-    <div className="z-10 text-black bg-white w-full max-w-600px rounded-xl overflow-hidden">
+    <div className="z-10 bg-[color:var(--background-primary)] w-full max-w-600px rounded-xl overflow-hidden">
       <div className="overflow-y-auto max-h-90vh">
         <div className="flex flex-col w-full min-h-400px">
           <div className="sticky top-0 z-10">
@@ -57,10 +57,10 @@ const ShareTweetModal = ({ tweet, closeModal }: IProps) => {
           </div>
           <div>
             {searchText.length === 0 &&
-              previousChats.data &&
-              previousChats.data.length > 0 && (
+              previousChats &&
+              previousChats.length > 0 && (
                 <div>
-                  {previousChats.data.map((chat) => (
+                  {previousChats.map((chat) => (
                     <PreviousChatPreview
                       key={chat._id}
                       chat={chat}

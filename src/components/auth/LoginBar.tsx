@@ -21,7 +21,7 @@ const LoginBar: React.FC = () => {
       {showModal && (
         <AuthModal isOpen={showModal} setOpen={setShowModal} mode={authMode} />
       )}
-      <div className="fixed bottom-0 left-0 w-full bg-primary-base shadow-md">
+      <div className="fixed bottom-0 left-0 w-full bg-[color:var(--color-primary)] shadow-box">
         <div className="container mx-auto px-4">
           <div className="my-3 flex flex-row justify-between items-center">
             <div className="flex flex-col">
@@ -37,7 +37,7 @@ const LoginBar: React.FC = () => {
                 <div>
                   <button
                     onClick={handleLogin}
-                    className="border border-white bg-transparent hover:backdrop-brightness-110 duration-200 rounded-full outline-none min-w-max h-9"
+                    className="h-9 rounded-full border border-white hover:backdrop-brightness-125 duration-200"
                   >
                     <span className="font-bold text-white px-4">Log in</span>
                   </button>
@@ -45,9 +45,9 @@ const LoginBar: React.FC = () => {
                 <div className="ml-3">
                   <button
                     onClick={handleSignUp}
-                    className="font-bold border border-white bg-white hover:brightness-90 duration-200 rounded-full outline-none min-w-max h-9 px-4"
+                    className="h-9 rounded-full bg-white hover:brightness-90 duration-200"
                   >
-                    Sign up
+                    <span className="font-bold text-black px-4">Sign up</span>
                   </button>
                 </div>
               </div>

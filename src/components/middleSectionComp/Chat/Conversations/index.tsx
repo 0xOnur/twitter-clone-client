@@ -1,10 +1,11 @@
 import useGetConversations from "@hooks/Chat/Queries/useGetConversations";
 import ChatWelcomeMessage from "./ChatWelcomeMessage";
-import { LoadingIcon, RetryIcon } from "@icons/Icon";
+import { LoadingIcon } from "@icons/Icon";
 import { RootState } from "@redux/config/store";
 import { useSelector } from "react-redux";
 import ChatPreview from "./ChatPreview";
 import ChatHeader from "./ChatHeader";
+import { RefetchError } from "@components/Others";
 
 interface IProps {
   selectedChat?: string;
@@ -12,11 +13,11 @@ interface IProps {
 
 const Conversations = ({ selectedChat }: IProps) => {
   const reduxUser = useSelector((state: RootState) => state.user);
-  const chats = useGetConversations();
+  const {chats, refetch, status} = useGetConversations();
 
-  if (chats.isLoading) {
+  if (status === "loading") {
     return (
-      <div className="flex flex-col border-x h-full w-full overflow-y-auto">
+      <div className="flex flex-col h-full w-full overflow-y-auto">
         <ChatHeader />
         <div className="flex flex-col items-center rounded-2xl p-5 m-3">
           <LoadingIcon />
@@ -25,42 +26,28 @@ const Conversations = ({ selectedChat }: IProps) => {
     );
   }
 
-  if (chats.error) {
+  if (status === "error") {
     return (
-      <div className="flex flex-col border-x h-full w-full overflow-y-auto">
-        <ChatHeader />
-        <div className="flex flex-col max-w-600px w-full justify-center items-center py-5 px-3">
-          <span className="mb-5 text-center">
-            Something went wrong. Try reloading.
-          </span>
-          <button
-            onClick={() => chats.refetch()}
-            className="flex gap-1 items-center px-4 py-2 min-h-[36px] bg-primary-base hover:bg-primary-dark duration-200 rounded-full"
-          >
-            <RetryIcon className="w-6 h-6 text-white" />
-            <span className="font-bold text-white">Retry</span>
-          </button>
-        </div>
-      </div>
+     <RefetchError refetch={refetch} />
     );
   }
 
-  if (chats.data && chats.data.length > 0) {
-    const pinnedChatsExist = chats.data.some(
+  if (chats && chats.length > 0) {
+    const pinnedChatsExist = chats.some(
       (chat) =>
         chat.participants.find(
           (participant) => participant.user._id === reduxUser.user?._id
         )?.isPinned
     );
 
-    const pinnedChats = chats.data.filter((chat) =>
+    const pinnedChats = chats.filter((chat) =>
       chat.participants.find(
         (participant) =>
           participant.user._id === reduxUser.user?._id && participant.isPinned
       )
     );
 
-    const normalChats = chats.data.filter(
+    const normalChats = chats.filter(
       (chat) =>
         !chat.participants.find(
           (participant) =>
@@ -69,7 +56,7 @@ const Conversations = ({ selectedChat }: IProps) => {
     );
 
     return (
-      <div className="flex flex-col border-x h-screen w-full overflow-hidden">
+      <div className="flex flex-col h-screen w-full overflow-hidden">
         <div className="overflow-y-auto flex-grow relative">
         <ChatHeader />
         {pinnedChatsExist ? (
@@ -107,7 +94,7 @@ const Conversations = ({ selectedChat }: IProps) => {
           </div>
         ) : (
           <div className="flex flex-col">
-            {chats.data.map((chat) => (
+            {chats.map((chat) => (
               <ChatPreview
                 key={chat._id}
                 chat={chat}
@@ -124,7 +111,7 @@ const Conversations = ({ selectedChat }: IProps) => {
   }
 
   return (
-    <div className="flex flex-col border-x h-full w-full overflow-y-auto">
+    <div className="flex flex-col h-full w-full overflow-y-auto">
       <ChatHeader />
       <ChatWelcomeMessage />
     </div>

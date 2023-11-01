@@ -21,10 +21,10 @@ const MessagesPage = () => {
   if (conversationId) {
     return (
       <div className="flex flex-row max-w-[990px] w-full">
-         <div className="w-full max-w-600px min-w-[320px] md:w-[390px] xl:w-[390px] hidden md:inline-block">
+         <div className="border-l-2 border-[color:var(--background-third)] w-full max-w-600px min-w-[320px] md:w-[390px] xl:w-[390px] hidden md:inline-block">
           <Conversations selectedChat={conversationId} />
         </div>
-        <div className="border-x w-full max-w-600px">
+        <div className="border-x-2 border-[color:var(--background-third)] w-full max-w-600px">
           <Messages conversationId={conversationId} />
         </div>
       </div>
@@ -33,10 +33,10 @@ const MessagesPage = () => {
 
   return (
     <div className="flex flex-row max-w-[990px] w-full">
-      <div className="w-full max-w-600px min-w-[320px] md:w-[390px] xl:w-[390px]">
+      <div className="border-x-2 border-[color:var(--background-third)] w-full max-w-600px min-w-[320px] md:w-[390px] xl:w-[390px]">
         <Conversations />
       </div>
-      <div className="border-r w-full max-w-600px  hidden md:inline-block">
+      <div className="border-r-2 border-[color:var(--background-third)] w-full max-w-600px hidden md:inline-block">
         <Messages />
       </div>
     </div>

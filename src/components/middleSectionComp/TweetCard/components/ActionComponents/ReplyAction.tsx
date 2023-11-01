@@ -1,4 +1,4 @@
-import { DigalogModals } from "@components/middleSectionComp";
+import { TweetModals } from "@components/middleSectionComp/DialogModals/";
 import { formatNumber } from "@utils/formatNumber";
 import { useModal } from "contexts/ModalContext";
 import { ReplyIcon } from "@icons/Icon";
@@ -26,7 +26,7 @@ const ReplyAction = ({
     e.stopPropagation();
     if (isAuthenticated) {
       openModal(
-        <DigalogModals.ReplyQuoteModal
+        <TweetModals.ReplyQuoteModal
           composerMode={"reply"}
           tweet={tweet}
           closeModal={closeModal}
@@ -43,17 +43,21 @@ const ReplyAction = ({
         className="group h-5 min-h-max"
       >
         <div className="flex flex-row">
-          <div className=" relative text-gray-dark group-hover:text-primary-base duration-150">
-            <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
-            <ReplyIcon className={"w-5 h-5"} />
+          <div className="relative">
+            <div className="absolute top-0 right-0 left-0 bottom-0 -m-2 group-hover:bg-blue-base/30 duration-150 rounded-full" />
+            <ReplyIcon
+              className={
+                "w-5 h-5 [color:var(--color-base-secondary)] group-hover:fill-blue-base"
+              }
+            />
           </div>
-          <div className="inline-flex  group-hover:text-primary-base">
-            <span className="px-3 text-sm">
-              {replyStats?.length > 0 &&
-                pageType === "home" &&
-                formatNumber(replyStats?.length)}
-            </span>
-          </div>
+          {replyStats?.length > 0 && pageType === "home" && (
+            <div className="inline-flex">
+              <span className="px-3 text-sm text-[color:var(--color-base-secondary)] group-hover:text-blue-base">
+                {formatNumber(replyStats?.length)}
+              </span>
+            </div>
+          )}
         </div>
       </button>
     </div>

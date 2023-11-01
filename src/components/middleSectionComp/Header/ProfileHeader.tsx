@@ -14,12 +14,12 @@ const ProfileHeader = ({title}:IProps) => {
 
   return (
     <div className="sticky top-0 z-30">
-      <div className="h-auto backdrop-blur-md bg-white/80">
+      <div className="h-auto bg-[color:var(--background-primary-alpha)] backdrop-blur-md">
         <div className="h-full">
-          <div className="flex flex-row gap-5 items-center cursor-pointer z-10 p-3">
+          <div className="grid grid-cols-[auto,1fr] gap-5 items-center cursor-pointer z-10 p-3">
             <div className="relative leading-5">
               <button onClick={handleBack}>
-                <div className="w-10 h-10 hover:bg-gray-extraLight duration-150 rounded-full flex justify-center items-center">
+                <div className="flex justify-center items-center w-10 h-10 hover:bg-[color:var(--background-third)] duration-150 rounded-full">
                   <BackIcon className="w-5 h-5" />
                 </div>
               </button>

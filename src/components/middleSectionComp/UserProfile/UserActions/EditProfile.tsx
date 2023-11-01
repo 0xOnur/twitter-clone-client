@@ -16,9 +16,11 @@ const EditProfile = ({ user }: IProps) => {
     <div className="absolute top-0 py-3 px-4 right-0">
       <button
         onClick={handleEditProfile}
-        className="px-4 py-2 text-base leading-5 font-bold border rounded-full hover:bg-gray-lightest duration-200"
+        className="min-h-[36px] min-w-[81px] px-4 rounded-full border-2 border-[color:var(--background-third)] bg-[color:var(--color-base)] hover:opacity-80 duration-200"
       >
-        Edit profile
+        <span className="leading-5 font-bold text-[color:var(--background-primary)]">
+          Edit profile
+        </span>
       </button>
     </div>
   );

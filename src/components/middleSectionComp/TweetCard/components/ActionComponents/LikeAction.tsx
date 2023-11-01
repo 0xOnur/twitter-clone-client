@@ -75,21 +75,21 @@ const LikeAction = ({
       className="group h-5 min-h-max"
     >
       <div className="flex flex-row">
-        <div className="inline-flex relative text-gray-dark group-hover:text-red-base duration-150">
-          <div className="absolute -m-2 group-hover:bg-red-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
+        <div className="relative">
+          <div className="absolute top-0 right-0 left-0 bottom-0 -m-2 rounded-full group-hover:bg-red-base/30 duration-150" />
           {isLiked ? (
-            <LikedIcon className={"w-5 h-5 fill-red-removeText"} />
+            <LikedIcon className={"w-5 h-5 text-red-base"} />
           ) : (
-            <LikeIcon className={"w-5 h-5"} />
+            <LikeIcon className={"w-5 h-5 text-[color:var(--color-base-secondary)] group-hover:text-red-base"} />
           )}
         </div>
-        <div className="inline-flex  group-hover:text-red-base">
-          <span className="px-3 text-sm">
-            {likeStats?.length > 0 &&
-              pageType === "home" &&
-              formatNumber(likeStats?.length)}
-          </span>
-        </div>
+        {likeStats?.length > 0 && pageType === "home" && (
+          <div className="inline-flex">
+            <span className="px-3 text-sm text-[color:var(--color-base-secondary)] group-hover:text-red-base">
+              {formatNumber(likeStats?.length)}
+            </span>
+          </div>
+        )}
       </div>
     </button>
   );

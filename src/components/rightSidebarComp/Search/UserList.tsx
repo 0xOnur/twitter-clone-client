@@ -41,7 +41,7 @@ const UserList = ({
       disabled={isAddedUser}
       type="button"
       onClick={handleClick}
-      className="flex w-full items-center px-4 py-3 hover:bg-gray-100 cursor-pointer disabled:cursor-not-allowed"
+      className="flex w-full items-center px-4 py-3 hover:bg-[color:var(--background-third)] cursor-pointer disabled:cursor-not-allowed"
     >
       <Avatar avatar={user?.avatar!} href={`/${user.username}`} />
       <div className="flex flex-col w-full min-w-0">
@@ -49,15 +49,15 @@ const UserList = ({
           <span className="truncate font-bold">{user.displayName}</span>
           <span>
             {user.isVerified && (
-              <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+              <VerifiedIcon className="w-5 h-5 mt-1 text-[color:var(--color-primary)]" />
             )}
           </span>
         </div>
-        <span className="flex text-sm text-gray-500">@{user.username}</span>
+        <span className="flex text-sm text-[color:var(--color-base-secondary)]">@{user.username}</span>
       </div>
       {isAddedUser && (
         <div>
-          <SelectedIcon className="w-5 h-5 fill-primary-base" />
+          <SelectedIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
         </div>
       )}
     </button>

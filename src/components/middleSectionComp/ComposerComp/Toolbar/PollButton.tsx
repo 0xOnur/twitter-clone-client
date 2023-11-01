@@ -10,18 +10,24 @@ interface IProps {
 const PollButton = ({ composer }: IProps) => {
   const dispatch = useDispatch();
 
-  const pollButtonClasses = classNames("w-fit p-2", {
-    "hover:bg-primary-extraLight rounded-full cursor-pointer":
-      composer.mediaFiles.length === 0 &&
-      !composer.tenorGif &&
-      !composer.showPoll,
+  const pollButtonClasses = classNames("relative w-fit p-2 group", {
     "opacity-50":
       composer.mediaFiles.length > 0 || composer.tenorGif || composer.showPoll,
   });
 
+  const hoverClassNames = classNames(
+    "absolute left-0 top-0 w-full h-full rounded-full opacity-30",
+    {
+      "group-hover:bg-[color:var(--color-secondary)] rounded-full":
+        composer.mediaFiles.length === 0 &&
+        !composer.tenorGif &&
+        !composer.showPoll,
+    }
+  );
+
   return (
     <button
-      type="button"
+      title="Poll"
       disabled={
         composer.mediaFiles.length > 0 ||
         !!composer.tenorGif ||
@@ -30,10 +36,9 @@ const PollButton = ({ composer }: IProps) => {
       onClick={() => dispatch(setShowPoll(true))}
       className={pollButtonClasses}
     >
-      <span className={"w-8 h-8"}>
-        <PollIcon
-          className={"w-5 h-5 text-primary-base fill-current font-bold"}
-        />
+      <div className={hoverClassNames} />
+      <span className="w-8 h-8">
+        <PollIcon className={"w-5 h-5 text-[color:var(--color-primary)]"} />
       </span>
     </button>
   );

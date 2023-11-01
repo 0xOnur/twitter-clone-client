@@ -21,7 +21,7 @@ const MessageDate = ({ isMine, message, reduxUser, conversation }: IProps) => {
 
   return (
     <div className={messageDateClassName}>
-      <div className="flex flex-row gap-1 text-gray-dark text-[13px] leading-4">
+      <div className="flex flex-row gap-1 text-[color:var(--color-base-secondary)] text-[13px] leading-4">
         <span>
           <time dateTime={message.createdAt}>
             {formatDetailedDate(message.createdAt!)}

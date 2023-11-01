@@ -6,30 +6,31 @@ type Props = {
 };
 
 const TweetContent = ({ tweet, pageType }: Props) => {
-  const contentAreaClasses = classNames({
-    "mt-3": pageType === "TweetDetails",
-  });
+  const contentAreaClasses = classNames(
+    "grid break-words min-w-0 overflow-hidden",
+    {
+      "mt-3": pageType === "TweetDetails",
+    }
+  );
 
-  const contentTextClasses = classNames("whitespace-pre-line", {
+  const contentTextClasses = classNames("whitespace-pre-line truncate", {
     "text-[23px] leading-7": pageType === "TweetDetails",
   });
 
   return (
     <div className={contentAreaClasses}>
-      <div>
-        {tweet.content && tweet.content.length > 280 && pageType === "home" ? (
-          <>
-            <span className={contentTextClasses}>
-              {tweet?.content!.slice(0, 280)}...
-            </span>
-            <span className="ml-1 text-primary-base hover:underline">
-              Show More
-            </span>
-          </>
-        ) : (
-          <span className={contentTextClasses}>{tweet?.content}</span>
-        )}
-      </div>
+      {tweet.content && tweet.content.length > 150 && pageType === "home" ? (
+        <>
+          <span className={contentTextClasses}>
+            {tweet?.content!.slice(0, 150)}...
+          </span>
+          <button className="flex ml-1 text-[color:var(--color-primary)] hover:underline">
+            Show More
+          </button>
+        </>
+      ) : (
+        <span className={contentTextClasses}>{tweet?.content}</span>
+      )}
     </div>
   );
 };

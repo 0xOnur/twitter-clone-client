@@ -1,4 +1,4 @@
-import { clearReplyMessage } from "@redux/slices/chatSlice";
+import { clearReplyMessage } from "@redux/slices/chatComposerSlice";
 import { useDispatch } from "react-redux";
 import { CancelIcon, UploadImageIcon } from "@icons/Icon";
 
@@ -16,9 +16,9 @@ const ReplyingMessage = ({replyMessage}: IProps) => {
     `/${replyMessage?.tweet?.author.username}/status/${replyMessage?.tweet?._id}`;
 
   return (
-    <div className="flex flex-row gap-1 items-center justify-between w-full py-2 px-3 bg-gray-message border-l-4 border-x-gray-700">
+    <div className="flex flex-row gap-1 items-center justify-between w-full py-2 px-3 bg-[color:var(--background-secondary)] border-l-4 border-[color:var(--color-primary)]">
       <div className="flex flex-col gap-1 shrink">
-        <span className="text-sm font-medium leading-4">
+        <span className="text-sm font-semibold leading-4">
           {replyMessage?.sender?.displayName}
         </span>
         <div className="grid">
@@ -46,10 +46,10 @@ const ReplyingMessage = ({replyMessage}: IProps) => {
       <div className="flex flex-row h-full items-center">
         <button
           onClick={() => dispatch(clearReplyMessage())}
-          className="flex items-center min-w-[36px] min-h-[36px] rounded-full hover:bg-gray-extraLight duration-200"
+          className="flex items-center min-w-[36px] min-h-[36px] rounded-full hover:bg-[color:var(--background-third)] duration-200"
         >
           <div className="flex grow justify-center">
-            <CancelIcon className="w-5 h-5 fill-gray-700" />
+            <CancelIcon className="w-5 h-5 text-[color:var(--color-base-secondary)]" />
           </div>
         </button>
       </div>

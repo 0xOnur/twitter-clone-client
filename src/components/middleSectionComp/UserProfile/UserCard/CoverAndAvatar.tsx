@@ -42,15 +42,15 @@ const CoverAndAvatar = ({ cover, avatar }: IProps) => {
           />
         </div>
       ) : (
-        <div className="h-[200px] bg-gray-defaultCover" />
+        <div className="h-[200px] bg-[color:var(--background-third)]" />
       )}
       {avatar && imagesAvailable.avatar ? (
         <div>
           <img
             onClick={() => {
-              handleOpenAvatar()
+              handleOpenAvatar();
             }}
-            className="absolute z-10 -bottom-1/3 left-4 w-[145px] h-[145px] object-cover rounded-full border-4 border-white cursor-pointer"
+            className="absolute z-10 -bottom-1/3 left-4 w-[145px] h-[145px] object-cover rounded-full border-4 border-[color:var(--background-primary)] cursor-pointer"
             src={avatar}
             alt="Profile avatar"
             onError={() => {
@@ -59,7 +59,7 @@ const CoverAndAvatar = ({ cover, avatar }: IProps) => {
           />
         </div>
       ) : (
-        <div className="absolute -bottom-1/3 left-4 w-[145px] h-[145px] rounded-full border-4 border-white bg-gray-50" />
+        <div className="absolute -bottom-1/3 left-4 w-[145px] h-[145px] rounded-full border-4 border-[color:var(--background-primary)] bg-[color:var(--background-third)]" />
       )}
     </div>
   );

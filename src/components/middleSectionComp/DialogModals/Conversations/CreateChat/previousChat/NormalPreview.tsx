@@ -61,7 +61,7 @@ const NormalPreview = ({
   };
 
   const chatClassNames = classNames(
-    "grid grid-cols-chat w-full items-start p-4 hover:bg-gray-extraLight duration-200 group",
+    "grid grid-cols-chat w-full items-start p-4 hover:bg-[color:var(--background-secondary)] duration-200 group",
     {
       "cursor-not-allowed opacity-50": isAddedUser || isMemberGroup,
     }
@@ -76,18 +76,18 @@ const NormalPreview = ({
         />
 
         <div className="flex flex-col">
-        <div className="grid grid-cols-content items-center gap-2">
-          <div className="flex gap-2 truncate">
-            <span className="font-bold truncate text-left">
-              {otherParticipant?.user.displayName}
-            </span>
-            {otherParticipant?.user.isVerified && (
-              <span className="font-bold text-left">
-                <VerifiedIcon className="w-5 h-5 text-primary-base" />
+          <div className="grid grid-cols-content items-center gap-2">
+            <div className="flex gap-2 truncate">
+              <span className="font-bold truncate text-left">
+                {otherParticipant?.user.displayName}
               </span>
-            )}
+              {otherParticipant?.user.isVerified && (
+                <span className="font-bold text-left">
+                  <VerifiedIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
+                </span>
+              )}
+            </div>
           </div>
-        </div>
           <p className="line-clamp-1 text-left">
             @{otherParticipant?.user.username}
           </p>
@@ -95,7 +95,7 @@ const NormalPreview = ({
 
         {(isAddedUser || isMemberGroup) && (
           <div>
-            <SelectedIcon className="w-5 h-5 fill-primary-base" />
+            <SelectedIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
           </div>
         )}
       </button>

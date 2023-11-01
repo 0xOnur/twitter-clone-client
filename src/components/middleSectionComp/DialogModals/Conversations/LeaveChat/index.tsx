@@ -9,14 +9,14 @@ const LeaveChatModal = ({ chatId, closeModal }: IProps) => {
   const { mutate } = useDeleteConversation();
 
   return (
-    <div className="z-10 border-2 shadow-2xl text-black bg-white max-w-600px rounded-xl overflow-hidden">
+    <div className="z-10 bg-[color:var(--background-primary)] max-w-600px rounded-xl overflow-hidden">
       <div className="overflow-y-auto max-h-90vh">
         <div className="flex flex-col p-8 max-w-[320px]">
           <h1 className="font-bold leading-6 text-xl mb-2">
             Leave conversation?
           </h1>
 
-          <span className="break-words text-[15px] leading-5">
+          <span className="break-words text-[15px] leading-5 text-[color:var(--color-base-secondary)]">
             This conversation will be deleted from your inbox. Other people in
             the conversation will still be able to see it.
           </span>
@@ -28,7 +28,7 @@ const LeaveChatModal = ({ chatId, closeModal }: IProps) => {
                 mutate(chatId);
                 closeModal();
               }}
-              className="flex items-center min-w-[44px] min-h-[44px] mb-3 whitespace-nowrap rounded-full bg-red-removeText hover:bg-red-600 duration-200"
+              className="flex items-center min-w-[44px] min-h-[44px] mb-3 whitespace-nowrap rounded-full bg-red-base hover:opacity-80 duration-200"
             >
               <div className="flex grow justify-center items-center">
                 <span className="font-bold leading-5 text-[15px] text-white">
@@ -40,7 +40,7 @@ const LeaveChatModal = ({ chatId, closeModal }: IProps) => {
             <button
               tabIndex={0}
               onClick={closeModal}
-              className="flex border-2 items-center min-w-[44px] min-h-[44px] mb-3 whitespace-nowrap rounded-full hover:bg-slate-200 duration-200"
+              className="flex border border-gray-500 items-center min-w-[44px] min-h-[44px] mb-3 rounded-full hover:bg-[color:var(--background-third)] duration-200"
             >
               <div className="flex grow justify-center items-center">
                 <span className="font-bold leading-5 text-[15px]">Cancel</span>

@@ -31,7 +31,7 @@ const Step2 = ({ onNext }: StepProps) => {
               phone number.
             </span>
             <div>
-              <div className="p-2 -m-2 h-9 w-9 cursor-pointer hover:bg-gray-extraLight rounded-full">
+              <div className="p-2 -m-2 h-9 w-9 cursor-pointer hover:bg-[color:var(--color-secondary)] rounded-full">
                 <input
                   type="checkbox"
                   id="checkbox1"

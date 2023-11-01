@@ -57,8 +57,8 @@ const Step5 = ({ onNext, onStepData, user }: StepProps) => {
   }
 
 
-  const usernameInputClasses = classNames("relative border-2 border-gray-300 rounded-lg", {
-    "border-primary-base": user.username.length>0,
+  const usernameInputClasses = classNames("relative border-2 border-gray-300 focus-within:border-[color:var(--color-primary)] rounded-lg", {
+    "border-blue-base": user.username.length>0,
   });
 
   const nextButtonClasses = classNames("w-full h-full rounded-full", {
@@ -91,7 +91,7 @@ const Step5 = ({ onNext, onStepData, user }: StepProps) => {
                 value={user.username}
                 onChange={handleUsernameChange}
               />
-              <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
+              <label className="absolute origin-0 top-0 p-4 -z-10 text-lg text-[color:var(--color-base-secondary)] duration-300">
                 Username
               </label>
               <label htmlFor="Choice1" className="second-label text-lg p-4">

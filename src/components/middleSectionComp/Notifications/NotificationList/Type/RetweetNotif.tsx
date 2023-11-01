@@ -29,7 +29,7 @@ const RetweetNotif = ({
   return (
     <a
       href={`/${receiver.username}/status/${tweetId}`}
-      className="flex flex-row py-3 px-4 hover:bg-gray-extraLight"
+      className="flex flex-row py-3 px-4 hover:bg-[color:var(--background-third)] duration-200"
     >
       <div className="flex flex-row ">
         <div className="mr-3">

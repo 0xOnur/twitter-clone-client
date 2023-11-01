@@ -1,7 +1,7 @@
 import useAutosizeTextArea from "@hooks/Composer/useAutosizeTextArea";
 import React, { useCallback, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setMessageContent } from "@redux/slices/chatSlice";
+import { setMessageContent } from "@redux/slices/chatComposerSlice";
 
 interface IProps {
   isDisabled?: boolean;
@@ -29,7 +29,7 @@ const MessageTextInput = ({
       <div className="flex grow z-10 w-full">
         <div className="w-full py-1 p-3">
           <textarea
-            className="focus:outline-none resize-none block w-full bg-transparent text-black max-h-[170px]"
+            className="max-h-[170px] resize-none block w-full bg-transparent focus:outline-none placeholder-[color:var(--color-base-secondary)]"
             onChange={handleMessageChange}
             placeholder={placeholder}
             value={messageContent}

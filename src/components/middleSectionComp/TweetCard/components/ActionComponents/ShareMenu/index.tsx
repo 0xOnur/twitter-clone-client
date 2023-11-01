@@ -12,7 +12,7 @@ interface IProps {
 
 const TweetShareMenu = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
   return (
-    <div className="absolute z-10 -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div className="overflow-hidden z-10 w-max rounded-2xl bg-[color:var(--background-primary)] shadow-box">
       <div className="flex flex-col">
         <CopyTweet tweet={tweet} />
 

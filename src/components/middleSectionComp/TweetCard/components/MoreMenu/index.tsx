@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { RootState } from "@redux/config/store";
 import { useSelector } from "react-redux";
-import { ListsIcon, TreeDotIcon } from "@icons/Icon";
-import DeleteItem from "./DeleteItem";
-import FollowItem from "./FollowItem";
-import CopyItem from "./CopyItem";
+import { TreeDotIcon } from "@icons/Icon";
 import { Portal } from "contexts/Portal";
 import { usePopper } from "react-popper";
+import Menu from "./Menu";
 
 interface IProps {
   isAuthenticated?: boolean;
@@ -70,9 +68,9 @@ const MoreMenu = ({ isAuthenticated, tweet }: IProps) => {
         className="group h-5 min-h-max"
       >
         <div className="flex flex-row">
-          <div className=" relative text-gray-dark group-hover:text-primary-dark duration-150">
-            <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
-            <TreeDotIcon className={"w-6 h-6"} />
+          <div className="relative">
+            <div className="absolute top-0 right-0 left-0 bottom-0 -m-2 opacity-30 rounded-full group-hover:bg-[color:var(--color-primary)] duration-150" />
+            <TreeDotIcon className={"w-5 h-5 text-[color:var(--color-base-secondary)] group-hover:text-[color:var(--color-primary)]"} />
           </div>
         </div>
       </button>
@@ -80,37 +78,17 @@ const MoreMenu = ({ isAuthenticated, tweet }: IProps) => {
       {showMoreMenu && (
         <Portal>
           <div
+            className="z-50"
             ref={setPopperElement}
             style={styles.popper}
             {...attributes.popper}
-            className="z-50 border bg-white rounded-2xl shadow-lg overflow-hidden"
           >
-            <div className="flex flex-col">
-              {isAuthenticated && reduxUser.user?._id !== tweet.author._id && (
-                <FollowItem
-                  user={tweet.author}
-                  reduxUser={reduxUser}
-                  onClose={onClose}
-                />
-              )}
-
-              {reduxUser.user?._id === tweet.author._id && (
-                <DeleteItem tweet={tweet} onClose={onClose} />
-              )}
-
-              <CopyItem tweet={tweet} onClose={onClose} />
-
-              <button className="flex flex-row cursor-not-allowed hover:bg-gray-lightest font-bold">
-                <div className="flex flex-row py-3 px-4 items-center">
-                  <div className="mr-2">
-                    <ListsIcon className={"w-5 h-5"} />
-                  </div>
-                  <div>
-                    <span>Add/remove @{tweet.author.username} from Lists</span>
-                  </div>
-                </div>
-              </button>
-            </div>
+            <Menu
+              tweet={tweet}
+              closeMenu={onClose}
+              reduxUser={reduxUser}
+              isAuthenticated={isAuthenticated}
+            />
           </div>
         </Portal>
       )}

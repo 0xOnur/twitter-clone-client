@@ -20,7 +20,7 @@ const DeleteMessage = ({ messageId, setOpenMore }: IProps) => {
   return (
     <button
       onClick={handleDelete}
-      className="flex flex-row items-center w-full py-3 px-4 hover:bg-gray-dropdown duration-200"
+      className="flex flex-row items-center w-full py-3 px-4 hover:bg-[color:var(--background-secondary)] duration-200"
     >
       <div className="flex pr-3 justify-center">
         <TrashIcon className="w-5 h-5" />

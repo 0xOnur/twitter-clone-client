@@ -1,9 +1,12 @@
 import MessageTextInput from "@components/middleSectionComp/Chat/ChatComposer/MessageTextInput";
 import SendButton from "@components/middleSectionComp/Chat/ChatComposer/SendButton";
 import useSendTweetViaMessage from "@hooks/Chat/Mutations/useSendTweet";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { ChatComposerState, clearChatComposer } from "@redux/slices/chatSlice";
+import { useEffect } from "react";
+import {
+  ChatComposerState,
+  clearChatComposer,
+} from "@redux/slices/chatComposerSlice";
 
 interface IProps {
   tweet: ITweet;
@@ -49,9 +52,9 @@ const Composer = ({
   }, [isSuccess, closeModal, dispatch]);
 
   return (
-    <div className="flex flex-col w-full border-t bg-white">
+    <div className="flex flex-col w-full border-t-2 border-[color:var(--background-third)] bg-[color:var(--background-primary)]">
       {isLoading && <div className="loader w-full" />}
-      <div className="flex flex-row items-center mx-3 my-1 mt-2 p-1 rounded-2xl bg-gray-message">
+      <div className="flex flex-row items-center mx-3 my-1 mt-2 p-1 rounded-2xl bg-[color:var(--background-third)]">
         <MessageTextInput
           placeholder="Add a comment"
           messageContent={chatComposer.messageContent}

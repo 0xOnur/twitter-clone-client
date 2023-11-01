@@ -1,8 +1,8 @@
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { useState, useCallback, useEffect } from "react";
 import Picker from "@emoji-mart/react";
 import { EmojiIcon } from "@icons/Icon";
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { Portal } from "contexts/Portal";
-import { useState, useCallback, useEffect } from "react";
 import { usePopper } from "react-popper";
 import { useDispatch } from "react-redux";
 
@@ -15,7 +15,8 @@ const EmojiButton = ({ prevText, setAction }: IProps) => {
   const dispatch = useDispatch();
   const [showEmoji, setShowEmoji] = useState(false);
 
-  let [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>();
+  let [referenceElement, setReferenceElement] =
+    useState<HTMLButtonElement | null>();
   let [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
 
   let { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -24,7 +25,11 @@ const EmojiButton = ({ prevText, setAction }: IProps) => {
 
   const handleOutsideClick = useCallback(
     (e: MouseEvent) => {
-      if (popperElement && !popperElement.contains(e.target as Node) && !referenceElement?.contains(e.target as Node)) {
+      if (
+        popperElement &&
+        !popperElement.contains(e.target as Node) &&
+        !referenceElement?.contains(e.target as Node)
+      ) {
         setShowEmoji(false);
       }
     },
@@ -49,11 +54,12 @@ const EmojiButton = ({ prevText, setAction }: IProps) => {
         title="Emoji"
         ref={setReferenceElement}
         onClick={() => setShowEmoji(!showEmoji)}
-        className="flex items-center min-w-[36px] min-h-[36px] rounded-full hover:bg-primary-hover duration-200 relative"
+        className="relative w-fit p-2 group"
       >
-        <div className="flex flex-grow justify-center items-center font-bold">
-          <EmojiIcon className="w-5 h-5 fill-primary-base" />
-        </div>
+        <div className="absolute inset-0 w-full h-full rounded-full group-hover:bg-[color:var(--color-primary)] opacity-10" />
+        <span className="w-8 h-8">
+          <EmojiIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
+        </span>
       </button>
 
       {showEmoji && (
@@ -63,10 +69,7 @@ const EmojiButton = ({ prevText, setAction }: IProps) => {
             style={styles.popper}
             {...attributes.popper}
           >
-            <Picker
-              onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
-              theme={"light"}
-            />
+            <Picker onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)} />
           </div>
         </Portal>
       )}

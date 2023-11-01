@@ -42,7 +42,7 @@ const UserBox = () => {
         type="button"
         className="flex flex-col lg:items-start sm:items-center cursor-pointer grow-1 w-full my-2 group relative"
       >
-        <div className="flex flex-row justify-center items-center w-full p-3 group-hover:bg-gray-extraLight duration-200 rounded-full">
+        <div className="flex flex-row justify-center items-center w-full p-3 group-hover:bg-[color:var(--background-third)] duration-200 rounded-full">
           <div className="min-w-max">
             <img
               className="w-11 h-11 rounded-full object-cover"
@@ -57,11 +57,13 @@ const UserBox = () => {
               </span>
               <span>
                 {reduxUser?.isVerified && (
-                  <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+                  <VerifiedIcon className="w-5 h-5 mt-1 text-[color:var(--color-primary)]" />
                 )}
               </span>
             </div>
-            <span className="flex text-gray-dark">@{reduxUser?.username}</span>
+            <div className="flex">
+              <span className=" truncate text-[color:var(--color-base-secondary)]">@{reduxUser?.username}</span>
+            </div>
           </div>
           <div className="ml-auto hidden lg:inline-block">
             <TreeDotIcon className={"w-5 h-5"} />
@@ -76,16 +78,15 @@ const UserBox = () => {
           className="z-50" 
           ref={setPopperElement}
         >
-          <div className="absolute text-left text-md font-bold z-10 w-72 mb-2 bottom-full h-32 py-3 rounded-3xl bg-white border border-gray-100  shadow-lg">
-            <hr />
-            <div className="pb-3">
+          <div className="z-10 w-72 mb-2 bottom-full bg-[color:var(--background-primary)] shadow-box rounded-2xl overflow-hidden">
+            <div className="font-bold">
               <a href="/" className="py-6">
-                <div className="hover:bg-gray-dropdown px-4 py-3 cursor-not-allowed">
+                <div className="px-4 py-3 cursor-not-allowed hover:bg-[color:var(--background-third)]">
                   Add an existing account
                 </div>
               </a>
               <a href="/logout" className="py-6">
-                <div className="hover:bg-gray-dropdown  px-4 py-3">
+                <div className="px-4 py-3 truncate hover:bg-[color:var(--background-third)]">
                   Log out @{reduxUser?.username}
                 </div>
               </a>

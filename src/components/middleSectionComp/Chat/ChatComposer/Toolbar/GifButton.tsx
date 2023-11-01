@@ -1,7 +1,7 @@
 import { GIFIcon } from "@icons/Icon";
 import { useModal } from "contexts/ModalContext";
 import React from "react";
-import { setTenorGif } from "@redux/slices/chatSlice";
+import { setTenorGif } from "@redux/slices/chatComposerSlice";
 import { ComposerComp } from "@components/middleSectionComp";
 
 const GifButton = () => {
@@ -9,22 +9,20 @@ const GifButton = () => {
 
   const handleGif = () => {
     openModal(
-        <ComposerComp.GIFMenu
-        setAction={setTenorGif}
-        closeModal={closeModal}
-      />
+      <ComposerComp.GIFMenu setAction={setTenorGif} closeModal={closeModal} />
     );
-  }
+  };
 
   return (
     <button
-      title="GIF"
+      title="Gif"
       onClick={handleGif}
-      className="flex min-w-[36px] min-h-[36px] items-center rounded-full hover:bg-primary-hover duration-200 disabled:cursor-not-allowed"
+      className="relative w-fit p-2 group"
     >
-      <div className="flex flex-grow justify-center items-center font-bold">
-        <GIFIcon className="w-5 h-5 fill-primary-base" />
-      </div>
+      <div className="absolute inset-0 w-full h-full rounded-full group-hover:bg-[color:var(--color-primary)] opacity-10" />
+      <span className="w-8 h-8">
+        <GIFIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
+      </span>
     </button>
   );
 };

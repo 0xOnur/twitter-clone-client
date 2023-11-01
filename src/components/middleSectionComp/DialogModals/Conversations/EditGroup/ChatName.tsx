@@ -12,7 +12,7 @@ const ChatName = ({ chatName, maxLength, setName }: IProps) => {
   };
 
   return (
-    <div className="relative w-full border border-gray-300 rounded-lg focus-within:border-primary-base">
+    <div className="relative w-full border border-gray-500 rounded-lg focus-within:border-[color:var(--color-primary)]">
       <input
         type="text"
         placeholder=" "

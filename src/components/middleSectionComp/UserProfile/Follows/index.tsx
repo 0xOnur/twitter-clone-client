@@ -33,7 +33,7 @@ const Follows = ({ isAuthenticated, followsTab }: IProps) => {
   };
 
   return (
-    <div className="container max-w-600px w-full border-x">
+    <div className="container max-w-600px w-full border-x-2 border-[color:var(--background-third)]">
       <Title
         title={`${
           followsTab === "followers" ? "People following" : "People followed by"
@@ -46,7 +46,6 @@ const Follows = ({ isAuthenticated, followsTab }: IProps) => {
           pageType="Profile"
           headerTitle={userQuery.data ? userQuery.data.displayName : "Profile"}
         />
-
         <HeaderComp.Header pageType="Follows" followsTab={followsTab} />
       </div>
       {renderFollowsUsers()}

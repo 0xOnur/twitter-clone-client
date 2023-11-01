@@ -5,9 +5,10 @@ import { getUserFollowers } from "api/userApi";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { LoadingIcon, RetryIcon, VerifiedIcon } from "@icons/Icon";
+import { LoadingIcon, VerifiedIcon } from "@icons/Icon";
 import { FollowsButton } from "@components/middleSectionComp/UserProfile";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
+import { RefetchError } from "@components/Others";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -45,7 +46,7 @@ const Followers = ({ isAuthenticated }: IProps) => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, isFetchingNextPage]);
+  }, [inView, hasNextPage, fetchNextPage]);
 
   if (status === "loading") {
     return (
@@ -56,20 +57,7 @@ const Followers = ({ isAuthenticated }: IProps) => {
   }
 
   if (status === "error") {
-    return (
-      <div className="flex flex-col max-w-600px w-full justify-center items-center py-5 px-3">
-        <span className="mb-5 text-center">
-          Something went wrong. Try reloading.
-        </span>
-        <button
-          onClick={() => refetch()}
-          className="flex gap-1 items-center px-4 py-2 min-h-[36px] bg-primary-base hover:bg-primary-dark duration-200 rounded-full"
-        >
-          <RetryIcon className="w-6 h-6 text-white" />
-          <span className="font-bold text-white">Retry</span>
-        </button>
-      </div>
-    );
+    return <RefetchError refetch={refetch} />;
   }
 
   if (data) {
@@ -83,7 +71,7 @@ const Followers = ({ isAuthenticated }: IProps) => {
                   <div key={user._id} className="flex flex-col w-full">
                     <div
                       onClick={() => navigate(`/${user.username}`)}
-                      className="cursor-pointer py-3 px-4 hover:bg-gray-tweetHover duration-200"
+                      className="cursor-pointer py-3 px-4 hover:bg-[color:var(--background-secondary)] duration-200"
                     >
                       <div className="flex flex-row ">
                         <Avatar avatar={user.avatar!} href={`/${username!}`} />
@@ -93,7 +81,7 @@ const Followers = ({ isAuthenticated }: IProps) => {
                               <span className="flex items-center gap-1 font-bold">
                                 {user.displayName}
                                 {user.isVerified && (
-                                  <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+                                  <VerifiedIcon className="w-5 h-5 mt-1 text-[color:var(--color-primary)]" />
                                 )}
                               </span>
                               <span className="">@{user.username}</span>

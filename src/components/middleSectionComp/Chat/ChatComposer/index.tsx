@@ -1,5 +1,5 @@
 import useSendMessage from "@hooks/Chat/Mutations/useSendMessage";
-import { clearChatComposer, selectChatComposer } from "@redux/slices/chatSlice";
+import { clearChatComposer, selectChatComposer } from "@redux/slices/chatComposerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import MessageTextInput from "./MessageTextInput";
 import ReplyingMessage from "./ReplyingMessage";
@@ -41,7 +41,7 @@ const ChatComposer = ({ conversationId }: IProps) => {
   };
 
   return (
-    <div className="border-t bg-white pb-1">
+    <div className="border-2 border-[color:var(--background-third)] bg-[color:var(--background-primary)] pb-1">
       {/* replying message */}
       <ReplyingMessage replyMessage={chatComposer.replyMessage} />
 
@@ -49,7 +49,7 @@ const ChatComposer = ({ conversationId }: IProps) => {
       {isLoading && <div className="loader w-full" />}
 
       {/* Composer */}
-      <div className="flex flex-col items-center mx-3 my-1 p-1 rounded-2xl bg-gray-message">
+      <div className="flex flex-col items-center mx-3 my-1 p-1 rounded-2xl bg-[color:var(--background-third)]">
         {(chatComposer.messageMedia.mediaURL || chatComposer.tenorGif) && (
           <Media
             tenorGif={chatComposer.tenorGif}

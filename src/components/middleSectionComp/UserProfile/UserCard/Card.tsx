@@ -22,9 +22,7 @@ const UserCard = ({ isLoading, error, user, username }: IProps) => {
   }
 
   if (error) {
-    return (
-      <NotFound username={username} />
-    );
+    return <NotFound username={username} />;
   }
 
   if (user) {
@@ -33,7 +31,7 @@ const UserCard = ({ isLoading, error, user, username }: IProps) => {
         <div className="flex flex-col">
           <CoverAndAvatar cover={user?.cover!} avatar={user?.avatar!} />
           <div className="flex flex-col pb-3 px-4 pt-[74px] relative">
-            <UserActions user={user}/>
+            <UserActions user={user} />
             <Username user={user} />
           </div>
         </div>

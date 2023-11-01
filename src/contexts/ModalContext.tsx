@@ -79,7 +79,7 @@ export const ModalProvider = ({ children }: IProps) => {
         // Modal backdrop
         <div
           onClick={handleOutsideClick}
-          className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-60"
+          className="fixed inset-0 bg-[color:var(--background-modal)] flex items-center justify-center z-20"
         >
           {modalContent}
         </div>

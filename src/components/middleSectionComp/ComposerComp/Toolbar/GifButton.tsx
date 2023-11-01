@@ -8,36 +8,44 @@ interface IProps {
   composer: ComposerState;
 }
 
-const GifButton = ({composer}: IProps) => {
+const GifButton = ({ composer }: IProps) => {
   const { openModal, closeModal } = useModal();
 
   const handleGif = () => {
     openModal(
-      <ComposerComp.GIFMenu
-        setAction={setTenorGif}
-        closeModal={closeModal}
-      />
+      <ComposerComp.GIFMenu setAction={setTenorGif} closeModal={closeModal} />
     );
   };
 
-  const gifButtonClasses = classNames("w-fit p-2", {
-    "hover:bg-primary-extraLight rounded-full":
-    composer.mediaFiles.length === 0 && !composer.tenorGif && !composer.showPoll,
+  const gifButtonClasses = classNames("relative w-fit p-2 group", {
     "opacity-50":
-    composer.mediaFiles.length > 0 || composer.tenorGif || composer.showPoll,
+      composer.mediaFiles.length > 0 || composer.tenorGif || composer.showPoll,
   });
+
+  const hoverClassNames = classNames(
+    "absolute left-0 top-0 w-full h-full rounded-full opacity-30",
+    {
+      "group-hover:bg-[color:var(--color-secondary)] rounded-full":
+        composer.mediaFiles.length === 0 &&
+        !composer.tenorGif &&
+        !composer.showPoll,
+    }
+  );
 
   return (
     <button
+      title="GIF"
       onClick={handleGif}
-      type="button"
       disabled={
-        composer.mediaFiles.length > 0 || !!composer.tenorGif || composer.showPoll
+        composer.mediaFiles.length > 0 ||
+        !!composer.tenorGif ||
+        composer.showPoll
       }
       className={gifButtonClasses}
     >
-      <span className="text-primary-base">
-        <GIFIcon className={"w-5 h-5 text-primary-base fill-current"} />
+      <div className={hoverClassNames} />
+      <span className="w-8 h-8">
+        <GIFIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
       </span>
     </button>
   );

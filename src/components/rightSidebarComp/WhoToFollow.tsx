@@ -1,9 +1,10 @@
 import { UserPreviewCard } from "@components/middleSectionComp/UserProfile";
-import { LoadingIcon, RetryIcon } from "@icons/Icon";
+import { LoadingIcon } from "@icons/Icon";
 import { useQuery } from "@tanstack/react-query";
 import { RootState } from "redux/config/store";
 import { useSelector } from "react-redux";
 import { whoToFollow } from "api/userApi";
+import { RefetchError } from "..";
 
 type WhoToFollowResponse = {
   page: number;
@@ -25,57 +26,52 @@ const WhoToFollow = () => {
 
   if (whoToFollowQuery.isLoading) {
     return (
-      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl mt-5">
-        <div className="p-3">
+      <div className="bg-[color:var(--background-secondary)] rounded-2xl mt-5">
+        <div className="flex flex-col gap-3 items-center py-3">
           <span className="text-xl font-bold">Who to follow</span>
+          <LoadingIcon />
         </div>
-        <LoadingIcon />
       </div>
     );
   }
 
-  if (whoToFollowQuery.isError) {
+  if (whoToFollowQuery!.isError) {
     return (
-      <div className="flex flex-col items-center bg-gray-rightbar rounded-2xl mt-5">
-        <div className="p-3">
+      <div className="bg-[color:var(--background-secondary)] rounded-2xl mt-5 max-h-[500px]">
+        <div className="flex flex-col gap-3 items-center py-3">
           <span className="text-xl font-bold">Who to follow</span>
+          <RefetchError
+            refetch={whoToFollowQuery.refetch}
+            customClassName="flex flex-col max-w-600px w-full h-full justify-center items-center py-5 px-3"
+          />
         </div>
-        <span className="mb-5 text-center">
-          Something went wrong. Try reloading.
-        </span>
-        <button
-          onClick={() => whoToFollowQuery.refetch()}
-          className="flex gap-1 items-center px-4 py-2 min-h-[36px] bg-primary-base hover:bg-primary-dark duration-200 rounded-full"
-        >
-          <RetryIcon className="w-6 h-6 text-white" />
-          <span className="font-bold text-white">Retry</span>
-        </button>
       </div>
     );
   }
 
   if (whoToFollowQuery.data.data) {
     return (
-      <div className="bg-gray-rightbar rounded-2xl mt-5">
-        <div className="p-3">
-          <span className="text-xl font-bold">Who to follow</span>
-        </div>
-
-        <div>
-          {whoToFollowQuery.data.data.map((user: IUser) => (
-            <UserPreviewCard
-              key={user._id}
-              user={user}
-              reduxUser={reduxUser}
-              showBio={false}
-            />
-          ))}
+      <div className="bg-[color:var(--background-secondary)] rounded-2xl mt-5">
+        <div className="flex flex-col gap-3">
+          <span className="text-xl font-bold px-3 pt-3">Who to follow</span>
+          <div>
+            {whoToFollowQuery.data.data.map((user: IUser) => (
+              <UserPreviewCard
+                key={user._id}
+                user={user}
+                reduxUser={reduxUser}
+                showBio={false}
+              />
+            ))}
+          </div>
         </div>
         <a
           href="/i/connect_people/"
-          className="flex flex-col w-full hover:bg-gray-trendsHover rounded-b-2xl px-3 py-4 duration-100"
+          className="flex flex-col w-full hover:bg-[color:var(--background-third)] rounded-b-2xl px-3 py-4 duration-100"
         >
-          <span className="text-primary-base">Show More</span>
+          <span className="font-semibold text-[color:var(--color-primary)]">
+            Show More
+          </span>
         </a>
       </div>
     );

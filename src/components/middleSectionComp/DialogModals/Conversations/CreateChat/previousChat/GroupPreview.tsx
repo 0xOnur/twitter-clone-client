@@ -62,7 +62,8 @@ const GroupPreview = ({
     });
 
   const chatClassNames = classNames(
-    "grid grid-cols-chat w-full items-start p-4 hover:bg-gray-extraLight duration-200 group",
+  isGroupMode,
+    "grid grid-cols-chat w-full items-start p-4 hover:bg-[color:var(--background-secondary)] duration-200 group",
     {
       "cursor-not-allowed opacity-50":
       !isMessageShare && (selectedUsers?.length! > 0 || isGroupMode),
@@ -120,8 +121,8 @@ const GroupPreview = ({
           selectedConversations.some(
             (selectedConversation) => selectedConversation._id === chat._id
           ) && (
-            <div className="">
-              <SelectedIcon className="w-5 h-5 fill-primary-base" />
+            <div>
+              <SelectedIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
             </div>
           )}
       </button>

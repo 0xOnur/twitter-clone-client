@@ -16,7 +16,7 @@ interface IProps {
   onClose: () => void;
 }
 
-const CanReplyMenu= ({ composerSettings, onClose }: IProps) => {
+const CanReplyMenu = ({ composerSettings, onClose }: IProps) => {
   const dispatch = useDispatch();
 
   const handleItemClick = (value: "everyone" | "following" | "mentioned") => {
@@ -26,7 +26,7 @@ const CanReplyMenu= ({ composerSettings, onClose }: IProps) => {
   };
 
   return (
-    <div className="flex flex-col py-3">
+    <div className="flex flex-col z-20 pt-3 w-80 bg-[color:var(--background-primary)] rounded-2xl shadow-box overflow-hidden">
       <div className="px-3 py-1">
         <span className="text-lg font-bold block">Who can reply?</span>
         <span>
@@ -35,22 +35,20 @@ const CanReplyMenu= ({ composerSettings, onClose }: IProps) => {
       </div>
 
       <button
-        className="hover:bg-gray-rightbar"
+        className="hover:bg-[color:var(--background-secondary)]"
         onClick={() => handleItemClick("everyone")}
       >
         <div className="flex items-center justify-between w-full px-4 py-3">
-          <div className="inline-flex items-center">
-            {}
-            <div className="flex justify-center items-center bg-primary-base w-10 h-10 mr-3 rounded-full">
+          <div className="flex items-center">
+            <div className="flex justify-center w-10 h-10 mr-3 items-center rounded-full bg-[color:var(--color-primary)]">
               <EveryoneIcon className={"h-5 w-5 text-white"} />
             </div>
             <span className="font-bold">Everyone</span>
           </div>
           {composerSettings.whoCanReply === "everyone" && (
-            <div className="">
-              <span className="text-primary-base">
-                {" "}
-                <SelectedIcon className={"w-5 h-5"} />{" "}
+            <div>
+              <span className="text-[color:var(--color-primary)]">
+                <SelectedIcon className={"w-5 h-5"} />
               </span>
             </div>
           )}
@@ -59,21 +57,20 @@ const CanReplyMenu= ({ composerSettings, onClose }: IProps) => {
 
       <button
         disabled={true}
-        className="hover:bg-gray-rightbar cursor-not-allowed"
+        className="hover:bg-[color:var(--background-secondary)] cursor-not-allowed"
         onClick={() => handleItemClick("following")}
       >
         <div className="flex items-center justify-between w-full px-4 py-3">
-          <div className="inline-flex items-center">
-            <div className="flex justify-center items-center bg-primary-base w-10 h-10 mr-3 rounded-full">
+          <div className="flex items-center">
+            <div className="flex justify-center w-10 h-10 mr-3 items-center rounded-full bg-[color:var(--color-primary)]">
               <TwiiterCircleIcon className={"h-5 w-5 text-white"} />
             </div>
             <span className="font-bold">People you follow</span>
           </div>
           {composerSettings.whoCanReply === "following" && (
             <div className="">
-              <span className="text-primary-base">
-                {" "}
-                <SelectedIcon className={"w-5 h-5"} />{" "}
+              <span className="[color:var(--color-primary)]">
+                <SelectedIcon className={"w-5 h-5"} />
               </span>
             </div>
           )}
@@ -82,21 +79,20 @@ const CanReplyMenu= ({ composerSettings, onClose }: IProps) => {
 
       <button
         disabled={true}
-        className="hover:bg-gray-rightbar cursor-not-allowed"
+        className="hover:bg-[color:var(--background-secondary)] cursor-not-allowed"
         onClick={() => handleItemClick("mentioned")}
       >
         <div className="flex items-center justify-between w-full px-4 py-3">
-          <div className="inline-flex items-center">
-            <div className="flex justify-center items-center bg-primary-base w-10 h-10 mr-3 rounded-full">
+          <div className="flex items-center">
+            <div className="flex justify-center w-10 h-10 mr-3 items-center rounded-full bg-[color:var(--color-primary)]">
               <MentionIcon className={"h-5 w-5 text-white"} />
             </div>
             <span className="font-bold">Only people you mention</span>
           </div>
           {composerSettings.whoCanReply === "mentioned" && (
             <div className="">
-              <span className="text-primary-base">
-                {" "}
-                <SelectedIcon className={"w-5 h-5"} />{" "}
+              <span className="[color:var(--color-primary)]">
+                <SelectedIcon className={"w-5 h-5"} />
               </span>
             </div>
           )}

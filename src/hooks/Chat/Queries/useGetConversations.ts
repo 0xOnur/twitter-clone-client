@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllConversations } from "api/chatApi";
 
 const useGetConversations = () => {
-  const chats = useQuery<IChat[]>({
+  const {data, refetch, status} = useQuery<IChat[]>({
     queryKey: ["chats"],
     queryFn: getAllConversations,
     refetchInterval: 10000,
   });
 
-  return chats;
+  return {chats: data, refetch, status};
 };
 
 export default useGetConversations;

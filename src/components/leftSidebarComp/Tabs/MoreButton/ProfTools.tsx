@@ -1,13 +1,16 @@
 import {
   DropDownMenuArrowIcon,
-  MonetizetionIcon,
-  ProfessionalHomeIcon,
   TwitterAdsIcon,
 } from "@icons/Icon";
+import classNames from "classnames";
 import React, { useState } from "react";
 
 const ProfTools = () => {
   const [profToolIsOpen, setProfToolOpen] = useState(false);
+
+  const dropDownIconClassNames = classNames({
+    "rotate-180 text-[color:var(--color-primary)]": profToolIsOpen,
+  });
 
   return (
     <div>
@@ -15,41 +18,25 @@ const ProfTools = () => {
         onClick={() => {
           setProfToolOpen(!profToolIsOpen);
         }}
-        className="flex hover:bg-gray-dropdown w-full p-4 justify-between"
+        className="flex hover:bg-[color:var(--background-third)] w-full p-4 justify-between"
       >
         <span>Professional Tools</span>
         <span
-          className={`${profToolIsOpen ? "rotate-180 text-primary-base " : ""}`}
+          className={dropDownIconClassNames}
         >
           <DropDownMenuArrowIcon />
         </span>
       </button>
 
       {profToolIsOpen && (
-        <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4 cursor-not-allowed">
-          <span>
-            <ProfessionalHomeIcon />
-          </span>
-          <span className="font-normal pl-3">Professional Home</span>
-        </button>
-      )}
-
-      {profToolIsOpen && (
-        <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4 cursor-not-allowed">
+        <button className="flex hover:bg-[color:var(--background-third)] w-full p-3 leading-4 cursor-not-allowed">
           <span>
             <TwitterAdsIcon />
           </span>
           <span className="font-normal pl-3">Twitter Ads</span>
         </button>
       )}
-      {profToolIsOpen && (
-        <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4 cursor-not-allowed">
-          <span>
-            <MonetizetionIcon />
-          </span>
-          <span className="font-normal pl-3">Monetization</span>
-        </button>
-      )}
+      
     </div>
   );
 };

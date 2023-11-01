@@ -10,7 +10,8 @@ import { useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
 import Header from "./Header";
 import ConversationInfo from "./ConversationInfo";
-import { LoadingIcon, RetryIcon } from "@icons/Icon";
+import { LoadingIcon } from "@icons/Icon";
+import { RefetchError } from "@components/Others";
 
 interface IProps {
   conversationId: string;
@@ -29,7 +30,7 @@ const SelectedConversation = ({ conversationId }: IProps) => {
     return () => {
       socket?.emit("leaveConversation", conversationId);
     };
-  }, [conversationId]);
+  }, [conversationId, socket]);
 
   const reduxUser = useSelector((state: RootState) => state.user);
   const { data, status, refetch } = useGetConversation({
@@ -53,18 +54,7 @@ const SelectedConversation = ({ conversationId }: IProps) => {
 
   if (status === "error") {
     return (
-      <div className="flex flex-col max-w-600px w-full h-full justify-center items-center py-5 px-3">
-        <span className="mb-5 text-center">
-          Something went wrong. Try reloading.
-        </span>
-        <button
-          onClick={() => refetch()}
-          className="flex gap-1 items-center px-4 py-2 min-h-[36px] bg-primary-base hover:bg-primary-dark duration-200 rounded-full"
-        >
-          <RetryIcon className="w-6 h-6 text-white" />
-          <span className="font-bold text-white">Retry</span>
-        </button>
-      </div>
+      <RefetchError refetch={refetch} />
     );
   }
 

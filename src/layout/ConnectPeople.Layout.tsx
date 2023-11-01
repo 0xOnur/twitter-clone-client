@@ -1,4 +1,3 @@
-import React from "react";
 import { RightSidebar, LeftSideBar, ConnectPeople } from "@components/index";
 
 interface IProps {

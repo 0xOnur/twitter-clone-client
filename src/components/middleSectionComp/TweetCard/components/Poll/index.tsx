@@ -1,17 +1,21 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getPoll, votePoll } from "api/tweetApi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useWinnerChoice from "@hooks/Poll/useWinnerChoice";
+import { votePoll } from "api/tweetApi";
+import { RootState } from "@redux/config/store";
+import { LoadingIcon } from "@icons/Icon";
+import { useSelector } from "react-redux";
+import useToast from "@hooks/useToast";
+import Choice from "./Choice";
 import {
   formatTimeRemaining,
   getTimeRemaining,
 } from "@utils/formatTimeRemaining";
-import { RootState } from "@redux/config/store";
-import { LoadingIcon } from "@icons/Icon";
-import { useSelector } from "react-redux";
-import Choice from "./Choice";
-import useToast from "@hooks/useToast";
+import useGetPoll from "@hooks/Poll/Queries/useGetPoll";
+import { RefetchError } from "@components/Others";
+
 
 interface IProps {
-isAuthenticated: boolean;
+  isAuthenticated: boolean;
   pollId: string;
 }
 
@@ -20,12 +24,7 @@ const Poll = ({ isAuthenticated, pollId }: IProps) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
 
-  const poll = useQuery<IPoll>({
-    queryKey: ["poll", pollId],
-    queryFn: () => getPoll(pollId),
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
+  const {poll, refetch, status} = useGetPoll(pollId)
 
   const voteMutation = useMutation({
     mutationKey: ["votePoll", pollId],
@@ -40,15 +39,14 @@ const Poll = ({ isAuthenticated, pollId }: IProps) => {
   });
 
   const handleVote = (choiceId: string) => {
-    console.log("🚀 ~ file: index.tsx:44 ~ handleVote ~ choiceId:", choiceId)
     if (isAuthenticated) {
-        voteMutation.mutate(choiceId);
-    }else {
-        showToast("You must be logged in to vote", "error");
+      voteMutation.mutate(choiceId);
     }
-  }
+  };
 
-  if (poll.isLoading) {
+  const winnerChoiceId = useWinnerChoice(poll?.choices);
+
+  if (status === "loading") {
     return (
       <div className="flex w-full items-center justify-center">
         <LoadingIcon />
@@ -56,39 +54,37 @@ const Poll = ({ isAuthenticated, pollId }: IProps) => {
     );
   }
 
-  const isPollExpired = Date.parse(new Date(poll.data?.expiresAt!).toISOString()) < Date.now()
-  const isPollAuthor = poll.data?.author === reduxUser.user?._id;
-  const isVoted = poll.data?.choices
-    .map((choice) => choice.votes)
-    .flat()
-    .includes(reduxUser.user?._id);
-
-  if (poll.data) {
+  if(status === "error") {
     return (
-      <div className="flex flex-col gap-2 mt-3">
-        {poll.data.choices.map((choice) => (
+      <RefetchError refetch={refetch} />
+    )
+  }
+
+  if (status === "success" && poll) {
+    return (
+      <div className="flex flex-col gap-2 my-3">
+        {poll.choices.map((choice) => (
           <Choice
             key={choice._id}
             choice={choice}
+            poll={poll}
             reduxUserId={reduxUser.user?._id}
             handleVote={handleVote}
-            isPollOwner={isPollAuthor}
-            isExpired={isPollExpired}
-            isVoted={isVoted}
+            isWinner={choice._id === winnerChoiceId}
           />
         ))}
-        <div className="flex flex-row gap-2">
-          <span>{poll.data?.totalVotes || 0} Vote</span>
+        <div className="flex flex-row gap-2 text-[color:var(--color-base-secondary)]">
+          <span>{poll.totalVotes || 0} Vote</span>
           <span>-</span>
           <span>
-            {formatTimeRemaining(getTimeRemaining(poll.data.expiresAt)) || 0}
+            {formatTimeRemaining(getTimeRemaining(poll.expiresAt)) || 0}
           </span>
         </div>
       </div>
     );
   }
 
-  return <div className="mt-3"></div>;
+  return null;
 };
 
 export default Poll;

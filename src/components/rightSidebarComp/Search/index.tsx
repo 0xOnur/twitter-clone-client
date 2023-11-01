@@ -36,10 +36,10 @@ const Search = () => {
 
   return (
     <div className="fixed top-0 xl:w-350px md:w-290px z-10">
-      <div className="py-1 bg-white">
-        <div className="flex items-center space-x-4 p-3 m-1 bg-gray-rightbar rounded-full text-gray-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-primary-base">
-          <div className="">
-            <SearchIcon className="w-5 h-5" />
+      <div className="py-1 bg-[color:var(--background-primary)] group">
+        <div className="flex items-center space-x-4 p-3 m-1 bg-[color:var(--background-third)] rounded-full focus-within:ring-1 focus-within:ring-[color:var(--color-primary)] ">
+          <div>
+            <SearchIcon className="w-5 h-5 text-[color:var(--color-base-secondary)] group-focus-within:text-[color:var(--color-primary)]" />
           </div>
           <input
             type="text"
@@ -50,23 +50,23 @@ const Search = () => {
               setSearchText(e.target.value);
             }}
             placeholder="Search Twitter"
-            className="placeholder-black bg-transparent focus:outline-none w-full "
+            className="placeholder-[color:var(--color-base-secondary)] font-semibold bg-transparent focus:outline-none w-full "
           />
           {searchText.length > 0 && (
             <button
               onClick={() => setSearchText("")}
               type="button"
               title="Clear"
-              className="right-5 items-center bg-primary-base hover:bg-primary-dark text-white p-0.5 rounded-full"
+              className="right-5 items-center bg-[color:var(--color-primary)] hover:opacity-80 p-1 rounded-full duration-200"
             >
-              <CancelIcon className="w-5 h-5" />
+              <CancelIcon className="w-4 h-4 text-[color:var(--background-primary)]" />
             </button>
           )}
         </div>
         {isFocused && (
           <div
             ref={searchResultsRef}
-            className="w-full border shadow-xl bg-white rounded-xl overflow-hidden"
+            className="w-full shadow-box bg-[color:var(--background-primary)] rounded-xl overflow-hidden"
           >
             <div className="flex flex-col min-h-[100px] max-h-[80vh] overflow-y-auto">
               {isLoading && searchText.length > 0 && (
@@ -76,7 +76,7 @@ const Search = () => {
               )}
               {searchText.length === 0 && (
                 <div className="p-3 pt-5">
-                  <span>Try searching for people, topics, or keywords</span>
+                  <span className="text-[color:var(--color-base-secondary)]">Try searching for people, topics, or keywords</span>
                 </div>
               )}
               {data?.length! > 0 && (

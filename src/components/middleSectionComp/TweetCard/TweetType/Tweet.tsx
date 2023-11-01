@@ -11,6 +11,7 @@ import { getSpecificTweetAuthor } from "api/tweetApi";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import ReplyTo from "../components/Other/ReplyTo";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -52,67 +53,54 @@ const Tweet = ({ tweet, hideActions, isReply, isAuthenticated }: IProps) => {
       )}
       <article
         onClick={navigateTweetDetails}
-        className="cursor-pointer max-w-full hover:bg-gray-tweetHover duration-200"
+        className="cursor-pointer relative group/tweet"
       >
-        <div className="px-4 min-w-fit">
-          <div className="flex flex-col pt-2">
-            <div className="flex flex-row">
-              {isReply ? (
-                <div className="flex flex-col justify-center items-center">
-                  <Avatar
-                    avatar={tweet.author.avatar!}
-                    href={`/${tweet.author.username}`}
-                  />
-                  <div className="w-px -ml-3 bg-gray-200 mt-1 h-full" />
-                </div>
-              ) : (
-                <Avatar
-                  avatar={tweet.author.avatar!}
-                  href={`/${tweet.author.username}`}
-                />
-              )}
-
-              <div className="flex flex-col flex-grow pb-3">
-                <AuthorInfo
-                  isAuthenticated={isAuthenticated}
-                  tweet={tweet}
-                  pageType="home"
-                />
-
-                {tweet.tweetType === "reply" && (
-                  <div>
-                    <span className="mr-1">Replying to</span>
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(
-                          `/${originalTweetAuthor.data?.username}/status/${tweet?.originalTweet}`
-                        );
-                      }}
-                      className="mr-1 text-primary-base hover:underline cursor-pointer"
-                    >
-                      @{originalTweetAuthor.data?.username}
-                    </span>
-                  </div>
-                )}
-
-                <TweetContent tweet={tweet} pageType="home" />
-
-                <TweetMedia tweet={tweet} />
-
-                {tweet?.pollId && (
-                  <Poll isAuthenticated={isAuthenticated} pollId={tweet.pollId} />
-                )}
-
-                {!hideActions && (
-                  <TweetActions
-                    pageType={"home"}
-                    tweet={tweet}
-                    isAuthenticated={isAuthenticated}
-                  />
-                )}
-              </div>
+        <div className="absolute w-full h-full -z-10 opacity-40 group-hover/tweet:bg-[color:var(--background-third)] duration-200" />
+        <div className="flex flex-row pt-3 px-4">
+          {isReply ? (
+            <div className="flex flex-col justify-center items-center">
+              <Avatar
+                avatar={tweet.author.avatar!}
+                href={`/${tweet.author.username}`}
+              />
+              <div className="w-[2px] -ml-3 mt-1 h-full bg-[color:var(--color-base-secondary)] opacity-30" />
             </div>
+          ) : (
+            <Avatar
+              avatar={tweet.author.avatar!}
+              href={`/${tweet.author.username}`}
+            />
+          )}
+
+          <div className="grid flex-grow pb-3">
+            <AuthorInfo
+              isAuthenticated={isAuthenticated}
+              tweet={tweet}
+              pageType="home"
+            />
+
+            {tweet.tweetType === "reply" && (
+              <ReplyTo
+                username={originalTweetAuthor.data?.username}
+                url={`/${originalTweetAuthor.data?.username}/status/${tweet?.originalTweet}`}
+              />
+            )}
+
+            <TweetContent tweet={tweet} pageType="home" />
+
+            <TweetMedia tweet={tweet} />
+
+            {tweet?.pollId && (
+              <Poll isAuthenticated={isAuthenticated} pollId={tweet.pollId} />
+            )}
+
+            {!hideActions && (
+              <TweetActions
+                pageType={"home"}
+                tweet={tweet}
+                isAuthenticated={isAuthenticated}
+              />
+            )}
           </div>
         </div>
       </article>

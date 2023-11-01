@@ -28,7 +28,7 @@ const GroupHeader = ({ chat, reduxUser }: IProps) => {
 
   return (
     <div className="z-10 top-0 sticky">
-      <div className="h-[53px] bg-white/80 backdrop-blur-md">
+      <div className="h-[53px] bg-[color:var(--background-primary-alpha)] backdrop-blur-md">
         <div className="flex flex-row max-w-600px w-full h-full items-center mx-auto px-5">
           <div className="flex flex-row h-full items-center w-full">
             <div onClick={(e) => e.stopPropagation()}>
@@ -78,9 +78,9 @@ const GroupHeader = ({ chat, reduxUser }: IProps) => {
               onClick={() => {
                 navigate(`/messages/${chat._id}/info`);
               }}
-              className="flex justify-center items-center min-w-[36px] min-h-[36px] hover:bg-gray-extraLight rounded-full duration-200"
+              className="flex justify-center items-center min-w-[36px] min-h-[36px] hover:bg-[color:var(--background-third)] rounded-full duration-200"
             >
-              <InfoIcon className="w-5 h-5 antialiased " />
+              <InfoIcon className="w-5 h-5 antialiased" />
             </button>
           </div>
         </div>

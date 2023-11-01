@@ -55,23 +55,22 @@ const SignInSection = ({ title, mode, isRoute, setOpen }: IProps) => {
   };
 
   if (isFetching) {
-    return(
+    return (
       <div className="flex h-full items-center justify-center">
         <LoadingIcon />
       </div>
-    )
+    );
   }
-  
 
   if (showPasswordSection) {
     return (
       <>
-      <AuthHeader isRoute={isRoute} setOpen={setOpen} />
-      <PasswordScreen
-        username={username}
-        password={password}
-        setPassword={setPassword}
-      />
+        <AuthHeader isRoute={isRoute} setOpen={setOpen} />
+        <PasswordScreen
+          username={username}
+          password={password}
+          setPassword={setPassword}
+        />
       </>
     );
   }
@@ -84,16 +83,16 @@ const SignInSection = ({ title, mode, isRoute, setOpen }: IProps) => {
           <SocialAuthButtons title={title} mode={mode} />
 
           <div className="my-3">
-            <div className="flex flex-row h-2 w-full mx-1 items-center">
-              <div className="h-0.5 w-full mx-1 bg-gray-300"></div>
-              <span className="mx-1 font-semibold">or</span>
-              <div className="h-0.5 w-full mx-1 bg-gray-300"></div>
+            <div className="flex flex-row h-2 w-full items-center">
+              <div className="h-0.5 w-full bg-gray-300"></div>
+              <span className="mx-2 font-semibold">or</span>
+              <div className="h-0.5 w-full bg-gray-300"></div>
             </div>
           </div>
           <div className="flex flex-col">
             <form onSubmit={handleNext}>
               <div className="py-3">
-                <div className="relative border-2 border-gray-300 rounded-sm focus-within:border-primary-base">
+                <div className="relative border-2 border-gray-300 rounded-sm focus-within:border-[color:var(--color-primary)]">
                   <input
                     type="text"
                     required={true}
@@ -103,7 +102,7 @@ const SignInSection = ({ title, mode, isRoute, setOpen }: IProps) => {
                     value={username}
                     onChange={handleUsernameChange}
                   />
-                  <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
+                  <label className="absolute origin-0 top-0 p-4 -z-10 text-lg text-[color:var(--color-base-secondary)] duration-300">
                     Username
                   </label>
                 </div>
@@ -135,7 +134,7 @@ const SignInSection = ({ title, mode, isRoute, setOpen }: IProps) => {
               <span>Don't have an account? </span>
               <a
                 href="/signup"
-                className="text-primary-dark hover:underline underline-offset-auto"
+                className="text-[color:var(--color-primary)] hover:underline"
               >
                 Sign up
               </a>

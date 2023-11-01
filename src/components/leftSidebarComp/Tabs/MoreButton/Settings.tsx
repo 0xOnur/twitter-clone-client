@@ -1,3 +1,4 @@
+import AppearanceDialog from "@components/middleSectionComp/DialogModals/Appearance";
 import {
   DisplayIcon,
   DropDownMenuArrowIcon,
@@ -6,20 +7,27 @@ import {
   SettingsIcon,
 } from "@icons/Icon";
 import classNames from "classnames";
+import { useModal } from "contexts/ModalContext";
 import React, { useState } from "react";
 
 const Settings = () => {
   const [settingsIsOpen, setSettingsOpen] = useState(false);
 
+  const {openModal, closeModal} = useModal()
+
+  const handleDisplay = () => {
+    openModal(<AppearanceDialog closeModal={closeModal} />)
+  }
+
   const settingsClassName = classNames(
-    "flex hover:bg-gray-dropdown w-full p-4 justify-between",
+    "flex hover:bg-[color:var(--background-third)] w-full p-4 justify-between",
     {
       "rounded-b-2xl": !settingsIsOpen,
     }
   );
 
-  const settingsIconClassName = classNames({
-    "rotate-180 text-primary-base ": settingsIsOpen,
+  const dropDownIconClassNames = classNames({
+    "rotate-180 text-[color:var(--color-primary)]": settingsIsOpen,
   });
 
   return (
@@ -31,12 +39,12 @@ const Settings = () => {
         }}
       >
         <span>Settings and Support</span>
-        <span className={settingsIconClassName}>
+        <span className={dropDownIconClassNames}>
           <DropDownMenuArrowIcon />
         </span>
       </button>
       {settingsIsOpen && (
-        <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4 cursor-not-allowed">
+        <button className="flex hover:bg-[color:var(--background-third)] w-full p-3 leading-4 cursor-not-allowed">
           <span>
             <SettingsIcon className="w-4 h-4" />
           </span>
@@ -44,7 +52,7 @@ const Settings = () => {
         </button>
       )}
       {settingsIsOpen && (
-        <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4 cursor-not-allowed">
+        <button className="flex hover:bg-[color:var(--background-third)] w-full p-3 leading-4 cursor-not-allowed">
           <span>
             <HelpCenterIcon />
           </span>
@@ -52,7 +60,7 @@ const Settings = () => {
         </button>
       )}
       {settingsIsOpen && (
-        <button className="flex hover:bg-gray-dropdown w-full p-3 leading-4">
+        <button onClick={handleDisplay} className="flex hover:bg-[color:var(--background-third)] w-full p-3 leading-4">
           <span>
             <DisplayIcon />
           </span>
@@ -60,7 +68,7 @@ const Settings = () => {
         </button>
       )}
       {settingsIsOpen && (
-        <button className="flex hover:bg-gray-dropdown w-full rounded-b-2xl p-3 leading-4 ">
+        <button className="flex hover:bg-[color:var(--background-third)] w-full rounded-b-2xl p-3 leading-4 ">
           <span>
             <KeyboardShorcutsIcons />
           </span>

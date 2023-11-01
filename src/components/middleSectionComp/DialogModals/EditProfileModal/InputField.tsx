@@ -22,7 +22,7 @@ const InputField = ({
       return (
         <div className="flex flex-col px-4">
           <div className="py-3">
-            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-primary-base">
+            <div className="relative border border-gray-600 rounded-lg focus-within:border-[color:var(--color-primary)]">
               <input
                 type="text"
                 placeholder=" "
@@ -45,7 +45,7 @@ const InputField = ({
       return (
         <div className="flex flex-col px-4">
           <div className="py-3">
-            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-primary-base">
+            <div className="relative border border-gray-600 rounded-lg focus-within:border-[color:var(--color-primary)]">
               <textarea
                 value={value}
                 placeholder=" "

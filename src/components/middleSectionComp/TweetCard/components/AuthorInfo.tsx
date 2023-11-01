@@ -7,55 +7,65 @@ interface IProps {
   isAuthenticated?: boolean;
   tweet: ITweet;
   pageType: "home" | "TweetDetails";
+  hideMore?:boolean;
 }
 
-const AuthorInfo = ({ isAuthenticated, tweet, pageType }: IProps) => {
-  const userFlexClasses = classNames("flex", {
-    "flex-row items-center": pageType === "home",
-    "flex-col": pageType === "TweetDetails",
+const AuthorInfo = ({ isAuthenticated, tweet, pageType, hideMore }: IProps) => {
+  const userFlexClasses = classNames("grid pr-5", {
+    "grid-cols-[auto,auto]": pageType === "home",
+    "grid-rows-2": pageType === "TweetDetails",
   });
 
+  const displayNameClassNames = classNames("grid gap-1 items-center pr-1", {
+    "grid-cols-[auto,1fr]": tweet.author.isVerified,
+    "grid-cols-[1fr]": !tweet.author.isVerified,
+  })
+
   return (
-    <div className="flex flex-col relative w-full">
-      <div className="flex flex-row justify-between items-center">
+    <div className="flex relative w-full">
+      <div className="flex flex-row w-full justify-between items-center">
         <div className={userFlexClasses}>
-          <div className="flex flex-row gap-1 items-center pr-1">
+          <div className={displayNameClassNames}>
             <a
               href={`/${tweet.author.username}`}
               onClick={(e) => e.stopPropagation()}
-              className="truncate max-w-[200px] font-bold cursor-pointer hover:underline duration-200"
+              className="truncate font-bold cursor-pointer hover:underline duration-200"
             >
               {tweet.author.displayName}
             </a>
             <span>
               {tweet.author.isVerified && (
-                <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+                <VerifiedIcon className="w-5 h-5 mt-1 text-[color:var(--color-primary)]" />
               )}
             </span>
           </div>
           {pageType === "home" ? (
-            <div className="min-w-fit">
+            <div className="grid grid-cols-[1fr,auto] gap-1 min-w-fit">
               <a
                 href={`/${tweet.author.username}`}
                 onClick={(e) => e.stopPropagation()}
-                className="text-gray-dark cursor-pointer truncate"
+                className="cursor-pointer truncate text-[color:var(--color-base-secondary)]"
               >
-                @{tweet.author.username} -{" "}
+                @{tweet.author.username} -
               </a>
-              <span>{formatDate(tweet.createdAt)}</span>
+              <span className="text-[color:var(--color-base-secondary)] line-clamp-1">
+                {formatDate(tweet.createdAt)}
+              </span>
             </div>
           ) : (
             <a
               href={`/${tweet.author.username}`}
               onClick={(e) => e.stopPropagation()}
-              className="text-gray-dark cursor-pointer truncate"
+              className="cursor-pointer truncate text-[color:var(--color-base-secondary)]"
             >
               @{tweet.author.username}
             </a>
           )}
         </div>
-
-        <MoreMenu isAuthenticated={isAuthenticated} tweet={tweet} />
+        
+        {!hideMore && (
+          <MoreMenu isAuthenticated={isAuthenticated} tweet={tweet} />
+        )}
       </div>
     </div>
   );

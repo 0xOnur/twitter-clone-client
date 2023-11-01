@@ -13,6 +13,7 @@ const LastMessageInfo = ({ chat, reduxUser, isReadByMe, isLastMessageByMe }: IPr
 
   const lastMessageClassNames = classNames("truncate text-left", {
     "font-bold": !isReadByMe,
+    "text-[color:var(--color-base-secondary)]": isReadByMe,
   });
 
   return (

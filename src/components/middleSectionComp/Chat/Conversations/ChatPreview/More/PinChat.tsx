@@ -20,7 +20,7 @@ const PinChat = ({ chatId, isPinned }: IProps) => {
   return (
     <button
       onClick={handlePin}
-      className="flex flex-row gap-2 py-3 px-4 items-center border-b hover:bg-gray-dropdown"
+      className="flex flex-row gap-2 py-3 px-4 items-center hover:bg-[color:var(--background-secondary)]"
     >
       {isPinned ? (
         <>

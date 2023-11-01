@@ -10,7 +10,7 @@ const ChatHeader = () => {
   };
 
   return (
-    <div className="sticky top-0 h-[56px] z-[2] backdrop-blur-md bg-white/80">
+    <div className="sticky top-0 h-[56px] z-10 backdrop-blur-md bg-[color:var(--background-primary-alpha)]">
       <div className="h-full w-full py-4">
         <div className="flex flex-row w-full h-full items-center justify-between px-4">
           <div>
@@ -21,14 +21,14 @@ const ChatHeader = () => {
               <button
                 disabled
                 title="Settings"
-                className="p-3 hover:bg-gray-extraLight rounded-full cursor-not-allowed"
+                className="p-3 hover:bg-[color:var(--background-third)] rounded-full cursor-not-allowed"
               >
                 <SettingsIcon className="w-5 h-5" />
               </button>
               <button
                 onClick={handleCompose}
                 title="New message"
-                className="p-3 hover:bg-gray-extraLight rounded-full"
+                className="p-3 hover:bg-[color:var(--background-third)] rounded-full"
               >
                 <MessagesIcon className="w-5 h-5" />
               </button>

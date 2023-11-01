@@ -1,12 +1,13 @@
 import { UserCardComp } from "@components/middleSectionComp/UserProfile";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CancelIcon, LoadingIcon } from "@icons/Icon";
 import { updateUser, updateRedux } from "api/userApi";
 import { AppDispatch } from "redux/config/store";
-import { useState } from "react";
+import { LoadingIcon } from "@icons/Icon";
 import { useDispatch } from "react-redux";
 import useToast from "@hooks/useToast";
 import InputField from "./InputField";
+import { useState } from "react";
+import Header from "./Header";
 
 interface IProps {
   user: IUser;
@@ -105,36 +106,15 @@ const EditProfileModal = ({ user, closeModal }: IProps) => {
           <LoadingIcon />
         </div>
       ) : (
-        <div className="z-10 border-2 shadow-2xl text-black bg-white w-full max-w-600px min-h-400px rounded-xl overflow-hidden">
+        <div className="z-10 shadow-2xl bg-[color:var(--background-primary)] w-full max-w-600px min-h-400px rounded-xl overflow-hidden">
           <div className="overflow-y-auto max-h-90vh">
+           
             <div className="sticky top-0 z-20">
-              <div className="flex h-[53px] items-center p-3 bg-white/75  backdrop-blur-md border-gray-200">
-                <div className="flex flex-row justify-between w-full items-center">
-                  <div className="flex flex-row gap-2 items-center">
-                    <button
-                      type="button"
-                      onClick={closeModal}
-                      className="p-3 hover:bg-gray-extraLight rounded-full"
-                    >
-                      <CancelIcon className={"w-5 h-5"} />
-                    </button>
-                    <span className="text-xl leading-6 font-bold">
-                      <h2>Edit profile</h2>
-                    </span>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleSave}
-                    className="min-w-32px min-h-[32px] px-4 bg-black hover:brightness-125 rounded-full"
-                  >
-                    <span className="text-white font-bold">Save</span>
-                  </button>
-                </div>
-              </div>
+              <Header closeModal={closeModal} handleSave={handleSave} />
             </div>
+            
             <div className="flex flex-col pb-4">
-              <div className="flex pb-16">
+              <div className="flex pb-20">
                 <UserCardComp.EditCoverAndAvatar
                   cover={cover}
                   setCover={setCover}
@@ -142,6 +122,7 @@ const EditProfileModal = ({ user, closeModal }: IProps) => {
                   setAvatar={setAvatar}
                 />
               </div>
+
               <InputField
                 type="input"
                 value={userInfo.displayName}

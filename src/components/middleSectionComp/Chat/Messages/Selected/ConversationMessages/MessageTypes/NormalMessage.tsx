@@ -30,10 +30,10 @@ const NormalMessage = ({
   });
 
   const messageBox = classNames(
-    "grid items-start border rounded-3xl box-border max-w-full py-3 px-4",
+    "grid items-start rounded-3xl box-border max-w-full py-3 px-4",
     {
-      "bg-primary-base text-white rounded-br-[4px]": isMine,
-      "bg-gray-message rounded-bl-[4px]": !isMine,
+      "bg-[color:var(--color-primary)] text-white rounded-br-[4px]": isMine,
+      "bg-[color:var(--background-third)] rounded-bl-[4px]": !isMine,
     }
   );
   return (

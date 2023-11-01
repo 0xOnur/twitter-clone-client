@@ -7,7 +7,6 @@ interface IProps {
 
 const BookmarksLayout = ({ isAuthenticated }: IProps) => {
   return (
-    <div>
       <div className="flex min-h-screen max-w-7xl mx-auto sticky">
         <LeftSideBar />
         <div className="flex flex-row gap-5 min-h-full w-full">
@@ -15,7 +14,6 @@ const BookmarksLayout = ({ isAuthenticated }: IProps) => {
           <RightSidebar isAuthenticated={isAuthenticated} />
         </div>
       </div>
-    </div>
   );
 };
 

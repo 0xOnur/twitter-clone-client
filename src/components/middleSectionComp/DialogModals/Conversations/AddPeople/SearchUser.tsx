@@ -33,7 +33,7 @@ const SearchUser = ({
   const isMemberGroup = peopleChatMembers?.includes(user._id);
 
   const chatClassNames = classNames(
-    "grid grid-cols-chat w-full items-start p-4 hover:bg-gray-extraLight duration-200 group",
+    "grid grid-cols-chat w-full items-start p-4 hover:bg-[color:var(--background-secondary)] duration-200 group",
     {
       "cursor-not-allowed opacity-50": isAddedUser || isMemberGroup,
     }
@@ -59,7 +59,7 @@ const SearchUser = ({
             </span>
             {user.isVerified && (
               <span className="font-bold text-left">
-                <VerifiedIcon className="w-5 h-5 text-primary-base" />
+                <VerifiedIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
               </span>
             )}
           </div>
@@ -70,7 +70,7 @@ const SearchUser = ({
 
       {(isAddedUser || isMemberGroup) && (
         <div>
-          <SelectedIcon className="w-5 h-5 fill-primary-base" />
+          <SelectedIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
         </div>
       )}
     </button>

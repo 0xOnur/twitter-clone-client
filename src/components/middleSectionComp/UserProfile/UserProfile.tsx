@@ -21,7 +21,7 @@ const UserProfile = ({isAuthenticated}: IProps) => {
   });
 
   return (
-    <div className="container max-w-600px w-full border-x">
+    <div className="container max-w-600px w-full border-x-2 border-[color:var(--background-third)]">
       <Title title={`${userQuery.data?.displayName} (@${userQuery.data?.username}) `} />
       <HeaderComp.Header
         pageType="Profile"

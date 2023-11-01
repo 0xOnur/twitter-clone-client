@@ -1,4 +1,4 @@
-import { clearMessageMedia } from "@redux/slices/chatSlice";
+import { clearMessageMedia } from "@redux/slices/chatComposerSlice";
 import { TenorImage } from "gif-picker-react";
 import { RemoveItemIcon } from "@icons/Icon";
 import { useDispatch } from "react-redux";
@@ -43,7 +43,7 @@ const Media = ({
           <button
             type="button"
             onClick={handleCleanMedia}
-            className="bg-gray-900 hover:bg-gray-700 text-white rounded-full w-8 h-8 flex items-center justify-center"
+            className="flex items-center justify-center text-white rounded-full w-8 h-8 bg-gray-900 hover:bg-gray-700 duration-200"
           >
             <RemoveItemIcon className={"w-5 h-5"} />
           </button>

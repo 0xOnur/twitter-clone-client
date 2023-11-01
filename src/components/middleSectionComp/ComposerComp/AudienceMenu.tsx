@@ -19,28 +19,28 @@ export const AudienceMenu = ({ composerSettings, onClose }: IProps) => {
   };
 
   return (
-    <div className="flex flex-col py-3">
-      <div className="px-3 py-1">
-        <span className="text-lg font-bold">Choose Audience</span>
+    <div className="flex flex-col w-64 bg-[color:var(--background-primary)] rounded-2xl z-20 shadow-box overflow-hidden">
+      <div className="p-3">
+        <span className="text-lg font-bold">Choose audience</span>
       </div>
 
       <button
-        className="hover:bg-gray-rightbar"
+        className="hover:bg-[color:var(--background-secondary)]"
         onClick={() => handleSetAudience("everyone")}
       >
         <div className="flex items-center justify-between w-full px-4 py-3">
-          <div className="inline-flex items-center">
-            {}
-            <div className="flex justify-center items-center bg-primary-base w-10 h-10 mr-3 rounded-full">
+          <div className="flex items-center">
+            <div className="flex justify-center items-center bg-[color:var(--color-primary)] w-10 h-10 mr-3 rounded-full">
               <EveryoneIcon className={"h-5 w-5 text-white"} />
             </div>
             <span className="font-bold">Everyone</span>
           </div>
           {composerSettings.audience === "everyone" && (
             <div>
-              <span className="text-primary-base">
-                {" "}
-                <SelectedIcon className={"w-5 h-5"} />{" "}
+              <span>
+                <SelectedIcon
+                  className={"w-5 h-5 [color:var(--color-primary)]"}
+                />
               </span>
             </div>
           )}
@@ -48,12 +48,12 @@ export const AudienceMenu = ({ composerSettings, onClose }: IProps) => {
       </button>
 
       <button
-        disabled={true}
-        className="hover:bg-gray-rightbar cursor-not-allowed"
+        disabled
+        className="hover:bg-[color:var(--background-secondary)] cursor-not-allowed"
         onClick={() => handleSetAudience("specificUsers")}
       >
         <div className="flex items-center justify-between w-full px-4 py-3">
-          <div className="inline-flex items-center">
+          <div className="flex items-center">
             <div className="flex justify-center items-center bg-green-500 w-10 h-10 mr-3 rounded-full">
               <TwiiterCircleIcon className={"h-5 w-5 text-white"} />
             </div>
@@ -61,9 +61,8 @@ export const AudienceMenu = ({ composerSettings, onClose }: IProps) => {
           </div>
           {composerSettings.audience === "specificUsers" && (
             <div>
-              <span className="text-primary-base">
-                {" "}
-                <SelectedIcon className={"w-5 h-5"} />{" "}
+              <span>
+                <SelectedIcon className={"w-5 h-5 text-green-500"} />
               </span>
             </div>
           )}

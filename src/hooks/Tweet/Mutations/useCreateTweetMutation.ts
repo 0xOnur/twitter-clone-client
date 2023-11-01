@@ -20,6 +20,7 @@ export const useCreateTweetMutation = () => {
       showToast(res?.message || "Tweet created succesfully", "success");
     },
     onError: (err: any) => {
+      dispatch(setIsLoading(false));
       showToast(err?.message || "Something went wrong", "error");
     },
   });

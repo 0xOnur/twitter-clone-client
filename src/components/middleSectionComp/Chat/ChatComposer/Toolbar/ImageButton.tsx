@@ -1,5 +1,5 @@
 import { ImageIcon } from "@icons/Icon";
-import { setMessageMedia } from "@redux/slices/chatSlice";
+import { setMessageMedia } from "@redux/slices/chatComposerSlice";
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -23,18 +23,14 @@ const ImageButton = () => {
         onChange={handleImageChange}
         hidden
       />
-
-      <div>
-        <label
-          htmlFor="chatMedia"
-          title="Image"
-          className="flex min-w-[36px] min-h-[36px] items-center rounded-full hover:bg-primary-hover duration-200 cursor-pointer"
-        >
-          <div className="flex flex-grow justify-center items-center font-bold">
-            <ImageIcon className="w-5 h-5 fill-primary-base" />
-          </div>
-        </label>
-      </div>
+      <label htmlFor="chatMedia" className="cursor-pointer" title="Media">
+        <div className="relative w-fit p-2 group">
+          <div className="absolute inset-0 w-full h-full rounded-full group-hover:bg-[color:var(--color-primary)] opacity-10" />
+          <span className="w-8 h-8">
+            <ImageIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
+          </span>
+        </div>
+      </label>
     </div>
   );
 };

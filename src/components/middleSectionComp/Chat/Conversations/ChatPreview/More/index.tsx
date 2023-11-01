@@ -29,8 +29,9 @@ const MoreMenu = ({ chatId, isPinned, setOpenMore }: IProps) => {
 
   return (
     <div ref={menuRef} className="absolute right-3 top-3 z-10">
-      <div className="flex flex-col bg-white border rounded-xl overflow-hidden shadow">
+      <div className="flex flex-col bg-[color:var(--background-primary)] shadow-box rounded-xl overflow-hidden">
         <PinChat chatId={chatId} isPinned={isPinned} />
+        <div className="h-0.5 bg-[color:var(--background-third)]" />
         <LeaveChat chatId={chatId} />
       </div>
     </div>

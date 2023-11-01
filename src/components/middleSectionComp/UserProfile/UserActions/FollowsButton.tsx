@@ -13,8 +13,11 @@ const FollowsButton = ({ user, reduxUser }: IProps) => {
     "Following" || "Unfollow"
   );
 
-  const {followUserMutation, unFollowUserMutation} = useFollowsMutation({reduxUser, username: user.username, setButtonText})
- 
+  const { followUserMutation, unFollowUserMutation } = useFollowsMutation({
+    reduxUser,
+    username: user.username,
+    setButtonText,
+  });
 
   const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -38,18 +41,14 @@ const FollowsButton = ({ user, reduxUser }: IProps) => {
   };
 
   const followerTextClasses = classNames(
-    "min-h-[36px] min-w-[110px] w-full h-full px-4 font-bold border rounded-full duration-200",
+    "min-h-[36px] min-w-[110px] w-full h-full px-4 font-bold rounded-full border-2 border-[color:var(--color-base-secondary)] duration-200",
     {
-      "hover:bg-red-remove hover:text-red-removeText duration-200":
+      "hover:bg-red-base/20 hover:text-red-base hover:border-red-base duration-200":
         followButtonText === "Unfollow",
     }
   );
 
-  const followTextClasses = classNames(
-    "min-h-[36px] h-full px-4 bg-black text-white font-bold border rounded-full hover:bg-slate-700 duration-200"
-  );
-
-  if(reduxUser.user?._id === user._id || !reduxUser.isAuthenticated) {
+  if (reduxUser.user?._id === user._id || !reduxUser.isAuthenticated) {
     return null;
   }
 
@@ -66,12 +65,14 @@ const FollowsButton = ({ user, reduxUser }: IProps) => {
           {followButtonText}
         </button>
       ) : (
-        <button 
+        <button
           type="button"
-          onClick={handleFollowClick} 
-          className={followTextClasses}
+          onClick={handleFollowClick}
+          className="min-h-[36px] min-w-[81px] h-full px-4 rounded-full border-2 border-[color:var(--background-third)] bg-[color:var(--color-base)] hover:opacity-80 duration-200"
         >
-          Follow
+          <span className="font-bold text-[color:var(--background-primary)]">
+            Follow
+          </span>
         </button>
       )}
     </div>

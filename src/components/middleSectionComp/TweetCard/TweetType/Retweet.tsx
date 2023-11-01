@@ -1,5 +1,5 @@
 import { ReTweetedBy } from "@components/middleSectionComp/TweetCard/components";
-import {TweetCard} from "@components/middleSectionComp/TweetCard";
+import { TweetCard } from "@components/middleSectionComp/TweetCard";
 
 interface IProps {
   tweet: ITweet;
@@ -8,9 +8,8 @@ interface IProps {
 
 const Retweet = ({ tweet, isAuthenticated }: IProps) => {
   return (
-    <article className="cursor-pointer hover:bg-gray-tweetHover duration-200">
-      <div className="min-w-fit">
-        <div className="flex flex-col pt-2">
+    <article className="group/tweet">
+        <div className="flex flex-col">
           <ReTweetedBy reTweeterUser={tweet.author} />
 
           <TweetCard
@@ -19,7 +18,6 @@ const Retweet = ({ tweet, isAuthenticated }: IProps) => {
             tweetId={tweet?.originalTweet!}
           />
         </div>
-      </div>
     </article>
   );
 };

@@ -9,7 +9,6 @@ import Search from "../Tools/Search";
 import Header from "./Header";
 import SearchUser from "./SearchUser";
 
-
 interface IProps {
   group: IChat;
   closeModal: () => void;
@@ -20,14 +19,18 @@ const AddPeopleModal = ({ group, closeModal }: IProps) => {
   const [searchText, setSearchText] = useState("");
   const [selectedUsers, setSelectUsers] = useState<IUser[]>([]);
   const { data, isLoading } = useDebouncedSearchUser(searchText);
-  const previousChats = useGetConversations();
+  const { chats: previousChats } = useGetConversations();
 
   return (
-    <div className="z-10 text-black bg-white w-full max-w-600px rounded-xl overflow-hidden">
+    <div className="z-10 bg-[color:var(--background-primary)] w-full max-w-600px rounded-xl overflow-hidden">
       <div className="overflow-y-auto max-h-90vh">
         <div className="flex flex-col w-full min-h-400px">
           <div className="sticky top-0 z-20">
-            <Header chat={group} closeModal={closeModal} selectedUsers={selectedUsers} />
+            <Header
+              chat={group}
+              closeModal={closeModal}
+              selectedUsers={selectedUsers}
+            />
             <div className="flex flex-col relative">
               <Search searchText={searchText} setSearchText={setSearchText} />
 
@@ -44,10 +47,10 @@ const AddPeopleModal = ({ group, closeModal }: IProps) => {
 
           <div>
             {searchText.length === 0 &&
-              previousChats.data &&
-              previousChats.data.length > 0 && (
+              previousChats &&
+              previousChats.length > 0 && (
                 <div>
-                  {previousChats.data
+                  {previousChats
                     ?.filter((chat) => !chat.isGroupChat)
                     .map((normalChat) => (
                       <PreviousChatPreview

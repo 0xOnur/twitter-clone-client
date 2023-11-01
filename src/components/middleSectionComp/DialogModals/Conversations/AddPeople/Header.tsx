@@ -21,16 +21,16 @@ const Header = ({ chat, closeModal, selectedUsers }: IProps) => {
 
   useEffect(() => {
     if (isSuccess) closeModal();
-  }, [isSuccess]);
+  }, [isSuccess, closeModal]);
 
   return (
-    <div className="flex flex-row h-[53px] justify-between py-3 px-1 pr-3 bg-white border-gray-200">
-      <div className="flex flex-row items-center gap-3">
+    <div className="flex flex-row h-[53px] justify-between py-3 px-1 pr-3 bg-[color:var(--background-primary)]">
+      <div className="flex flex-row items-center gap-3 mx-2">
         <button
-          title={"Close"}
+          title="Close"
           type="button"
           onClick={closeModal}
-          className="p-3 hover:bg-gray-extraLight rounded-full"
+          className="p-2 hover:bg-[color:var(--background-third)] rounded-full"
         >
           <CancelIcon className={"w-5 h-5"} />
         </button>
@@ -46,9 +46,11 @@ const Header = ({ chat, closeModal, selectedUsers }: IProps) => {
           type="button"
           onClick={handleAdd}
           disabled={!isReadyToAdd}
-          className="disabled:opacity-50 bg-black text-white py-2 px-4 rounded-full font-bold"
+          className="disabled:opacity-50 bg-[color:var(--color-base)] hover:opacity-80 py-2 px-4 rounded-full duration-200"
         >
-          Add
+          <span className="font-semibold text-[color:var(--background-primary)]">
+            Add
+          </span>
         </button>
       </div>
     </div>

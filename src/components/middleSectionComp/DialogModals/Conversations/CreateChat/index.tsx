@@ -23,10 +23,10 @@ const ChatComposeModal = ({ closeModal }: IProps) => {
 
   const { data, isLoading } = useDebouncedSearchUser(searchText);
 
-  const previousChats = useGetConversations();
+  const { chats: previousChats } = useGetConversations();
 
   return (
-    <div className="z-10 text-black bg-white w-full max-w-600px rounded-xl overflow-hidden">
+    <div className="z-10 bg-[color:var(--background-primary)] w-full max-w-600px rounded-xl overflow-hidden">
       <div className="overflow-y-auto max-h-90vh">
         <div className="flex flex-col w-full min-h-400px">
           <div className="sticky top-0 z-20">
@@ -56,11 +56,12 @@ const ChatComposeModal = ({ closeModal }: IProps) => {
           </div>
           <div>
             {searchText.length === 0 &&
-              previousChats.data &&
-              previousChats.data.length > 0 && (
+              previousChats &&
+              previousChats.length > 0 && (
                 <div>
-                  {previousChats.data.map((chat) => (
+                  {previousChats.map((chat) => (
                     <PreviousChatPreview
+                      key={chat._id}
                       chat={chat}
                       reduxUser={reduxUser}
                       isGroupMode={isGroupMode}

@@ -1,27 +1,24 @@
-import React from 'react'
-
-interface Props {
+interface IProps {
     title: string,
     tweetCount: number
 }
 
-
-const Trends: React.FC<Props> = (props) => {
+const Trends = ({title, tweetCount}: IProps) => {
   return (
       <div>
-        <a href={`/search/${props.title}`}>
-            <div className='hover:bg-gray-trendsHover cursor-pointer p-3 h-20 duration-100'>
-                <span className='block  text-sm'>
+        <button className="w-full text-left cursor-not-allowed">
+            <div className='p-3 h-20 hover:bg-[color:var(--background-third)] duration-100'>
+                <span className="block text-[13px] leading-4 text-[color:var(--color-base-secondary)]">
                     Trending in Global
                 </span>
-                <span className='block text-md font-bold'>
-                    {props.title}
+                <span className="my-0.5 block font-bold leading-5">
+                    {title}
                 </span>
-                <span className='block text-sm'>
-                    {props.tweetCount} Tweets
+                <span className="block leading-4 text-[13px] text-[color:var(--color-base-secondary)]">
+                    {tweetCount} Tweets
                 </span>
             </div>
-        </a>
+        </button>
       </div>
   )
 }

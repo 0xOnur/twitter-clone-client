@@ -97,9 +97,12 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
     )
   }
 
+  const displayNameClassNames = classNames("relative rounded-lg border-2 border-gray-300 focus-within:border-[color:var(--color-primary)]", {
+    "border-blue-base": user.displayName.length>0,
+  })
 
-  const emailInputClasses = classNames("relative border-2 border-gray-300 rounded-lg", {
-    "border-primary-base": user.email.length>0,
+  const emailClassNames = classNames("relative rounded-lg border-2 border-gray-300 focus-within:border-[color:var(--color-primary)]", {
+    "border-blue-base": user.email.length>0,
   });
 
   const nextButtonClassNames = classNames(
@@ -122,7 +125,7 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
             </h2>
           </div>
           <div className="py-3">
-            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-primary-base">
+            <div className={displayNameClassNames}>
               <input
                 type="text"
                 name="displayName"
@@ -133,7 +136,7 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
                 value={user.displayName}
                 className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
               />
-              <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
+              <label className="absolute origin-0 top-0 p-4 -z-10 text-lg text-[color:var(--color-base-secondary)] duration-300">
                 Name
               </label>
               <label htmlFor="Choice1" className="second-label text-lg p-4">
@@ -142,7 +145,7 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
             </div>
           </div>
           <div className="py-3">
-            <div className={emailInputClasses}>
+            <div className={emailClassNames}>
               <input
                 type="email"
                 name="email"
@@ -152,7 +155,7 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
                 value={user.email}
                 className="block pt-3 mt-4 pb-2 px-2 w-full text-lg appearance-none focus:outline-none bg-transparent"
               />
-              <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
+               <label className="absolute origin-0 top-0 p-4 -z-10 text-lg text-[color:var(--color-base-secondary)] duration-300">
                 Email
               </label>
             </div>
@@ -166,7 +169,7 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
             <div>
               <div className="flex flex-row my-4">
                 <div className="flex flex-col relative mr-5 grow border rounded-md">
-                  <label className="absolute px-2 pt-2 leading-4 text-sm">
+                  <label className="absolute px-2 pt-2 leading-4 text-sm text-[color:var(--color-primary)]">
                     <span>Month</span>
                   </label>
                   <select
@@ -188,7 +191,7 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
                   </div>
                 </div>
                 <div className="flex flex-col relative mr-5 grow border rounded-md">
-                  <label className="absolute px-2 pt-2 leading-4 text-sm">
+                  <label className="absolute px-2 pt-2 leading-4 text-sm text-[color:var(--color-primary)]">
                     <span>Days</span>
                   </label>
                   <select
@@ -210,7 +213,7 @@ const Step1 = ({ onNext, onStepData, user }: StepProps) => {
                   </div>
                 </div>
                 <div className="flex flex-col relative grow border rounded-md">
-                  <label className="absolute px-2 pt-2 leading-4 text-sm">
+                  <label className="absolute px-2 pt-2 leading-4 text-sm text-[color:var(--color-primary)]">
                     <span>Year</span>
                   </label>
                   <select

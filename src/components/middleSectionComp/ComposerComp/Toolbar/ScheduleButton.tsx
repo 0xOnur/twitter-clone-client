@@ -1,15 +1,18 @@
 import { ScheduleIcon } from "@icons/Icon";
 
 const ScheduleButton = () => {
+  const hoverClassNames =
+    "absolute left-0 top-0 w-full h-full rounded-full opacity-30 group-hover:bg-[color:var(--color-secondary)] rounded-full";
   return (
     <button
-      type="button"
+      title="Schedule"
       disabled={true}
-      className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-not-allowed"
+      className="relative w-fit p-2 group cursor-not-allowed opacity-50"
     >
-      <label className="cursor-not-allowed w-8 h-8">
-        <ScheduleIcon className={"w-5 h-5 text-primary-base fill-current"} />
-      </label>
+      <div className={hoverClassNames} />
+      <span className="w-8 h-8">
+        <ScheduleIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
+      </span>
     </button>
   );
 };

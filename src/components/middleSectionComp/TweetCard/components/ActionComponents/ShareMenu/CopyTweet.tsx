@@ -17,7 +17,7 @@ const CopyTweet = ({ tweet }: IProps) => {
   return (
     <button
       onClick={copyText}
-      className="flex flex-row  hover:bg-gray-lightest font-bold"
+      className="flex flex-row font-bold hover:bg-[color:var(--background-third)]"
     >
       <div className="flex flex-row py-3 px-4 items-center">
         <div className="mr-2">

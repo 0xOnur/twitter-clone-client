@@ -24,9 +24,7 @@ const MessagesTab = ({ reduxUser, isActive }: IProps) => {
           min-w-[16px]
           h-4
           box-content
-          border
-          border-white
-          bg-primary-base
+          bg-[color:var(--color-primary)]
           rounded-full
         `,
     {
@@ -41,7 +39,7 @@ const MessagesTab = ({ reduxUser, isActive }: IProps) => {
       href="/messages"
       className="flex flex-col lg:items-start sm:items-center cursor-pointer grow-1 w-full py-1 group"
     >
-      <div className="flex flex-row justify-center items-center max-w-full p-3 group-hover:bg-gray-extraLight duration-200 rounded-full">
+      <div className="flex flex-row justify-center items-center max-w-full p-3 group-hover:bg-[color:var(--background-third)] duration-200 rounded-full">
         <div className="relative">
           <MessagesIcon
             className={"w-7 h-7 align-text-bottom"}

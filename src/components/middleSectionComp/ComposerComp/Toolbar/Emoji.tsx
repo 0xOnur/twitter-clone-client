@@ -14,7 +14,8 @@ const Emoji: React.FC<IProps> = ({ composer }) => {
   const dispatch = useDispatch();
   const [showEmoji, setShowEmoji] = useState(false);
 
-  let [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>();
+  let [referenceElement, setReferenceElement] =
+    useState<HTMLButtonElement | null>();
   let [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
 
   let { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -50,33 +51,35 @@ const Emoji: React.FC<IProps> = ({ composer }) => {
   return (
     <div className="relative">
       <button
+        title="Emoji"
         ref={setReferenceElement}
-        type="button"
         onClick={() => setShowEmoji(!showEmoji)}
-        className="p-2 hover:bg-primary-extraLight w-fit rounded-full cursor-pointer"
+        className="relative w-fit p-2 group"
       >
-        <label className="cursor-pointer w-8 h-8 ">
-          <EmojiIcon className={"w-5 h-5 text-primary-base fill-current"} />
-        </label>
+        <div className="absolute left-0 top-0 w-full h-full rounded-full opacity-30 group-hover:bg-[color:var(--color-secondary)]" />
+        <span className="w-8 h-8">
+          <EmojiIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
+        </span>
       </button>
 
-      {showEmoji && (
-        <Portal>
-          <div
-            className="z-50"
-            ref={setPopperElement}
-            style={styles.popper}
-            {...attributes.popper}
-          >
-            <Picker
-              onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
-              theme={"light"}
-            />
-          </div>
-        </Portal>
-      )}
+      <div>
+        {showEmoji && (
+          <Portal>
+            <div
+            className="z-30"
+              ref={setPopperElement}
+              style={styles.popper}
+              {...attributes.popper}
+            >
+              <Picker
+                onEmojiSelect={(emoji: any) => handleEmojiSelect(emoji)}
+              />
+            </div>
+          </Portal>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Emoji;
+export default React.memo(Emoji);

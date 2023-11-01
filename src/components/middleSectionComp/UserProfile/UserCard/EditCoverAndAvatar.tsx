@@ -91,7 +91,7 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
 
           <label htmlFor="cover">
             <div className="absolute top-[40%] left-1/3 bg-black/50 hover:bg-black/80 rounded-full">
-              <div className="flex justify-center items-center w-12 h-12 cursor-pointer bg-gray- rounded-full">
+              <div className="flex justify-center items-center w-12 h-12 cursor-pointer rounded-full">
                 <UploadImageIcon className="cursor-pointer w-6 h-6 text-white" />
               </div>
             </div>
@@ -105,7 +105,7 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
         </div>
       ) : (
         <div className="relative">
-          <div className="h-[200px] bg-gray-defaultCover" />
+          <div className="h-[200px] bg-[color:var(--background-third)]" />
           <label htmlFor="cover">
             <div className="absolute top-[40%] left-1/2 -translate-x-1/2 bg-black/60 hover:bg-black/80 rounded-full">
               <div className="flex justify-center items-center w-12 h-12 cursor-pointer bg-gray- rounded-full">
@@ -117,7 +117,7 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
       )}
       {avatar && imagesAvailable.avatar ? (
         <div>
-          <div className="absolute -bottom-1/3 left-4 w-[145px] h-[145px] overflow-hidden border-4 border-white rounded-full">
+          <div className="absolute -bottom-1/3 left-4 w-[145px] h-[145px] overflow-hidden border-4 border-[color:var(--background-third)] rounded-full">
             <img
               className="z-10 brightness-75 w-full h-full object-cover"
               src={avatar.avatarURL!}
@@ -130,14 +130,14 @@ const EditCoverAndAvatar = ({ cover, setCover, avatar, setAvatar }: IProps) => {
 
           <label htmlFor="avatar" className="absolute z-10 left-16 -bottom-6">
             <div className="bg-black/50 hover:bg-black/80 rounded-full">
-              <div className="flex justify-center items-center w-12 h-12 cursor-pointer bg-gray- rounded-full">
+              <div className="flex justify-center items-center w-12 h-12 cursor-pointer rounded-full">
                 <UploadImageIcon className="cursor-pointer w-5 h-5 text-white" />
               </div>
             </div>
           </label>
         </div>
       ) : (
-        <div className="absolute -bottom-1/3 left-4 w-[145px] h-[145px] rounded-full border-4 border-white bg-gray-50" />
+        <div className="absolute -bottom-1/3 left-4 w-[145px] h-[145px] rounded-full border-4 border-[color:var(--background-third)] bg-gray-50" />
       )}
     </div>
   );

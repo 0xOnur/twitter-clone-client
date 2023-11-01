@@ -19,8 +19,7 @@ const TweetCard = ({
   isReply,
   hideActions,
 }: IProps) => {
-
-  const {tweet, status} = useGetTweet({tweetId: tweetId});
+  const { tweet, status } = useGetTweet({ tweetId: tweetId });
 
   if (status === "loading") {
     return (
@@ -30,7 +29,11 @@ const TweetCard = ({
     );
   }
 
-  if(tweet) {
+  if (status === "error") {
+    return <NotFoundTweet />;
+  }
+
+  if (tweet) {
     switch (pageType) {
       case "home":
         return (
@@ -42,21 +45,10 @@ const TweetCard = ({
           />
         );
       case "TweetDetails":
-        return (
-          <DetailedCard
-            isAuthenticated={isAuthenticated}
-            tweet={tweet}
-          />
-        );
+        return <DetailedCard isAuthenticated={isAuthenticated} tweet={tweet} />;
       default:
         return null;
     }
-  }
-
-  if(status === "error") {
-    return (
-      <NotFoundTweet />
-    );
   }
 };
 

@@ -1,20 +1,20 @@
-import { useAuth } from '@hooks/useAuth';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "@hooks/Auth/useAuth";
 
 interface PrivateRouteProps {
-    isAuthenticated: boolean;
-    children: JSX.Element;
+  isAuthenticated: boolean;
+  children: JSX.Element;
 }
 
-const PrivateRoute = ({ isAuthenticated, children }:PrivateRouteProps) => {
-    useAuth();
+const PrivateRoute = ({ isAuthenticated, children }: PrivateRouteProps) => {
+  useAuth();
 
-    return (
-      <>
-        {isAuthenticated ? children : <Navigate to="/login" />}
-        <Outlet/>
-      </>
-    );
-  };
+  return (
+    <>
+      {isAuthenticated ? children : <Navigate to="/login" />}
+      <Outlet />
+    </>
+  );
+};
 
 export default PrivateRoute;

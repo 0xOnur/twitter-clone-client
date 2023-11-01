@@ -1,23 +1,25 @@
-import React, { useRef, useEffect, useCallback } from "react";
-import { DigalogModals } from "@components/middleSectionComp";
+import useUndoRetweetMutation from "@hooks/Tweet/Mutations/useUndoRetweetMutation";
+import useRetweetMutation from "@hooks/Tweet/Mutations/useRetweetMutation";
+import { TweetModals } from "@components/middleSectionComp/DialogModals";
+import { QuoteIcon, ReTweetIcon } from "@icons/Icon";
 import { useModal } from "contexts/ModalContext";
-import { ReTweetIcon } from "@icons/Icon";
 
 interface IProps {
   tweet: ITweet;
   onClose: () => void;
-  handleRetweet: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isReteeted: boolean;
 }
 
-const ReTweetMenu = ({ tweet, onClose, handleRetweet, isReteeted }: IProps) => {
-  const menuRef = useRef<HTMLDivElement>(null);
+const ReTweetMenu = ({ tweet, onClose, isReteeted }: IProps) => {
+  const { retweetMutate } = useRetweetMutation();
+  const { undoRetweetMutate } = useUndoRetweetMutation();
+  
   const { openModal, closeModal } = useModal();
 
   const handleQuote = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClose();
     openModal(
-      <DigalogModals.ReplyQuoteModal
+      <TweetModals.ReplyQuoteModal
         composerMode={"quote"}
         tweet={tweet}
         closeModal={closeModal}
@@ -25,31 +27,24 @@ const ReTweetMenu = ({ tweet, onClose, handleRetweet, isReteeted }: IProps) => {
     );
   };
 
-  const handleClose = useCallback(
-    (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        onClose();
+  const handleRetweet = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onClose();
+      if (isReteeted) {
+        undoRetweetMutate(tweet._id);
+      } else {
+        retweetMutate(tweet._id);
       }
-    },
-    [menuRef, onClose]
-  );
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClose);
-    return () => {
-      document.removeEventListener("mousedown", handleClose);
-    };
-  }, [handleClose]);
+  };
 
   return (
     <div
-      ref={menuRef}
-      className="absolute z-10 -top-2 -right-3 w-max border bg-white rounded-2xl shadow-lg"
+      className="overflow-hidden w-max rounded-2xl shadow-box bg-[color:var(--background-primary)]"
     >
       <div className="flex flex-col">
         <button
           onClick={handleRetweet}
-          className="flex flex-row hover:bg-gray-lightest rounded-t-2xl font-bold"
+          className="flex flex-row font-bold hover:bg-[color:var(--background-third)]"
         >
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
@@ -63,11 +58,11 @@ const ReTweetMenu = ({ tweet, onClose, handleRetweet, isReteeted }: IProps) => {
 
         <button
           onClick={handleQuote}
-          className="flex flex-row hover:bg-gray-lightest rounded-b-2xl font-bold"
+          className="flex flex-row font-bold hover:bg-[color:var(--background-third)]"
         >
           <div className="flex flex-row py-3 px-4 items-center">
             <div className="mr-2">
-              <ReTweetIcon className={"w-5 h-5"} />
+              <QuoteIcon className={"w-5 h-5"} />
             </div>
             <div>
               <span>Quote Tweet</span>

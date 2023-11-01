@@ -1,12 +1,12 @@
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
+import { selectComposer } from "@redux/slices/composerSlice";
 import { ComposerComp } from "@components/index";
 import { RootState } from "@redux/config/store";
-import MediaCard from "./ComposerMedia";
-import Toolbar from "./Toolbar";
 import { LoadingIcon } from "@icons/Icon";
-import classNames from "classnames";
 import { useSelector } from "react-redux";
-import { selectComposer } from "@redux/slices/composerSlice";
+import MediaCard from "./ComposerMedia";
+import classNames from "classnames";
+import Toolbar from "./Toolbar";
 
 type IProps = {
   composerMode: "tweet" | "reply" | "quote";
@@ -24,7 +24,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
 
   return (
     <div>
-      <div className="pt-1 relative ">
+      <div className="pt-1 relative">
         {composer.isLoading && (
           <div className="absolute z-10 flex w-full h-full items-center justify-center">
             <LoadingIcon />
@@ -40,11 +40,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
             </div>
 
             <div className="flex flex-col w-full pt-1">
-              {(composer.tweetText.length > 0 ||
-                composer.mediaFiles.length > 0 ||
-                composer.showPoll ||
-                composer.tenorGif) &&
-                composerMode !== "reply" && (
+              {composerMode !== "reply" && (
                   <ComposerComp.ChooseAudience
                     composerSettings={composer.settings}
                   />
@@ -66,15 +62,13 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
                 />
               )}
 
-              {(composer.tweetText.length > 0 ||
-                composer.mediaFiles.length > 0 ||
-                composer.showPoll ||
-                composer.tenorGif) &&
-                composerMode !== "reply" && (
+              {composerMode !== "reply" && (
                   <ComposerComp.ChooseCanReply
                     composerSettings={composer.settings}
                   />
                 )}
+
+              <div className="mx-3 my-0.5 h-0.5 bg-[color:var(--background-third)]" />
 
               <Toolbar
                 composer={composer}

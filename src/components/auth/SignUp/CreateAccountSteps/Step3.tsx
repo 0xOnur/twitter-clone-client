@@ -26,7 +26,7 @@ const Step3 = ({ onNext, onStepData, user }: StepProps) => {
     "relative border-2 border-gray-300 rounded-lg",
     {
       "border-red-600":  user.password.length > 0 && user.password.length < 8,
-      "focus-within:border-primary-base": user.password.length >= 8,
+      "focus-within:border-[color:var(--color-primary)]": user.password.length >= 8,
     }
   );
 
@@ -65,7 +65,7 @@ const Step3 = ({ onNext, onStepData, user }: StepProps) => {
                 value={user.password}
                 onChange={handlePasswordChange}
               />
-              <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
+              <label className="absolute origin-0 top-0 p-4 -z-10 text-lg text-[color:var(--color-base-secondary)] duration-300">
                 Password
               </label>
               <button

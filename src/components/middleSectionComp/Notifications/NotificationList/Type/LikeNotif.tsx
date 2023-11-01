@@ -23,11 +23,11 @@ const LikeNotif = ({ notifId, isRead, tweetId, sender, receiver }: IProps) => {
   return (
     <a
       href={`/${receiver.username}/status/${tweetId}`}
-      className="flex flex-row py-3 px-4 hover:bg-gray-extraLight"
+      className="flex flex-row py-3 px-4 hover:bg-[color:var(--background-third)] duration-200"
     >
       <div className="flex flex-row ">
         <div className="mr-3">
-          <LikedIcon className="w-[30px] h-[30px] fill-red-removeText" />
+          <LikedIcon className="w-[30px] h-[30px] fill-red-base" />
         </div>
         <div className="flex flex-col">
           <div className="mb-3 pr-5 w-fit">

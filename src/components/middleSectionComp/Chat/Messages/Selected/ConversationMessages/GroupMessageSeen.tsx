@@ -64,11 +64,14 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
       {showReadList && messageReadIDs && messageReadIDs.length > 0 && (
         <div
           ref={menuRef}
-          className="absolute right-0 mt-1 border shadow-md min-w-[260px] min-h-[30px] max-w-[360px] max-h-[480px] rounded-2xl overflow-auto"
+          className="absolute right-0 mt-1 shadow-box min-w-[260px] max-w-[360px] max-h-[480px] rounded-2xl overflow-hidden"
         >
-          <div className="flex flex-col bg-white">
+          <div className="flex flex-col bg-[color:var(--background-primary)]">
             {messageReadIDs.map((user) => (
-              <div key={user._id} className="py-3 px-4 hover:bg-gray-50 duration-200">
+              <div
+                key={user._id}
+                className="py-3 px-4 hover:bg-[color:var(--background-secondary)] duration-200"
+              >
                 <div className="flex flex-row items-center">
                   <Avatar
                     avatar={user.avatar!}
@@ -78,23 +81,26 @@ const GroupMessageSeen = ({ message, conversation, reduxUser }: IProps) => {
 
                   <div className="flex flex-row gap-5 justify-between items-center w-full">
                     <div className="flex flex-col  max-w-full text-base">
-                      <div className="flex shrink">
+                      <div className="grid shrink">
                         <a
                           href={`/${user.username}`}
-                          className="text-black line-clamp-1 font-bold hover:underline"
+                          className="text-[color:var(--color-base)] truncate font-bold hover:underline"
                         >
                           {user.displayName}
                         </a>
                       </div>
-                      <div className="flex shrink">
-                        <a href={`/${user.username}`} className="line-clamp-1">
+                      <div className="grid shrink">
+                        <a
+                          href={`/${user.username}`}
+                          className="text-[color:var(--color-base-secondary)] truncate"
+                        >
                           @{user.username}
                         </a>
                       </div>
                     </div>
 
-                    <button className="flex items-center justify-center min-w-[44px] min-h-[44px] rounded-full border">
-                      <MessagesIcon className="w-[22px] h-[22px]" />
+                    <button className="flex items-center  min-h-[44px] min-w-[44px] justify-center rounded-full border-2 border-[color:var(--background-third)] shadow-box">
+                      <MessagesIcon className="w-[22px] h-[22px] text-[color:var(--color-base-secondary)]" />
                     </button>
                   </div>
                 </div>

@@ -22,13 +22,13 @@ const FollowNotif = ({ notifId, isRead, username, avatar }: IProps) => {
   return (
     <a
       href={`/${username}`}
-      className="flex flex-row py-3 px-4 hover:bg-gray-extraLight"
+      className="flex flex-row py-3 px-4 hover:bg-[color:var(--background-third)] duration-200"
     >
       <div className="flex flex-row ">
         <div className="mr-3">
           <ProfileIcon
             isActive
-            className="w-[30px] h-[30px] fill-primary-base"
+            className="w-[30px] h-[30px] text-[color:var(--color-primary)]"
           />
         </div>
         <div className="flex flex-col">

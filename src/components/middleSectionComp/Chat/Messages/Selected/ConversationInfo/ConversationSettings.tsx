@@ -19,32 +19,35 @@ const ConversationSettings = ({ chat, otherParticipants }: IProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col">
-        <div className="bg-gray-extraLight h-px my-1" />
-      </div>
-
       {!chat.isGroupChat && (
-        <div className="flex w-full hover:bg-primary-extraLight duration-200">
-          <button className="flex w-full min-h-[48px] p-4 justify-center text-primary-base cursor-not-allowed">
-            Block @{otherParticipants[0].user.username}
+        <div className="flex w-full relative">
+          <button className="flex w-full min-h-[48px] p-4 justify-center cursor-not-allowed">
+            <span className="text-[color:var(--color-primary)]">Block @{otherParticipants[0].user.username}</span>
+            <div className="absolute inset-0 opacity-10 hover:bg-[color:var(--color-primary)] duration-200" />
           </button>
         </div>
       )}
 
-      <div className="flex w-full hover:bg-primary-extraLight duration-200">
-        <button className="flex w-full min-h-[48px] p-4 justify-center text-primary-base cursor-not-allowed">
+      <div className="flex w-full relative">
+        <button className="flex w-full min-h-[48px] p-4 justify-center cursor-not-allowed">
+          <span className="text-[color:var(--color-primary)]">
           {chat.isGroupChat
             ? "Report conversation"
             : `Report @${otherParticipants[0].user.username}`}
+          </span>
+          <div className="absolute inset-0 opacity-10 hover:bg-[color:var(--color-primary)] duration-200" />
         </button>
       </div>
 
-      <div className="flex w-full hover:bg-red-remove duration-200">
+      <div className="flex w-full relative">
         <button
           onClick={handleLeave}
-          className="flex w-full min-h-[48px] p-4 justify-center text-red-removeText"
+          className="flex w-full min-h-[48px] p-4 justify-center"
         >
-          Leave conversation
+          <span className="text-red-base">
+            Leave conversation
+          </span>
+          <div className="absolute inset-0 opacity-10 hover:bg-red-base duration-200" />
         </button>
       </div>
     </div>

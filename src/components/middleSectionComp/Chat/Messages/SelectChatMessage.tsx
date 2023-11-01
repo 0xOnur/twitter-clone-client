@@ -1,12 +1,12 @@
-import { ChatComposeModal } from "@components/middleSectionComp/DialogModals"
-import { useModal } from "contexts/ModalContext"
+import { ChatComposeModal } from "@components/middleSectionComp/DialogModals";
+import { useModal } from "contexts/ModalContext";
 
 const SelectChatMessage = () => {
-  const { openModal, closeModal } = useModal()
+  const { openModal, closeModal } = useModal();
 
   const handleCompose = () => {
-    openModal(<ChatComposeModal closeModal={closeModal} />)
-  }
+    openModal(<ChatComposeModal closeModal={closeModal} />);
+  };
   return (
     <div className="flex w-full h-full items-center justify-center mx-auto">
       <div className="self-center max-w-[400px] mx-auto px-8 my-8">
@@ -14,20 +14,20 @@ const SelectChatMessage = () => {
           <span className="mb-2 leading-9 font-extrabold text-[31px] text-left">
             Select a message
           </span>
-          <span className="mb-7 text-left leading-5">
+          <span className="mb-7 text-left leading-5 text-[color:var(--color-base-secondary)]">
             Choose from your existing conversations, start a new one, or just
             keep swimming.
           </span>
           <button
             onClick={handleCompose}
-            className="flex items-center w-fit px-8 min-w-52px min-h-52px bg-primary-base rounded-full hover:bg-primary-dark duration-200"
+            className="flex items-center w-fit px-8 min-w-52px min-h-52px bg-[color:var(--color-primary)] rounded-full hover:opacity-80 duration-200"
           >
             <span className="text-white font-bold">New message</span>
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SelectChatMessage
+export default SelectChatMessage;

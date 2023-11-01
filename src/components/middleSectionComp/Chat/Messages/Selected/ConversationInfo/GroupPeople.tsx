@@ -22,10 +22,6 @@ const GroupPeople = ({ chat, reduxUser, otherParticipants }: IProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col">
-        <div className="bg-gray-extraLight h-px my-1" />
-      </div>
-
       <div className="flex justify-between py-3 px-4">
         <h2 className="font-bold text-xl">People</h2>
       </div>
@@ -41,14 +37,17 @@ const GroupPeople = ({ chat, reduxUser, otherParticipants }: IProps) => {
         ))}
       </div>
 
-      <div className="flex w-full hover:bg-primary-extraLight duration-200">
+      <div className="flex w-full relative">
         <button
           onClick={handleAddPeople}
-          className="flex w-full min-h-[48px] p-4 justify-center text-primary-base"
+          className="flex w-full min-h-[48px] p-4 justify-center"
         >
-          Add people
+          <span className="text-[color:var(--color-primary)]">Add people</span>
+          <div className="absolute inset-0 opacity-10 hover:bg-[color:var(--color-primary)] duration-200" />
         </button>
+        
       </div>
+      <div className="my-1 h-0.5 bg-[color:var(--background-third)]" />
     </div>
   );
 };

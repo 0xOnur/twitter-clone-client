@@ -38,7 +38,7 @@ const Toolbar = ({ composer, composerMode, originalTweet, onClose }: Props) => {
                   value={composer.tweetText.length}
                   limit={280}
                 />
-                <div className="w-0.5 mx-3 h-full bg-gray-300"></div>
+                <div className="mx-3 w-0.5 h-full bg-[color:var(--background-third)]" />
               </>
             )}
             <SubmiButton

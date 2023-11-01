@@ -5,10 +5,10 @@ import { FollowIcon } from "@icons/Icon";
 interface IProps {
   user: IUser;
   reduxUser: UserState;
-  onClose: () => void;
+  closeMenu: () => void;
 }
 
-const FollowItem = ({ user, reduxUser, onClose }: IProps) => {
+const FollowItem = ({ user, reduxUser, closeMenu }: IProps) => {
   const { followUserMutation, unFollowUserMutation } = useFollowsMutation({
     reduxUser,
     username: user.username,
@@ -18,7 +18,7 @@ const FollowItem = ({ user, reduxUser, onClose }: IProps) => {
 
   const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    onClose();
+    closeMenu();
     if (isFollowing) {
       unFollowUserMutation.mutate(user._id);
     } else {
@@ -29,7 +29,7 @@ const FollowItem = ({ user, reduxUser, onClose }: IProps) => {
   return (
     <button
       onClick={handleFollowClick}
-      className="flex flex-row hover:bg-gray-lightest font-bold"
+      className="flex flex-row font-bold hover:bg-[color:var(--background-third)]"
     >
       <div className="flex flex-row py-3 px-4 items-center">
         <div className="mr-2">

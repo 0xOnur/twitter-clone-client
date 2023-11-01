@@ -9,21 +9,21 @@ const FollowsHeader = ({ followsTab }: IProps) => {
 
   return (
     <div className="sticky top-0 z-30">
-      <div className="h-auto  backdrop-blur-md bg-white/80 ">
+      <div className="h-auto bg-[color:var(--background-primary-alpha)] backdrop-blur-md">
         <div className="flex w-full h-14">
           <div className="w-full h-full flex col-span-2">
             <button
               onClick={() => {
                 navigate(`/${username}/followers`);
               }}
-              className="flex justify-center w-full cursor-pointer hover:bg-gray-extraLight duration-150"
+              className="flex justify-center w-full cursor-pointer hover:bg-[color:var(--background-third)] duration-150"
             >
               <div className="relative h-14 flex items-center w-fit">
                 <h1 className={` ${followsTab === "followers" && "font-bold"}`}>
                   Followers
                 </h1>
                 {followsTab === "followers" && (
-                  <div className="h-1 bg-primary-base absolute bottom-0 w-full rounded-full"></div>
+                  <div className="h-1 bg-[color:var(--color-primary)] absolute bottom-0 w-full rounded-full"></div>
                 )}
               </div>
             </button>
@@ -31,20 +31,19 @@ const FollowsHeader = ({ followsTab }: IProps) => {
               onClick={() => {
                 navigate(`/${username}/following`);
               }}
-              className="flex justify-center w-full cursor-pointer hover:bg-gray-extraLight duration-150"
+              className="flex justify-center w-full cursor-pointer hover:bg-[color:var(--background-third)] duration-150"
             >
               <div className="relative h-14 flex items-center w-fit">
                 <h1 className={` ${followsTab === "following" && "font-bold"}`}>
                   Following
                 </h1>
                 {followsTab === "following" && (
-                  <div className="h-1 bg-primary-base absolute bottom-0 w-full rounded-full"></div>
+                  <div className="h-1 bg-[color:var(--color-primary)] absolute bottom-0 w-full rounded-full"></div>
                 )}
               </div>
             </button>
           </div>
         </div>
-        <hr />
       </div>
     </div>
   );

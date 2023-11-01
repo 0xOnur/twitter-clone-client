@@ -7,6 +7,7 @@ import MoreMenu from "./More";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import LastMessageInfo from "./LastMessageInfo";
+import LastMessageNotif from "./LastMessageNotif";
 
 interface IProps {
   chat: IChat;
@@ -30,13 +31,14 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
     chat.lastMessage?.sender?._id === reduxUser.user?._id;
 
   const isReadByMe =
-    chat.lastMessage?.readBy?.includes(reduxUser.user?._id!) || isLastMessageByMe;
+    chat.lastMessage?.readBy?.includes(reduxUser.user?._id!) ||
+    isLastMessageByMe;
 
   const chatClassNames = classNames(
     "grid grid-cols-chat w-full items-start p-4 duration-200 group",
     {
-      "hover:bg-gray-extraLight": !isSelectedChat,
-      "bg-gray-message hover:bg-gray-extraLight": isSelectedChat,
+      "hover:bg-[color:var(--background-secondary)]": !isSelectedChat,
+      "bg-[color:var(--background-third)] hover:bg-[color:var(--background-secondary)]": isSelectedChat,
     }
   );
 
@@ -61,9 +63,9 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
             {chat.lastMessage && (
               <div className="flex flex-row items-center">
                 {otherParticipant?.user.isVerified && (
-                  <VerifiedIcon className="w-5 h-5 fill-primary-base" />
+                  <VerifiedIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
                 )}
-                <p className="line-clamp-1 whitespace-nowrap">
+                <p className="line-clamp-1 whitespace-nowrap text-[color:var(--color-base-secondary)]">
                   - {formatDate(chat.lastMessage?.createdAt!)}
                 </p>
               </div>
@@ -77,11 +79,7 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
           />
         </div>
 
-        {!isReadByMe && (
-          <div className="flex flex-col items-center justify-center">
-            <div className="w-[10px] h-[10px] m-2 bg-primary-base rounded-full" />
-          </div>
-        )}
+        {!isReadByMe && <LastMessageNotif />}
 
         <div
           onClick={(e) => {
@@ -91,8 +89,8 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
           title="More"
           className="relative h-fit mr-1 ml-2 group/item hidden group-hover:block"
         >
-          <TreeDotIcon className="w-5 h-5 z-10" />
-          <div className="absolute -z-10 -m-2 group-hover/item:bg-primary-extraLight duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
+          <TreeDotIcon className="w-5 h-5 z-10 text-[color:var(--color-base-secondary)] group-hover/item:text-blue-base" />
+          <div className="absolute inset-0 -m-2 group-hover/item:bg-blue-base/10 duration-150 rounded-full" />
         </div>
       </button>
 
@@ -105,7 +103,7 @@ const NormalChat = ({ chat, reduxUser, isSelectedChat }: IProps) => {
       )}
 
       {isSelectedChat && (
-        <div className="absolute top-0 right-0 bottom-0 w-0.5 bg-primary-base" />
+        <div className="absolute top-0 right-0 bottom-0 w-0.5 bg-[color:var(--color-primary)]" />
       )}
     </div>
   );

@@ -31,12 +31,12 @@ const Tabs = ({ reduxUser }: IProps) => {
               isActive={location.pathname.includes("messages")}
               reduxUser={reduxUser}
             />
-            <MoreButton />
             <BookmarksTab isActive={location.pathname.includes("bookmarks")} />
             <ProfileTab
               isActive={location.pathname.includes(reduxUser.user?.username!)}
               reduxUser={reduxUser}
             />
+            <MoreButton />
           </div>
         )}
       </nav>

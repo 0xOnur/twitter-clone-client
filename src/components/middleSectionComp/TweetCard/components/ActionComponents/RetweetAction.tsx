@@ -1,11 +1,11 @@
-import useUndoRetweetMutation from "@hooks/Tweet/Mutations/useUndoRetweetMutation";
-import useRetweetMutation from "@hooks/Tweet/Mutations/useRetweetMutation";
 import { TweetCardComp } from "@components/middleSectionComp";
 import { PersistPartial } from "redux-persist/es/persistReducer";
 import { UserState } from "@redux/slices/userSlice";
 import { formatNumber } from "@utils/formatNumber";
 import { ReTweetIcon } from "@icons/Icon";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { usePopper } from "react-popper";
+import { Portal } from "contexts/Portal";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -25,64 +25,88 @@ const RetweetAction = ({
   pageType,
   retweetStats,
 }: IProps) => {
-  const { retweetMutate } = useRetweetMutation();
-  const { undoRetweetMutate } = useUndoRetweetMutation();
-
   const [reTweetMenu, setShowRetweetMenu] = useState(false);
+
+  let [referenceElement, setReferenceElement] =
+    useState<HTMLButtonElement | null>();
+  let [popperElement, setPopperElement] = useState<HTMLDivElement | null>();
+
+  let { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: "bottom",
+    modifiers: [{ name: "offset", options: { offset: [0, -30] } }],
+  });
 
   const isReteeted =
     retweetStats?.length! > 0 &&
     retweetStats?.some((retweet) => retweet.author === reduxUser.user?._id);
 
-  const handleRetweet = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    setShowRetweetMenu(false);
-    if (isAuthenticated) {
-      if (isReteeted) {
-        undoRetweetMutate(tweet._id)
-      } else {
-        retweetMutate(tweet._id);
+  const handleClose = useCallback(
+    (e: MouseEvent) => {
+      if (
+        popperElement &&
+        !popperElement.contains(e.target as Node) &&
+        !referenceElement?.contains(e.target as Node)
+      ) {
+        setShowRetweetMenu(false);
       }
-    }
-  };
+    },
+    [popperElement, referenceElement]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClose);
+    return () => {
+      document.removeEventListener("mousedown", handleClose);
+    };
+  }, [handleClose]);
 
   return (
-    <div>
-      <div
-        title={isReteeted ? "Undo Retweet" : "Retweet"}
-        onClick={(e) => {
-          e.stopPropagation();
-          setShowRetweetMenu(!reTweetMenu);
-        }}
-        className="group h-5 min-h-max relative cursor-pointer"
-      >
-        <div className="flex flex-row">
-          <div className="inline-flex relative text-gray-dark group-hover:text-green-base duration-150">
-            <div className="absolute -m-2 group-hover:bg-green-extraLigt  duration-150 rounded-full top-0 right-0 left-0 bottom-0" />
-            {isReteeted ? (
-              <ReTweetIcon className={"w-5 h-5 text-green-base"} />
-            ) : (
-              <ReTweetIcon className={"w-5 h-5"} />
-            )}
-          </div>
-          <div className="inline-flex group-hover:text-green-base">
-            <span className="px-3 text-sm">
-              {retweetStats?.length > 0 &&
-                pageType === "home" &&
-                formatNumber(retweetStats?.length)}
+    <button
+      title={isReteeted ? "Undo Retweet" : "Retweet"}
+      ref={setReferenceElement}
+      onClick={(e) => {
+        e.stopPropagation();
+        setShowRetweetMenu(!reTweetMenu);
+      }}
+      className="group h-5 min-h-max relative"
+    >
+      <div className="flex flex-row">
+        <div className="inline-flex relative duration-150">
+          <div className="absolute top-0 right-0 left-0 bottom-0 -m-2 rounded-full group-hover:bg-green-base/30 duration-150" />
+          {isReteeted ? (
+            <ReTweetIcon className={"w-5 h-5 text-green-base"} />
+          ) : (
+            <ReTweetIcon
+              className={
+                "w-5 h-5 text-[color:var(--color-base-secondary)] group-hover:text-green-base"
+              }
+            />
+          )}
+        </div>
+        {retweetStats?.length > 0 && pageType === "home" && (
+          <div className="inline-flex">
+            <span className="px-3 text-sm text-[color:var(--color-base-secondary)] group-hover:text-green-base">
+              {formatNumber(retweetStats?.length)}
             </span>
           </div>
-        </div>
-        {reTweetMenu && isAuthenticated && (
-          <TweetCardComp.Components.ReTweetMenu
-            tweet={tweet}
-            onClose={() => setShowRetweetMenu(false)}
-            handleRetweet={handleRetweet}
-            isReteeted={isReteeted}
-          />
         )}
       </div>
-    </div>
+      {reTweetMenu && isAuthenticated && (
+        <Portal>
+          <div
+            ref={setPopperElement}
+            style={styles.popper}
+            {...attributes.popper}
+          >
+            <TweetCardComp.Components.ReTweetMenu
+              tweet={tweet}
+              isReteeted={isReteeted}
+              onClose={() => setShowRetweetMenu(false)}
+            />
+          </div>
+        </Portal>
+      )}
+    </button>
   );
 };
 

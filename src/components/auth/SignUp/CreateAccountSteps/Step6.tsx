@@ -34,7 +34,7 @@ const Step6 = ({ onStepData, user, onStepComplete }: StepProps) => {
             </div>
           </div>
           <div className="py-3">
-            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-primary-base">
+            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-[color:var(--color-primary)]">
               <input
                 type="text"
                 placeholder=" "
@@ -43,7 +43,7 @@ const Step6 = ({ onStepData, user, onStepComplete }: StepProps) => {
                 value={user.bio}
                 onChange={handleChange}
               />
-              <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
+              <label className="absolute origin-0 top-0 p-4 -z-10 text-lg text-[color:var(--color-base-secondary)] duration-300">
                 Your bio
               </label>
               <label htmlFor="Choice1" className="second-label text-lg p-4">

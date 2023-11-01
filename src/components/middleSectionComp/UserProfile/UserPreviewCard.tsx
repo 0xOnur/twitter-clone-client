@@ -17,7 +17,7 @@ const UserPreviewCard = ({ user, reduxUser, avatarSize, showBio }: IProps) => {
     <div key={user._id} className="flex flex-col w-full text-[15px] leading-5">
       <div
         onClick={() => navigate(`/${user.username}`)}
-        className="cursor-pointer py-3 px-3 hover:bg-gray-trendsHover duration-200"
+        className="cursor-pointer py-3 px-3 hover:bg-[color:var(--background-third)] duration-200"
       >
         <div className="flex flex-row w-full">
           <Avatar
@@ -38,11 +38,11 @@ const UserPreviewCard = ({ user, reduxUser, avatarSize, showBio }: IProps) => {
                   </a>
                   <span>
                     {user.isVerified && (
-                      <VerifiedIcon className="w-5 h-5 mt-1 text-primary-base" />
+                      <VerifiedIcon className="w-5 h-5 mt-1 text-[color:var(--color-primary)]" />
                     )}
                   </span>
                 </div>
-                <p className="truncate">@{user.username}</p>
+                <p className="truncate text-[color:var(--color-base-secondary)]">@{user.username}</p>
               </div>
               <div>
                 <FollowsButton user={user} reduxUser={reduxUser} />
@@ -50,7 +50,7 @@ const UserPreviewCard = ({ user, reduxUser, avatarSize, showBio }: IProps) => {
             </div>
             {showBio && (
               <div className="text-left pt-1">
-                <span className="whitespace-pre-line">{user.bio}</span>
+                <span className="whitespace-pre-line">{user?.bio}</span>
               </div>
             )}
           </div>

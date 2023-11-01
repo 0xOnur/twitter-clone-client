@@ -16,10 +16,10 @@ const LeaveChat = ({ chatId }: IProps) => {
   return (
     <button
       onClick={handleLeave}
-      className="flex flex-row gap-2 py-3 px-4 items-center hover:bg-gray-dropdown"
+      className="flex flex-row gap-2 py-3 px-4 items-center hover:bg-[color:var(--background-secondary)]"
     >
-      <TrashIcon className="w-5 h-5 fill-red-removeText" />
-      <span className="font-bold text-red-removeText">Delete conversation</span>
+      <TrashIcon className="w-5 h-5 fill-red-base" />
+      <span className="font-bold text-red-base">Delete conversation</span>
     </button>
   );
 };

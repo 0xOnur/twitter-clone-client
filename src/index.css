@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-size: var(--font-size);
+}
+
 body {
+  @apply bg-[color:var(--background-primary)] text-[color:var(--color-base)] text-[0.938rem];
   margin: 0;
   font-family: 'segoue ui', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "TwitterChirp",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+
+/* Custom box shadow */
+.shadow-box {
+  box-shadow: var(--box-shadow);
 }
 
 /* Input */
@@ -20,7 +30,7 @@ textarea:not(:placeholder-shown) ~ label {
 
 input:focus-within ~ label,
 textarea:focus-within ~ label {
-  @apply text-blue-500;
+  @apply text-[color:var(--color-primary)];
 }
 
 input:focus-within ~ label ~ .second-label,
@@ -52,7 +62,7 @@ textarea:focus-within ~ label ~ .second-label {
 
 .custom-loading-icon circle {
   fill: none;
-  stroke: hsl(214, 97%, 59%);
+  stroke: var(--color-primary);
   stroke-width: 5;
   stroke-dasharray: 1, 200;
   stroke-dashoffset: 0;
@@ -94,7 +104,7 @@ textarea:focus-within ~ label ~ .second-label {
 .loader {
   display: block;
   --height-of-loader: 4px;
-  --loader-color: #0071e2;
+  --loader-color: var(--color-primary);
   width: 100%;
   height: var(--height-of-loader);
   border-radius: 30px;

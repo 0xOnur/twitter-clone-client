@@ -42,7 +42,7 @@ const EditGroupModal = ({ chat, closeModal }: IProps) => {
   }, [isSuccess, closeModal]);
 
   return (
-    <div className="w-full z-10 border-2 shadow-2xl text-black bg-white max-w-600px rounded-xl overflow-hidden">
+    <div className="w-full z-10 bg-[color:var(--background-primary)] max-w-600px rounded-xl overflow-hidden">
       <div className="overflow-y-auto max-h-90vh">
         <div className="flex flex-col">
           <div className="sticky top-0 z-10">

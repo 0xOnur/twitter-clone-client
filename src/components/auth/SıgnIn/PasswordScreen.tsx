@@ -13,7 +13,7 @@ interface IProps {
 
 const PasswordScreen = ({ username, password, setPassword }: IProps) => {
   const dispatch: AppDispatch = useDispatch();
-  const redux = useSelector((state: RootState) => state.user)
+  const redux = useSelector((state: RootState) => state.user);
   const { showToast } = useToast();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -22,11 +22,11 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
     e.preventDefault();
     dispatch(loginUser({ username, password })).then((response) => {
       if (response.meta.requestStatus === "rejected") {
-        showToast(response.payload.message, "error")
-      }else if(response.meta.requestStatus === "fulfilled") {
+        showToast(response.payload.message, "error");
+      } else if (response.meta.requestStatus === "fulfilled") {
         setTimeout(() => {
           showToast("Logged in", "success");
-        }, 3000)
+        }, 3000);
       }
     });
   };
@@ -36,7 +36,7 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
       <div className="flex h-full items-center justify-center">
         <LoadingIcon />
       </div>
-    )
+    );
   }
 
   return (
@@ -63,7 +63,7 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
             </div>
           </div>
           <div className="py-3">
-            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-primary-base">
+            <div className="relative border-2 border-gray-300 rounded-lg focus-within:border-[color:var(--color-primary)]">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder=" "
@@ -72,14 +72,14 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label className="absolute top-0 text-lg text-gray-500 p-4 -z-10 duration-300 origin-0">
+              <label className="absolute origin-0 top-0 p-4 -z-10 text-lg text-[color:var(--color-base-secondary)] duration-300">
                 Password
               </label>
 
               <button
                 onClick={() => setShowPassword(!showPassword)}
                 type="button"
-                className="absolute  top-6 right-3 text-white hover:bg-gray-200 rounded-full focus:outline-none"
+                className="absolute top-6 right-3 hover:bg-gray-200 rounded-full focus:outline-none"
               >
                 <ShowPasswordIcon
                   className={" w-6 h-6"}
@@ -92,10 +92,8 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
                 {redux.error.message}
               </span>
             )}
-            <div className="px-2">
-              <a href="/reset_password" className="text-primary-dark">
-                Forgot your password?
-              </a>
+            <div className="text-[color:var(--color-base)] cursor-not-allowed">
+              Forgot your password?
             </div>
           </div>
         </div>
@@ -116,7 +114,7 @@ const PasswordScreen = ({ username, password, setPassword }: IProps) => {
               <span>Don't have an account? </span>
               <a
                 href="/signup"
-                className="text-primary-dark hover:underline underline-offset-auto"
+                className="text-[color:var(--color-primary)] hover:underline"
               >
                 Sign up
               </a>

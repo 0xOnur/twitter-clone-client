@@ -1,31 +1,11 @@
+import { TweetModals } from "@components/middleSectionComp/DialogModals/"
 import { formatDetailedDate } from "@utils/formatDetailedDate";
 import { getSpecificTweetStats } from "api/tweetApi";
 import { formatNumber } from "@utils/formatNumber";
-import { TweetStatsModal } from "../DialogModals";
+import { useModal } from "contexts/ModalContext";
 import { useQuery } from "@tanstack/react-query";
 import { RootState } from "redux/config/store";
 import { useSelector } from "react-redux";
-
-import { useState } from "react";
-
-type tweetStats = {
-  replyStats: {
-    _id: string;
-    author: string;
-  }[];
-  retweetStats: {
-    _id: string;
-    author: string;
-  }[];
-  likeStats: {
-    _id: string;
-    author: string;
-  }[];
-  quoteStats: {
-    _id: string;
-    author: string;
-  }[];
-};
 
 type IProps = {
   tweet: ITweet;
@@ -33,92 +13,111 @@ type IProps = {
 
 const TweetStats = ({ tweet }: IProps) => {
   const reduxUser = useSelector((state: RootState) => state.user);
+  const { openModal, closeModal } = useModal();
 
-  const [retweetersModal, setShowRetweetersModal] = useState(false);
-  const [likersModal, setShowLikersModal] = useState(false);
+  const handleRetweeters = () => {
+    openModal(
+      <TweetModals.TweetStatsModal.RetweetersModal
+        tweetId={tweet._id}
+        reduxUser={reduxUser}
+        onClose={closeModal}
+      />
+    );
+  };
 
-  const tweetStats = useQuery<tweetStats>({
+  const handleLikers = () => {
+    openModal(
+      <TweetModals.TweetStatsModal.LikersModal
+        tweetId={tweet._id}
+        reduxUser={reduxUser}
+        onClose={closeModal}
+      />
+    );
+  };
+
+  const tweetStats = useQuery<ITweetStats>({
     queryKey: ["tweetStats", tweet._id],
     queryFn: () => getSpecificTweetStats(tweet._id),
   });
 
+  const isNotAnyStats =
+    tweetStats.data?.replyStats.length === 0 &&
+    tweetStats.data?.retweetStats.length === 0 &&
+    tweetStats.data?.likeStats.length === 0 &&
+    tweetStats.data?.quoteStats.length === 0;
+
   return (
     <div>
-      {retweetersModal && (
-        <TweetStatsModal.RetweetersModal
-          tweetId={tweet._id}
-          reduxUser={reduxUser}
-          isOpen={retweetersModal}
-          onClose={() => setShowRetweetersModal(false)}
-        />
-      )}
-
-      {likersModal && (
-        <TweetStatsModal.LikersModal
-          tweetId={tweet._id}
-          reduxUser={reduxUser}
-          isOpen={likersModal}
-          onClose={() => setShowLikersModal(false)}
-        />
-      )}
-
       <div className="relative my-4">
-        <div className="flex flex-row justify-between items-center">
-          <div>
-            <span className="mr-2">{formatDetailedDate(tweet.createdAt)}</span>
-            <span className="font-bold text-black">
-              {formatNumber(tweet.view)}
-            </span>
-            <span className="text-gray-500 text-base ml-1">Views</span>
-          </div>
+        <div className="flex flex-row gap-1 items-center">
+          <span className="text-[color:var(--color-base-secondary)]">
+            {formatDetailedDate(tweet.createdAt)}
+          </span>
+          <span className="text-[color:var(--color-base-secondary)]">·</span>
+          <span className="text-[14px] leading-4 font-bold">
+            {formatNumber(tweet.view)}
+          </span>
+          <span className="text-[14px] leading-4 text-[color:var(--color-base-secondary)]">
+            Views
+          </span>
         </div>
       </div>
-      <div className="flex flex-row border-t border-b min-w-full">
-        <div className="mr-5 py-4">
-          <button
-            onClick={() => setShowRetweetersModal(true)}
-            className="flex gap-2 hover:underline decoration-1 text-gray-500"
-          >
-            <span className="font-bold text-black">
-              {formatNumber(tweetStats.data?.retweetStats.length!)}
-            </span>
-            <span>Retweets</span>
-          </button>
-        </div>
+      <div className="my-0.5 h-0.5 bg-[color:var(--background-third)]" />
 
-        <a
-          href={`/${tweet.author.username}/status/${tweet._id}/retweets/with_comments`}
-          className="mr-5 py-4"
-        >
-          <button className="flex gap-2 hover:underline decoration-1 text-gray-500">
-            <span className="font-bold text-black">
-              {formatNumber(tweetStats.data?.quoteStats.length!)}
-            </span>
-            <span>Quotes</span>
-          </button>
-        </a>
+      {!isNotAnyStats && (
+        <>
+          <div className="flex flex-row gap-5 py-4 min-w-full text-[color:var(--color-base-secondary)]">
+            {tweetStats.data?.retweetStats &&
+              tweetStats.data?.retweetStats.length > 0 && (
+                <div className="hover:underline">
+                  <button onClick={handleRetweeters} className="flex gap-2">
+                    <span className="font-bold text-[color:var(--color-base)]">
+                      {formatNumber(tweetStats.data?.retweetStats.length!)}
+                    </span>
+                    <span>Retweets</span>
+                  </button>
+                </div>
+              )}
 
-        <div className="mr-5 py-4">
-          <button
-            onClick={() => setShowLikersModal(true)}
-            className="flex gap-2 hover:underline decoration-1 text-gray-500"
-          >
-            <span className="font-bold text-black">
-              {formatNumber(tweetStats.data?.likeStats.length!)}
-            </span>
-            <span> Likes</span>
-          </button>
-        </div>
+            {tweetStats.data?.quoteStats &&
+              tweetStats.data?.quoteStats.length > 0 && (
+                <a
+                  href={`/${tweet.author.username}/status/${tweet._id}/retweets/with_comments`}
+                  className="hover:underline"
+                >
+                  <button className="flex gap-2">
+                    <span className="font-bold text-[color:var(--color-base)]">
+                      {formatNumber(tweetStats.data?.quoteStats.length!)}
+                    </span>
+                    <span>Quotes</span>
+                  </button>
+                </a>
+              )}
 
-        <div className="mr-5 py-4">
-          <div className="flex gap-2 text-gray-500">
-            <span className="font-bold text-black">
-              {formatNumber(tweet?.bookmarks!.length)}
-            </span>
-            <span>Bookmarks</span>
+            {tweetStats.data?.likeStats &&
+              tweetStats.data?.likeStats.length > 0 && (
+                <div className="hover:underline">
+                  <button onClick={handleLikers} className="flex gap-2">
+                    <span className="font-bold text-[color:var(--color-base)]">
+                      {formatNumber(tweetStats.data?.likeStats.length!)}
+                    </span>
+                    <span> Likes</span>
+                  </button>
+                </div>
+              )}
+
+            {tweet.bookmarks && tweet.bookmarks.length > 0 && (
+              <div className="flex gap-2">
+                <span className="font-bold text-[color:var(--color-base)]">
+                  {formatNumber(tweet?.bookmarks!.length)}
+                </span>
+                <span>Bookmarks</span>
+              </div>
+            )}
           </div>
-        </div>
-      </div>
+          <div className="my-0.5 h-0.5 bg-[color:var(--background-third)]" />
+        </>
+      )}
     </div>
   );
 };

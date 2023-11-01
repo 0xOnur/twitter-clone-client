@@ -26,7 +26,6 @@ const ConversationInfo = ({ chat, reduxUser }: IProps) => {
           {chat.isGroupChat ? (
             <EditGroup
               chat={chat}
-              reduxUser={reduxUser}
               otherParticipants={otherParticipants}
             />
           ) : (
@@ -39,6 +38,7 @@ const ConversationInfo = ({ chat, reduxUser }: IProps) => {
               />
             ))
           )}
+          <div className="my-1 h-0.5 bg-[color:var(--background-third)]" />
 
           {chat.isGroupChat && (
             <GroupPeople

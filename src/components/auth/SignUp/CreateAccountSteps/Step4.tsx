@@ -57,7 +57,7 @@ const Step4 = ({ onNext, onStepData, user }: StepProps) => {
             ref={inputFileRef}
             hidden
           />
-          <div className="flex relative justify-center items-center bg-gray-400 w-60 h-60 rounded-full">
+          <div className="flex relative justify-center items-center w-60 h-60 rounded-full">
             {user.avatar ? (
               <>
                 <img
@@ -66,7 +66,7 @@ const Step4 = ({ onNext, onStepData, user }: StepProps) => {
                   className="relative w-full h-full object-cover rounded-full"
                 />
                 <button
-                  className="flex absolute items-center justify-center bottom-0 right-5 w-14 h-14 bg-primary-base hover:bg-primary-dark rounded-full"
+                  className="flex absolute items-center justify-center bottom-0 right-5 w-14 h-14 bg-[color:var(--color-primary)] hover:brightness-90 rounded-full"
                   onClick={removeAvatar}
                 >
                   <CancelIcon className="w-6 h-6 text-white" />
@@ -80,7 +80,7 @@ const Step4 = ({ onNext, onStepData, user }: StepProps) => {
                   alt="default profile"
                 />
                 <label htmlFor="avatar">
-                  <div className="absolute bottom-0 right-5 bg-primary-base hover:bg-primary-dark rounded-full">
+                  <div className="absolute bottom-0 right-5 bg-[color:var(--color-primary)] hover:brightness-90 rounded-full">
                     <div className="flex justify-center items-center w-14 h-14 cursor-pointer bg-gray- rounded-full">
                       <UploadImageIcon className="cursor-pointer w-6 h-6 text-white" />
                     </div>

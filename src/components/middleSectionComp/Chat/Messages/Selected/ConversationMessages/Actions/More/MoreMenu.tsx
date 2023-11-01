@@ -36,7 +36,7 @@ const MoreMenu = ({ isMine, message, setOpenMore }: IProps) => {
 
   return (
     <div ref={menuRef} className={menuClassNames}>
-      <div className="flex flex-col bg-white border rounded-xl overflow-hidden shadow-xl">
+      <div className="flex flex-col bg-[color:var(--background-primary)] shadow-box rounded-xl overflow-hidden">
        <ReplyMessage
         message={message}
         setOpenMore={setOpenMore}

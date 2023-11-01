@@ -34,24 +34,24 @@ const More = ({ user }: IProps) => {
   }, [showMenu]);
 
   return (
-    <div className="min-h-[36px] relative">
+    <div className="max-h-[36px] max-w-[36px] h-full w-full relative">
       <button
         onClick={() => setShowMenu(!showMenu)}
-        className="p-2 border rounded-full hover:bg-gray-extraLight duration-200"
+        className="p-2 border-2 border-[color:var(--background-third)] rounded-full hover:bg-[color:var(--background-third)] duration-200"
       >
         <TreeDotIcon className="w-5 h-5" />
       </button>
       {showMenu && (
         <div
           ref={menuRef}
-          className="flex flex-col absolute z-10 top-0 right-0 w-fit bg-white border rounded-xl shadow-lg"
+          className="flex flex-col absolute z-10 top-0 right-0 w-fit rounded-xl bg-[color:var(--background-primary)] shadow-box"
         >
           <button
             onClick={() => {
               copyText();
               setShowMenu(false);
             }}
-            className="flex gap-2 w-full items-center py-3 px-4 rounded-xl hover:bg-gray-extraLight"
+            className="flex gap-2 w-full items-center py-3 px-4 hover:bg-[color:var(--background-third)]"
           >
             <WebsiteIcon className="w-5 h-5" />
             <span className="w-max">Copy link to profile</span>

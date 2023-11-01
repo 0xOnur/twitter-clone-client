@@ -33,15 +33,19 @@ const BookmarkAction = ({ isAuthenticated, reduxUser, tweet }: IProps) => {
       className="group h-5 min-h-max"
     >
       <div className="flex flex-row">
-        <div className="inline-flex relative text-gray-dark group-hover:text-primary-base duration-150">
-          <div className="absolute -m-2 group-hover:bg-primary-hover duration-150 rounded-full top-0 right-0 left-0 bottom-0"></div>
+        <div className="relative">
+          <div className="absolute top-0 right-0 left-0 bottom-0 -m-2 rounded-full group-hover:bg-blue-base/30 duration-150" />
           {isBookmarked ? (
             <BookmarksIcon
               isActive={true}
-              className={"w-5 h-5 text-primary-base"}
+              className={"w-5 h-5 text-blue-base"}
             />
           ) : (
-            <BookmarksIcon className={"w-5 h-5"} />
+            <BookmarksIcon
+              className={
+                "w-5 h-5 text-[color:var(--color-base-secondary)] group-hover:text-blue-base"
+              }
+            />
           )}
         </div>
       </div>

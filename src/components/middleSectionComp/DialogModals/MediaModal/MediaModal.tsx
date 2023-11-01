@@ -49,14 +49,14 @@ const MediaModal = ({ closeModal, images, imageIndex }: ModalProps) => {
   }, [handleNext, handlePrev]);
 
   return (
-    <div className="flex items-center w-fit h-fit">
+    <div className="flex items-center justify-center w-fit h-fit">
       {/* Close Button */}
       <div className="absolute left-0 top-0 z-10">
         <div className="p-3 border-gray-200">
           <button
             type="button"
             onClick={closeModal}
-            className="p-3 bg-black hover:bg-opacity-60 rounded-full duration-200"
+            className="p-3 bg-black hover:bg-opacity-75 rounded-full duration-200"
           >
             <CancelIcon className={"w-5 h-5 text-white"} />
           </button>
@@ -69,16 +69,16 @@ const MediaModal = ({ closeModal, images, imageIndex }: ModalProps) => {
             onClick={handlePrev}
             className="flex items-center min-w-[36px] min-h-[36px] m-3"
           >
-            <button className="flex p-3 justify-center bg-black hover:bg-opacity-60 rounded-full duration-200">
+            <button className="flex p-3 justify-center bg-black hover:bg-opacity-75 rounded-full duration-200">
               <LeftArrowIcon className="w-5 h-5" />
             </button>
           </div>
         </div>
       )}
       {/* Image */}
-      <div className="z-10 text-black rounded-xl my-[15%] mx-[15%] overflow-hidden">
+      <div className="text-black rounded-xl overflow-hidden">
         <img
-          className="object-cover w-full h-full max-h-90vh"
+          className="object-cover w-full h-full max-h-90vh max-w-900px"
           src={currentImage.url}
           alt={currentImage.alt}
         />
@@ -96,7 +96,7 @@ const MediaModal = ({ closeModal, images, imageIndex }: ModalProps) => {
             onClick={handleNext}
             className="flex items-center min-w-[36px] min-h-[36px] m-3"
           >
-            <button className="flex p-3 justify-center bg-black hover:bg-opacity-60 rounded-full duration-200">
+            <button className="flex p-3 justify-center bg-black hover:bg-opacity-75 rounded-full duration-200">
               <RightArrowIcon className="w-5 h-5" />
             </button>
           </div>

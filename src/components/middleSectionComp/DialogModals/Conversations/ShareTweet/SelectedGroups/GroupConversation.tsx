@@ -21,21 +21,24 @@ const GroupConversation = ({ chat, reduxUser }: IProps) => {
     .map((participant) => [participant.user.displayName]);
 
   return (
-    <div className="flex flex-row h-full pl-1 pr-3 items-center hover:bg-primary-light duration-200">
-      {chat.chatImage ? (
-        <Avatar avatar={chat.chatImage} avatarSize="w-6 h-6" />
-      ) : (
-        <AvatarGroup
-          appearance="stack"
-          size="small"
-          data={userAvatarsPayload}
-        />
-      )}
-      <span className="font-bold truncate text-left">
-        {chat.chatName ? chat.chatName : participantsDisplayNames.join(", ")}
-      </span>
-      <div className="pl-3">
-        <CancelIcon className="w-5 h-5 fill-primary-base" />
+    <div className="flex relative group h-full items-center">
+      <div className="absolute w-full h-full group-hover:bg-[color:var(--color-secondary)] opacity-[0.12] duration-200" />
+      <div className="flex flex-row pr-3 items-center pl-1">
+        {chat.chatImage ? (
+          <Avatar avatar={chat.chatImage} avatarSize="w-6 h-6" />
+        ) : (
+          <AvatarGroup
+            appearance="stack"
+            size="small"
+            data={userAvatarsPayload}
+          />
+        )}
+        <span className="font-bold truncate text-left">
+          {chat.chatName ? chat.chatName : participantsDisplayNames.join(", ")}
+        </span>
+        <div className="pl-3">
+          <CancelIcon className="w-5 h-5 text-[color:var(--color-primary)]" />
+        </div>
       </div>
     </div>
   );

@@ -1,12 +1,10 @@
 import { EditGroupModal } from "@components/middleSectionComp/DialogModals";
 import AvatarGroup from "@atlaskit/avatar-group";
-import { UserState } from "@redux/slices/userSlice";
 import { useModal } from "contexts/ModalContext";
 import { Avatar } from "@components/middleSectionComp/TweetCard/components";
 
 interface IProps {
   chat: IChat;
-  reduxUser: UserState;
   otherParticipants: {
     user: IUser;
     hasLeft: boolean;
@@ -14,7 +12,7 @@ interface IProps {
   }[];
 }
 
-const EditGroup = ({ chat, reduxUser, otherParticipants }: IProps) => {
+const EditGroup = ({ chat, otherParticipants }: IProps) => {
   const { openModal, closeModal } = useModal();
 
   const avatarGroupPayload = otherParticipants.map((participant) => ({
@@ -49,7 +47,7 @@ const EditGroup = ({ chat, reduxUser, otherParticipants }: IProps) => {
           onClick={() => {
             openModal(<EditGroupModal chat={chat} closeModal={closeModal} />);
           }}
-          className="text-primary-base hover:underline"
+          className="text-[color:var(--color-primary)] hover:underline"
         >
           Edit
         </button>

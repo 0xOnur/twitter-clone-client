@@ -1,4 +1,4 @@
-import {  setMessageContent, ChatComposerState } from "@redux/slices/chatSlice";
+import {  setMessageContent, ChatComposerState } from "@redux/slices/chatComposerSlice";
 import EmojiButton from "./EmojiButton";
 import ImageButton from "./ImageButton";
 import GifButton from "./GifButton";

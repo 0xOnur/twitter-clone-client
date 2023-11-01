@@ -9,6 +9,7 @@ import {
 import TweetContent from "./components/TweetContent";
 import TweetActions from "./components/TweetActions";
 import TweetCard from "./TweetCard";
+import ReplyTo from "./components/Other/ReplyTo";
 
 interface IProps {
   isAuthenticated: boolean;
@@ -28,10 +29,8 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
         />
       )}
       <article>
-        <div className="px-4 min-w-fit border-b">
-          <div className="flex flex-col mt-2">
-            <div className="flex flex-row">
-              <div className="flex flex-col flex-grow">
+        <div className="flex px-4 min-w-fit border-b-2 border-[color:var(--background-third)]">
+              <div className="grid w-full mt-2">
                 <div className="flex flex-row items-center">
                   <Avatar
                     avatar={tweet.author.avatar!}
@@ -43,17 +42,21 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                     tweet={tweet}
                   />
                 </div>
-
+                
+      
                 <TweetContent tweet={tweet} pageType="TweetDetails" />
 
                 <TweetMedia tweet={tweet} />
 
                 {tweet?.pollId && (
-                  <Poll isAuthenticated={isAuthenticated} pollId={tweet.pollId} />
+                  <Poll
+                    isAuthenticated={isAuthenticated}
+                    pollId={tweet.pollId}
+                  />
                 )}
 
                 {tweet.originalTweet && tweet.tweetType === "quote" && (
-                  <div className="border-2 shadow-md rounded-3xl overflow-hidden">
+                  <div className="overflow-hidden shadow-box rounded-xl">
                     <TweetCard
                       tweetId={tweet.originalTweet}
                       pageType="home"
@@ -71,15 +74,14 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                   isAuthenticated={isAuthenticated}
                 />
 
+                <div className="my-2 h-0.5 bg-[color:var(--background-third)]" />
+
                 {isAuthenticated && (
-                  <div className="flex flex-row">
-                    <div className="w-14"></div>
-                    <a href={`/${tweet.author.username}`}>
-                      <span>Replying to </span>
-                      <span className="text-primary-base">
-                        @{tweet.author.username}
-                      </span>
-                    </a>
+                  <div className="ml-14">
+                    <ReplyTo
+                      username={tweet.author.username}
+                      url={`/${tweet.author.username}`}
+                    />
                   </div>
                 )}
 
@@ -91,8 +93,6 @@ const DetailedCard = ({ tweet, isAuthenticated }: IProps) => {
                 )}
               </div>
             </div>
-          </div>
-        </div>
       </article>
     </div>
   );

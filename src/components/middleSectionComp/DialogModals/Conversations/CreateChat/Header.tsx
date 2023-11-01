@@ -38,13 +38,13 @@ const Header = ({
   }, [isSuccess, closeModal]);
 
   return (
-    <div className="flex flex-row h-[53px] justify-between py-3 px-1 pr-3 bg-white border-gray-200">
-      <div className="flex flex-row items-center gap-3">
+    <div className="flex flex-row h-[53px] justify-between py-3 px-1 pr-3 bg-[color:var(--background-primary)]">
+      <div className="flex flex-row items-center gap-3 mx-2">
         <button
           title={isGroupMode ? "Back": "Close"}
           type="button"
           onClick={handleBackOrCancel}
-          className="p-3 hover:bg-gray-extraLight rounded-full"
+          className="p-2 hover:bg-[color:var(--background-third)] rounded-full"
         >
           {isGroupMode ? (
             <BackIcon className="w-5 h-5" />
@@ -57,7 +57,7 @@ const Header = ({
             {isGroupMode ? (
               <div className="flex flex-col gap-1">
                 <h2>New group</h2>
-                <span className="text-sm leading-4 font-normal text-gray-dark">
+                <span className="text-sm leading-4 font-normal">
                   Add people
                 </span>
               </div>
@@ -73,9 +73,11 @@ const Header = ({
           type="button"
           onClick={handleNext}
           disabled={!isNextActive}
-          className="disabled:opacity-50 bg-black text-white py-2 px-4 rounded-full font-bold"
+          className="disabled:opacity-50 bg-[color:var(--color-base)] hover:opacity-80 py-2 px-4 rounded-full duration-200"
         >
-          Next
+          <span className="font-semibold text-[color:var(--background-primary)]">
+            Next
+          </span>
         </button>
       </div>
     </div>

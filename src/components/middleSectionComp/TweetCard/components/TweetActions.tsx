@@ -8,7 +8,6 @@ import { useQuery } from "@tanstack/react-query";
 import { RootState } from "@redux/config/store";
 import Views from "./ActionComponents/Views";
 import { useSelector } from "react-redux";
-import classNames from "classnames";
 
 type tweetStats = {
   replyStats: {
@@ -47,16 +46,8 @@ const TweetActions = ({
     queryFn: () => getSpecificTweetStats(tweet._id),
   });
 
-  const actionClasses = classNames({
-    "flex flex-row justify-between gap-2 mt-3 max-w-md w-full":
-      pageType === "home",
-    "flex flex-row border-b justify-around gap-2 h-12 items-center mx-1 w-full":
-      pageType === "TweetDetails",
-  });
-
   return (
-    <div key={tweet._id}>
-      <div key={tweet._id} className={actionClasses}>
+    <div key={tweet._id} className="flex flex-row justify-between gap-2 mt-3 w-full">
         <ReplyAction
           isAuthenticated={isAuthenticated}
           tweet={tweet}
@@ -95,7 +86,6 @@ const TweetActions = ({
           reduxUser={reduxUser}
           tweet={tweet}
         />
-      </div>
     </div>
   );
 };

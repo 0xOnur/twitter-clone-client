@@ -1,4 +1,4 @@
-export {default as ReplyQuoteModal} from "./ReplyQuoteModal";
+export * as TweetModals from "./TweetModals";
 export {default as EditProfileModal} from "./EditProfileModal";
 export {default as MediaModal} from "./MediaModal/MediaModal";
 export {default as ChatComposeModal} from "./Conversations/CreateChat";
@@ -7,4 +7,3 @@ export {default as DeleteMessageModal} from "./Conversations/DeleteMessage";
 export {default as EditGroupModal} from "./Conversations/EditGroup";
 export {default as AddPeopleModal} from "./Conversations/AddPeople";
 export {default as LeaveChatModal} from "./Conversations/LeaveChat";
-export * as TweetStatsModal from "./TweetStats";

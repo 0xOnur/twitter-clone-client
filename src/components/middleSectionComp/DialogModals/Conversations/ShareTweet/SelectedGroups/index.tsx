@@ -23,12 +23,12 @@ const SelectedGroups = ({
   };
 
   return (
-    <div className="flex flex-row flex-wrap p-1 border-b bg-white">
+    <div className="flex flex-row flex-wrap p-1 border-b-2 border-[color:var(--background-third)] bg-[color:var(--background-primary)]">
       {selectedConversations.map((conversation) => (
         <button
           key={conversation._id}
           onClick={handleRemove(conversation)}
-          className="min-h-[32px] max-w-[90%] m-1 border rounded-full overflow-hidden"
+          className="min-h-[32px] max-w-[90%] m-1 border border-[color:var(--color-primary)] rounded-full overflow-hidden"
         >
           <GroupConversation chat={conversation} reduxUser={reduxUser} />
         </button>

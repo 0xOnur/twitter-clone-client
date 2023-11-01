@@ -32,7 +32,7 @@ const AuthHeader = ({
           <div className="flex w-16 items-center">
             <button
               onClick={handlePreviousStep}
-              className="relative group hover:bg-gray-extraLight rounded-full p-2"
+              className="p-2 rounded-full hover:bg-[color:var(--background-third)] group"
             >
               <LeftArrowIcon className={"w-5 h-5"} />
             </button>
@@ -47,13 +47,13 @@ const AuthHeader = ({
             <button
               tabIndex={-1}
               onClick={onClose}
-              className="relative group hover:bg-gray-extraLight rounded-full p-2"
+              className="p-2 rounded-full hover:bg-[color:var(--background-third)] group"
             >
-              <CancelIcon className={"w-5 h-5"} />
+              <CancelIcon className={"w-5 h-5 group-hover:text-[color:var(--color-base)]"} />
             </button>
           </div>
           <div className="flex-auto">
-            <TwitterIcon className={"w-8 -ml-4 text-primary-base"} />
+            <TwitterIcon className={"w-8 -ml-4 text-[color:var(--color-primary)]"} />
           </div>
         </div>
       )}

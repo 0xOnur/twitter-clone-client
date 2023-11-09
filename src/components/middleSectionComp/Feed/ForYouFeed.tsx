@@ -2,7 +2,7 @@ import { TweetCard } from "@components/middleSectionComp/TweetCard";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { LoadingIcon } from "@icons/Icon";
-import { getPopularTweets } from "api/tweetApi";
+import { getNewTweets } from "api/tweetApi";
 import { useEffect } from "react";
 import { RefetchError } from "@components/Others";
 
@@ -14,7 +14,7 @@ const ForYouFeed = ({ isAuthenticated }: IProps) => {
   const { ref, inView } = useInView();
 
   const fetchForYou = ({ pageParam = 0 }) => {
-    return getPopularTweets(pageParam, 20);
+    return getNewTweets(pageParam, 20);
   };
 
   const {

@@ -14,6 +14,19 @@ export const getSpecificTweet = async (tweetId:string) => {
     }
 };
 
+// Get New Tweets
+export const getNewTweets =async (page:number, limit: number) => {    
+    try {
+        const response = await axiosInstance.get(`/tweet/get-new-tweets?page=${page}&limit=${limit}`)
+        return response.data;
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            return Promise.reject(error.response?.data);
+        }
+        return Promise.reject(error);
+    }
+}
+
 // Get popular Tweets
 export const getPopularTweets = async function name(page: number, limit: number) {
     try {

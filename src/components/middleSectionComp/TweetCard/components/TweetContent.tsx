@@ -13,7 +13,7 @@ const TweetContent = ({ tweet, pageType }: Props) => {
     }
   );
 
-  const contentTextClasses = classNames("whitespace-pre-line truncate", {
+  const contentTextClasses = classNames("whitespace-pre-wrap truncate", {
     "text-[23px] leading-7": pageType === "TweetDetails",
   });
 

@@ -75,7 +75,7 @@ const ReplyMessage = ({ isMine, message, reduxUser, conversation }: IProps) => {
 
                   {message.replyTo?.content && (
                     <div className="grid mt-0.5 pb-8 pt-3 px-4 rounded-3xl bg-[color:var(--background-secondary)]">
-                      <span className="text-[13px] whitespace-pre-line break-words min-w-0 leading-4 text-[color:var(--color-base-secondary)]">
+                      <span className="text-[13px] whitespace-pre-wrap break-words min-w-0 leading-4 text-[color:var(--color-base-secondary)]">
                         {message.replyTo?.content}
                       </span>
                     </div>

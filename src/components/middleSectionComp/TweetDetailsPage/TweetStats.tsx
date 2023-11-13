@@ -41,7 +41,7 @@ const TweetStats = ({ tweet }: IProps) => {
   });
 
   const isNotAnyStats =
-    tweetStats.data?.replyStats.length === 0 &&
+    tweet?.bookmarks?.length === 0 &&
     tweetStats.data?.retweetStats.length === 0 &&
     tweetStats.data?.likeStats.length === 0 &&
     tweetStats.data?.quoteStats.length === 0;

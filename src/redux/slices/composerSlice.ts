@@ -4,6 +4,7 @@ import { TenorImage } from "gif-picker-react";
 
 export interface ComposerState {
   tweetText: string;
+  textLimit: number;
   tenorGif: TenorImage | undefined;
   mediaFiles: {
     file: File;
@@ -21,6 +22,7 @@ export interface ComposerState {
 
 const initialState: ComposerState = {
   tweetText: "",
+  textLimit: 2500,
   tenorGif: undefined,
   mediaFiles: [],
   poll: {

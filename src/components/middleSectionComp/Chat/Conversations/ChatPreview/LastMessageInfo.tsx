@@ -19,7 +19,7 @@ const LastMessageInfo = ({ chat, reduxUser, isReadByMe, isLastMessageByMe }: IPr
   return (
     <div>
       {chat.lastMessage?.type === "tweet" ? (
-        <div className="truncate">
+        <div className="grid">
           {chat.lastMessage.sender?._id === reduxUser.user?._id ? (
             <p className={lastMessageClassNames}>You shared a post</p>
           ) : (
@@ -27,7 +27,7 @@ const LastMessageInfo = ({ chat, reduxUser, isReadByMe, isLastMessageByMe }: IPr
           )}
         </div>
       ) : (
-        <div className="truncate">
+        <div className="grid">
           <p className={lastMessageClassNames}>
             {chat.lastMessage?.content
               ? chat.lastMessage.content

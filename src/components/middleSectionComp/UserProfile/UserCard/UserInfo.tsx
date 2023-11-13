@@ -56,7 +56,7 @@ const UserInfo = ({ user }: IProps) => {
           href={`/${user.username}/followers`}
           className="flex flex-row gap-1 cursor-pointer hover:underline underline-offset-auto"
         >
-          <span className="font-bold">{formatNumber(user.following.length)}</span>
+          <span className="font-bold">{formatNumber(user.followers.length)}</span>
           <span className="text-[color:var(--color-base-secondary)]">
             Followers
           </span>

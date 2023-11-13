@@ -47,7 +47,7 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
                 )}
 
               <ComposerComp.TextArea
-                tweetText={composer.tweetText}
+                composer={composer}
                 composerMode={composerMode}
               />
 
@@ -63,10 +63,10 @@ const TweetComposer = ({ composerMode, originalTweet, onClose }: IProps) => {
               )}
 
               {composerMode !== "reply" && (
-                  <ComposerComp.ChooseCanReply
-                    composerSettings={composer.settings}
-                  />
-                )}
+                <ComposerComp.ChooseCanReply
+                  composerSettings={composer.settings}
+                />
+              )}
 
               <div className="mx-3 my-0.5 h-0.5 bg-[color:var(--background-third)]" />
 

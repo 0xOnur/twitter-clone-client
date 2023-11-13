@@ -36,7 +36,7 @@ const Toolbar = ({ composer, composerMode, originalTweet, onClose }: Props) => {
               <>
                 <CircleProgressBar
                   value={composer.tweetText.length}
-                  limit={280}
+                  limit={composer.textLimit}
                 />
                 <div className="mx-3 w-0.5 h-full bg-[color:var(--background-third)]" />
               </>

@@ -1,18 +1,18 @@
 import useAutosizeTextArea from "@hooks/Composer/useAutosizeTextArea";
 import React, {useRef, useCallback} from 'react'
 import { useDispatch } from "react-redux";
-import { setTweetText } from "@redux/slices/composerSlice";
+import { ComposerState, setTweetText } from "@redux/slices/composerSlice";
 
 type Props = {
-    tweetText: string;
+    composer: ComposerState;
     composerMode: string | undefined;
 }
 
-const TextArea = ({tweetText, composerMode}:Props) => {
+const TextArea = ({composer, composerMode}:Props) => {
   const dispatch = useDispatch();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  useAutosizeTextArea(textAreaRef, tweetText);
+  useAutosizeTextArea(textAreaRef, composer.tweetText);
   
   const handleTweetChange = useCallback(
     (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -34,9 +34,9 @@ const TextArea = ({tweetText, composerMode}:Props) => {
                 : "What's happening?"
             }
             ref={textAreaRef}
-            value={tweetText}
+            value={composer.tweetText}
             onChange={handleTweetChange}
-            maxLength={280}
+            maxLength={composer.textLimit}
         />
         </div>
     </div>
